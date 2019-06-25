@@ -1,0 +1,18 @@
+window_sizes 1600 877 375 1220 725 104
+
+diagrams
+  active  classdiagram_ref 128002 // Babtouland
+    1220 725 100 A4 0 0
+end
+show_stereotypes
+selected attribute_ref 130562 // TABLE
+open
+  attribute_ref 128130 // mot_de_passe
+  class_ref 128130 // Mot_de_passe
+  class_ref 128258 // Role
+  class_ref 128386 // Permission
+  class_ref 128642 // Manager
+  class_ref 128770 // Utilisateur_Manager
+  class_ref 128898 // Mot_de_passe_Manager
+end
+end
