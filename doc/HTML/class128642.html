@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Manager</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Manager</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128642"></a>
+<div class="sub">
+<a name="ref1_130178"></a>
+<table><tr><td><div class="element">Attribute <b>bdd</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : - bdd : string</li></ul><a name="ref2_131714"></a>
+<table><tr><td><div class="element">Operation <b>getBdd</b></div></td></tr></table><p>Declaration :</p><ul><li>Uml : + getBdd() : string</li></ul><a name="ref2_131842"></a>
+<table><tr><td><div class="element">Operation <b>setBdd</b></div></td></tr></table><p>Declaration :</p><ul><li>Uml : # setBdd(in bdd : string) : </li></ul><a name="ref1_130306"></a>
+<table><tr><td><div class="element">Attribute <b>TABLE</b></div></td></tr></table>
+<p>Declaration :</p><ul><li>Uml : static, + TABLE : string, read only</li></ul><a name="ref2_141314"></a>
+<table><tr><td><div class="element">Operation <b>get</b></div></td></tr></table><p>Récupère sous la forme d'une array le résultat d'une requête mysql sur un élément avec un identifiant donné.<br /></p><p>Declaration :</p><ul><li>Uml : + get(in index : int) : array</li></ul><a name="ref1_137090"></a>
+<table><tr><td><div class="element">Attribute <b>PUBLIC_ATTRIBUTES</b></div></td></tr></table>
+<p>liste des attributs considéré comme "publique" (cf. get notamment)<br /></p><p>Declaration :</p><ul><li>Uml : static, + PUBLIC_ATTRIBUTES : string, read only</li></ul><p>Stereotype: list</p>
+<a name="ref2_141442"></a>
+<table><tr><td><div class="element">Operation <b>add</b></div></td></tr></table><p>Ajoute un élément à la base de donnée<br /></p><p>Declaration :</p><ul><li>Uml : + add(in attributs : array) : </li></ul><a name="ref2_141570"></a>
+<table><tr><td><div class="element">Operation <b>update</b></div></td></tr></table><p>Met à jour un élément de la base de donnée<br /></p><p>Declaration :</p><ul><li>Uml : + update(in attributs : array) : </li></ul><a name="ref2_141698"></a>
+<table><tr><td><div class="element">Operation <b>delete</b></div></td></tr></table><p>Supprime un élément de la base de donnée<br /></p><p>Declaration :</p><ul><li>Uml : + delete(in index : int) : </li></ul><a name="ref2_141826"></a>
+<table><tr><td><div class="element">Operation <b>getIdBy</b></div></td></tr></table><p>Obtient l'id de l'élément à partir d'autres attributs<br /></p><p>Declaration :</p><ul><li>Uml : + getIdBy(in attributs : array) : int</li></ul><a name="ref2_141954"></a>
+<table><tr><td><div class="element">Operation <b>getBy</b></div></td></tr></table><p>Renvoie le tableau crée à partir de la requête de la base de donnée crée à partir des attributs et des valeurs correspondantes envoyés<br /></p><p>Declaration :</p><ul><li>Uml : + getBy(in attributs : array) : array</li></ul><a name="ref2_142082"></a>
+<table><tr><td><div class="element">Operation <b>existId</b></div></td></tr></table><p>Vérifie l'existence d'un élément avec un certain id<br /></p><p>Declaration :</p><ul><li>Uml : + existId(in index : int) : bool</li></ul><a name="ref2_142210"></a>
+<table><tr><td><div class="element">Operation <b>exist</b></div></td></tr></table><p>Vérifie si un élément identique existe déjà<br /></p><p>Declaration :</p><ul><li>Uml : + exist(in attributs : array) : bool</li></ul><a name="ref1_137218"></a>
+<table><tr><td><div class="element">Attribute <b>ATTRIBUTES</b></div></td></tr></table>
+<p>Liste des attributs de la table<br /></p><p>Declaration :</p><ul><li>Uml : static, + ATTRIBUTES : string, read only</li></ul><p>Stereotype: list</p>
+<a name="ref2_149122"></a>
+<table><tr><td><div class="element">Operation <b>count</b></div></td></tr></table><p>Retourn le nombre d'élément dans la table<br /></p><p>Declaration :</p><ul><li>Uml : + count() : int</li></ul></div>
+<p>All public operations : <a href="class128642.html#ref2_141442"><b>add</b></a> , <a href="class128642.html#ref2_149122"><b>count</b></a> , <a href="class128642.html#ref2_141698"><b>delete</b></a> , <a href="class128642.html#ref2_142210"><b>exist</b></a> , <a href="class128642.html#ref2_142082"><b>existId</b></a> , <a href="class128642.html#ref2_141314"><b>get</b></a> , <a href="class128642.html#ref2_131714"><b>getBdd</b></a> , <a href="class128642.html#ref2_141954"><b>getBy</b></a> , <a href="class128642.html#ref2_141826"><b>getIdBy</b></a> , <a href="class128642.html#ref2_141570"><b>update</b></a> </p>
+</body>
+</html>
