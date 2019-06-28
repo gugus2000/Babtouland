@@ -472,10 +472,10 @@ format 218
 	
       end
 
-      classrelation 136194 // <dependency>
-	relation 135554 -_->
+      classrelation 136194 // <generalisation>
+	relation 135554 ---|>
 	  a public
-	    classrelation_ref 136194 // <dependency>
+	    classrelation_ref 136194 // <generalisation>
 	  b parent class_ref 135426 // Managed
       end
 
@@ -1119,10 +1119,10 @@ format 218
 	    classrelation_ref 128770 // <association>
       end
 
-      classrelation 128898 // <dependency>
-	relation 128514 -_->
+      classrelation 128898 // <generalisation>
+	relation 128514 ---|>
 	  a public
-	    classrelation_ref 128898 // <dependency>
+	    classrelation_ref 128898 // <generalisation>
 	  b parent class_ref 128642 // Manager
       end
     end
@@ -1137,10 +1137,10 @@ format 218
       explicit_switch_type ""
       mysql_decl ""
       
-      classrelation 129154 // <dependency>
-	relation 128770 -_->
+      classrelation 129154 // <generalisation>
+	relation 128770 ---|>
 	  a public
-	    classrelation_ref 129154 // <dependency>
+	    classrelation_ref 129154 // <generalisation>
 	  b parent class_ref 128642 // Manager
       end
 
@@ -1330,10 +1330,10 @@ format 218
       mysql_decl ""
       
       comment "Utilisateur connecté au site"
-      classrelation 136322 // <realization>
-	relation 135682 -_-|>
+      classrelation 136322 // <generalisation>
+	relation 135682 ---|>
 	  a public
-	    classrelation_ref 136322 // <realization>
+	    classrelation_ref 136322 // <generalisation>
 	  b parent class_ref 128002 // Utilisateur
       end
 
@@ -1815,10 +1815,10 @@ format 218
 	
       end
 
-      classrelation 136706 // <realization>
-	relation 135938 -_-|>
+      classrelation 136706 // <generalisation>
+	relation 135938 ---|>
 	  a public
-	    classrelation_ref 136706 // <realization>
+	    classrelation_ref 136706 // <generalisation>
 	  b parent class_ref 135426 // Managed
       end
 
@@ -1845,10 +1845,10 @@ format 218
       explicit_switch_type ""
       mysql_decl ""
       
-      classrelation 136834 // <dependency>
-	relation 136066 -_->
+      classrelation 136834 // <generalisation>
+	relation 136066 ---|>
 	  a public
-	    classrelation_ref 136834 // <dependency>
+	    classrelation_ref 136834 // <generalisation>
 	  b parent class_ref 128642 // Manager
       end
 
@@ -2210,11 +2210,11 @@ format 218
 	relation_ref 136706 // <association>
       end
 
-      classrelation 137986 // <dependency>
-	relation 136834 -_->
+      classrelation 137986 // <generalisation>
+	relation 136834 ---|>
 	  a public
 	    php "${type}"
-	    classrelation_ref 137986 // <dependency>
+	    classrelation_ref 137986 // <generalisation>
 	  b parent class_ref 135426 // Managed
       end
     end
@@ -2231,11 +2231,11 @@ ${members}}
       explicit_switch_type ""
       mysql_decl ""
       
-      classrelation 137602 // <dependency>
-	relation 136578 -_->
+      classrelation 137602 // <generalisation>
+	relation 136578 ---|>
 	  a public
 	    php "${type}"
-	    classrelation_ref 137602 // <dependency>
+	    classrelation_ref 137602 // <generalisation>
 	  b parent class_ref 128642 // Manager
       end
 
@@ -2527,11 +2527,11 @@ ${members}}
 	
       end
 
-      classrelation 138242 // <dependency>
-	relation 137090 -_->
+      classrelation 138242 // <generalisation>
+	relation 137090 ---|>
 	  a public
 	    php "${type}"
-	    classrelation_ref 138242 // <dependency>
+	    classrelation_ref 138242 // <generalisation>
 	  b parent class_ref 135426 // Managed
       end
 
@@ -2560,11 +2560,11 @@ ${members}}
       explicit_switch_type ""
       mysql_decl ""
       
-      classrelation 138114 // <dependency>
-	relation 136962 -_->
+      classrelation 138114 // <generalisation>
+	relation 136962 ---|>
 	  a public
 	    php "${type}"
-	    classrelation_ref 138114 // <dependency>
+	    classrelation_ref 138114 // <generalisation>
 	  b parent class_ref 128642 // Manager
       end
 

@@ -24,12 +24,12 @@ classcanvas 129922 class_ref 136194 // CommentaireManager
   classdiagramsettings member_max_width 0 end
   xyz 547 603 2000
 end
-relationcanvas 128514 relation_ref 135938 // <realization>
+relationcanvas 128514 relation_ref 135938 // <generalisation>
   from ref 128258 z 2001 to ref 128130
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 128770 relation_ref 136066 // <dependency>
+relationcanvas 128770 relation_ref 136066 // <generalisation>
   from ref 128642 z 2001 to ref 128002
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
@@ -44,7 +44,7 @@ relationcanvas 129282 relation_ref 136450 // <composition>
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 130050 relation_ref 136578 // <dependency>
+relationcanvas 130050 relation_ref 136578 // <generalisation>
   from ref 129922 z 2001 to ref 128002
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
@@ -54,7 +54,7 @@ relationcanvas 130178 relation_ref 136706 // <association>
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 130306 relation_ref 136834 // <dependency>
+relationcanvas 130306 relation_ref 136834 // <generalisation>
   from ref 129026 z 2001 to ref 128130
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b

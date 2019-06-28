@@ -34,7 +34,7 @@ classcanvas 130690 class_ref 135426 // Managed
 end
 classcanvas 131202 class_ref 135554 // Page
   classdiagramsettings member_max_width 0 end
-  xyz 461 681 2000
+  xyz 449 687 2000
 end
 classcanvas 131330 class_ref 135682 // Visiteur
   classdiagramsettings member_max_width 0 end
@@ -60,12 +60,12 @@ relationcanvas 129282 relation_ref 128386 // <association>
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 129410 relation_ref 128514 // <dependency>
+relationcanvas 129410 relation_ref 128514 // <generalisation>
   from ref 129154 z 2001 to ref 129026
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 130434 relation_ref 128770 // <dependency>
+relationcanvas 130434 relation_ref 128770 // <generalisation>
   from ref 129922 z 2001 to ref 129026
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
@@ -75,12 +75,12 @@ relationcanvas 130562 relation_ref 128898 // <association>
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 130946 relation_ref 135554 // <dependency>
+relationcanvas 130946 relation_ref 135554 // <generalisation>
   from ref 128002 z 2001 to ref 130690
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 131458 relation_ref 135682 // <realization>
+relationcanvas 131458 relation_ref 135682 // <generalisation>
   from ref 131330 z 2001 to ref 128002
   no_role_a no_role_b
   no_multiplicity_a no_multiplicity_b
