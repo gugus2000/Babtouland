@@ -34,7 +34,7 @@ classcanvas 130690 class_ref 135426 // Managed
 end
 classcanvas 131202 class_ref 135554 // Page
   classdiagramsettings member_max_width 0 end
-  xyz 458 662 2000
+  xyz 461 681 2000
 end
 classcanvas 131330 class_ref 135682 // Visiteur
   classdiagramsettings member_max_width 0 end

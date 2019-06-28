@@ -40,6 +40,8 @@ format 218
 
   mark_for_import
   
+  ncouples 1
+  key "html dir" value "C:\\xampp\\htdocs\\moi\\Babtouland\\doc\\HTML/"
   classview 128002 "Babtouland"
     
     classdiagramsettings member_max_width 0 end
@@ -62,6 +64,11 @@ format 218
     end
 
     classdiagram 134530 "Babtouland-Système Post"
+      classdiagramsettings member_max_width 0 end
+      size A4
+    end
+
+    classdiagram 134658 "Babtouland-Chat"
       classdiagramsettings member_max_width 0 end
       size A4
     end
@@ -470,6 +477,20 @@ format 218
 	  a public
 	    classrelation_ref 136194 // <dependency>
 	  b parent class_ref 135426 // Managed
+      end
+
+      operation 159106 "estConnecte"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Vérifie si l'utilisateur est connecté"
       end
     end
 
@@ -1020,14 +1041,15 @@ format 218
 
       operation 141954 "getBy"
 	public explicit_return_type "array"
-	nparams 1
+	nparams 2
 	  param in name "attributs" explicit_type "array"
+	  param in name "operation" explicit_type "string"
 	
 	
 	
 	
 	
-	comment "Renvoie le tableau crée à partir de la requête de la base de donnée crée à partir des attributs et des valeurs correspondantes envoyés"
+	comment "Renvoie le tableau crée à partir de la requête de la base de donnée crée à partir des attributs et des valeurs correspondantes envoyés (avec l'opération demandé)"
       end
 
       operation 142082 "existId"
@@ -1335,6 +1357,20 @@ format 218
 	
 	
 	comment "Inscription de l'utilisateur dans la base de donnée"
+      end
+
+      operation 158978 "deconnexion"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "deconnecte l'utilisateur"
       end
 
       attribute 144130 "page"
@@ -2213,6 +2249,327 @@ ${members}}
 	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
 "
 	    classrelation_ref 137858 // <association>
+      end
+    end
+
+    class 136322 "Message"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 145922 "auteur"
+	private type class_ref 128002 // Utilisateur
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 146050 "contenu"
+	private explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 146178 "date_publication"
+	private explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 146306 "date_mise_a_jour"
+	private explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 159362 "getAuteur"
+	public return_type class_ref 128002 // Utilisateur
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 159490 "getContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 159618 "getDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 159746 "getDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 159874 "setAuteur"
+	protected explicit_return_type ""
+	nparams 1
+	  param in name "auteur" type class_ref 128002 // Utilisateur
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160002 "setContenu"
+	protected explicit_return_type ""
+	nparams 1
+	  param in name "contenu" explicit_type "string"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160130 "setDate_publication"
+	protected explicit_return_type ""
+	nparams 1
+	  param in name "date_publication" explicit_type "string"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160258 "setDate_mise_a_jour"
+	protected explicit_return_type ""
+	nparams 1
+	  param in name "date_mise_a_jour" explicit_type "string"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160386 "afficherAuteur"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160514 "afficherContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160642 "afficherDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160770 "afficherDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 160898 "afficherDateFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 161026 "afficherDate_publicationFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 161154 "afficherDate_mise_a_jourFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 161282 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      classrelation 138242 // <dependency>
+	relation 137090 -_->
+	  a public
+	    php "${type}"
+	    classrelation_ref 138242 // <dependency>
+	  b parent class_ref 135426 // Managed
+      end
+
+      classrelation 138370 // <association>
+	relation 137218 ----
+	  a role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 138370 // <association>
+	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 138498 // <association>
+      end
+    end
+
+    class 136450 "ManagerMessage"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 138114 // <dependency>
+	relation 136962 -_->
+	  a public
+	    php "${type}"
+	    classrelation_ref 138114 // <dependency>
+	  b parent class_ref 128642 // Manager
+      end
+
+      classrelation 138498 // <association>
+	relation_ref 137218 // <association>
       end
     end
   end
