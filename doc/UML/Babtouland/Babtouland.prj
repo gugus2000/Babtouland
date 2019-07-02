@@ -1,7 +1,8 @@
 format 218
 "Babtouland"
-  revision 3
+  revision 5
   modified_by 2 "gugus.demagny"
+  php_root_dir "C:\\xampp\\htdocs\\moi\\Babtouland\\doc\\UML\\Babtouland\\PHP\\"
 
 
   
@@ -35,7 +36,7 @@ format 218
   font_size 8
   diagram_format A4
 
-  image_root_dir ""
+  image_root_dir "C:\\Users\\gugus.demagny\\Pictures"
 
 
   mark_for_import
@@ -77,7 +78,9 @@ format 218
       visibility package 
       cpp_decl ""
       java_decl ""
-      php_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
       python_2_2 python_decl ""
       idl_decl ""
       explicit_switch_type ""
@@ -88,7 +91,8 @@ format 218
 	private explicit_type "int"
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -99,7 +103,8 @@ format 218
 	private explicit_type "string"
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -107,10 +112,11 @@ format 218
       end
 
       attribute 128130 "mot_de_passe"
-	private explicit_type "Mot_de_passe"
+	private type class_ref 128130 // Mot_de_passe
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -121,7 +127,8 @@ format 218
 	private explicit_type "string"
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -132,7 +139,8 @@ format 218
 	private explicit_type "string"
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -143,7 +151,8 @@ format 218
 	private explicit_type "string"
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -154,7 +163,8 @@ format 218
 	private explicit_type "bool"
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -162,10 +172,11 @@ format 218
       end
 
       attribute 128898 "role"
-	private explicit_type "Role"
+	private type class_ref 128258 // Role
 	cpp_decl ""
 	java_decl ""
-	php_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	python_decl ""
 	idl_decl ""
 	mysql_decl ""
@@ -177,7 +188,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -217,7 +231,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -227,7 +244,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -237,17 +257,23 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
 
       operation 128898 "getRole"
-	public explicit_return_type "Role"
+	public return_type class_ref 128258 // Role
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -258,7 +284,10 @@ format 218
 	  param in name "id" explicit_type "int"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -269,7 +298,10 @@ format 218
 	  param in name "pseudo" explicit_type "string"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -277,10 +309,13 @@ format 218
       operation 129282 "setMot_de_passe"
 	protected explicit_return_type ""
 	nparams 1
-	  param in name "mot_de_passe" explicit_type "Mot_de_passe"
+	  param in name "mot_de_passe" type class_ref 128130 // Mot_de_passe
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -291,7 +326,10 @@ format 218
 	  param in name "avatar" explicit_type "string"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -302,7 +340,10 @@ format 218
 	  param in name "date_inscription" explicit_type "string"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -313,7 +354,10 @@ format 218
 	  param in name "date_connexion" explicit_type "string"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -324,7 +368,10 @@ format 218
 	  param in name "banni" explicit_type "bool"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -332,10 +379,13 @@ format 218
       operation 129922 "setRole"
 	protected explicit_return_type ""
 	nparams 1
-	  param in name "role" explicit_type "Role"
+	  param in name "role" type class_ref 128258 // Role
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -353,7 +403,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -363,7 +416,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -373,7 +429,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -383,7 +442,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -393,7 +455,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -403,21 +468,12 @@ format 218
 	nparams 0
 	
 	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
-	
-      end
-
-      operation 139266 "afficherDateFormat"
-	public explicit_return_type "string"
-	nparams 1
-	  param in name "format" explicit_type "string"
-	
-	
-	
-	
-	
-	comment "Affiche une date sous un format choisit"
       end
 
       operation 139394 "afficherDate_inscriptionFormat"
@@ -426,7 +482,10 @@ format 218
 	  param in name "format" explicit_type "string"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -437,7 +496,10 @@ format 218
 	  param in name "format" explicit_type "string"
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -447,7 +509,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -457,7 +522,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -467,7 +535,10 @@ format 218
 	nparams 0
 	
 	
-	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -475,6 +546,7 @@ format 218
       classrelation 136194 // <generalisation>
 	relation 135554 ---|>
 	  a public
+	    php "${type}"
 	    classrelation_ref 136194 // <generalisation>
 	  b parent class_ref 135426 // Managed
       end
@@ -491,6 +563,52 @@ format 218
 	
 	
 	comment "Vérifie si l'utilisateur est connecté"
+      end
+
+      classrelation 145794 // <composition>
+	relation_ref 144130 // <composition>
+      end
+
+      operation 175234 "recuperer_mot_de_passe"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Récupère le mot de passe de l'utilisateur"
+      end
+
+      operation 175362 "recuperer_role"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Récupère le rôle de l'utilisateur"
+      end
+
+      operation 175490 "recuperer"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Récupère un utilisateur à partir de son id ou de son pseudo"
       end
     end
 
@@ -573,6 +691,8 @@ format 218
 	  a role_name "" private
 	    classrelation_ref 128002 // <composition>
 	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	    classrelation_ref 128130 // <composition>
       end
 
@@ -647,6 +767,18 @@ format 218
       explicit_switch_type ""
       mysql_decl ""
       
+      attribute 152962 "id"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       attribute 129922 "nom"
 	private explicit_type "string"
 	cpp_decl ""
@@ -674,6 +806,19 @@ format 218
 	relation_ref 128130 // <composition>
       end
 
+      operation 168322 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
       operation 131074 "getNom"
 	public explicit_return_type "string"
 	nparams 0
@@ -691,6 +836,20 @@ format 218
 	
 	
 	
+	
+	
+      end
+
+      operation 168450 "setId"
+	protected explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
 	
 	
       end
@@ -717,11 +876,17 @@ format 218
 	
       end
 
-      classrelation 128514 // <directional composition>
-	relation 128258 *-->
-	  a role_name "" private
-	    classrelation_ref 128514 // <directional composition>
-	  b parent class_ref 128002 // Utilisateur
+      operation 168578 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
       end
 
       operation 140674 "afficherNom"
@@ -797,6 +962,58 @@ format 218
 	
 	
 	
+      end
+
+      classrelation 145282 // <association>
+	relation 143874 ----
+	  a role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 145282 // <association>
+	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 145410 // <association>
+      end
+
+      classrelation 145666 // <composition>
+	relation 144130 *---
+	  a role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 145666 // <composition>
+	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 145794 // <composition>
+      end
+
+      operation 175106 "recuperer_permissions"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Récupère les permissions du rôle avec le nom et l'id (utilisateur) déjà connu"
+      end
+
+      operation 175618 "recuperer"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Récupère un rôle à partir de son id"
       end
     end
 
@@ -911,6 +1128,44 @@ format 218
 	
 	
       end
+
+      classrelation 152322 // <association>
+	relation 150658 ----
+	  a role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 152322 // <association>
+	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 152450 // <association>
+      end
+
+      attribute 159490 "id"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 175746 "recuperer"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Récupère une permission à partir de son id"
+      end
     end
 
     class 128642 "Manager"
@@ -978,19 +1233,6 @@ format 218
 	comment "Récupère sous la forme d'une array le résultat d'une requête mysql sur un élément avec un identifiant donné."
       end
 
-      attribute 137090 "PUBLIC_ATTRIBUTES"
-	class_attribute const_attribute public explicit_type "string"
-	stereotype "list"
-	cpp_decl ""
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "liste des attributs considéré comme \"publique\" (cf. get notamment)"
-      end
-
       operation 141442 "add"
 	public explicit_return_type ""
 	nparams 1
@@ -1005,8 +1247,9 @@ format 218
 
       operation 141570 "update"
 	public explicit_return_type ""
-	nparams 1
+	nparams 2
 	  param in name "attributs" explicit_type "array"
+	  param in name "index" explicit_type "int"
 	
 	
 	
@@ -1043,7 +1286,7 @@ format 218
 	public explicit_return_type "array"
 	nparams 2
 	  param in name "attributs" explicit_type "array"
-	  param in name "operation" explicit_type "string"
+	  param in name "operations" explicit_type "array"
 	
 	
 	
@@ -1099,6 +1342,10 @@ format 218
 	
 	comment "Retourn le nombre d'élément dans la table"
       end
+
+      classrelation 145154 // <association>
+	relation_ref 143746 // <association>
+      end
     end
 
     class 128770 "Utilisateur_Manager"
@@ -1116,6 +1363,8 @@ format 218
 	  a role_name "" private
 	    classrelation_ref 128642 // <association>
 	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
 	    classrelation_ref 128770 // <association>
       end
 
@@ -1191,8 +1440,6 @@ format 218
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	get_oper operation_ref 149634 // getApplication
-	set_oper operation_ref 149762 // set_application
       end
 
       attribute 143874 "action"
@@ -2264,6 +2511,18 @@ ${members}}
       explicit_switch_type ""
       mysql_decl ""
       
+      attribute 152834 "id"
+	private explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       attribute 145922 "auteur"
 	private type class_ref 128002 // Utilisateur
 	cpp_decl ""
@@ -2312,6 +2571,19 @@ ${members}}
 	MysqlColumn
       end
 
+      operation 167938 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
       operation 159362 "getAuteur"
 	public return_type class_ref 128002 // Utilisateur
 	nparams 0
@@ -2357,6 +2629,20 @@ ${members}}
 	
 	
 	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 168066 "setId"
+	protected explicit_return_type ""
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
 {
   ${body}}
 "
@@ -2413,6 +2699,19 @@ ${members}}
 	
 	
 	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+      end
+
+      operation 168194 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
 {
   ${body}}
 "
@@ -2570,6 +2869,117 @@ ${members}}
 
       classrelation 138498 // <association>
 	relation_ref 137218 // <association>
+      end
+    end
+
+    class 142978 "BDDFactory"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      operation 167810 "MysqlConnexion"
+	class_operation public explicit_return_type "PDO"
+	nparams 1
+	  param in name "dbname" explicit_type "string"
+	    defaultvalue "'Babtouland'"
+	
+	
+	php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${t0} ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Création d'une connexion à la base de donnée demandée"
+      end
+
+      classrelation 145026 // <association>
+	relation 143746 ----
+	  a role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 145026 // <association>
+	  b role_name "" private
+	    php "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	    classrelation_ref 145154 // <association>
+      end
+    end
+
+    class 143106 "RoleManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 145410 // <association>
+	relation_ref 143874 // <association>
+      end
+
+      classrelation 145538 // <generalisation>
+	relation 144002 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 145538 // <generalisation>
+	  b parent class_ref 128642 // Manager
+      end
+    end
+
+    class 149634 "PermissionManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 152450 // <association>
+	relation_ref 150658 // <association>
+      end
+
+      classrelation 152578 // <generalisation>
+	relation 150786 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 152578 // <generalisation>
+	  b parent class_ref 128642 // Manager
+      end
+    end
+  end
+
+  deploymentview 128002 "Babtouland"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 128002 "Utilisateur"
+      stereotype "source"
+      php_src "<?php
+${comment}
+${namespace}
+${require_once}
+${use}
+${definition}
+?>
+"
+      associated_elems
+	class_ref 128002 // Utilisateur
       end
     end
   end
