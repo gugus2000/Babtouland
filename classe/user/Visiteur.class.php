@@ -65,13 +65,13 @@ class Visiteur extends Utilisateur
 	/**
 	* Connecte le visiteur
 	* 
-	* @param string mot_de_passe Mot de passe du visiteur
+	* @param string motdepasse Mot de passe du visiteur
 	*
 	* @return void
 	*/
-	public function connexion($mot_de_passe)
+	public function connexion($motdepasse)
 	{
-		if ($this->getMot_de_passe()->verif($mot_de_passe))
+		if ($this->getMotdepasse()->verif($motdepasse))
 		{
 			$utilisateurManager=$this->Manager();
 			$date=date('Y-m-d H:i:s');
@@ -79,7 +79,7 @@ class Visiteur extends Utilisateur
 				'date_connexion' => $date,
 			), $this->getId());
 			$this->setDate_connexion($date);
-			$_SESSION['mdp']=$this->getMot_de_passe()->getMdp_clair();
+			$_SESSION['mdp']=$this->getMotdepasse()->getMdp_clair();
 			$_SESSION['pseudo']=$this->getPseudo();
 			$_SESSION['id']=$this->getId();
 		}
@@ -91,7 +91,7 @@ class Visiteur extends Utilisateur
 	*/
 	public function deconnexion()
 	{
-		if ($this->getMot_de_passe()->verif($mot_de_passe))
+		if ($this->getMotdepasse()->verif($motdepasse))
 		{
 			$utilisateurManager=$this->Manager();
 			$date=date('Y-m-d H:i:s');
@@ -104,13 +104,13 @@ class Visiteur extends Utilisateur
 	/**
 	* Inscription du visiteur
 	*
-	* @param string mot_de_passe Mot de passe du visiteur
+	* @param string motdepasse Mot de passe du visiteur
 	* 
 	* @param string nom_role Rôle du visiteur
 	*
 	* @return void
 	*/
-	public function inscription($mot_de_passe, $nom_role)
+	public function inscription($motdepasse, $nom_role)
 	{
 		$VisiteurManager=$this->Manager();
 		$VisiteurManager->add(array(
@@ -127,9 +127,9 @@ class Visiteur extends Utilisateur
 			'date_connexion'   => $this->getDate_connexion(),
 			'banni'            => $this->getBanni(),
 		)));
-		$this->setMot_de_passe(new \user\Mot_de_passe(array(
+		$this->setMotdepasse(new \user\Motdepasse(array(
 			'id' => $this->getId(),
-			'mdp_clair' => $mot_de_passe,
+			'mdp_clair' => $motdepasse,
 		)));
 		$this->setRole(new \user\Role(array(
 			'id' => $this->getId(),
@@ -140,11 +140,33 @@ class Visiteur extends Utilisateur
 		$RoleManager->update(array(
 			'nom_role' => $this->getRole()->getNom_role(),
 		), $this->getId());
-		$Mot_de_passeManager=$this->getMot_de_passe()->Manager();
-		$this->getMot_de_passe()->hash();
-		$Mot_de_passeManager->update(array(
-			'mot_de_passe' => $this->getMot_de_passe()->getMot_de_passe(),
+		$MotdepasseManager=$this->getMotdepasse()->Manager();
+		$this->getMotdepasse()->hash();
+		$MotdepasseManager->update(array(
+			'mot_de_passe' => $this->getMotdepasse()->getMot_de_passe(),
 		), $this->getId());
+	}
+	/**
+	* Charge une page
+	*
+	* @param string application Application de la page à charger
+	* 
+	* @param string action Action de la page à charger
+	*
+	* @return bool
+	*/
+	public function loadPage($application, $action)
+	{
+		if ($this->getRole()->existPermission($application, $action))
+		{
+			$Page=new \user\Page(array(
+				'application' => $application,
+				'action'      => $action,
+			));
+			$this->setPage($Page);
+			return true;
+		}
+		return false;
 	}
 }
 

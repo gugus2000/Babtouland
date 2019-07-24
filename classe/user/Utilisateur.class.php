@@ -23,9 +23,9 @@ class Utilisateur extends \core\Managed
 	/**
 	* Mot de passe de l'utilisateur
 	*
-	* @var Mot_de_passe
+	* @var Motdepasse
 	*/
-	protected $mot_de_passe;
+	protected $motdepasse;
 	/**
 	* Nom du fichier de l'avatar de l'utilisateur
 	*
@@ -78,13 +78,13 @@ class Utilisateur extends \core\Managed
 		return $this->pseudo;
 	}
 	/**
-	* Accesseur de mot_de_passe
+	* Accesseur de motdepasse
 	*
-	* @return Mot_de_passe
+	* @return Motdepasse
 	*/
-	public function getMot_de_passe()
+	public function getMotdepasse()
 	{
-		return $this->mot_de_passe;
+		return $this->motdepasse;
 	}
 	/**
 	* Accesseur de avatar
@@ -157,15 +157,15 @@ class Utilisateur extends \core\Managed
 		$this->pseudo=$pseudo;
 	}
 	/**
-	* Définisseur de mot_de_passe
+	* Définisseur de motdepasse
 	*
-	* @param Mot_de_passe mot_de_passe Mot de passe de l'utilisateur
+	* @param Motdepasse motdepasse Mot de passe de l'utilisateur
 	*
 	* @return void
 	*/
-	protected function setMot_de_passe($mot_de_passe)
+	protected function setMotdepasse($motdepasse)
 	{
-		$this->mot_de_passe=$mot_de_passe;
+		$this->motdepasse=$motdepasse;
 	}
 	/**
 	* Définisseur de avatar
@@ -244,13 +244,13 @@ class Utilisateur extends \core\Managed
 		return htmlspecialchars((string)$this->pseudo);
 	}
 	/**
-	* Afficheur de mot_de_passe
+	* Afficheur de motdepasse
 	*
 	* @return string
 	*/
-	public function afficherMot_de_passe()
+	public function afficherMotdepasse()
 	{
-		return htmlspecialchars((string)$this->mot_de_passe->afficher());
+		return htmlspecialchars((string)$this->motdepasse->afficher());
 	}
 	/**
 	* Afficheur de avatar
@@ -335,7 +335,7 @@ class Utilisateur extends \core\Managed
 	* 
 	* @return bool
 	*/
-	public function estConnecte($intervalle)
+	public function estConnecte($intervalle='PT5M')
 	{
 		$Manager=$this->Manager();
 		$date=new \DateTime(date('Y-m-d H:i:s'));
@@ -354,15 +354,15 @@ class Utilisateur extends \core\Managed
 	*
 	* @return void
 	*/
-	public function recuperer_mot_de_passe()
+	public function recuperer_motdepasse()
 	{
 		if ($this->getId())
 		{
 			$BDDFactory=new \core\BDDFactory;
-			$Mot_de_passeManager=new \user\MotdepasseManager($BDDFactory->MysqlConnexion());
-			$mot_de_passe=$Mot_de_passeManager->get($this->getId());
-			$Mot_de_passe=new \user\Motdepasse($mot_de_passe);
-			$this->setMot_de_passe($Mot_de_passe);
+			$MotdepasseManager=new \user\MotdepasseManager($BDDFactory->MysqlConnexion());
+			$motdepasse=$MotdepasseManager->get($this->getId());
+			$Motdepasse=new \user\Motdepasse($motdepasse);
+			$this->setMotdepasse($Motdepasse);
 		}
 	}
 	/**
@@ -391,20 +391,19 @@ class Utilisateur extends \core\Managed
 		if ($this->getId())
 		{
 			$UtilisateurManager=$this->Manager();
-			$this->hydrater($UtilisateurManager->get($this->getId()));
+			$this->get($this->getId());
 			$this->recuperer_role();
-			$this->recuperer_mot_de_passe();
+			$this->recuperer_motdepasse();
 		}
 		else if ($this->getpseudo())
 		{
 			$UtilisateurManager=$this->Manager();
-			$this->hydrater($UtilisateurManager->getBy(array(
+			$this->setId($UtilisateurManager->getIdBy(array(
 				'pseudo' => $this->getPseudo(),
-			), array(
-				'pseudo' => '=',
-			))[0]);
+			)));
+			$this->get($this->getId());
 			$this->recuperer_role();
-			$this->recuperer_mot_de_passe();
+			$this->recuperer_motdepasse();
 		}
 	}
 }

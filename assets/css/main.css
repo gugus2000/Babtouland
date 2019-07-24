@@ -1,0 +1,248 @@
+body
+{
+	font-family: Roboto, Lato, 'Times New Roman', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-size: 1.35em;
+	background-color: rgb(64, 80, 142);
+	color: #3C3C3C;
+}
+
+#conteneur
+{
+
+	padding-top: 110px;
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+
+}
+
+.ligne
+{
+
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	height: 100%
+
+}
+
+.colonne
+{
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	width: 100%;
+	height: 100%;
+
+}
+
+.carte
+{
+
+	margin-left: 5%;
+	width: 90%;
+	background-color: #EEEEEE;
+	text-align: center;
+	font-family: Roboto, Lato, sans-serif;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25), -1px 1px 2px rgba(0, 0, 0, 0.25);
+	z-index: 1;
+
+}
+
+.contenu
+{
+
+	padding: 50px;
+
+}
+
+#conteneur a
+{
+
+	text-decoration: none;
+	color: #ee85ac;
+
+}
+
+#conteneur a.IMPORTANT
+{
+
+	color: #2196F3;
+
+}
+
+#conteneur .espace_conteneur, #conteneur .colonne .espace_colonne, #conteneur .carte .espace_carte, #conteneur .carte .espace_carte_x2
+{
+
+	content: '';
+	display: block;
+
+}
+
+#conteneur .espace_conteneur
+{
+
+	height: 200px;
+	position: left;
+	width: 50%;
+	border-right: solid 1px white;
+
+}
+
+#conteneur .colonne .espace_colonne
+{
+
+	height: 100px;
+	position: left;
+	width: 50%;
+	border-right: solid 1px white;	
+
+}
+
+#conteneur .carte .espace_carte
+{
+
+	height: 10px;
+	width: 10px;
+
+}
+
+#conteneur .carte .espace_carte_x2
+{
+
+	height: 20px;
+	width: 20px;
+
+}
+
+#conteneur .carte .espace_carte_x4
+{
+
+	height: 40px;
+	width: 40px;
+
+}
+
+#conteneur .colonne .espace_colonne:before, #conteneur .espace_conteneur:before
+{
+
+	content: '';
+	display: block;
+	width: 200%;
+	height: 66px;
+	position: relative;
+	top: 10px;
+	background: url("../img/icone/arrow.svg") no-repeat;
+	background-position: center;
+
+}
+
+.carte h1
+{
+
+	font-size: 2em;
+	line-height: 80px;
+
+}
+.carte h2
+{
+
+	font-size: 1.6em;
+	line-height: 65px;
+
+}
+.carte h3
+{
+
+	font-size: 1.4em;
+	line-height: 50px;
+
+}
+
+.carte h1, .carte h2, .carte h3
+{
+
+	text-align: center;
+
+}
+
+.carte button
+{
+
+	border: none;
+	cursor: pointer;
+	color: #2196F3;
+
+}
+
+@media screen and (max-width: 1200px)
+{
+
+	.carte
+	{
+
+		width: 100%;
+		margin: 0;
+
+	}
+
+}
+
+@media screen and (max-height: 500px)
+{
+
+	body
+	{
+
+		font-size: 1em;
+
+	}
+
+	#conteneur
+	{
+
+		padding-top: 20px;
+
+	}
+
+	.carte
+	{
+
+		padding: 0;
+
+	}
+
+}
+
+@media screen and (max-width: 600px)
+{
+
+	body
+	{
+
+		font-size: 1em;
+
+	}
+
+	#conteneur
+	{
+
+		padding-top: 20px;
+
+	}
+
+	.carte
+	{
+
+		padding: 0;
+
+	}
+
+}

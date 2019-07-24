@@ -78,7 +78,7 @@ class Role extends \core\Managed
 	*
 	* @return void
 	*/
-	protected function setId_utilisateur($id)
+	protected function setId($id)
 	{
 		$this->id=(int)$id;
 	}

@@ -1,0 +1,51 @@
+.success-box, .warning-box
+{
+	z-index: 99999;
+	position: fixed;
+	font-size: 24px;
+	width: 100%;
+	height: 200%;
+	padding-top: 300px;
+	padding-left: 5%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.5);
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25), -4px 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+.success-box #content, .warning-box #content
+{
+	width: 90%;
+	left: 5%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	font-family: 'Roboto', sans-serif;
+	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25), -4px 4px 8px rgba(0, 0, 0, 0.25);
+	text-align: center;
+}
+
+.success-box #content a, .warning-box #content a
+{
+	text-decoration: none;
+}
+
+.warning-box #content
+{
+	background-color: #F2DEDE;
+	color: #A94442;
+}
+
+.warning-box #content a
+{
+	color: #A93534;
+}
+
+.success-box #content
+{
+	background-color: #DFF0D8;
+	color: #3C763D;
+}
+
+.success-box #content a
+{
+	color: #2B542C;
+}

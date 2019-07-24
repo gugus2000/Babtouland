@@ -1,0 +1,83 @@
+.formulaire
+{
+
+	background-color: #EEEEEE;
+	font-family: Roboto, Lato, sans-serif;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
+}
+
+.formulaire fieldset
+{
+	border: none;
+	border-top: solid 1px rgb(189, 189, 189);
+	margin: 20px;
+}
+
+.formulaire fieldset:hover
+{
+	border-top: solid 2px rgb(33, 150, 255);
+}
+
+.formulaire fieldset legend
+{
+	padding: 5px;
+}
+
+.formulaire fieldset:hover > legend
+{
+	border-left: solid 1px rgb(33, 150, 255);
+	border-right: solid 1px rgb(33, 150, 255);
+}
+
+.formulaire input, .formulaire textarea, .formulaire select
+{
+
+	margin: 5%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: #EEEEEE;
+	font-family: Roboto, Lato, sans-serif;
+	border: none;
+	border-bottom: solid 1px rgb(189,189,189);
+	text-align: center;
+	color: #3C3C3C;
+
+}
+
+.formulaire .ligne label
+{
+	margin: 5%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: #EEEEEE;
+	font-family: Roboto, Lato, sans-serif;
+	text-align: center;
+	color: #3C3C3C;
+}
+
+.formulaire input:focus, .formulaire textarea:focus, .formulaire select:hover
+{
+
+	border: none;
+	border-bottom: solid 2px rgb(33,150,255);
+
+}
+
+.formulaire input[type="submit"], .formulaire input[type="file"]
+{
+
+	border: none;
+	color: #2196F3;
+	cursor: pointer;
+
+}
+
+.formulaire input[type="file"]
+{
+
+	color: #3C3C3C;
+
+}
