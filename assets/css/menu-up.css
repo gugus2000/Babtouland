@@ -1,0 +1,267 @@
+.menu-up
+{
+	background-color: #333545;
+	position: fixed;
+	width: 100%;
+	height: 90px;
+	z-index: 10;
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+	transition: width 0.5s, height 0.5s;
+}
+
+.menu-up .conteneur
+{
+	position: fixed;
+	width: 100%;
+	top: 26px;
+}
+
+.menu-up .conteneur .grand-ecran
+{
+	position: fixed;
+	width: 100%;
+	text-align: right;
+}
+
+.menu-up .conteneur .grand-ecran .banniere_babtouland .logo_babtouland
+{
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	z-index: 11;
+}
+
+.menu-up .conteneur .grand-ecran .banniere_babtouland h1
+{
+	position: fixed;
+	color: rgb(64, 80, 142);
+	font-size: 54px;
+	font-family: ZELDA;
+	top: -20px;
+	left: 150px;
+	z-index: 11;
+}
+
+.menu-up .conteneur .grand-ecran .lien a, .menu-up .conteneur .petit-ecran .lien a
+{
+	text-decoration: none;
+	color: white;
+}
+
+.menu-up .conteneur .grand-ecran .lien
+{
+	margin-left: 600px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.menu-up .conteneur .grand-ecran .lien .saut-ligne
+{
+	line-height: 10px;
+}
+
+.menu-up .conteneur .grand-ecran .lien a:hover, .menu-up .conteneur .petit-ecran .lien a:hover
+{
+	opacity: 0.6;
+}
+
+.menu-up .conteneur .grand-ecran .lien .image
+{
+	float: right;
+	margin-right: 50px;
+	margin-left: 50px;
+}
+
+.menu-up .conteneur .grand-ecran .lien .image img
+{
+	border-radius: 100%;
+	height: 50px;
+}
+
+.menu-up .conteneur .petit-ecran
+{
+	display: none;
+}
+
+@media screen and (max-width: 1200px)
+{
+	
+	.menu-up .conteneur .banniere_babtouland
+	{
+		visibility: hidden;
+		width: 0;
+	}
+
+	.menu-up .conteneur .grand-ecran .lien
+	{
+
+		margin-left: 30px;
+
+	}
+
+}
+
+@media screen and (max-width: 600px)
+{
+	.menu-up
+	{
+		width: 60px;
+		height: 60px;
+		z-index: 10;
+		transition: width 0.5s, height 0.5s;
+	}
+
+	.menu-up .conteneur
+	{
+		width: 50px;
+		left: 12.5px;
+		top: 20px;
+		z-index: 10;
+	}
+
+	.menu-up .conteneur .grand-ecran
+	{
+		display: none;
+	}
+
+	.menu-up .conteneur .petit-ecran
+	{
+		display: block;
+		z-index: 10;
+		transition: width 0.5s, height 0.5s;
+	}
+
+	.menu-up .conteneur .petit-ecran .petit-ecran-menu
+	{
+		top: 0px;
+		left: 0px;
+		padding-top: 20px;
+		padding-left: 20px;
+		position: fixed;
+		z-index: 11;
+		background-color: #333545;
+		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+		line-height: 40px;
+		padding-bottom: 10px;
+		width: 50px;
+	}
+
+	.menu-up .conteneur .petit-ecran a
+	{
+		text-decoration: none
+		margin-bottom: 20px;;
+		color: white;
+	}
+
+	.menu-up .conteneur .petit-ecran .lien
+	{
+		top: 70px;
+		left: 0px;
+		padding-left: 20px;
+		padding-top: 20px;
+		position: fixed;
+		transition: height 0.75s, width 0.5s;
+		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+		z-index: 12;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: #333545;
+		width: 50px;
+	}
+
+	.menu-up .conteneur .petit-ecran .lien a
+	{
+		text-decoration: none;
+		color: white;
+		margin-bottom: 20px;
+	}
+
+	.menu-up .conteneur .petit-ecran .lien a:hover
+	{
+		opacity: 0.6;
+	}
+
+}
+
+@media screen and (max-height: 500px)
+{
+	.menu-up
+	{
+		width: 60px;
+		height: 60px;
+		z-index: 10;
+		transition: width 0.5s, height 0.5s;
+	}
+
+	.menu-up .conteneur
+	{
+		width: 50px;
+		left: 12.5px;
+		top: 20px;
+		z-index: 10;
+	}
+
+	.menu-up .conteneur .grand-ecran
+	{
+		display: none;
+	}
+
+	.menu-up .conteneur .petit-ecran
+	{
+		display: block;
+		z-index: 10;
+		transition: width 0.5s, height 0.5s;
+	}
+
+	.menu-up .conteneur .petit-ecran .petit-ecran-menu
+	{
+		top: 0px;
+		left: 0px;
+		padding-top: 20px;
+		padding-left: 20px;
+		position: fixed;
+		z-index: 11;
+		background-color: #333545;
+		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+		line-height: 40px;
+		padding-bottom: 10px;
+		width: 50px;
+	}
+
+	.menu-up .conteneur .petit-ecran a
+	{
+		text-decoration: none;
+		color: white;
+	}
+
+	.menu-up .conteneur .petit-ecran .lien
+	{
+		top: 70px;
+		left: 0px;
+		padding-left: 20px;
+		padding-top: 20px;
+		position: fixed;
+		transition: height 0.75s, width 0.5s;
+		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.7);
+		z-index: 12;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background-color: #333545;
+		width: 50px;
+	}
+
+	.menu-up .conteneur .petit-ecran .lien a
+	{
+		text-decoration: none;
+		color: white;
+		margin-bottom: 20px;
+	}
+
+	.menu-up .conteneur .petit-ecran .lien a:hover
+	{
+		opacity: 0.6;
+	}
+
+}

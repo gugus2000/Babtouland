@@ -4,6 +4,13 @@ $lang=array(
 	/* Général */
 	'pseudo' => 'pseudo',
 	'mdp'    => 'mot de passe',
+	/* menu-up */
+		'menu-up_accueil'    => 'Accueil',
+		'menu-up_altlogo'    => 'Logo de ',
+		'menu-up_profil'     => 'Votre profil',
+		'menu-up_avatar'     => 'Votre avatar',
+		'menu-up_titres'     => array('Accueil'),
+		'menu-up_affichages' => array('Accueil'),
 	/* user */
 		'user_formulairepseudo' => 'Pseudo:',
 		'user_formulairemdp'    => 'Mot de passe:',
@@ -23,12 +30,20 @@ $lang=array(
 			'user_validation_inscription_pseudo'     => 'Le pseudo existe déjà',
 			'user_validation_inscription_formulaire' => 'Formulaire non ou mal remplit',
 		/* statut */
-			'user_statut_nologin'    => 'Vous n\'êtes pas connecté',
-			'user_statut_pseudo'     => 'Votre pseudo: ',
-			'user_statut_avatar'     => 'Votre avatar: ',
-			'user_statut_derndateco' => 'Dernière date de connexion: ',
-			'user_statut_premdatein' => 'Date d\'inscription: ',
-			'user_statut_titre'                  => 'statut',
+			'user_statut_nologin'                    => 'Vous n\'êtes pas connecté',
+			'user_statut_pseudo'                     => 'Votre pseudo: ',
+			'user_statut_avatar'                     => 'Votre avatar: ',
+			'user_statut_derndateco'                 => 'Dernière date de connexion: ',
+			'user_statut_premdatein'                 => 'Date d\'inscription: ',
+			'user_statut_titre'                      => 'statut',
+			'user_statut_titre-lien-connexion'       => 'Page de connexion',
+			'user_statut_affichage-lien-connexion'   => 'Se connecter',
+			'user_statut_titre-lien-inscription'     => 'Page d\'inscription',
+			'user_statut_affichage-lien-inscription' => 'S\'inscrire',
+			'user_statut_titre-lien-deconnexion'     => 'Page dde déconnexion',
+			'user_statut_affichage-lien-deconnexion' => 'Se déconnecter',
+		/* deconnesion */
+			'user_deconnexion_message' => 'Déconnexion réussie',
 )
 
 ?>

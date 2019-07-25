@@ -16,11 +16,12 @@ array_push($metas, array(
 ));
 
 $Visiteur->getPage()->set(array(
-	'template' => file_get_contents($config['default_template']),
-	'contenu'  => $contenu,
-	'titre'    => $lang['user_statut_titre'],
-	'metas'    => $metas,
-	'css'      => $config['default_css'],
+	'template'    => file_get_contents($config['default_template']),
+	'contenu'     => $contenu,
+	'titre'       => $lang['user_statut_titre'],
+	'metas'       => $metas,
+	'css'         => $config['default_css'],
+	'javascripts' => $config['default_javascripts'],
 ));
 
 ?>

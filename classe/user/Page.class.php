@@ -374,7 +374,7 @@ class Page
 	public function afficher($message_css='', $message_js='', $message_contenu='')
 	{
 		$page=$this->afficherTemplate();
-		if(!empty($this->getMessage()))
+		if(!empty($this->getMessage()))	// Il y a une notification a afficher
 		{
 			if($this->getCss())
 			{

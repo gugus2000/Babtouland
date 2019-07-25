@@ -3,6 +3,7 @@
 session_start();
 
 require_once 'func/core/utils.func.php';
+require_once 'func/core/menu-up.func.php';
 spl_autoload_register('loadClass');
 
 require_once 'config/core/config.php';	// Chargement de la configuration par défaut
@@ -44,6 +45,7 @@ if($Visiteur->loadPage($application, $action))	// Permission accordée
 	{
 		$Visiteur->getPage()->set(array('message' => $_SESSION['message']));
 	}
+	require $config['default_contenu'];
 	require $Visiteur->getPage()->getPath();
 	echo $Visiteur->getPage()->afficher($config['message_css'], $config['message_js'], $config['message_contenu']);
 }

@@ -8,7 +8,8 @@ $config=array(
 			'default_action'      => 'statut',
 			'default_lang'        => $lang,
 			'default_template'    => 'template/template.php',
-			'default_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css'),
+			'default_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/css/menu-up.css', 'assets/font/material icons/material-icons.css'),
+			'default_javascripts' => array('assets/js/menu-up.js'),
 			'default_metas'       => array(
 				array(
 					'charset' => 'utf-8',
@@ -23,6 +24,7 @@ $config=array(
 					'content' => 'width=device-width, initial-scale=1',
 				),
 			),
+			'default_contenu' => 'assets/php/menu-up.php',
 	/* Paramètre non modifiable */
 		/* Général */
 			'nom_site' => 'Babtouland',
@@ -37,6 +39,14 @@ $config=array(
 			'message_css'     => 'assets/css/message.css',
 			'message_js'      => 'assets/js/message.js',
 			'message_contenu' => 'assets/html/message.html',
+		/* Menu-up */
+			'menu-up_liens'       => array('?'),
+			'menu-up_icones'      => array('home'),
+			'menu-up_lien-statut' => '?application=user&action=statut',
+		/* Statut */
+			'user_statut_lien-connexion' => '?application=user&action=connexion',
+			'user_statut_lien-inscription' => '?application=user&action=inscription',
+			'user_statut_lien-deconnexion' => '?application=user&action=deconnexion",'
 );
 
 ?>
