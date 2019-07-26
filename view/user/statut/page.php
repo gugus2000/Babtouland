@@ -1,5 +1,6 @@
 <?php
 
+$contenu=$config['default_contenu'];
 if($Visiteur->getPseudo()==$config['nom_guest'])
 {
 	require 'contenu_guest.php';
@@ -15,13 +16,19 @@ array_push($metas, array(
 	'content' => 'Statut du visiteur',
 ));
 
+$css=$config['default_css'];
+
+$js=$config['default_javascripts'];
+
+ajouterMenuUp($css, $js, $contenu);
+
 $Visiteur->getPage()->set(array(
 	'template'    => file_get_contents($config['default_template']),
 	'contenu'     => $contenu,
 	'titre'       => $lang['user_statut_titre'],
 	'metas'       => $metas,
-	'css'         => $config['default_css'],
-	'javascripts' => $config['default_javascripts'],
+	'css'         => $css,
+	'javascripts' => $js,
 ));
 
 ?>

@@ -21,4 +21,4 @@
 			</div>
 		</div>
 	</nav>
-<?php $contenu=ob_get_clean(); ?>
+<?php $Contenu=ob_get_clean(); // $Contenu et pas $contenu ?>

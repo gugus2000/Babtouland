@@ -34,4 +34,25 @@ function afficherLiens($liens, $titres, $items, $type_ecran)
 	return $affichage;
 }
 
+/**
+ * Ajoute le menu-up dans l'objet Page
+ *
+ * @param array css Css déjà utilisé dans la page
+ * 
+ * @param array js Js déjà utilisé dans la page
+ * 
+ * @param string contenu Contenu de la page a afficher (sera après menu-up)
+ * 
+ * @return void
+ * @author gugus2000
+ **/
+function ajouterMenuUp(&$css, &$js, &$contenu)
+{
+	global $config, $lang, $Visiteur;
+	array_push($css, $config['menu-up_css']);
+	array_push($js, $config['menu-up_js']);
+	require $config['menu-up_contenu'];
+	$contenu=$Contenu.$contenu;
+}
+
 ?>
