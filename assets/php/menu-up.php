@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="petit-ecran">
-				<a href="#" class="petit-ecran-menu"><i class="material-icons" class="petit-ecran-menu">menu</i></a>
+				<a href="#" class="petit-ecran-menu"><i class="material-icons petit-ecran-menu">menu</i></a>
 				<div class="lien" style="visibility: hidden;">
 					<?= afficherLiens($config['menu-up_liens'], $lang['menu-up_titres'], $config['menu-up_icones'], 'petit-ecran'); ?>
 				</div>

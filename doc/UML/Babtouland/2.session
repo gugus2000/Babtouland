@@ -1,15 +1,15 @@
 window_sizes 1600 877 375 1220 727 104
 
 diagrams
-  active  classdiagram_ref 128002 // Babtouland-Gestion Membre
-    1220 727 100 A4 144 0
+  classdiagram_ref 128002 // Babtouland-Gestion Membre
+    1220 727 100 A4 0 0
+  active  classdiagram_ref 134530 // Babtouland-Système Post
+    1220 727 100 A4 0 0
 end
 show_stereotypes
-selected operation_ref 175746 // recuperer
+selected classdiagram_ref 134530 // Babtouland-Système Post
 open
-  class_ref 128002 // Utilisateur
-  class_ref 128258 // Role
-  class_ref 128386 // Permission
+  classview_ref 128002 // Babtouland
 end
 end
 verbose

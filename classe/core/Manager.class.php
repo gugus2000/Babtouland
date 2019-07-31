@@ -157,6 +157,21 @@ class Manager
 		return $requete->fetch(\PDO::FETCH_ASSOC)[$this::INDEX];
 	}
 	/**
+	* Obtient l'index de l'élément à partir de sa position par rapport à un attribut
+	*
+	* @param int position Position de l'élément (0=premier)
+	*
+	* @param string attribut Attribut sur lequel se positionne l'élément
+	* 
+	* @return string
+	*/
+	public function getIdByPos($position, $attribut)
+	{
+		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' ORDER BY '.$attribut.' LIMIT 1 OFFSET '.$position);
+		$requete->execute();
+		return $requete->fetch(\PDO::FETCH_ASSOC)[$this::INDEX];
+	}
+	/**
 	* Récupère le résultat de la requête MYSQL crée à partir des paramètres
 	*
 	* @param array attributs Tableau contenant le nom et la valeur de chaque attribut

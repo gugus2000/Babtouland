@@ -17,7 +17,7 @@ if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & !emp
 		));
 		$newVisiteur->inscription($_POST['inscription_mdp'], $config['default_role']);
 		$newVisiteur->recuperer();
-		$newVisiteur->connexion($_POST['connexion_mdp']);
+		$newVisiteur->connexion($_POST['inscription_mdp']);
 		$get='';
 		$Visiteur=$newVisiteur;
 		$_SESSION['message']=$lang['user_validation_inscription_succes'];

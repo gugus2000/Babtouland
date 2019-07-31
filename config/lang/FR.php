@@ -9,8 +9,8 @@ $lang=array(
 		'menu-up_altlogo'    => 'Logo de ',
 		'menu-up_profil'     => 'Votre profil',
 		'menu-up_avatar'     => 'Votre avatar',
-		'menu-up_titres'     => array('Accueil'),
-		'menu-up_affichages' => array('Accueil'),
+		'menu-up_titres'     => array('Accueil', 'Fil des posts'),
+		'menu-up_affichages' => array('Accueil', 'Post'),
 	/* user */
 		'user_formulairepseudo' => 'Pseudo:',
 		'user_formulairemdp'    => 'Mot de passe:',
@@ -42,8 +42,13 @@ $lang=array(
 			'user_statut_affichage-lien-inscription' => 'S\'inscrire',
 			'user_statut_titre-lien-deconnexion'     => 'Page dde déconnexion',
 			'user_statut_affichage-lien-deconnexion' => 'Se déconnecter',
-		/* deconnesion */
+		/* deconnexion */
 			'user_deconnexion_message' => 'Déconnexion réussie',
+	/* post */
+		/* fil_post */
+			'post_filPost_detail'          => 'Voir plus',
+			'post_filPost_titre'           => 'Liste des posts',
+			'post_filPost_nav_description' => 'Page ',
 )
 
 ?>

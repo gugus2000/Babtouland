@@ -10,5 +10,6 @@ Menu_enroule.addEventListener('click', function (Event) {
 	{
 		visibility='hidden';
 	}
+	Event.preventDefault();
 	Menu_deroule.setAttribute('style', 'visibility: '+visibility+';');
 });

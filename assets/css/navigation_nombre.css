@@ -1,0 +1,31 @@
+.navigation_nombre
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	position: center;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.navigation_nombre ul
+{
+	display: flex;
+	justify-content: space-around;
+}
+.navigation_nombre ul a
+{
+	text-decoration: none;
+	color: #3C3C3C;
+	background-color: #EEEEEE;
+}
+.navigation_nombre ul span.active
+{
+	text-decoration: none;
+	background-color: #3C3C3C;
+	color: #EEEEEE;
+}
+.navigation_nombre ul li
+{
+	border: solid 1px #3C3C3C;
+	padding: 10px;
+}
