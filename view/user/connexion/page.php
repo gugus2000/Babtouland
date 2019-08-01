@@ -6,7 +6,7 @@ require 'contenu.php';
 $metas=$config['default_metas'];
 array_push($metas, array(
 	'name'    => 'description',
-	'content' => 'Page de connexion',
+	'content' => $lang['user_connexion_description'],
 ));
 
 $css=$config['default_css'];

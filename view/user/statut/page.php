@@ -13,7 +13,7 @@ else
 $metas=$config['default_metas'];
 array_push($metas, array(
 	'name'    => 'description',
-	'content' => 'Statut du visiteur',
+	'content' => $lang['user_connexion_description'],
 ));
 
 $css=$config['default_css'];

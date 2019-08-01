@@ -8,6 +8,7 @@ require_once 'config/lang/'.$config['default_lang'].'.php';	// Chargement de la 
 
 require_once 'func/core/utils.func.php';
 require_once 'func/core/menu-up.func.php';
+require_once 'func/core/toast.func.php';
 spl_autoload_register('loadClass');
 
 $application=$config['default_application'];

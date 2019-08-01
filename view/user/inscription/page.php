@@ -6,7 +6,7 @@ require 'contenu.php';
 $metas=$config['default_metas'];
 array_push($metas, array(
 	'name'    => 'description',
-	'content' => 'Page d\'inscription',
+	'content' => $lang['user_inscription_description'],
 ));
 
 $css=$config['default_css'];

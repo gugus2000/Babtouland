@@ -15,13 +15,15 @@ $lang=array(
 		'user_formulairepseudo' => 'Pseudo:',
 		'user_formulairemdp'    => 'Mot de passe:',
 		/* connexion */
-			'user_connexion_fieldset' => 'Connexion',
-			'user_connexion_submit'   => 'SE CONNECTER',
-			'user_connexion_titre'                   => 'connexion',
+			'user_connexion_fieldset'    => 'Connexion',
+			'user_connexion_submit'      => 'SE CONNECTER',
+			'user_connexion_titre'       => 'connexion',
+			'user_connexion_description' => 'Page de connexion',
 		/* inscription */
-			'user_inscription_fieldset' => 'Inscription',
-			'user_inscription_submit'   => 'S\'INSCRIRE',
-			'user_inscription_titre'                     => 'inscription',
+			'user_inscription_fieldset'    => 'Inscription',
+			'user_inscription_submit'      => 'S\'INSCRIRE',
+			'user_inscription_titre'       => 'inscription',
+			'user_inscription_description' => 'Page d\'inscription',
 		/* validation_connexion */
 			'user_validation_connexion_succes'     => 'Vous êtes bien connecté',
 			'user_validation_connexion_formulaire' => 'Formulaire non ou mal remplit',
@@ -42,13 +44,19 @@ $lang=array(
 			'user_statut_affichage-lien-inscription' => 'S\'inscrire',
 			'user_statut_titre-lien-deconnexion'     => 'Page dde déconnexion',
 			'user_statut_affichage-lien-deconnexion' => 'Se déconnecter',
+			'user_statut_description'                => 'Statut du visiteur',
 		/* deconnexion */
 			'user_deconnexion_message' => 'Déconnexion réussie',
 	/* post */
 		/* fil_post */
-			'post_filPost_detail'          => 'Voir plus',
-			'post_filPost_titre'           => 'Liste des posts',
-			'post_filPost_nav_description' => 'Page ',
+			'post_filPost_detail'              => 'Voir plus',
+			'post_filPost_titre'               => 'Liste des posts',
+			'post_filPost_nav_description'     => 'Page ',
+			'post_filPost_lien_detail_titre'   => 'Lire le post avec ses commentaires',
+			'post_filPost_auteur_presentation' => 'Par ',
+			'post_filPost_lien_auteur_titre'   => 'Voir le profil de l\'auteur',
+			'post_filPost_publication'         => 'Publier un post',
+			'post_filPost_description'         => 'Page d\'affichage des posts',
 )
 
 ?>
