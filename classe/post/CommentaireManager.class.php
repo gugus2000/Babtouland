@@ -5,7 +5,7 @@ namespace post;
 /**
 * Manager de Commentaire
 */
-class CommentaireManager extends \core\Manager;
+class CommentaireManager extends \core\Manager
 {
 	/* Constantes */
 

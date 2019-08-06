@@ -47,6 +47,12 @@
 
 }
 
+.formulaire textarea
+{
+	/*display: block;*/
+	background-color: #DDDDDD;
+}
+
 .formulaire .ligne label
 {
 	margin: 5%;

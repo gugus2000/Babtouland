@@ -26,22 +26,6 @@ function insererLiens($liens, $icones, $descriptions)
 }
 
 /**
- * Retourne l'action et l'application du lien
- *
- * @param string lien Lien à déchiffrer
- * 
- * @return array
- * @author gugus2000
- **/
-function recuperationApplicationActionLien($lien)
-{
-	preg_match('#application=(\S+)&action=(\S+)&?#', $lien, $matches);
-	$array['application']=$matches[1];
-	$array['action']=$matches[2];
-	return $array;
-}
-
-/**
  * Ajoute le toast l'objet Page
  *
  * @param array css Css déjà utilisé dans la page

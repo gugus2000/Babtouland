@@ -5,7 +5,7 @@
 				<section class="carte">
 					<section class="contenu">
 						<div class="formulaire">
-							<form action="?application=user&action=validation_inscription" method="POST" accept-charset="utf-8">
+							<form action="<?= $config['post_inscription_action'] ?>" method="POST" accept-charset="utf-8">
 								<fieldset>
 									<legend><?= $lang['user_inscription_fieldset'] ?></legend>
 									<label for="inscription_pseudo"><?= $lang['user_formulairepseudo'] ?></label>

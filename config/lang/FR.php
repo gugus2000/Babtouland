@@ -50,13 +50,50 @@ $lang=array(
 	/* post */
 		/* fil_post */
 			'post_filPost_detail'              => 'Voir plus',
-			'post_filPost_titre'               => 'Liste des posts',
-			'post_filPost_nav_description'     => 'Page ',
+			'post_filPost_titre'               => 'Page ',
+			'post_filPost_nav_description'     => 'Liste des posts',
 			'post_filPost_lien_detail_titre'   => 'Lire le post avec ses commentaires',
 			'post_filPost_auteur_presentation' => 'Par ',
 			'post_filPost_lien_auteur_titre'   => 'Voir le profil de l\'auteur',
 			'post_filPost_publication'         => 'Publier un post',
 			'post_filPost_description'         => 'Page d\'affichage des posts',
-)
+		/* publication */
+			'post_publication_titre'       => 'Publication',
+			'post_publication_description' => 'Page de publication de post',
+			'post_publication_legend'      => 'Publication',
+			'post_publication_titreForm'   => 'Titre: ',
+			'post_publication_contenu'     => 'Contenu: ',
+			'post_publication_submit'      => 'PUBLIER',
+		/* validation_publication */
+			'post_validationPublication_message_formulaire' => 'Formualire non ou mal remplit',
+			'post_validationPublication_message_succes'     => 'Post publié',
+		/* lecture */
+			'post_lecture_titre'                              => '',
+			'post_lecture_description'                        => 'Page d\'affichage du post',
+			'post_lecture_auteur_presentation'                => 'Par ',
+			'post_lecture_lien_auteur_titre'                  => 'Voir le profil de l\'auteur',
+			'post_lecture_lien_mise_a_jour'                   => 'Mettre à jour le post',
+			'post_lecture_lien_suppression'                   => 'Supprimer le post',
+			'post_lecture_legend'                             => 'Publication de commentaire',
+			'post_lecture_commentaire_contenu'                => 'Commentaire: ',
+			'post_lecture_commentaire_submit'                 => 'PUBLIER',
+			'post_lecture_commentaire_lien_avatar_titre'      => 'Voir le profil de ',
+			'post_lecture_commentaire_avatar_description'     => 'Avatar de ',
+			'post_lecture_lien_suppression_titre'             => 'Supprimer ce post',
+			'post_lecture_lien_commentaire_suppression_titre' => 'Supprimer ce commentaire',
+		/* commentaire_publication */
+			'post_commentairePublication_message_formulaire' => 'Formulaire non ou mal remplit',
+			'post_commentairePublication_message_succes'     => 'Commentaire publié',
+		/* suppression */
+			'post_suppression_message_argument'   => 'Impossible de supprimer un post sans id',
+			'post_suppression_message_inexistant' => 'Aucun post n\'a cet id',
+			'post_suppression_message_permission' => 'Pas la permission de supprimer ce post',
+			'post_suppression_message_succes'     => 'Post supprimé',
+		/* commentaire_suppression */
+			'post_commentaireSuppression_message_argument'   => 'Impossible de supprimer un commentaire sans id',
+			'post_commentaireSuppression_message_inexistant' => 'Aucun post n\a cet id',
+			'post_commentaireSuppression_message_permission' => 'Pas la permission de supprimer ce commentaire',
+			'post_commentaireSuppression_message_succes'     => 'Commentaire supprimé',
+);
 
 ?>

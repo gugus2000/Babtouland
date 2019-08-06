@@ -5,7 +5,7 @@
 				<section class="carte">
 					<section class="contenu">
 						<div class="formulaire">
-							<form action="?application=user&action=validation_connexion" method="POST" accept-charset="utf-8">
+							<form action="<?= $config['post_connexion_action'] ?>" method="POST" accept-charset="utf-8">
 								<fieldset>
 									<legend><?= $lang['user_connexion_fieldset'] ?></legend>
 									<label for="connexion_pseudo"><?= $lang['user_formulairepseudo'] ?></label>

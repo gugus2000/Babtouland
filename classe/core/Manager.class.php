@@ -167,7 +167,7 @@ class Manager
 	*/
 	public function getIdByPos($position, $attribut)
 	{
-		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' ORDER BY '.$attribut.' LIMIT 1 OFFSET '.$position);
+		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' ORDER BY '.$attribut.' DESC LIMIT 1 OFFSET '.$position);
 		$requete->execute();
 		return $requete->fetch(\PDO::FETCH_ASSOC)[$this::INDEX];
 	}

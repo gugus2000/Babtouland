@@ -10,7 +10,7 @@
 					{
 						$position_vraie=$page*$config['default_post_filPost_nombre_posts']-($config['default_post_filPost_nombre_posts']-$position_post);	// Calcul de la position du Post
 						$Post=new \post\Post(array(
-							'id' => $PostManager->getIdByPos($position_vraie, 'date_mise_a_jour'),
+							'id' => $PostManager->getIdByPos($position_vraie, $config['post_filPost_tri']),
 						));
 						if($PostManager->existId($Post->getId()))
 						{

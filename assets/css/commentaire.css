@@ -1,0 +1,32 @@
+/*.commentaire
+{
+	padding-bottom: 0;
+}*/
+
+.commentaire .ligne .colonne.cote_gauche
+{
+	max-width: 25%;
+	padding-right: 2.5%;
+}
+
+.commentaire .ligne .colonne.cote_gauche img
+{
+	border-radius: 50%;
+	max-height: 50%;
+	max-width: 50%;
+}
+
+.commentaire .ligne .colonne.cote_droit
+{
+	height: 100%;
+	border-left: solid #CCCCCC 1px;
+	padding-left: 2.5%;
+}
+
+.commentaire .ligne .colonne.cote_droit p
+{
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
