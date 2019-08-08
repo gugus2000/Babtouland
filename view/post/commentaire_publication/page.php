@@ -1,7 +1,7 @@
 <?php
 
-$_SESSION['message']=$lang['post_commentairePublication_message_formulaire'];
-$get=$config['post_commentairePublication_retour'];
+$_SESSION['message']=$lang['post_commentaire_publication_message_formulaire'];
+$get=$config['post_commentaire_publication_retour'];
 if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['commentaire_contenu']) & !empty($_GET['id']))
 {
 	$Commentaire=new \post\Commentaire(array(
@@ -12,8 +12,8 @@ if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['co
 		'date_mise_a_jour' => 0,
 	));
 	$Commentaire->publier();
-	$_SESSION['message']=$lang['post_commentairePublication_message_succes'];
-	$get=$config['post_commentairePublication_suivant'].'&id='.$_GET['id'];
+	$_SESSION['message']=$lang['post_commentair_publication_message_succes'];
+	$get=$config['post_commentaire_publication_suivant'].'&id='.$_GET['id'];
 }
 
 header('location: index.php'.$get);

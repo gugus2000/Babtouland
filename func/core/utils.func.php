@@ -60,10 +60,28 @@ function loadClass($className)
  **/
 function recuperationApplicationActionLien($lien)
 {
-	preg_match('#application=(\S+)&action=(\S+)&?#', $lien, $matches);
+	preg_match('#application=(\S+)&action=([^&.]+)[&.=.]*#', $lien, $matches);
 	$array['application']=$matches[1];
 	$array['action']=$matches[2];
 	return $array;
+}
+
+/**
+ * Vérifie l'autorisation pour l'édition ou la suppression d'un objet
+ *
+ * @param mixed Objet Objet qui va être modifié
+ * 
+ * @param string application Application de la page
+ * 
+ * @param string action Action de la page
+ * 
+ * @return bool
+ * @author gugus2000
+ **/
+function autorisationModification($Objet, $application, $action)
+{
+	global $Visiteur, $config;
+	return ($Objet->recupererAuteur()->getPseudo()==$Visiteur->getPseudo() | $Visiteur->getRole()->existPermission($config[$application.'_'.$action.'_admin_application'], $config[$application.'_'.$action.'_admin_action']));
 }
 
 ?>

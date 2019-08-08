@@ -6,11 +6,11 @@
 					$BDDFactory=new \core\BDDFactory;
 					$PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 					$nbr_post=$PostManager->count();
-					for ($position_post=$config['default_post_filPost_position_debut']; $position_post < $config['default_post_filPost_nombre_posts']; $position_post++)
+					for ($position_post=$config['default_post_fil_post_position_debut']; $position_post < $config['default_post_fil_post_nombre_posts']; $position_post++)
 					{
-						$position_vraie=$page*$config['default_post_filPost_nombre_posts']-($config['default_post_filPost_nombre_posts']-$position_post);	// Calcul de la position du Post
+						$position_vraie=$page*$config['default_post_fil_post_nombre_posts']-($config['default_post_fil_post_nombre_posts']-$position_post);	// Calcul de la position du Post
 						$Post=new \post\Post(array(
-							'id' => $PostManager->getIdByPos($position_vraie, $config['post_filPost_tri']),
+							'id' => $PostManager->getIdByPos($position_vraie, $config['post_fil_post_tri']),
 						));
 						if($PostManager->existId($Post->getId()))
 						{
@@ -25,7 +25,7 @@
 	<nav class="navigation_nombre">
 		<ul>
 			<?php
-				for ($numero_page=1; $numero_page <= $nbr_post/$config['default_post_filPost_nombre_posts']; $numero_page++)
+				for ($numero_page=1; $numero_page <= $nbr_post/$config['default_post_fil_post_nombre_posts']; $numero_page++)
 				{ 
 					if ($numero_page==$page)
 					{

@@ -11,14 +11,6 @@ $Post->recuperer();
 		<section class="ligne">
 			<section class="colonne">
 				<section class="carte">
-					<?php
-					if($Visiteur->getPseudo()==$Post->recupererAuteur()->getPseudo() | $Visiteur->getRole()->existPermission($config['post_suppression_admin_application'], $config['post_suppression_admin_action']))
-					{
-						?>
-						<a class='suppression' href="<?= $config['post_lecture_lien_suppression'] ?>&id=<?= $Post->afficherId() ?>" title="<?= $lang['post_lecture_lien_suppression_titre'] ?>"><i class="material-icons petit-ecran-menu">close</i></a>
-						<?php
-					}
-					?>
 					<section class="contenu">
 						<h1><?= $Post->afficherTitre() ?></h1>
 						<i class="date_publication"><?= $Post->afficherDate_publication() ?></i>

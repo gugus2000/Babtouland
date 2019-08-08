@@ -290,7 +290,7 @@ class Commentaire extends \core\Managed
 	public function mettre_a_jour()
 	{
 		$Manager=$this->Manager();
-		$manager->update(array(
+		$Manager->update(array(
 			'contenu'          => $this->getContenu(),
 			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
 		), $this->getId());

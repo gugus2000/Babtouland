@@ -6,10 +6,11 @@
 					</section>
 					<section class="carte">
 						<?php
-						if($Visiteur->getPseudo()==$Commentaire->recupererAuteur()->getPseudo() | $Visiteur->getRole()->existPermission($config['post_commentaireSuppression_admin_application'], $config['post_commentaireSuppression_admin_action']))
+						if(autorisationModification($Commentaire, 'post', 'commentaire_suppression'))
 						{
 							?>
 							<a class='suppression' href="<?= $config['post_lecture_lien_commentaire_suppression'] ?>&id=<?= $Commentaire->afficherId() ?>" title="<?= $lang['post_lecture_lien_commentaire_suppression_titre'] ?>"><i class="material-icons petit-ecran-menu">close</i></a>
+							<a class="edition" href="<?= $config['post_lecture_lien_commentaire_edition'] ?>&id=<?= $Commentaire->afficherId() ?>" title="<?= $lang['post_lecture_lien_commentaire_edition_titre'] ?>"><i class="material-icons petit-ecran-menu">edit</i></a>
 							<?php
 						}
 						?>

@@ -1,7 +1,7 @@
 <?php
 
-$_SESSION['message']=$lang['post_validationPublication_message_formulaire'];
-$get=$config['post_validationPublication_retour'];
+$_SESSION['message']=$lang['post_validation_publication_message_formulaire'];
+$get=$config['post_validation_publication_retour'];
 if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !empty($_POST['publication_titre']) & !empty($_POST['publication_contenu']))
 {
 	$Post=new \post\Post(array(
@@ -12,8 +12,8 @@ if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !
 		'date_mise_a_jour' => 0,
 	));
 	$Post->publier();
-	$_SESSION['message']=$lang['post_validationPublication_message_succes'];
-	$get=$config['post_validationPublication_suivant'];
+	$_SESSION['message']=$lang['post_validation_publication_message_succes'];
+	$get=$config['post_validation_publication_suivant'];
 }
 
 header('location: index.php'.$get);

@@ -15,7 +15,7 @@ if(isset($_GET['id']))
 			'id' => $_GET['id'],
 		));
 		$Post->recuperer();
-		if($Visiteur->getPseudo()==$Post->recupererAuteur()->getPseudo() | $Visiteur->getRole()->existPermission($config['post_suppression_admin_application'], $config['post_suppression_admin_action']))
+		if(autorisationModification($Post, $Visiteur->getPage()->getApplication(), $Visiteur->getPage()->getAction()))
 		{
 			$_SESSION['message']=$lang['post_suppression_message_succes'];
 			$get=$config['post_suppression_suivant'];

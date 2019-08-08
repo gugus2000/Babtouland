@@ -29,7 +29,7 @@ $js=$config['default_javascripts'];
 
 ajouterMenuUp($css, $js, $contenu);
 
-$liens=array($config['post_lecture_lien_mise_a_jour'], $config['post_lecture_lien_suppression']);
+$liens=array($config['post_lecture_lien_mise_a_jour'].'&id='.$id, $config['post_lecture_lien_suppression'].'&id='.$id);
 $icones=array('edit', 'delete');
 $descriptions=array($lang['post_lecture_lien_mise_a_jour'], $lang['post_lecture_lien_suppression']);
 ajouterToast($css, $js, $contenu, $liens, $icones, $descriptions);

@@ -291,7 +291,7 @@ class Post extends \core\Managed
 	public function mettre_a_jour()
 	{
 		$Manager=$this->Manager();
-		$manager->update(array(
+		$Manager->update(array(
 			'titre'            => $this->getTitre(),
 			'contenu'          => $this->getContenu(),
 			'date_mise_a_jour' => $this->getDate_mise_a_jour(),

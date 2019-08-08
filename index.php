@@ -4,6 +4,15 @@ session_start();
 
 require_once 'config/core/config.php';	// Chargement de la configuration par défaut
 
+if(isset($_GET['lang']))
+{
+	$_SESSION['lang']=$_GET['lang'];
+}
+if(isset($_SESSION['lang']))
+{
+	$config['default_lang']=$_SESSION['lang'];
+}
+
 require_once 'config/lang/'.$config['default_lang'].'.php';	// Chargement de la traduction
 
 require_once 'func/core/utils.func.php';

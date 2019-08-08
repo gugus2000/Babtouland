@@ -147,6 +147,29 @@ class Visiteur extends Utilisateur
 		), $this->getId());
 	}
 	/**
+	* Met à jour l'utilisateur
+	*
+	* @return void
+	*/
+	public function mettre_a_jour()
+	{
+		$Manager=$this->Manager();
+		$Manager->update(array(
+			'avatar' => $this->getAvatar(),
+			'banni' => $this->getBanni(),
+		), $this->getId());
+	}
+	/**
+	* Supprime l'utilisateur
+	*
+	* @return void
+	*/
+	public function supprimer()
+	{
+		$Manager=$this->Manager();
+		$Manager->delete($this->getId());
+	}
+	/**
 	* Charge une page
 	*
 	* @param string application Application de la page à charger

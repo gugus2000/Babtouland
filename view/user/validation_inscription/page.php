@@ -1,7 +1,7 @@
 <?php
 
 $_SESSION['message']=$lang['user_validation_inscription_formulaire'];
-$get=$config['post_validationInscription_retour'];
+$get=$config['post_validation_inscription_retour'];
 if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & !empty($_POST['inscription_pseudo']) & !empty($_POST['inscription_mdp']))
 {
 	$_SESSION['message']=$lang['user_validation_inscription_pseudo'];
@@ -18,7 +18,7 @@ if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & !emp
 		$newVisiteur->inscription($_POST['inscription_mdp'], $config['default_role']);
 		$newVisiteur->recuperer();
 		$newVisiteur->connexion($_POST['inscription_mdp']);
-		$get=$config['post_validationInscription_suivant'];
+		$get=$config['post_validation_inscription_suivant'];
 		$Visiteur=$newVisiteur;
 		$_SESSION['message']=$lang['user_validation_inscription_succes'];
 	}

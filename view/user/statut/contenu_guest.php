@@ -5,8 +5,8 @@
 				<section class="carte">
 					<section class="contenu">
 						<?= $lang['user_statut_nologin'] ?><br />
-						<a href="<?= $config['user_statut_lien-connexion'] ?>" title="<?= $lang['user_statut_titre-lien-connexion'] ?>"><?= $lang['user_statut_affichage-lien-connexion'] ?></a><br />
-						<a href="<?= $config['user_statut_lien-inscription'] ?>" title="<?= $lang['user_statut_titre-lien-inscription'] ?>"><?= $lang['user_statut_affichage-lien-inscription'] ?></a>
+						<a href="<?= $config['user_statut_lien_connexion'] ?>" title="<?= $lang['user_statut_titre_lien_connexion'] ?>"><?= $lang['user_statut_affichage_lien_connexion'] ?></a><br />
+						<a href="<?= $config['user_statut_lien_inscription'] ?>" title="<?= $lang['user_statut_titre_lien_inscription'] ?>"><?= $lang['user_statut_affichage_lien_inscription'] ?></a>
 					</section>
 				</section>
 			</section>
