@@ -10,7 +10,7 @@
 				</a>
 				<div class="lien">
 					<?= afficherLiens($config['menu-up_liens'], $lang['menu-up_titres'], $lang['menu-up_affichages'], 'grand-ecran'); ?>
-					<a href="<?= $config['menu-up_lien-statut'] ?>" title="<?= $lang['menu-up_profil'] ?>" class="image"><img src="assets/img/avatar/<?= $Visiteur->afficherAvatar() ?>" alt="<?= $lang['menu-up_avatar'] ?>"></a>
+					<a href="<?= $config['menu-up_lien-statut'] ?>" title="<?= $Visiteur->afficherPseudo() ?>" class="image"><img src="assets/img/avatar/<?= $Visiteur->afficherAvatar() ?>" alt="<?= $lang['menu-up_avatar'] ?>"></a>
 				</div>
 			</div>
 			<div class="petit-ecran">

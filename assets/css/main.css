@@ -63,6 +63,21 @@ body
 
 }
 
+.contenu img
+{
+
+	max-width: 100px;
+	max-width: 100px;
+
+}
+
+.contenu p.left_align
+{
+
+	text-align: left;
+
+}
+
 #conteneur a
 {
 

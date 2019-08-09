@@ -56,6 +56,12 @@ class Utilisateur extends \core\Managed
 	* @var Role
 	*/
 	protected $role;
+	/**
+	* E-mail de l'utilisateur
+	*
+	* @var string
+	*/
+	protected $mail;
 
 	/* Accesseurs */
 	
@@ -130,6 +136,15 @@ class Utilisateur extends \core\Managed
 	public function getRole()
 	{
 		return $this->role;
+	}
+	/**
+	* Accesseur de mail
+	*
+	* @return string
+	*/
+	public function getMail()
+	{
+		return $this->mail;
 	}
 
 	/* Définisseurs */
@@ -222,6 +237,17 @@ class Utilisateur extends \core\Managed
 	{
 		$this->role=$role;
 	}
+	/**
+	* Définisseur de mail
+	*
+	* @param string mail E-mail de l'utilisateur
+	*
+	* @return void
+	*/
+	protected function setMail($mail)
+	{
+		$this->mail=$mail;
+	}
 
 	/* Autres méthodes */
 
@@ -296,6 +322,15 @@ class Utilisateur extends \core\Managed
 	public function afficherRole()
 	{
 		return htmlspecialchars((string)$this->role->afficher());
+	}
+	/**
+	* Afficheur de mail
+	*
+	* @return string
+	*/
+	public function afficherMail()
+	{
+		return htmlspecialchars((string)$this->mail);
 	}
 	/**
 	* Affiche date_inscription avec le bon format

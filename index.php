@@ -2,6 +2,13 @@
 
 session_start();
 
+function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd/
+{
+   ob_start('ob_gzhandler');
+   register_shutdown_function('ob_end_flush');
+}
+initOutputFilter();
+
 require_once 'config/core/config.php';	// Chargement de la configuration par défaut
 
 if(isset($_GET['lang']))

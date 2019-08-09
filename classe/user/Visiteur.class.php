@@ -119,6 +119,7 @@ class Visiteur extends Utilisateur
 			'date_inscription' => $this->getDate_inscription(),
 			'date_connexion'   => $this->getDate_connexion(),
 			'banni'            => $this->getBanni(),
+			'mail'             => $this->getMail(),
 		));
 		$this->setId($VisiteurManager->getIdBy(array(
 			'pseudo'           => $this->getPseudo(),
@@ -126,6 +127,7 @@ class Visiteur extends Utilisateur
 			'date_inscription' => $this->getDate_inscription(),
 			'date_connexion'   => $this->getDate_connexion(),
 			'banni'            => $this->getBanni(),
+			'mail'             => $this->getMail(),
 		)));
 		$this->setMotdepasse(new \user\Motdepasse(array(
 			'id' => $this->getId(),
@@ -156,7 +158,8 @@ class Visiteur extends Utilisateur
 		$Manager=$this->Manager();
 		$Manager->update(array(
 			'avatar' => $this->getAvatar(),
-			'banni' => $this->getBanni(),
+			'banni'  => $this->getBanni(),
+			'mail'   => $this->getMail(),
 		), $this->getId());
 	}
 	/**

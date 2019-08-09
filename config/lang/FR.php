@@ -2,18 +2,19 @@
 
 $lang=array(
 	/* Général */
-	'pseudo' => 'pseudo',
-	'mdp'    => 'mot de passe',
+	'inv_lang' => 'EN',
+	'pseudo'   => 'pseudo',
+	'mdp'      => 'mot de passe',
 	/* menu-up */
 		'menu-up_accueil'    => 'Accueil',
 		'menu-up_altlogo'    => 'Logo de ',
-		'menu-up_profil'     => 'Votre profil',
 		'menu-up_avatar'     => 'Votre avatar',
-		'menu-up_titres'     => array('Accueil', 'Fil des posts'),
-		'menu-up_affichages' => array('Accueil', 'Post'),
+		'menu-up_titres'     => array('Accueil', 'Fil des posts', 'À propos'),
+		'menu-up_affichages' => array('Accueil', 'Post', 'À propos'),
 	/* user */
 		'user_formulairepseudo' => 'Pseudo:',
 		'user_formulairemdp'    => 'Mot de passe:',
+		'user_formuliaremail'   => 'Mail: ',
 		/* connexion */
 			'user_connexion_fieldset'    => 'Connexion',
 			'user_connexion_submit'      => 'SE CONNECTER',
@@ -37,6 +38,7 @@ $lang=array(
 			'user_statut_avatar'                     => 'Votre avatar: ',
 			'user_statut_derndateco'                 => 'Dernière date de connexion: ',
 			'user_statut_premdatein'                 => 'Date d\'inscription: ',
+			'user_statut_mail'                       => 'Mail: ',
 			'user_statut_titre'                      => 'statut',
 			'user_statut_titre_lien_connexion'       => 'Page de connexion',
 			'user_statut_affichage_lien_connexion'   => 'Se connecter',
@@ -47,6 +49,8 @@ $lang=array(
 			'user_statut_description'                => 'Statut du visiteur',
 			'user_statut_titre_lien_edition'         => 'Page d\'édition de profil',
 			'user_statut_affichage_lien_edition'     => 'Éditer son profil',
+			'user_statut_titre_lien_langage'         => 'Voir en anglais',
+			'user_statut_affichage_lien_langage'     => 'Changer de langue',
 		/* deconnexion */
 			'user_deconnexion_message' => 'Déconnexion réussie',
 		/* edition */
@@ -54,12 +58,63 @@ $lang=array(
 			'user_edition_description'  => 'Page permettant d\'éditer certaines caractéristiques de son profil',
 			'user_edition_legend'       => 'Édition de ',
 			'user_edition_label_avatar' => 'Avatar: ',
+			'user_edition_label_mail'   => 'Mail :',
 			'user_edition_submit'       => 'EDITER',
 			'user_edition_label_banni'  => 'Banni: ',
 		/* validation_edition */
-			'user_validation_edition_message_formulaire'   => 'Formulaire non ou mal remplit',
-			'user_validation_edition_message_succes'       => 'Le profil à bien été modifié',
-			'user_validation_edition_message_admin_succes' => 'Le profil de l\'utilisateur a bien été modifié',
+			'user_validation_edition_message_formulaire'              => 'Formulaire non ou mal remplit',
+			'user_validation_edition_message_succes'                  => 'Le profil à bien été modifié',
+			'user_validation_edition_message_admin_succes'            => 'Le profil de l\'utilisateur a bien été modifié',
+			'user_validation_edition_avatar_message_erreur_dossier'   => 'Impossible de créer le dossier pour les avatars',
+			'user_validation_edition_avatar_message_erreur_upload'    => 'Problème lors de l\'upload de l\'avatar',
+			'user_validation_edition_avatar_message_erreur_interne'   => 'Une erreur interne a empêché l\'upload de l\'avatar',
+			'user_validation_edition_avatar_message_erreur_type'      => 'L\'avatar à uploader n\'est pas une image',
+			'user_validation_edition_avatar_message_erreur_extension' => 'L\'extension de l\'avatar est invalide',
+			'user_validation_edition_avatar_message_erreur_dimension' => 'Erreur dans les dimensions de l\'avatar',
+		/* view */
+			'user_view_titre'       => 'Voir l\'utilisateur',
+			'user_view_description' => 'Page permettant de voir le profil d\'un autre utilisateur',
+			'user_view_pseudo'      => 'Pseudo: ',
+			'user_view_avatar'      => 'Avatar: ',
+			'user_view_derndateco'  => 'Dernière connexion: ',
+			'user_view_premdatein'  => 'Inscription: ',
+			'user_view_avatar_alt'  => 'Avatar de ',
+	/* utile */
+		/* a_propos */
+			'utile_a_propos_titre'             => 'À propos',
+			'utile_a_propos_description'       => 'Page expliquant le site',
+			'utile_a_propos_formulaire_legend' => 'Envoyer un message',
+			'utile_a_propos_formulaire_label'  => 'Message: ',
+			'utile_a_propos_formulaire_submit' => 'ENVOYER',
+			'utile_a_propos_contenu_titre'     => 'À propos',
+			'utile_a_propos_contenu_questions' => array('Quel est le but de ce site ?', 'Quel est son créateur ?', 'Confidentialité et collecte de donnée'),
+			'utile_a_propos_contenu_reponses'  => array(
+				'Ce site est un blogue dans lequel j\'exprime ce qu\'il me passe par la tête. Par conséquent, il est possible de m\'y voir exprimer des opinions, parfois contraires à vos propre opinions: vous pouvez toujours faire des commentaires constructifs ou partir de ce site.<br />
+				Il faut se connecter pour rédiger des commentaires. L\'inscription est évidemment gratuite. Au fil du temps, le site développera de nouvelles fonctionnalités à travers des mises à jours.<br />
+				Le code de ce site est accessible gratuitement et librement sur Github <a href="https://github.com/gugus2000/Babtouland" title="Github de ce site">ici</a>.',
+				'Je suis gugus2000, le créateur de ce site. Celui-ci est pour moi l\'occasion de tester pour la première fois la mise en ligne d\'un site pleinement opérationnel.<br />
+				Il faut savoir que le développement (web ou non) n\'est pas mon métier. C\'est pourquoi ce site est loin d\'être parfait, malgrès le fait qu\'il en soit déjà à sa 5ème itération.<br />
+				Le formulaire en bas de la page permet de me contacter directement. Je suis aussi sur Mastodont (@gugus2000@framapiaf.org) et sur Discord (gugus2000#5074). N\'hésitez pas à me contacter en cas de besoin',
+				'La confidentialité sur internet est une problématique importante: ce site ne comporte aucun suivi de l\'utilisateur utilisé par des agences publicitaires ou autres outils externe au site.<br />
+				Je fais cependant usage d\'un et de seulement un cookie: un cookie de session. Il s\'agit d\'un cookie permettant de vous authentifier entre chaque page du site sans avoir besoin de se reconnecter. Ce cookie est obligatoire au bon fonctionnement du site et n\'est en aucun cas distribué à des personnes tierces.<br />
+				Lorsque vous publier un commentaire sur ce site, vous en restez l\'auteur: vous conservez vos droits et pouvez le modifier ou le supprimer sans problème. En revanche si ce commentaire est diffamant ou non réglementaire de quelque façon que ce soit, il pourra être supprimer par une modération (dont je fais partie). Il s\'agit donc d\'une modération "a posteriori"<br />
+				Le site n\'utilise aucune ressource externe, et est sans publicité.<br />
+				À cette date du 8 août 2019 (08/08/2019), ce site est hébergé par un service dont voici les coordonnées:<br />
+				<ul>
+					<li>Nom: 000WEBHOST</li>
+					<li>Site web: <a href="https://www.000webhost.com/" target="_blank">www.000webhost.com</a></li>
+					<li>Coordonnées:<br />
+					Adresse: 61 Lordou Vironos Street<br />
+					6023 Larnaca, Cyprus<br />
+					Email: contact@000webhost.com</li>
+				</ul>
+				<p class="left_align">De ce fait, certains cookies peuvent être mis par cet hébergeur, mais ça ne dépend pas de moi, n\'hésitez pas à les bloquer.<br />
+				Finalement, tout mes posts et le contenu de ce site sont disponible: vous pouvez les distribuer, modifier gratuitement. Cependant, il vous faudra citer la source et expliquer de façon claire la modification faite si elle a lieu.<br />
+				Tout changement dans ce texte sera annoncée de façon visible pour tout utilisateur visiblement nouveau à ce changement.',
+			),
+		/* mail */
+			'utile_mail_message_erreur_formulaire' => 'Formulaire non ou mal remplit',
+			'utile_mail_message_succes'            => 'Message envoyé',
 	/* post */
 		/* fil_post */
 			'post_fil_post_detail'              => 'Voir plus',

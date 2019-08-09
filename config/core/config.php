@@ -31,20 +31,25 @@ $config=array(
 				'default_post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
 	/* Paramètre non modifiable */
 		/* Général */
-			'nom_site'      => 'Babtouland',			// Nom du site
-			'chemin_avatar' => 'assets/img/avatar/',	// Chemin vers le dossier contenant les avatars
+			'nom_site'      => 'Babtouland',					// Nom du site
+			'chemin_avatar' => 'assets/img/avatar/',			// Chemin vers le dossier contenant les avatars
+			'size_avatar'   => 1000000,							// Taille de l'avatar maximum
+			'width_avatar'  => 1000,							// Longueur horizontale maximum de l'avatar
+			'height_avatar' => 1000,							// Longueur verticale maximum de l'avatar
+			'ext_avatar'    => array('jpg','gif','png','jpeg'),	// Extensions autorisé pour uploader un avatar
+			'mail_dev'      => 'gugus2000@protonmail.com',		// Mail du développeur
 			/* Message */
 				'message_css'     => 'assets/css/message.css',		// Css des messages
 				'message_js'      => 'assets/js/message.js',		// Js des messages
 				'message_contenu' => 'assets/html/message.html',	// Contenu des messages
 			/* Menu-up */
-				'menu-up_liens'       => array('?', '?application=post&action=fil_post'),	// Liste des liens dans le menu_up (dans l'ordre)
-				'menu-up_icones'      => array('home', 'message'),							// Liste des icones du menu_up version petit_ecran (dans l'ordre)
-				'menu-up_lien-statut' => '?application=user&action=statut',					// Lien lors du clic sur l'avatar dans le menu_up
-				'menu-up_css'         => 'assets/css/menu-up.css',							// Css du menu-up
-				'menu-up_js'          => 'assets/js/menu-up.js',							// Js du menu-up
-				'menu-up_contenu'     => 'assets/php/menu-up.php',							// Contenu dynamique du menu-up
-				'menu-up_req'         => 'func/core/menu-up.func.php',						// Fonctions utilisé dans menu-up
+				'menu-up_liens'       => array('?', '?application=post&action=fil_post', '?application=utile&action=a_propos'),	// Liste des liens dans le menu_up (dans l'ordre)
+				'menu-up_icones'      => array('home', 'message', 'info'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
+				'menu-up_lien-statut' => '?application=user&action=statut',														// Lien lors du clic sur l'avatar dans le menu_up
+				'menu-up_css'         => 'assets/css/menu-up.css',																// Css du menu-up
+				'menu-up_js'          => 'assets/js/menu-up.js',																// Js du menu-up
+				'menu-up_contenu'     => 'assets/php/menu-up.php',																// Contenu dynamique du menu-up
+				'menu-up_req'         => 'func/core/menu-up.func.php',															// Fonctions utilisé dans menu-up
 			/* Toast */
 				'toast_css'     => 'assets/css/toast.css',		// Css du toast
 				'toast_js'      => 'assets/js/toast.js',		// Js du toast
@@ -77,9 +82,21 @@ $config=array(
 				'user_edition_admin_application' => 'core',											// Application dont la permission est nécessaire pour éditer un aure utiliasateur
 				'user_edition_admin_action'      => 'edition_user',									// Action dont la permission est nécessaire pour éditer un aure utiliasateur
 			/* validation_edition */
-				'user_validation_edition_lien_erreur_formulaire' => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'utilisateur échoue
-				'user_validation_edition_lien_succes'            => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de son profil réussie
-				'user_validation_edition_lien_admin_succes'      => '?application=user&action=view',	// Lien de la page à charger lorsque l'édition d'un autre utilisateur réussie
+				'user_validation_edition_lien_erreur_formulaire'       => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'utilisateur échoue
+				'user_validation_edition_lien_succes'                  => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de son profil réussie
+				'user_validation_edition_lien_admin_succes'            => '?application=user&action=view',		// Lien de la page à charger lorsque l'édition d'un autre utilisateur réussie
+				'user_validation_edition_avatar_lien_erreur_dossier'   => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de droit de dossier
+				'user_validation_edition_avatar_lien_erreur_upload'    => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'upload non fonctionnel
+				'user_validation_edition_avatar_lien_erreur_interne'   => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur interne
+				'user_validation_edition_avatar_lien_erreur_type'      => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur de type de fichier
+				'user_validation_edition_avatar_lien_erreur_extension' => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de mauvaise extension de fichier
+				'user_validation_edition_avatar_lien_erreur_dimension' => '?application=user&action=statut',	// Lien de la page à charger lorsque l'édition de l'avatar écgoue pour cause de mauvaise dimension
+		/* utile */
+			/* a_propos */
+				'utile_a_propos_formulaire_action' => '?application=utile&action=mail',	// Lien redirigeant le formulaire d'envoi de mail
+			/* mail */
+				'utile_mail_lien_erreur_formulaire' => '?application=utile&action=a_propos',	// Lien de la page à charger lorsque l'envoi du mail échoue
+				'utile_mail_lien_succes'            => '?application=utile&action=a_propos',	// Lien de la page à charger lorsque l'envoi du mail réussi
 		/* post */
 			/* fil_post */
 				'post_fil_post_default_page'     => 1,											// Numéro de la page a afficher si non précisé

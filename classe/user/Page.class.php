@@ -401,7 +401,7 @@ class Page
 			$contenu=$this->getContenu();
 			$contenu=file_get_contents($message_contenu).'
 '.$contenu;
-			$contenu=preg_replace('#message#', $this->afficherMessage(), $contenu);
+			$contenu=preg_replace('#message_notification#', $this->afficherMessage(), $contenu);
 			$this->setContenu($contenu);
 
 			$_SESSION['message']=null;	// ON SUPPRIME LE MESSAGE APRES L'AFFICHAGE

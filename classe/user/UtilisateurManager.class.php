@@ -27,6 +27,7 @@ class UtilisateurManager extends \core\Manager
 		3 => 'date_inscription',
 		4 => 'date_connexion',
 		5 => 'banni',
+		6 => 'mail',
 	);
 }
 
