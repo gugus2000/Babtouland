@@ -1,0 +1,69 @@
+.contenu span.bbcode.b
+{
+
+	font-weight: bold;
+
+}
+
+.contenu span.bbcode.i
+{
+
+	font-style: italic;
+
+}
+
+.contenu span.bbcode.u
+{
+
+	text-decoration: underline;
+
+}
+
+.contenu span.bbcode.s
+{
+
+	text-decoration: line-through;
+
+}
+
+.contenu div.bbcode.align.center
+{
+
+	text-align: center;
+
+}
+
+.contenu div.bbcode.align.left
+{
+
+	text-align: left;
+
+}
+
+.contenu div.bbcode.align.right
+{
+
+	text-align: right;
+
+}
+
+.contenu div.bbcode.float.left
+{
+
+	float: left;
+
+}
+
+.contenu div.bbcode.float.right
+{
+
+	float: right;
+
+}
+
+.contenu ul.bbcode
+{
+
+	list-style: disc;
+
+}

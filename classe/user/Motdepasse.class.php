@@ -176,6 +176,7 @@ class Motdepasse extends \core\Managed
 			}
 			return False;
 		}
+		return False;
 	}
 }
 

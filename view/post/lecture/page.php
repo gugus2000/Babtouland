@@ -8,6 +8,8 @@ if(isset($_GET['id']))
 	$id=(int)$_GET['id'];
 }
 
+$bbcode=CreateBBcode();
+
 $contenu=$config['default_contenu'];
 require 'contenu.php';
 

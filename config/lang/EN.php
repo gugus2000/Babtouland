@@ -1,10 +1,17 @@
 <?php
 
 $lang=array(
-	/* Général */
-	'inv_lang' => 'FR',
-	'pseudo'   => 'pseudo',
-	'mdp'      => 'password',
+		/* Général */
+		'inv_lang' => 'FR',
+		'pseudo'   => 'pseudo',
+		'mdp'      => 'password',
+	/* Erreur */
+		'erreur_fichier_introuvable'     => 'Page not found',
+		'erreur_permission_introuvable'  => 'Don\'t have permission',
+		'erreur_connexion_mot_de_passe'  => 'Login error',
+		'erreur_connexion_utilisateur'   => 'User don\'t exist',
+		'erreur_titre'                   => 'Error',
+		'erreur_description'             => 'Error page',
 	/* menu-up */
 		'menu-up_accueil'    => 'Home',
 		'menu-up_altlogo'    => 'Logo of ',
@@ -14,7 +21,7 @@ $lang=array(
 	/* user */
 		'user_formulairepseudo' => 'Username:',
 		'user_formulairemdp'    => 'Password:',
-		'user_formuliaremail'   => 'E-Mail: ',
+		'user_formulairemail'   => 'E-Mail: ',
 		/* connexion */
 			'user_connexion_fieldset'    => 'Login',
 			'user_connexion_submit'      => 'LOG IN',
@@ -33,7 +40,7 @@ $lang=array(
 			'user_validation_inscription_pseudo'     => 'The username already exists',
 			'user_validation_inscription_formulaire' => 'Form not or incorrectly completed',
 		/* statut */
-			'user_statut_nologin'                    => 'Vous n\'êtes pas connecté',
+			'user_statut_nologin'                    => 'You are not logged in',
 			'user_statut_pseudo'                     => 'Your username: ',
 			'user_statut_avatar'                     => 'Your avatar: ',
 			'user_statut_derndateco'                 => 'Last login date: ',
@@ -115,6 +122,16 @@ $lang=array(
 		/* mail */
 			'utile_mail_message_erreur_formulaire' => 'Form not or incorrectly completed',
 			'utile_mail_message_succes'            => 'Message send',
+		/* liste_user */
+			'utile_liste_user_titre'                            => 'List of users',
+			'utile_liste_user_description'                      => 'Listing of users registered on this website',
+			'utile_liste_user_table_caption'                    => 'Listing of users registered on this website',
+			'utile_liste_user_table_th_nom'                     => 'Pseudo',
+			'utile_liste_user_table_th_avatar'                  => 'Avatar',
+			'utile_liste_user_table_th_date_derniere_connexion' => 'Last login date',
+			'utile_liste_user_table_th_date_inscription'        => 'Registration date',
+			'utile_liste_user_table_th_role'                    => 'Role',
+			'utile_liste_user_table_td_avatar_alt'              => 'Avatar of ',
 	/* post */
 		/* fil_post */
 			'post_fil_post_detail'              => 'See more',

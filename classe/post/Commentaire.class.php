@@ -323,8 +323,10 @@ class Commentaire extends \core\Managed
 	*/
 	public function recupererPost()
 	{
-		$Post=new \post\Post(array());
-		$Post->get($this->getId_post());
+		$Post=new \post\Post(array(
+			'id' => $this->getId_post(),
+		));
+		$Post->recuperer();
 		return $Post;
 	}
 	/**

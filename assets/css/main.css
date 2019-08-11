@@ -67,7 +67,48 @@ body
 {
 
 	max-width: 100px;
-	max-width: 100px;
+	max-height: 100px;
+
+}
+
+.contenu table
+{
+
+	margin: auto;
+	width: 100%;
+
+}
+
+.contenu table caption
+{
+
+	font-style: italic;
+	font-size: 2em;
+	padding: 20px;
+
+}
+
+.contenu table tr
+{
+
+	border-bottom: solid 1px black;
+	border-collapse: collapse;
+
+}
+
+.contenu table tr.impair
+{
+
+	background-color: #BBBBBB;
+
+}
+
+.contenu table td, .contenu table th
+{
+
+	padding: 5px;
+	text-align: center;
+	vertical-align: middle;
 
 }
 

@@ -12,8 +12,13 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 	$CommentaireManager=new \post\CommentaireManager($BDDFactory->MysqlConnexion());
 	if($CommentaireManager->existId((int)$_GET['id']))
 	{
+		$Commentaire=new \post\Commentaire(array(
+			'id' => $_GET['id'],
+		));
+		$Commentaire->recuperer();
+		$Post=$Commentaire->recupererPost();
 		$_SESSION['message']=$lang['post_commentaire_validation_edition_message_succes'];
-		$get=$config['post_commentaire_validation_edition_lien_succes'].'&id='.$_GET['id'];
+		$get=$config['post_commentaire_validation_edition_lien_succes'].'&id='.$Post->afficherId();
 
 		$Commentaire=new \post\Commentaire(array(
 			'id' => $_GET['id'],

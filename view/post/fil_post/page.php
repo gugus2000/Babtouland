@@ -6,6 +6,8 @@ if(isset($_GET['page']))
 	$page=(int)$_GET['page'];
 }
 
+$bbcode=CreateBBcode();
+
 $contenu=$config['default_contenu'];
 require 'contenu.php';
 

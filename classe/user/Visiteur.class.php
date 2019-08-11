@@ -67,7 +67,7 @@ class Visiteur extends Utilisateur
 	* 
 	* @param string motdepasse Mot de passe du visiteur
 	*
-	* @return void
+	* @return bool
 	*/
 	public function connexion($motdepasse)
 	{
@@ -82,6 +82,11 @@ class Visiteur extends Utilisateur
 			$_SESSION['mdp']=$this->getMotdepasse()->getMdp_clair();
 			$_SESSION['pseudo']=$this->getPseudo();
 			$_SESSION['id']=$this->getId();
+			return True;
+		}
+		else
+		{
+			return False;
 		}
 	}
 	/**
@@ -192,6 +197,11 @@ class Visiteur extends Utilisateur
 			$this->setPage($Page);
 			return true;
 		}
+		$Page=new \user\Page(array(
+			'application' => $application,
+			'action'      => $action,
+		));
+		$this->setPage($Page);
 		return false;
 	}
 }

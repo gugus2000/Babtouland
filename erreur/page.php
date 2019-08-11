@@ -6,15 +6,14 @@ require 'contenu.php';
 $metas=$config['default_metas'];
 array_push($metas, array(
 	'name'    => 'description',
-	'content' => $lang['utile_a_propos_description'],
+	'content' => $lang['erreur_description'],
 ));
 
 $css=$config['default_css'];
-array_push($css, 'assets/css/formulaire.css');
 
 $js=$config['default_javascripts'];
 
-$titre=$lang['utile_a_propos_titre'];
+$titre=$lang['erreur_titre'];
 
 ajouterMenuUp($css, $js, $contenu);
 

@@ -2,9 +2,16 @@
 
 $lang=array(
 	/* Général */
-	'inv_lang' => 'EN',
-	'pseudo'   => 'pseudo',
-	'mdp'      => 'mot de passe',
+		'inv_lang' => 'EN',
+		'pseudo'   => 'pseudo',
+		'mdp'      => 'mot de passe',
+	/* Erreur */
+		'erreur_fichier_introuvable'     => 'Page non trouvé',
+		'erreur_permission_introuvable'  => 'Pas la permission',
+		'erreur_connexion_mot_de_passe'  => 'Problème lors de la connexion',
+		'erreur_connexion_utilisateur'   => 'L\'utilisateur n\'existe pas',
+		'erreur_titre'                   => 'Erreur',
+		'erreur_description'             => 'Page d\'erreur',
 	/* menu-up */
 		'menu-up_accueil'    => 'Accueil',
 		'menu-up_altlogo'    => 'Logo de ',
@@ -14,7 +21,7 @@ $lang=array(
 	/* user */
 		'user_formulairepseudo' => 'Pseudo:',
 		'user_formulairemdp'    => 'Mot de passe:',
-		'user_formuliaremail'   => 'Mail: ',
+		'user_formulairemail'   => 'Mail: ',
 		/* connexion */
 			'user_connexion_fieldset'    => 'Connexion',
 			'user_connexion_submit'      => 'SE CONNECTER',
@@ -97,7 +104,7 @@ $lang=array(
 				Le formulaire en bas de la page permet de me contacter directement. Je suis aussi sur Mastodont (@gugus2000@framapiaf.org) et sur Discord (gugus2000#5074). N\'hésitez pas à me contacter en cas de besoin',
 				'La confidentialité sur internet est une problématique importante: ce site ne comporte aucun suivi de l\'utilisateur utilisé par des agences publicitaires ou autres outils externe au site.<br />
 				Je fais cependant usage d\'un et de seulement un cookie: un cookie de session. Il s\'agit d\'un cookie permettant de vous authentifier entre chaque page du site sans avoir besoin de se reconnecter. Ce cookie est obligatoire au bon fonctionnement du site et n\'est en aucun cas distribué à des personnes tierces.<br />
-				Lorsque vous publier un commentaire sur ce site, vous en restez l\'auteur: vous conservez vos droits et pouvez le modifier ou le supprimer sans problème. En revanche si ce commentaire est diffamant ou non réglementaire de quelque façon que ce soit, il pourra être supprimer par une modération (dont je fais partie). Il s\'agit donc d\'une modération "a posteriori"<br />
+				Lorsque vous publiez un commentaire sur ce site, vous en restez l\'auteur: vous conservez vos droits et pouvez le modifier ou le supprimer sans problème. En revanche si ce commentaire est diffamant ou non réglementaire de quelque façon que ce soit, il pourra être supprimé par une modération (dont je fais partie). Il s\'agit donc d\'une modération "a posteriori"<br />
 				Le site n\'utilise aucune ressource externe, et est sans publicité.<br />
 				À cette date du 8 août 2019 (08/08/2019), ce site est hébergé par un service dont voici les coordonnées:<br />
 				<ul>
@@ -115,6 +122,16 @@ $lang=array(
 		/* mail */
 			'utile_mail_message_erreur_formulaire' => 'Formulaire non ou mal remplit',
 			'utile_mail_message_succes'            => 'Message envoyé',
+		/* liste_user */
+			'utile_liste_user_titre'                            => 'Liste d\'utilisateurs',
+			'utile_liste_user_description'                      => 'Page listant les utilisateurs inscrits au site',
+			'utile_liste_user_table_caption'                    => 'Liste des utilisateurs inscrits sur le site',
+			'utile_liste_user_table_th_nom'                     => 'Pseudo',
+			'utile_liste_user_table_th_avatar'                  => 'Avatar',
+			'utile_liste_user_table_th_date_derniere_connexion' => 'Date de dernière connexion',
+			'utile_liste_user_table_th_date_inscription'        => 'Date d\'inscription',
+			'utile_liste_user_table_th_role'                    => 'Role',
+			'utile_liste_user_table_td_avatar_alt'              => 'Avatar de ',
 	/* post */
 		/* fil_post */
 			'post_fil_post_detail'              => 'Voir plus',

@@ -21,6 +21,7 @@ if(isset($_SESSION['lang']))
 }
 
 require_once 'config/lang/'.$config['default_lang'].'.php';	// Chargement de la traduction
+require_once 'config/core/bbcode.php';
 
 require_once 'func/core/utils.func.php';
 require_once 'func/core/menu-up.func.php';
@@ -37,41 +38,63 @@ if(isset($_GET['action']))
 {
 	$action=$_GET['action'];
 }
-
-if(isset($_SESSION['pseudo']) & isset($_SESSION['id']) & isset($_SESSION['mdp']))	// Visiteur connecté
+try
 {
-	$Visiteur=new \user\Visiteur(array(
-		'pseudo' => $_SESSION['pseudo'],
-		'id'     => $_SESSION['id']
-	));
-	$Visiteur->recuperer();
-	$Visiteur->connexion($_SESSION['mdp']);
-}
-else
-{
-	$Visiteur=new \user\Visiteur(array(
-		'pseudo' => $config['nom_guest'],
-	));	// Visiteur avec une "session invitée"
-	$Visiteur->recuperer();
-	$Visiteur->connexion($config['mdp_guest']);
-}
-
-if($Visiteur->loadPage($application, $action))	// Permission accordée
-{
-	if(isset($_SESSION['message']))
+	if(isset($_SESSION['pseudo']) & isset($_SESSION['id']) & isset($_SESSION['mdp']) & !empty($_SESSION['pseudo']) & !empty($_SESSION['id']) & !empty($_SESSION['mdp']))	// Visiteur connecté
 	{
-		$Visiteur->getPage()->set(array('message' => $_SESSION['message']));
+		$Visiteur=new \user\Visiteur(array(
+			'pseudo' => $_SESSION['pseudo'],
+			'id'     => $_SESSION['id']
+		));
+		if ($Visiteur->Manager()->existId($_SESSION['id']) & $Visiteur->Manager()->exist(array('pseudo' => $_SESSION['pseudo'])))
+		{
+			$Visiteur->recuperer();
+			$Visiteur->connexion($_SESSION['mdp']);
+		}
+		else
+		{
+			$Visiteur=new \user\Visiteur(array(
+				'pseudo' => $config['nom_guest'],
+			));	// Visiteur avec une "session invitée"
+			$Visiteur->recuperer();
+			$Visiteur->connexion($config['mdp_guest']);
+			throw new Exception($lang['erreur_connexion_utilisateur']);
+		}
 	}
-	require $Visiteur->getPage()->getPath();
+	else
+	{
+		$Visiteur=new \user\Visiteur(array(
+			'pseudo' => $config['nom_guest'],
+		));	// Visiteur avec une "session invitée"
+		$Visiteur->recuperer();
+		$Visiteur->connexion($config['mdp_guest']);
+	}
+	if($Visiteur->loadPage($application, $action))	// Permission accordée
+	{
+		if(isset($_SESSION['message']))
+		{
+			$Visiteur->getPage()->set(array('message' => $_SESSION['message']));
+		}
+		if (!@include_once($Visiteur->getPage()->getPath()))
+		{
+			throw new Exception($lang['erreur_fichier_introuvable']);
+		}
+		else
+		{
+			require $Visiteur->getPage()->getPath();	
+		}
+		echo $Visiteur->getPage()->afficher($config['message_css'], $config['message_js'], $config['message_contenu']);
+	}
+	else
+	{
+		throw new Exception($lang['erreur_permission_introuvable']);
+	}
+}
+catch (Exception $e)
+{
+	$Visiteur->loadPage('erreur', 'erreur');
+	require $config['erreur_path'];
 	echo $Visiteur->getPage()->afficher($config['message_css'], $config['message_js'], $config['message_contenu']);
-}
-else
-{
-	echo '(debug) pas la permission <br /> liste de permission:<br />';
-	foreach ($Visiteur->getRole()->getPermissions() as $key => $Permission)
-	{
-		echo 'application='.$Permission->getApplication().' | action='.$Permission->getAction().'<br />';
-	}
 }
 
 ?>

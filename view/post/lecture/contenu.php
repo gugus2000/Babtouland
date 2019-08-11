@@ -19,7 +19,7 @@ $Post->recuperer();
 						<br />
 						<br />
 						<br />
-						<p class="contenu"><?= nl2br($Post->afficherContenu()) ?></p>
+						<div class="contenu"><?= $bbcode->parse($Post->afficherContenu()) ?></div>
 						<br />
 					</section>
 				</section>

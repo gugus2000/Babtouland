@@ -7,7 +7,7 @@
 						<br />
 						<br />
 						<br />
-						<p class="contenu"><?= nl2br($Post->afficherContenu()) ?></p>
+						<div class="contenu"><?= $bbcode->parse($Post->afficherContenu()) ?></div>
 						<br />
 						<br />
 						<a href="<?= $config['post_fil_post_lien_detail'] ?>&id=<?= $Post->afficherId() ?>" title="<?= $lang['post_fil_post_lien_detail_titre'] ?>"><?= $lang['post_fil_post_detail'] ?></a>

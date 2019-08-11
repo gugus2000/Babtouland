@@ -21,7 +21,7 @@
 									<a href="<?= $config['post_lecture_lien_auteur'] ?>&id=<?= $Auteur->afficherId() ?>" title="<?= $lang['post_lecture_commentaire_lien_avatar_titre'] ?><?= $Auteur->afficherPseudo() ?>"><img src="<?= $config['chemin_avatar'] ?><?= $Auteur->afficherAvatar() ?>" alt="<?= $lang['post_lecture_commentaire_avatar_description'] ?><?= $Auteur->afficherPseudo() ?>"></a>	
 								</div>
 								<div class="colonne cote_droit">
-									<p><?= nl2br($Commentaire->afficherContenu()) ?></p>
+									<div class="contenu"><?= $bbcode->parse($Commentaire->afficherContenu()) ?></div>
 								</div>
 							</section>
 						</section>
