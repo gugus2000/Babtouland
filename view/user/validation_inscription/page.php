@@ -1,10 +1,22 @@
 <?php
 
-$_SESSION['message']=$lang['user_validation_inscription_formulaire'];
+$Message=new \user\Message(array(
+	'contenu'  => $lang['user_validation_inscription_formulaire'],
+	'type'     => \user\Message::TYPE_ERREUR,
+	'css'      => $config['message_css'],
+	'js'       => $config['message_js'],
+	'template' => $config['message_template'],
+));
 $get=$config['user_validation_inscription_retour'];
 if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isset($_POST['inscription_mail']) & !empty($_POST['inscription_pseudo']) & !empty($_POST['inscription_mdp']) & !empty($_POST['inscription_mail']))
 {
-	$_SESSION['message']=$lang['user_validation_inscription_pseudo'];
+	$Message=new \user\Message(array(
+		'contenu'  => $lang['user_validation_inscription_pseudo'],
+		'type'     => \user\Message::TYPE_ERREUR,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
 	$UtilisateurManager=$Visiteur->Manager();	// ($Visiteur existe déjà)
 	if(!$UtilisateurManager->exist(array('pseudo' => $_POST['inscription_pseudo'])))	// Le pseudo n'est pas déjà pris
 	{
@@ -21,10 +33,17 @@ if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isse
 		$newVisiteur->connexion($_POST['inscription_mdp']);
 		$get=$config['user_validation_inscription_suivant'];
 		$Visiteur=$newVisiteur;
-		$_SESSION['message']=$lang['user_validation_inscription_succes'];
+		$Message=new \user\Message(array(
+			'contenu'  => $lang['user_validation_inscription_succes'],
+			'type'     => \user\Message::TYPE_SUCCES,
+			'css'      => $config['message_css'],
+			'js'       => $config['message_js'],
+			'template' => $config['message_template'],
+		));
 	}
 }
 
+$_SESSION['message']=serialize($Message);
 header('location: index.php'.$get);
 
 ?>

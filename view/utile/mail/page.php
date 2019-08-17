@@ -1,10 +1,22 @@
 <?php
 
-$_SESSION['message']=$lang['utile_mail_message_erreur_formulaire'];
+$Message=new \user\Message(array(
+	'contenu'  => $lang['utile_mail_message_erreur_formulaire'],
+	'type'     => \user\Message::TYPE_ERREUR,
+	'css'      => $config['message_css'],
+	'js'       => $config['message_js'],
+	'template' => $config['message_template'],
+));
 $get=$config['utile_mail_lien_erreur_formulaire'];
 if(isset($_POST['a_propos_contenu']) & !empty($_POST['a_propos_contenu']))
 {
-	$_SESSION['message']=$lang['utile_mail_message_succes'];
+	$Message=new \user\Message(array(
+		'contenu'  => $lang['utile_mail_message_succes'],
+		'type'     => \user\Message::TYPE_SUCCES,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
 	$get=$config['utile_mail_lien_succes'];
 
 	$objet=$config['nom_site'].' | Message de '.$Visiteur->afficherPseudo();
@@ -60,10 +72,17 @@ if(isset($_POST['a_propos_contenu']) & !empty($_POST['a_propos_contenu']))
 	//==========
 	if (!$succes)
 	{
-    	$_SESSION['message'] = error_get_last()['message'];
+    	$Message=new \user\Message(array(
+    		'contenu'  => error_get_last()['message'],
+			'type'     => \user\Message::TYPE_ATTENTION,
+			'css'      => $config['message_css'],
+			'js'       => $config['message_js'],
+			'template' => $config['message_template'],
+		));
 	}
 }
 
+$_SESSION['message']=serialize($Message);
 header('location: index.php'.$get);
 
 ?>

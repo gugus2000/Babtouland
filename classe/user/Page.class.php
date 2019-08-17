@@ -60,7 +60,7 @@ class Page
 	/**
 	* Message
 	*
-	* @var string
+	* @var Message
 	*/
 	protected $message;
 
@@ -141,7 +141,7 @@ class Page
 	/**
 	* Accesseur de message
 	*
-	* @return string
+	* @return Message
 	*/
 	public function getMessage()
 	{
@@ -241,7 +241,7 @@ class Page
 	/**
 	* Définisseur de message
 	*
-	* @param string message Message
+	* @param Message message Message
 	*
 	* @return void
 	*/
@@ -358,7 +358,7 @@ class Page
 	*/
 	public function afficherMessage()
 	{
-		return htmlspecialchars((string)$this->message);
+		return htmlspecialchars($this->getMessage()->afficher());
 	}
 	/**
 	* Afficheur de Page
@@ -371,38 +371,34 @@ class Page
 	*
 	* @return string
 	*/
-	public function afficher($message_css='', $message_js='', $message_contenu='')
+	public function afficher()
 	{
 		$page=$this->afficherTemplate();
-		if(!empty($this->getMessage()))	// Il y a une notification a afficher
+		if(($this->getMessage()))	// Il y a une notification a afficher
 		{
 			if($this->getCss())
 			{
 				$css=$this->getCss();
-				array_push($css, $message_css);
+				array_push($css, $this->getMessage()->getCss());
 				$this->setCss($css);
 			}
 			else
 			{
-				$this->setCss(array($message_css));
+				$this->setCss(array($this->getMessage()->getCss()));
 			}
 
 			if($this->getJavascripts())
 			{
 				$javascripts=$this->getJavascripts();
-				array_push($javascripts, $message_js);
+				array_push($javascripts, $this->getMessage()->getJs());
 				$this->setJavascripts($javascripts);
 			}
 			else
 			{
-				$this->setJavascripts(array($message_js));
+				$this->setJavascripts(array($this->getMessage()->getJs()));
 			}
 
-			$contenu=$this->getContenu();
-			$contenu=file_get_contents($message_contenu).'
-'.$contenu;
-			$contenu=preg_replace('#message_notification#', $this->afficherMessage(), $contenu);
-			$this->setContenu($contenu);
+			$this->setContenu($this->getMessage()->afficher().$this->getContenu());
 
 			$_SESSION['message']=null;	// ON SUPPRIME LE MESSAGE APRES L'AFFICHAGE
 

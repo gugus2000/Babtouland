@@ -1,6 +1,12 @@
 <?php
 
-$_SESSION['message']=$lang['user_validation_connexion_formulaire'];
+$Message=new \user\Message(array(
+	'contenu'  => $lang['user_validation_connexion_formulaire'],
+	'type'     => \user\Message::TYPE_ERREUR,
+	'css'      => $config['message_css'],
+	'js'       => $config['message_js'],
+	'template' => $config['message_template'],
+));
 $get=$config['user_validation_connexion_retour'];
 if(isset($_POST['connexion_pseudo']) & isset($_POST['connexion_mdp']) & !empty($_POST['connexion_pseudo']) & !empty($_POST['connexion_mdp']))
 {
@@ -13,19 +19,38 @@ if(isset($_POST['connexion_pseudo']) & isset($_POST['connexion_mdp']) & !empty($
 		if ($Visiteur->connexion($_POST['connexion_mdp']))
 		{
 			$get=$config['user_validation_connexion_suivant'];
-			$_SESSION['message']=$lang['user_validation_connexion_succes'];
+			$Message=new \user\Message(array(
+				'contenu'  => $lang['user_validation_connexion_succes'],
+				'type'     => \user\Message::TYPE_SUCCES,
+				'css'      => $config['message_css'],
+				'js'       => $config['message_js'],
+				'template' => $config['message_template'],
+			));
 		}
 		else
 		{
-			$_SESSION['message']=$lang['erreur_connexion_mot_de_passe'];
+			$Message=new \user\Message(array(
+				'contenu'  => $lang['erreur_connexion_mot_de_passe'],
+				'type'     => \user\Message::TYPE_ERREUR,
+				'css'      => $config['message_css'],
+				'js'       => $config['message_js'],
+				'template' => $config['message_template'],
+			));
 		}
 	}
 	else
 	{
-		$_SESSION['message']=$lang['erreur_connexion_utilisateur'];	
+		$Message=new \user\Message(array(
+			'contenu'  => $lang['erreur_connexion_utilisateur'],
+			'type'     => \user\Message::TYPE_ERREUR,
+			'css'      => $config['message_css'],
+			'js'       => $config['message_js'],
+			'template' => $config['message_template'],
+		));
 	}
 }
 
+$_SESSION['message']=serialize($Message);
 header('location: index.php'.$get);
 
 ?>

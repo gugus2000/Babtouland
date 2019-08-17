@@ -1,6 +1,12 @@
 <?php
 
-$_SESSION['message']=$lang['post_commentaire_publication_message_formulaire'];
+$Message=new \user\Message(array(
+	'contenu'  => $lang['post_commentaire_publication_message_formulaire'],
+	'type'     => \user\Message::TYPE_ERREUR,
+	'css'      => $config['message_css'],
+	'js'       => $config['message_js'],
+	'template' => $config['message_template'],
+));
 $get=$config['post_commentaire_publication_retour'];
 if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['commentaire_contenu']) & !empty($_GET['id']))
 {
@@ -12,10 +18,16 @@ if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['co
 		'date_mise_a_jour' => 0,
 	));
 	$Commentaire->publier();
-	$_SESSION['message']=$lang['post_commentair_publication_message_succes'];
-	$get=$config['post_commentaire_publication_suivant'].'&id='.$_GET['id'];
+	$Message=new \user\Commentaire(array(
+		'contenu'  => $lang['post_commentair_publication_message_succes'],
+		'type'     => \user\Message::TYPE_SUCCES,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));	$get=$config['post_commentaire_publication_suivant'].'&id='.$_GET['id'];
 }
 
+$_SESSION['message']=serialize($Message);
 header('location: index.php'.$get);
 
  ?>

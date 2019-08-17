@@ -9,6 +9,7 @@ function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd
 }
 initOutputFilter();
 
+
 require_once 'config/core/config.php';	// Chargement de la configuration par défaut
 
 if(isset($_GET['lang']))
@@ -53,11 +54,6 @@ try
 		}
 		else
 		{
-			$Visiteur=new \user\Visiteur(array(
-				'pseudo' => $config['nom_guest'],
-			));	// Visiteur avec une "session invitée"
-			$Visiteur->recuperer();
-			$Visiteur->connexion($config['mdp_guest']);
 			throw new Exception($lang['erreur_connexion_utilisateur']);
 		}
 	}
@@ -73,7 +69,7 @@ try
 	{
 		if(isset($_SESSION['message']))
 		{
-			$Visiteur->getPage()->set(array('message' => $_SESSION['message']));
+			$Visiteur->getPage()->set(array('message' => unserialize($_SESSION['message'])));
 		}
 		if (!@include_once($Visiteur->getPage()->getPath()))
 		{
@@ -81,9 +77,9 @@ try
 		}
 		else
 		{
-			require $Visiteur->getPage()->getPath();	
+			require $Visiteur->getPage()->getPath();
 		}
-		echo $Visiteur->getPage()->afficher($config['message_css'], $config['message_js'], $config['message_contenu']);
+		echo $Visiteur->getPage()->afficher();
 	}
 	else
 	{
@@ -92,9 +88,14 @@ try
 }
 catch (Exception $e)
 {
+	$Visiteur=new \user\Visiteur(array(
+		'pseudo' => $config['nom_guest'],
+	));	// Visiteur avec une "session invitée"
+	$Visiteur->recuperer();
+	$Visiteur->connexion($config['mdp_guest']);
 	$Visiteur->loadPage('erreur', 'erreur');
 	require $config['erreur_path'];
-	echo $Visiteur->getPage()->afficher($config['message_css'], $config['message_js'], $config['message_contenu']);
+	echo $Visiteur->getPage()->afficher();
 }
 
 ?>

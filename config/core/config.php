@@ -56,7 +56,7 @@ $config=array(
 			/* Message */
 				'message_css'     => 'assets/css/message.css',		// Css des messages
 				'message_js'      => 'assets/js/message.js',		// Js des messages
-				'message_contenu' => 'assets/html/message.html',	// Contenu des messages
+				'message_template' => 'assets/html/message.html',	// Template des messages
 			/* Menu-up */
 				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos')),	// Liste des liens dans le menu_up (dans l'ordre)
 				'menu-up_icones'      => array('home', 'message', 'info'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)

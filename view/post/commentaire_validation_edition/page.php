@@ -1,11 +1,23 @@
 <?php
 
-$_SESSION['message']=$lang['post_commentaire_validation_edition_message_formulaire'];
+$Message=new \user\Message(array(
+	'contenu'  => $lang['post_commentaire_validation_edition_message_formulaire'],
+	'type'     => \user\Message::TYPE_ERREUR,
+	'css'      => $config['message_css'],
+	'js'       => $config['message_js'],
+	'template' => $config['message_template'],
+));
 $get=$config['post_commentaire_validation_edition_lien_formulaire'];
 
 if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_GET['id'])& !empty($_POST['edition_commentaire_contenu']))
 {
-	$_SESSION['message']=$lang['post_commentaire_validation_edition_message_id'];
+	$Message=new \user\Message(array(
+		'contenu'  => $lang['post_commentaire_validation_edition_message_id'],
+		'type'     => \user\Message::TYPE_ERREUR,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
 	$get=$config['post_commentaire_validation_edition_lien_id'];
 
 	$BDDFactory=new \core\BDDFactory;
@@ -17,7 +29,13 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 		));
 		$Commentaire->recuperer();
 		$Post=$Commentaire->recupererPost();
-		$_SESSION['message']=$lang['post_commentaire_validation_edition_message_succes'];
+		$Message=new \user\Message(array(
+			'contenu'  => $lang['post_commentaire_validation_edition_message_succes'],
+			'type'     => \user\Message::TYPE_SUCCES,
+			'css'      => $config['message_css'],
+			'js'       => $config['message_js'],
+			'template' => $config['message_template'],
+		));
 		$get=$config['post_commentaire_validation_edition_lien_succes'].'&id='.$Post->afficherId();
 
 		$Commentaire=new \post\Commentaire(array(
@@ -29,6 +47,7 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 	}
 }
 
+$_SESSION['message']=serialize($Message);
 header('location: index.php'.$get);
 
 ?>

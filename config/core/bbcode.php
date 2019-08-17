@@ -159,12 +159,52 @@ $BBCodeElements=array(
 		),
 	),
 	'float' => array(
-		'code' => 'float',
-		'type' => 'callback_replace',
-		'callback' => 'do_bbcode_float',
-		'params' => array(),
+		'code'         => 'float',
+		'type'         => 'callback_replace',
+		'callback'     => 'do_bbcode_float',
+		'params'       => array(),
 		'content_type' => 'block',
-		'allowed_in' => array(
+		'allowed_in'   => array(
+			'block',
+		),
+		'not_allowed_in' => array(
+			'list',
+			'listitem',
+			'inline',
+			'link',
+			'listitem',
+		),
+	),
+	'ligne' => array(
+		'code'         => 'ligne',
+		'type'         => 'simple_replace',
+		'callback'     => null,
+		'params'       => array(
+			'start_tag' => '<div class="ligne">',
+			'end_tag'   => '</div>',
+		),
+		'content_type' => 'block',
+		'allowed_in'   => array(
+			'block',
+		),
+		'not_allowed_in' => array(
+			'list',
+			'listitem',
+			'inline',
+			'link',
+			'listitem',
+		),
+	),
+	'colonne' => array(
+		'code'         => 'colonne',
+		'type'         => 'simple_replace',
+		'callback'     => null,
+		'params'       => array(
+			'start_tag' => '<div class="colonne">',
+			'end_tag'   => '</div>',
+		),
+		'content_type' => 'block',
+		'allowed_in'   => array(
 			'block',
 		),
 		'not_allowed_in' => array(
@@ -256,7 +296,7 @@ function do_bbcode_url($action, $attributes, $content, $params, $node_object)
         }
         return true;
     }
-    return '<a href="'.htmlspecialchars($url).'"'.$title.'>'.htmlspecialchars($text).'</a>';
+    return '<a href="'.$url.'"'.$title.'>'.htmlspecialchars($text).'</a>';
 }
 
 /**

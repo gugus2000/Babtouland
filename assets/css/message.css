@@ -1,4 +1,4 @@
-.success-box, .warning-box
+.succes.message, .attention.message, .erreur.message
 {
 	z-index: 99999;
 	position: fixed;
@@ -12,7 +12,7 @@
 	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25), -4px 4px 8px rgba(0, 0, 0, 0.25);
 }
 
-.success-box #content, .warning-box #content
+.succes.message #content, .attention.message #content, .erreur.message #content
 {
 	width: 90%;
 	left: 5%;
@@ -23,29 +23,40 @@
 	text-align: center;
 }
 
-.success-box #content a, .warning-box #content a
+.succes.message #content a, .attention.message #content a, .erreur.message #content a
 {
 	text-decoration: none;
 }
 
-.warning-box #content
+.erreur.message #content
 {
 	background-color: #F2DEDE;
 	color: #A94442;
 }
 
-.warning-box #content a
+.erreur.message #content a
 {
-	color: #A93534;
+	color: #A96334;
 }
 
-.success-box #content
+.attention.message #content
+{
+	background-color: #F2EADE;
+	color: #A97F42;
+}
+
+.attention.message #content a
+{
+	color: #A99234;
+}
+
+.succes.message #content
 {
 	background-color: #DFF0D8;
 	color: #3C763D;
 }
 
-.success-box #content a
+.succes.message #content a
 {
 	color: #2B542C;
 }
