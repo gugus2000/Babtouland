@@ -1,0 +1,94 @@
+format 218
+"suppression" // Babtouland::view::post::suppression
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/suppression/"
+  deploymentview 136834 "suppression"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 140674 "page"
+      stereotype "source"
+      php_src "<?php
+
+$Message=new \\user\\Message(array(
+	'contenu'  => $lang['post_suppression_message_argument'],
+	'type'     => \\user\\Message::TYPE_ERREUR,
+	'css'      => $config['message_css'],
+	'js'       => $config['message_js'],
+	'template' => $config['message_template'],
+));
+$get=$config['post_suppression_retour'];
+if(isset($_GET['id']))
+{
+	$Message=new \\user\\Message(array(
+		'contenu'  => $lang['post_suppression_message_inexistant'],
+		'type'     => \\user\\Message::TYPE_ERREUR,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
+	$BDDFactory=new \\core\\BDDFactory;
+	$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
+	if($PostManager->existId((int)$_GET['id']))
+	{
+		$Message=new \\user\\Message(array(
+			'contenu'  => $lang['post_suppression_message_permission'],
+			'type'     => \\user\\Message::TYPE_ERREUR,
+			'css'      => $config['message_css'],
+			'js'       => $config['message_js'],
+			'template' => $config['message_template'],
+		));
+		$get=$config['post_suppression_permission'].'&id='.$_GET['id'];
+		$Post=new \\post\\Post(array(
+			'id' => $_GET['id'],
+		));
+		$Post->recuperer();
+		if(autorisationModification($Post, $Visiteur->getPage()->getApplication(), $Visiteur->getPage()->getAction()))
+		{
+			$Message=new \\user\\Message(array(
+				'contenu'  => $lang['post_suppression_message_succes'],
+				'type'     => \\user\\Message::TYPE_SUCCES,
+				'css'      => $config['message_css'],
+				'js'       => $config['message_js'],
+				'template' => $config['message_template'],
+			));
+			$get=$config['post_suppression_suivant'];
+			$Post->supprimer();
+		}
+	}
+}
+
+$_SESSION['message']=serialize($Message);
+header('location: index.php'.$get);
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

@@ -1,0 +1,20 @@
+class StringParser_Node_Text
+!!!189954.php!!!	StringParser_Node_Text(in content : string, in occurredAt : int = -1)
+		parent::StringParser_Node ($occurredAt);
+		$this->content = $content;
+!!!190082.php!!!	appendText(in text : string)
+		$this->content .= $text;
+!!!190210.php!!!	setFlag(in name : string, in value : mixed)
+		$this->_flags[$name] = $value;
+		return true;
+!!!190338.php!!!	getFlag(in flag : string, in type : string = 'mixed', in default : mixed = null)
+		if (!isset ($this->_flags[$flag])) {
+			return $default;
+		}
+		$return = $this->_flags[$flag];
+		if ($type != 'mixed') {
+			settype ($return, $type);
+		}
+		return $return;
+!!!190466.php!!!	_dumpToString()
+		return "text \"".substr (preg_replace ('/\s+/', ' ', $this->content), 0, 40)."\" [f:".preg_replace ('/\s+/', ' ', join(':', array_keys ($this->_flags)))."]";

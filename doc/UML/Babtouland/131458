@@ -1,0 +1,47 @@
+format 218
+"user" // Babtouland::view::user
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/"
+  package_ref 131586 // connexion
+
+  package_ref 131714 // deconnexion
+
+  package_ref 131842 // edition
+
+  package_ref 131970 // inscription
+
+  package_ref 132098 // statut
+
+  package_ref 132226 // validation_connexion
+
+  package_ref 132354 // validation_edition
+
+  package_ref 132482 // validation_inscription
+
+  package_ref 132610 // view
+end

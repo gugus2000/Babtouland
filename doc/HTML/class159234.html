@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Visiteur</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Visiteur</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_159234"></a>
+<p>Visiteur du site<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Visiteur extends <a href="class158978.html#ref4_158978"><b>Utilisateur</b></a> </li></ul><p>Artifact : <a href="index.html#ref8_137346"><b>Visiteur.class</b></a></p>
+<div class="sub">
+<a name="ref1_179586"></a>
+<table><tr><td><div class="element">Attribute <b>page</b></div></td></tr></table>
+<p>Attributs <br /><br />Page vu par l'utilisateur<br /><br />@var Page<br /><br /></p><p>Declaration :</p><ul><li>Uml : # page : Page</li><li>Php : protected $page</li></ul><a name="ref2_221442"></a>
+<table><tr><td><div class="element">Operation <b>getPage</b></div></td></tr></table><p>Accesseurs <br /><br />Accesseur de page<br /><br />@return Page<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getPage() : Page</li><li>Php : public function getPage(): Page </li></ul><a name="ref2_221570"></a>
+<table><tr><td><div class="element">Operation <b>setPage</b></div></td></tr></table><p>DÃ©finisseurs <br /><br />DÃ©finisseur de page<br /><br />@param Page page Page vu par l'utilisateur<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setPage(in page : Page) : void</li><li>Php : protected function setPage($page): void </li></ul><a name="ref2_221698"></a>
+<table><tr><td><div class="element">Operation <b>afficherPage</b></div></td></tr></table><p>Autres mÃ©thodes <br /><br />Afficheur de page<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherPage() : string</li><li>Php : public function afficherPage(): string </li></ul><a name="ref2_221826"></a>
+<table><tr><td><div class="element">Operation <b>verifPermission</b></div></td></tr></table><p>vÃ©rifie que l'utilisateur a la permission de voir la page<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + verifPermission() : bool</li><li>Php : public function verifPermission(): bool </li></ul><a name="ref2_221954"></a>
+<table><tr><td><div class="element">Operation <b>connexion</b></div></td></tr></table><p>Connecte le visiteur<br /><br />@param string motdepasse Mot de passe du visiteur<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + connexion(in motdepasse : string) : bool</li><li>Php : public function connexion($motdepasse): bool </li></ul><a name="ref2_222082"></a>
+<table><tr><td><div class="element">Operation <b>deconnexion</b></div></td></tr></table><p>DÃ©connecte le visiteur<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + deconnexion() : void</li><li>Php : public function deconnexion(): void </li></ul><a name="ref2_222210"></a>
+<table><tr><td><div class="element">Operation <b>inscription</b></div></td></tr></table><p>Inscription du visiteur<br /><br />@param string motdepasse Mot de passe du visiteur<br /><br />@param string nom_role RÃ´le du visiteur<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + inscription(in motdepasse : string, in nom_role : string) : void</li><li>Php : public function inscription($motdepasse, $nom_role): void </li></ul><a name="ref2_222338"></a>
+<table><tr><td><div class="element">Operation <b>mettre_a_jour</b></div></td></tr></table><p>Met Ã  jour l'utilisateur<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + mettre_a_jour() : void</li><li>Php : public function mettre_a_jour(): void </li></ul><a name="ref2_222466"></a>
+<table><tr><td><div class="element">Operation <b>supprimer</b></div></td></tr></table><p>Supprime l'utilisateur<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + supprimer() : void</li><li>Php : public function supprimer(): void </li></ul><a name="ref2_222594"></a>
+<table><tr><td><div class="element">Operation <b>loadPage</b></div></td></tr></table><p>Charge une page<br /><br />@param string application Application de la page Ã  charger<br /><br />@param string action Action de la page Ã  charger<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + loadPage(in application : string, in action : string) : bool</li><li>Php : public function loadPage($application, $action): bool </li></ul></div>
+<p>All public operations : <a href="class156290.html#ref2_182402"><b>__construct</b></a> , <a href="class158978.html#ref2_220802"><b>afficher</b></a> , <a href="class158978.html#ref2_219778"><b>afficherAvatar</b></a> , <a href="class158978.html#ref2_220162"><b>afficherBanni</b></a> , <a href="class158978.html#ref2_220034"><b>afficherDate_connexion</b></a> , <a href="class158978.html#ref2_220674"><b>afficherDate_connexionFormat</b></a> , <a href="class158978.html#ref2_219906"><b>afficherDate_inscription</b></a> , <a href="class158978.html#ref2_220546"><b>afficherDate_inscriptionFormat</b></a> , <a href="class158978.html#ref2_219394"><b>afficherId</b></a> , <a href="class158978.html#ref2_220418"><b>afficherMail</b></a> , <a href="class158978.html#ref2_219650"><b>afficherMotdepasse</b></a> , <a href="class159234.html#ref2_221698"><b>afficherPage</b></a> , <a href="class158978.html#ref2_219522"><b>afficherPseudo</b></a> , <a href="class158978.html#ref2_220290"><b>afficherRole</b></a> , <a href="class159234.html#ref2_221954"><b>connexion</b></a> , <a href="class159234.html#ref2_222082"><b>deconnexion</b></a> , <a href="class158978.html#ref2_220930"><b>estConnecte</b></a> , <a href="class156290.html#ref2_182786"><b>get</b></a> , <a href="class158978.html#ref2_217474"><b>getAvatar</b></a> , <a href="class158978.html#ref2_217858"><b>getBanni</b></a> , <a href="class158978.html#ref2_217730"><b>getDate_connexion</b></a> , <a href="class158978.html#ref2_217602"><b>getDate_inscription</b></a> , <a href="class158978.html#ref2_217090"><b>getId</b></a> , <a href="class158978.html#ref2_218114"><b>getMail</b></a> , <a href="class158978.html#ref2_217346"><b>getMotdepasse</b></a> , <a href="class159234.html#ref2_221442"><b>getPage</b></a> , <a href="class158978.html#ref2_217218"><b>getPseudo</b></a> , <a href="class158978.html#ref2_217986"><b>getRole</b></a> , <a href="class156290.html#ref2_182530"><b>hydrater</b></a> , <a href="class159234.html#ref2_222210"><b>inscription</b></a> , <a href="class159234.html#ref2_222594"><b>loadPage</b></a> , <a href="class156290.html#ref2_182658"><b>Manager</b></a> , <a href="class159234.html#ref2_222338"><b>mettre_a_jour</b></a> , <a href="class158978.html#ref2_221314"><b>recuperer</b></a> , <a href="class158978.html#ref2_221058"><b>recuperer_motdepasse</b></a> , <a href="class158978.html#ref2_221186"><b>recuperer_role</b></a> , <a href="class159234.html#ref2_222466"><b>supprimer</b></a> , <a href="class159234.html#ref2_221826"><b>verifPermission</b></a> </p>
+</body>
+</html>

@@ -1,0 +1,3968 @@
+format 218
+"user" // Babtouland::classe::user
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/user/"
+  php_namespace "user"
+  deploymentview 135170 "user"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 136066 "Message.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 157954 // Message
+      end
+    end
+
+    artifact 136194 "Motdepasse.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158082 // Motdepasse
+      end
+    end
+
+    artifact 136322 "MotdepasseManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158210 // MotdepasseManager
+      end
+    end
+
+    artifact 136450 "Page.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158338 // Page
+      end
+    end
+
+    artifact 136578 "Permission.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158466 // Permission
+      end
+    end
+
+    artifact 136706 "PermissionManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158594 // PermissionManager
+      end
+    end
+
+    artifact 136834 "Role.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158722 // Role
+      end
+    end
+
+    artifact 136962 "RoleManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158850 // RoleManager
+      end
+    end
+
+    artifact 137090 "Utilisateur.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 158978 // Utilisateur
+      end
+    end
+
+    artifact 137218 "UtilisateurManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 159106 // UtilisateurManager
+      end
+    end
+
+    artifact 137346 "Visiteur.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 159234 // Visiteur
+      end
+    end
+
+    artifact 137474 "VisiteurManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 159362 // VisiteurManager
+      end
+    end
+  end
+
+  classview 134914 "user"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 157954 "Message"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Message type notification alertant l'utilisateur au chargement de la page
+"
+      attribute 173826 "contenu"
+	protected explicit_type "strong"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Contenu du message
+
+@var ${type}
+"
+      end
+
+      attribute 173954 "type"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Type du message
+
+@var ${type}
+"
+      end
+
+      attribute 174082 "template"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Chemin vers la template utilisé
+
+@var ${type}
+"
+      end
+
+      attribute 174210 "css"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Chemin vers le css utilisé
+
+@var ${type}
+"
+      end
+
+      attribute 174338 "js"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Chemin vers le js utilisé
+
+@var ${type}
+"
+      end
+
+      attribute 174466 "TYPE_SUCCES"
+	const_attribute package explicit_type "int"
+	init_value "'succes'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Type de message: succès
+
+@var ${type}
+"
+      end
+
+      attribute 174594 "TYPE_ATTENTION"
+	const_attribute package explicit_type "int"
+	init_value "'attention'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Type de message: attention
+
+@var ${type}
+"
+      end
+
+      attribute 174722 "TYPE_ERREUR"
+	const_attribute package explicit_type "int"
+	init_value "'erreur'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Type de message: erreur
+
+@var ${type}
+"
+      end
+
+      operation 205314 "getContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 205442 "getType"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de type
+
+@return ${type}
+"
+      end
+
+      operation 205570 "getTemplate"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de template
+
+@return ${type}
+"
+      end
+
+      operation 205698 "getCss"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de css
+
+@return ${type}
+"
+      end
+
+      operation 205826 "getJs"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de js
+
+@return ${type}
+"
+      end
+
+      operation 205954 "setContenu"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de contenu
+
+@param ${t0} contenu Contenu du message
+
+@return ${type}
+"
+      end
+
+      operation 206082 "setType"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "type" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de type
+
+@param ${t0} type Type du message
+
+@return ${type}
+"
+      end
+
+      operation 206210 "setTemplate"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "template" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de template
+
+@param ${t0} template Chemin vers ka tmplate utilisé
+
+@return ${type}
+"
+      end
+
+      operation 206338 "setCss"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "css" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de css
+
+@param ${t0} css Chemin vers le css utilisé
+
+@return ${type}
+"
+      end
+
+      operation 206466 "setJs"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "js" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de js
+
+@param ${t0} js Chemin vers le js utilisé
+
+@return ${type}
+"
+      end
+
+      operation 206594 "afficherContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 206722 "afficherType"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de type
+
+@return ${type}
+"
+      end
+
+      operation 206850 "afficherTemplate"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de template
+
+@return ${type}
+"
+      end
+
+      operation 206978 "afficherCss"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de css
+
+@return ${type}
+"
+      end
+
+      operation 207106 "afficherJs"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de js
+
+@return ${type}
+"
+      end
+
+      operation 207234 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de Message
+
+@return ${type}
+"
+      end
+
+      operation 207362 "recupererTemplate"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Met la template dans le conteny
+
+@return ${type}
+"
+      end
+
+      operation 207490 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Construction de l'objet
+
+@param ${t0} attributs Attributs du message
+
+@return ${type}
+"
+      end
+    end
+
+    class 158082 "Motdepasse"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Mot de passe d'un utilisateur
+"
+      classrelation 160258 // <generalisation>
+	relation 158466 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 160258 // <generalisation>
+	  b parent class_ref 156290 // Managed
+      end
+
+      attribute 174850 "id"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Id de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 174978 "mdp_clair"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Mot de passe en clair
+
+@var ${type}
+"
+      end
+
+      attribute 175106 "mot_de_passe"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Mot de passe hashé
+
+@var ${type}
+"
+      end
+
+      operation 207618 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de id
+
+@return ${type}
+"
+      end
+
+      operation 207746 "getMdp_clair"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de mdp_clair
+
+@return ${type}
+"
+      end
+
+      operation 207874 "getMot_de_passe"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de mot_de_passe
+
+@return ${type}
+"
+      end
+
+      attribute 175234 "HASH_COST"
+	const_attribute package explicit_type "int"
+	init_value "6"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Coût du hash (voir doc)
+
+@var ${type}
+"
+      end
+
+      operation 208002 "setId"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de id
+
+@param ${t0} id Id de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 208130 "setMdp_clair"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "mdp_clair" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de mdp_clair
+
+@param ${t0} mdp_clair Mot de passe en claire
+
+@return ${type}
+"
+      end
+
+      operation 208258 "setMot_de_passe"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "mot_de_passe" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de mot_de_passe
+
+@param ${t0} mot_de_passe Mot de passe hashé
+
+@return ${type}
+"
+      end
+
+      operation 208386 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de id
+
+@return ${type}
+"
+      end
+
+      operation 208514 "afficherMdp_clair"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de mdp_clair
+
+@return ${type}
+"
+      end
+
+      operation 208642 "afficherMdp_hash"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de mdp_hash
+
+@return ${type}
+"
+      end
+
+      operation 208770 "hash"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Hash le mot de passe en clair
+
+@return ${type}
+"
+      end
+
+      operation 208898 "verif"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "mot_de_passe" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Vérifie si le mot de passe en clair correspond au mot de passe hashé
+
+@param ${t0} mot_de_passe Mot de passe en clair à vérifier
+
+@return ${type}
+"
+      end
+    end
+
+    class 158210 "MotdepasseManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Mot_de_passe
+"
+      classrelation 160386 // <generalisation>
+	relation 158594 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 160386 // <generalisation>
+	  b parent class_ref 156418 // Manager
+      end
+
+      attribute 175362 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'utilisateur'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé pour Mot_de_passe
+
+@var ${type}
+"
+      end
+
+      attribute 175490 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'mot_de_passe',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+
+    class 158338 "Page"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Page vu par l'utilisateur
+"
+      attribute 175618 "titre"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Titre de la page
+
+@var ${type}
+"
+      end
+
+      attribute 175746 "metas"
+	protected explicit_type "array"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Metasdonnées de la page
+
+@var ${type}
+"
+      end
+
+      attribute 175874 "css"
+	protected explicit_type "array"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+CSS de la page
+
+@var ${type}
+"
+      end
+
+      attribute 176002 "javascripts"
+	protected explicit_type "array"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Javascript de la page
+
+@var ${type}
+"
+      end
+
+      attribute 176130 "contenu"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Contenu de la page
+
+@var ${type}
+"
+      end
+
+      attribute 176258 "template"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Template de la page
+
+@var ${type}
+"
+      end
+
+      attribute 176386 "application"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Application de la page
+
+@var ${type}
+"
+      end
+
+      attribute 176514 "action"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Action de la page
+
+@var ${type}
+"
+      end
+
+      attribute 176642 "message"
+	protected explicit_type "Message"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Message
+
+@var ${type}
+"
+      end
+
+      operation 209026 "getTitre"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de titre
+
+@return ${type}
+"
+      end
+
+      operation 209154 "getMetas"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de metas
+
+@return ${type}
+"
+      end
+
+      operation 209282 "getCss"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de css
+
+@return ${type}
+"
+      end
+
+      operation 209410 "getJavascripts"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de javascripts
+
+@return ${type}
+"
+      end
+
+      operation 209538 "getContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 209666 "getTemplate"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de template
+
+@return ${type}
+"
+      end
+
+      operation 209794 "getApplication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de application
+
+@return ${type}
+"
+      end
+
+      operation 209922 "getAction"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de action
+
+@return ${type}
+"
+      end
+
+      operation 210050 "getMessage"
+	public explicit_return_type "Message"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de message
+
+@return ${type}
+"
+      end
+
+      operation 210178 "setTitre"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "titre" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de titre
+
+@param ${t0} titre Titre de la page
+
+@return ${type}
+"
+      end
+
+      operation 210306 "setMetas"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "metas" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de metas
+
+@param ${t0} metas Metasdonnées de la page
+
+@return ${type}
+"
+      end
+
+      operation 210434 "setCss"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "css" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de css
+
+@param ${t0} css CSS de la page
+
+@return ${type}
+"
+      end
+
+      operation 210562 "setJavascripts"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "javascripts" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de javascripts
+
+@param ${t0} javascripts Javascripts de la page
+
+@return ${type}
+"
+      end
+
+      operation 210690 "setContenu"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de contenu
+
+@param ${t0} contenu Contenu de la page
+
+@return ${type}
+"
+      end
+
+      operation 210818 "setTemplate"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "template" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de template
+
+@param ${t0} template Template de la page
+
+@return ${type}
+"
+      end
+
+      operation 210946 "setApplication"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "application" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de application
+
+@param ${t0} application Application de la page
+
+@return ${type}
+"
+      end
+
+      operation 211074 "setAction"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "action" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de action
+
+@param ${t0} action Action de la page
+
+@return ${type}
+"
+      end
+
+      operation 211202 "setMessage"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "message" explicit_type "Message"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de message
+
+@param ${t0} message Message
+
+@return ${type}
+"
+      end
+
+      operation 211330 "afficherTitre"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de titre
+
+@return ${type}
+"
+      end
+
+      operation 211458 "afficherMetas"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de metas
+
+@return ${type}
+"
+      end
+
+      operation 211586 "afficherCss"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de css
+
+@return ${type}
+"
+      end
+
+      operation 211714 "afficherJavascripts"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de javascripts
+
+@return ${type}
+"
+      end
+
+      operation 211842 "afficherContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 211970 "afficherTemplate"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de template
+
+@return ${type}
+"
+      end
+
+      operation 212098 "afficherApplication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de application
+
+@return ${type}
+"
+      end
+
+      operation 212226 "afficherAction"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de action
+
+@return ${type}
+"
+      end
+
+      operation 212354 "afficherMessage"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de message
+
+@return ${type}
+"
+      end
+
+      operation 212482 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de Page
+
+@param string message_css Chemin du css d'un message
+
+@param string message_js Chemin du js d'un message
+
+@param string message_contenu Chemin du contenu d'un message
+
+@return ${type}
+"
+      end
+
+      operation 212610 "getMeta"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "index" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de meta
+
+@param ${t0} index Index du tableau contenant les méta-données à mettre ensemble
+
+@return ${type}
+"
+      end
+
+      operation 212738 "afficherMeta"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "index" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de meta
+
+@param ${t0} index Index du tableau contenant les méta-données à mettre ensemble
+
+@return ${type}
+"
+      end
+
+      operation 212866 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Construction de l'objet Page
+
+@param ${t0} attributs Attributs de la page
+
+@return ${type}
+"
+      end
+
+      operation 212994 "set"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Permet de set certains attributs en cours de route
+
+@param ${t0} attributs Attributs à set
+
+@return ${type}
+"
+      end
+
+      operation 213122 "getPath"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Obtient le path du fichier de définition de la page à afficher
+
+@return ${type}
+"
+      end
+    end
+
+    class 158466 "Permission"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Permission du site
+"
+      classrelation 160514 // <generalisation>
+	relation 158722 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 160514 // <generalisation>
+	  b parent class_ref 156290 // Managed
+      end
+
+      attribute 176770 "id"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Index de la permission
+
+@var ${type}
+"
+      end
+
+      attribute 176898 "nom_role"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Nom du rôle ayant la permission
+
+@var ${type}
+"
+      end
+
+      attribute 177026 "application"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Application dans laquelle agit la permission
+
+@var ${type}
+"
+      end
+
+      attribute 177154 "action"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Action pour laquelle la permission est demandée
+
+@var ${type}
+"
+      end
+
+      operation 213250 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de id
+
+@return ${type}
+"
+      end
+
+      operation 213378 "getNom_role"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de nom_role
+
+@return ${type}
+"
+      end
+
+      operation 213506 "getApplication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de application
+
+@return ${type}
+"
+      end
+
+      operation 213634 "getAction"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de action
+
+@return ${type}
+"
+      end
+
+      operation 213762 "setId"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de id
+
+@param ${t0} id Index de la permission
+
+@return ${type}
+"
+      end
+
+      operation 213890 "setNom_role"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "nom_role" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de nom_role
+
+@param ${t0} nom_role Nom du rôle ayant la permission
+
+@return ${type}
+"
+      end
+
+      operation 214018 "setApplication"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "application" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de application
+
+@param ${t0} application Application dans laquelle agit la permission
+
+@return ${type}
+"
+      end
+
+      operation 214146 "setAction"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "action" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de action
+
+@param ${t0} action Action pour laquelle la permission est demandée
+
+@return ${type}
+"
+      end
+
+      operation 214274 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de id
+
+@return ${type}
+"
+      end
+
+      operation 214402 "afficherNom_role"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de nom_role
+
+@return ${type}
+"
+      end
+
+      operation 214530 "afficherApplication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de application
+
+@return ${type}
+"
+      end
+
+      operation 214658 "afficherAction"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de action
+
+@return ${type}
+"
+      end
+
+      operation 214786 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficher la permission
+
+@return ${type}
+"
+      end
+
+      operation 214914 "recuperer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère une permission à partir de son id
+
+@return ${type}
+"
+      end
+    end
+
+    class 158594 "PermissionManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Permission
+"
+      classrelation 160642 // <generalisation>
+	relation 158850 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 160642 // <generalisation>
+	  b parent class_ref 156418 // Manager
+      end
+
+      attribute 177282 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'permission'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par Permission
+
+@var ${type}
+"
+      end
+
+      attribute 177410 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'nom_role',
+		2 => 'application',
+		3 => 'action',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+
+    class 158722 "Role"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Role de d'utilisateur
+"
+      classrelation 160770 // <generalisation>
+	relation 158978 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 160770 // <generalisation>
+	  b parent class_ref 156290 // Managed
+      end
+
+      attribute 177538 "nom_role"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Nom du rôle
+
+@var ${type}
+"
+      end
+
+      attribute 177666 "id"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id de l'utilisateur ayant le rôle
+
+@var ${type}
+"
+      end
+
+      attribute 177794 "permissions"
+	protected explicit_type "array"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Permissions accordées au rôle
+
+@var ${type}
+"
+      end
+
+      operation 215042 "getNom_role"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de nom_role
+
+@return ${type}
+"
+      end
+
+      operation 215170 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de id
+
+@return ${type}
+"
+      end
+
+      operation 215298 "getPermissions"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de permissions
+
+@return ${type}
+"
+      end
+
+      operation 215426 "setNom_role"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "nom_role" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de nom_role
+
+@param ${t0} nom_role Nom du rôle
+
+@return ${type}
+"
+      end
+
+      operation 215554 "setId"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de id
+
+@param ${t0} id Id de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 215682 "setPermissions"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "permissions" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de permissions
+
+@param ${t0} permissions Permissions accordées au rôle
+
+@return ${type}
+"
+      end
+
+      operation 215810 "afficherNom_role"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de nom_role
+
+@return ${type}
+"
+      end
+
+      operation 215938 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de id
+
+@return ${type}
+"
+      end
+
+      operation 216066 "afficherPermissions"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de permissions
+
+@return ${type}
+"
+      end
+
+      operation 216194 "getPermission"
+	public explicit_return_type "Permission"
+	nparams 1
+	  param in name "index" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur d'une permission
+
+@param ${t0} index Index de la permission dans permissions
+
+@return ${type}
+"
+      end
+
+      operation 216322 "setPermission"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "index" explicit_type "int"
+	  param in name "permission" explicit_type "Permission"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur d'une permission
+
+@param ${t0} index Index de la permission dans permissions
+
+@param ${t1} permission Permission à définir
+
+@return ${type}
+"
+      end
+
+      operation 216450 "afficherpermission"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "index" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur d'une permission
+
+@param ${t0} index Index de la permission dans permissions
+
+@return ${type}
+"
+      end
+
+      operation 216578 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de l'objet Role
+
+@return ${type}
+"
+      end
+
+      operation 216706 "recuperer_permissions"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère les permissions du rôle avec le nom_role déjà connu
+
+@return ${type}
+"
+      end
+
+      operation 216834 "existPermission"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "application" explicit_type "string"
+	  param in name "action" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Vérifie l'existence d'une permission pour le rôle
+
+@param ${t0} application Application de la permission
+
+@param ${t1} action Action de la permission
+
+@return ${type}
+"
+      end
+
+      operation 216962 "recuperer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère le rôle à partir de son id
+
+@return ${type}
+"
+      end
+    end
+
+    class 158850 "RoleManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Role
+"
+      classrelation 160898 // <generalisation>
+	relation 159106 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 160898 // <generalisation>
+	  b parent class_ref 156418 // Manager
+      end
+
+      attribute 177922 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'utilisateur'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par Role
+
+@var ${type}
+"
+      end
+
+      attribute 178050 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'nom_role',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+
+    class 158978 "Utilisateur"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Utilisateur du site web
+"
+      classrelation 161026 // <generalisation>
+	relation 159234 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161026 // <generalisation>
+	  b parent class_ref 156290 // Managed
+      end
+
+      attribute 178178 "id"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Id de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 178306 "pseudo"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Pseudo de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 178434 "motdepasse"
+	protected explicit_type "Motdepasse"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Mot de passe de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 178562 "avatar"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Nom du fichier de l'avatar de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 178690 "date_inscription"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de l'inscription de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 178818 "date_connexion"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de la dernière connexion de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 178946 "banni"
+	protected explicit_type "bool"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Statut de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 179074 "role"
+	protected explicit_type "Role"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Role de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 179202 "mail"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+E-mail de l'utilisateur
+
+@var ${type}
+"
+      end
+
+      operation 217090 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de id
+
+@return ${type}
+"
+      end
+
+      operation 217218 "getPseudo"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de pseudo
+
+@return ${type}
+"
+      end
+
+      operation 217346 "getMotdepasse"
+	public explicit_return_type "Motdepasse"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de motdepasse
+
+@return ${type}
+"
+      end
+
+      operation 217474 "getAvatar"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de avatar
+
+@return ${type}
+"
+      end
+
+      operation 217602 "getDate_inscription"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_inscription
+
+@return ${type}
+"
+      end
+
+      operation 217730 "getDate_connexion"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_connexion
+
+@return ${type}
+"
+      end
+
+      operation 217858 "getBanni"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de banni
+
+@return ${type}
+"
+      end
+
+      operation 217986 "getRole"
+	public explicit_return_type "Role"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de role
+
+@return ${type}
+"
+      end
+
+      operation 218114 "getMail"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de mail
+
+@return ${type}
+"
+      end
+
+      operation 218242 "setId"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de id
+
+@param ${t0} id index de l'utilisateur dans la base de donnée
+
+@return ${type}
+"
+      end
+
+      operation 218370 "setPseudo"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "pseudo" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de pseudo
+
+@param ${t0} pseudo Pseudo de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 218498 "setMotdepasse"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "motdepasse" explicit_type "Motdepasse"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de motdepasse
+
+@param ${t0} motdepasse Mot de passe de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 218626 "setAvatar"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "avatar" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de avatar
+
+@param ${t0} avatar Avatar de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 218754 "setDate_inscription"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_inscription" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_inscription
+
+@param ${t0} date_inscription Date d'inscription de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 218882 "setDate_connexion"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_connexion" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_connexion
+
+@param ${t0} date_connexion Date de la dernière connexion de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 219010 "setBanni"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "banni" explicit_type "bool"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de banni
+
+@param ${t0} banni Statut de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 219138 "setRole"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "role" explicit_type "Role"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de role
+
+@param ${t0} role Role de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 219266 "setMail"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "mail" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de mail
+
+@param ${t0} mail E-mail de l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 219394 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de id
+
+@return ${type}
+"
+      end
+
+      operation 219522 "afficherPseudo"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de pseudo
+
+@return ${type}
+"
+      end
+
+      operation 219650 "afficherMotdepasse"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de motdepasse
+
+@return ${type}
+"
+      end
+
+      operation 219778 "afficherAvatar"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de avatar
+
+@return ${type}
+"
+      end
+
+      operation 219906 "afficherDate_inscription"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_inscription
+
+@return ${type}
+"
+      end
+
+      operation 220034 "afficherDate_connexion"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_connexion
+
+@return ${type}
+"
+      end
+
+      operation 220162 "afficherBanni"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de banni
+
+@return ${type}
+"
+      end
+
+      operation 220290 "afficherRole"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de role
+
+@return ${type}
+"
+      end
+
+      operation 220418 "afficherMail"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de mail
+
+@return ${type}
+"
+      end
+
+      operation 220546 "afficherDate_inscriptionFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_inscription avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 220674 "afficherDate_connexionFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_connexion avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 220802 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Converti l'objet utilisateur en string, pour l'instant, on représente l'utilisateur par son pseudo
+
+@return ${type}
+"
+      end
+
+      operation 220930 "estConnecte"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "intervalle" explicit_type "string"
+	    defaultvalue "'PT5M'"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Vérifie si l'utilisateur est connecté
+
+@param ${t0} intervalle Intervalle de temps définissant si un utilisateur est connecté (sous le format de \\DateInterval)
+
+@return ${type}
+"
+      end
+
+      operation 221058 "recuperer_motdepasse"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère le mot de passe d'un utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 221186 "recuperer_role"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère le rôle d'un utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 221314 "recuperer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère un utilisateur à partir de son id ou de son pseudo
+
+@return ${type}
+"
+      end
+    end
+
+    class 159106 "UtilisateurManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Utilisateur
+"
+      classrelation 161154 // <generalisation>
+	relation 159362 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161154 // <generalisation>
+	  b parent class_ref 156418 // Manager
+      end
+
+      attribute 179330 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'utilisateur'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par Utilisateur
+
+@var ${type}
+"
+      end
+
+      attribute 179458 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'pseudo',
+		2 => 'avatar',
+		3 => 'date_inscription',
+		4 => 'date_connexion',
+		5 => 'banni',
+		6 => 'mail',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+
+    class 159234 "Visiteur"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Visiteur du site
+"
+      classrelation 161282 // <generalisation>
+	relation 159490 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161282 // <generalisation>
+	  b parent class_ref 158978 // Utilisateur
+      end
+
+      attribute 179586 "page"
+	protected explicit_type "Page"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Page vu par l'utilisateur
+
+@var ${type}
+"
+      end
+
+      operation 221442 "getPage"
+	public explicit_return_type "Page"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de page
+
+@return ${type}
+"
+      end
+
+      operation 221570 "setPage"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "page" explicit_type "Page"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de page
+
+@param ${t0} page Page vu par l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 221698 "afficherPage"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de page
+
+@return ${type}
+"
+      end
+
+      operation 221826 "verifPermission"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+vérifie que l'utilisateur a la permission de voir la page
+
+@return ${type}
+"
+      end
+
+      operation 221954 "connexion"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "motdepasse" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Connecte le visiteur
+
+@param ${t0} motdepasse Mot de passe du visiteur
+
+@return ${type}
+"
+      end
+
+      operation 222082 "deconnexion"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Déconnecte le visiteur
+
+@return ${type}
+"
+      end
+
+      operation 222210 "inscription"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "motdepasse" explicit_type "string"
+	  param in name "nom_role" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Inscription du visiteur
+
+@param ${t0} motdepasse Mot de passe du visiteur
+
+@param ${t1} nom_role Rôle du visiteur
+
+@return ${type}
+"
+      end
+
+      operation 222338 "mettre_a_jour"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Met à jour l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 222466 "supprimer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Supprime l'utilisateur
+
+@return ${type}
+"
+      end
+
+      operation 222594 "loadPage"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "application" explicit_type "string"
+	  param in name "action" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Charge une page
+
+@param ${t0} application Application de la page à charger
+
+@param ${t1} action Action de la page à charger
+
+@return ${type}
+"
+      end
+    end
+
+    class 159362 "VisiteurManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager pour visiteur
+"
+      classrelation 161410 // <generalisation>
+	relation 159618 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 161410 // <generalisation>
+	  b parent class_ref 159106 // UtilisateurManager
+      end
+    end
+  end
+end

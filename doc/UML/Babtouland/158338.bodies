@@ -1,0 +1,185 @@
+class Page
+!!!209026.php!!!	getTitre() : string
+
+		return $this->titre;
+!!!209154.php!!!	getMetas() : array
+
+		return $this->metas;
+!!!209282.php!!!	getCss() : array
+
+		return $this->css;
+!!!209410.php!!!	getJavascripts() : array
+
+		return $this->javascripts;
+!!!209538.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!209666.php!!!	getTemplate() : string
+
+		return $this->template;
+!!!209794.php!!!	getApplication() : string
+
+		return $this->application;
+!!!209922.php!!!	getAction() : string
+
+		return $this->action;
+!!!210050.php!!!	getMessage() : Message
+
+		return $this->message;
+!!!210178.php!!!	setTitre(in titre : string) : void
+
+		$this->titre=$titre;
+!!!210306.php!!!	setMetas(in metas : array) : void
+
+		$this->metas=$metas;
+!!!210434.php!!!	setCss(in css : array) : void
+
+		$this->css=$css;
+!!!210562.php!!!	setJavascripts(in javascripts : array) : void
+
+		$this->javascripts=$javascripts;
+!!!210690.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=$contenu;
+!!!210818.php!!!	setTemplate(in template : string) : void
+
+		$this->template=$template;
+!!!210946.php!!!	setApplication(in application : string) : void
+
+		$this->application=$application;
+!!!211074.php!!!	setAction(in action : string) : void
+
+		$this->action=$action;
+!!!211202.php!!!	setMessage(in message : Message) : void
+
+		$this->message=$message;
+!!!211330.php!!!	afficherTitre() : string
+
+		return (string)$this->titre;
+!!!211458.php!!!	afficherMetas() : string
+
+		$affichage='';
+		if($this->getMetas())
+		{
+			foreach ($this->getMetas() as $key => $value)
+			{
+				$affichage.=$this->afficherMeta($key).'
+	';
+			}
+		}
+		return $affichage;
+!!!211586.php!!!	afficherCss() : string
+
+		$affichage='';
+		if($this->getCss())
+		{
+			foreach ($this->getCss() as $key => $value)
+			{
+				$affichage.='<link rel="stylesheet" type="text/css" href="'.$value.'">
+	';
+			}
+		}
+		return $affichage;
+!!!211714.php!!!	afficherJavascripts() : string
+
+		$affichage='';
+		if($this->getJavascripts())
+		{
+			foreach ($this->getJavascripts() as $key => $value)
+			{
+				$affichage.='<script src="'.$value.'" type="text/javascript" charset="utf-8" async defer></script>
+	';
+			}
+		}
+		return $affichage;
+!!!211842.php!!!	afficherContenu() : string
+
+		return (string)$this->contenu;
+!!!211970.php!!!	afficherTemplate() : string
+
+		return (string)$this->template;
+!!!212098.php!!!	afficherApplication() : string
+
+		return htmlspecialchars((string)$this->application);
+!!!212226.php!!!	afficherAction() : string
+
+		return htmlspecialchars((string)$this->action);
+!!!212354.php!!!	afficherMessage() : string
+
+		return htmlspecialchars($this->getMessage()->afficher());
+!!!212482.php!!!	afficher() : string
+
+		$page=$this->afficherTemplate();
+		if(($this->getMessage()))	// Il y a une notification a afficher
+		{
+			if($this->getCss())
+			{
+				$css=$this->getCss();
+				array_push($css, $this->getMessage()->getCss());
+				$this->setCss($css);
+			}
+			else
+			{
+				$this->setCss(array($this->getMessage()->getCss()));
+			}
+
+			if($this->getJavascripts())
+			{
+				$javascripts=$this->getJavascripts();
+				array_push($javascripts, $this->getMessage()->getJs());
+				$this->setJavascripts($javascripts);
+			}
+			else
+			{
+				$this->setJavascripts(array($this->getMessage()->getJs()));
+			}
+
+			$this->setContenu($this->getMessage()->afficher().$this->getContenu());
+
+			$_SESSION['message']=null;	// ON SUPPRIME LE MESSAGE APRES L'AFFICHAGE
+
+		}
+		$page=preg_replace('#metas#', $this->afficherMetas(), $page);	// On met les balises métas
+		$page=preg_replace('#css#', $this->afficherCss(), $page);	// On met les links vers le CSS
+		$page=preg_replace('#javascripts#', $this->afficherJavascripts(), $page);	// On met les scripts vers le Javascript
+		$page=preg_replace('#<title></title>#', '<title>'.$this->afficherTitre().'</title>', $page);	// On met le titre de la page
+		$page=preg_replace('#contenu#', $this->afficherContenu(), $page);	// On met le contenu de la page
+		return $page;
+!!!212610.php!!!	getMeta(in index : int) : array
+
+		return $this->metas[$index];
+!!!212738.php!!!	afficherMeta(in index : int) : string
+
+		$affichage='<meta';
+		foreach ($this->getMeta($index) as $key => $value)
+		{
+			$affichage.=' '.$key.'="'.$value.'"';
+		}
+		$affichage.='>';
+		return $affichage;
+!!!212866.php!!!	__construct(in attributs : array) : void
+
+		foreach ($attributs as $key => $value)
+		{
+			$method='set'.ucfirst($key);
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
+!!!212994.php!!!	set(in attributs : array) : void
+
+		foreach ($attributs as $key => $value)
+		{
+			if(!in_array($key, array('application', 'action')))
+			{
+				$method='set'.ucfirst($key);
+				if (method_exists($this, $method))
+				{
+					$this->$method($value);
+				}
+			}
+		}
+!!!213122.php!!!	getPath() : string
+
+		return 'view/'.$this->getApplication().'/'.$this->getAction().'/page.php';

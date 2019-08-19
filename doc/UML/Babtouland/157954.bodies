@@ -1,0 +1,66 @@
+class Message
+!!!205314.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!205442.php!!!	getType() : string
+
+		return $this->type;
+!!!205570.php!!!	getTemplate() : string
+
+		return $this->template;
+!!!205698.php!!!	getCss() : string
+
+		return $this->css;
+!!!205826.php!!!	getJs() : string
+
+		return $this->js;
+!!!205954.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=$contenu;
+!!!206082.php!!!	setType(in type : string) : void
+
+		$this->type=$type;
+!!!206210.php!!!	setTemplate(in template : string) : void
+
+		$this->template=$template;
+!!!206338.php!!!	setCss(in css : string) : void
+
+		$this->css=$css;
+!!!206466.php!!!	setJs(in js : string) : void
+
+		$this->js=$js;
+!!!206594.php!!!	afficherContenu() : string
+
+		return htmlspecialchars((string)$this->contenu);
+!!!206722.php!!!	afficherType() : string
+
+		return htmlspecialchars((string)$this->type);
+!!!206850.php!!!	afficherTemplate() : string
+
+		return htmlspecialchars((string)$this->template);
+!!!206978.php!!!	afficherCss() : string
+
+		return htmlspecialchars((string)$this->css);
+!!!207106.php!!!	afficherJs() : string
+
+		return htmlspecialchars((string)$this->js);
+!!!207234.php!!!	afficher() : string
+
+		$this->recupererTemplate();
+		return $this->getContenu();
+!!!207362.php!!!	recupererTemplate() : void
+
+		$template_contenu=file_get_contents($this->getTemplate());
+		$contenu=preg_replace('#message_contenu#', $this->afficherContenu(), $template_contenu);
+		$contenu=preg_replace('#message_type#', $this->afficherType(), $contenu);
+		$this->setContenu($contenu);
+!!!207490.php!!!	__construct(in attributs : array) : void
+
+		foreach ($attributs as $key => $value)
+		{
+			$method='set'.ucfirst($key);
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}

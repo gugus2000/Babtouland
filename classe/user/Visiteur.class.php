@@ -204,6 +204,31 @@ class Visiteur extends Utilisateur
 		$this->setPage($Page);
 		return false;
 	}
+	/**
+	* Récupère l'id des conversations dont l'utilisateur fait parti
+	*
+	* @return array
+	*/
+	public function recupererConversations()
+	{
+		$BDDFactory=new \core\BDDFactory;
+		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$resultats=$Liaison->get(array(
+			'id_utilisateur' => $this->getId(),
+		), array(
+			'id_utilisateur' => '=',
+		));
+		$conversations=array();
+		foreach ($resultats as $key => $resultat)
+		{
+			$conversation=new \chat\Conversation(array(
+				'id' => $resultat['id_conversation'],
+			));
+			$conversation->recuperer();
+			$conversations[]=$conversation;
+		}
+		return $conversations;
+	}
 }
 
 ?>

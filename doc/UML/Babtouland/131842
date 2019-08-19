@@ -1,0 +1,128 @@
+format 218
+"edition" // Babtouland::view::user::edition
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/edition/"
+  deploymentview 137474 "edition"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 141442 "contenu"
+      stereotype "source"
+      php_src "<?php
+
+$checked='';
+if($Utilisateur->getBanni())
+{
+	$checked=' checked=\"\"';
+}
+
+?>
+<?php ob_start(); ?>
+	<div id=\"conteneur\">
+		<section class=\"ligne\">
+			<section class=\"ligne\">
+				<section class=\"carte\">
+					<section class=\"contenu\">
+						<div class=\"formulaire\">
+							<form enctype=\"multipart/form-data\" action=\"<?= $config['user_edition_action'] ?>\" method=\"POST\" accept-charset=\"utf-8\">
+								<fieldset>
+									<legend><?= $lang['user_edition_legend'] ?><?= $Utilisateur->afficherPseudo() ?></legend>
+									<label for=\"edition_avatar\"><?= $lang['user_edition_label_avatar'] ?></label>
+									<input type=\"file\" name=\"edition_avatar\" value=\"<?= $Utilisateur->afficherAvatar() ?>\"><br />
+									<label for=\"edition_mail\"><?= $lang['user_edition_label_mail'] ?></label>
+									<input type=\"text\" name=\"edition_mail\" value=\"<?= $Visiteur->afficherMail() ?>\"><br />
+									<?php
+									if($admin)
+									{
+										?>
+									<label for=\"edition_banni\"><?= $lang['user_edition_label_banni'] ?></label>
+									<input type=\"checkbox\" name=\"edition_banni\" value=\"oui\"<?= $checked ?>><br />
+										<?php
+									}
+									?>
+									<input type=\"submit\" value=\"<?= $lang['user_edition_submit'] ?>\">
+								</fieldset>
+							</form>
+						</div>
+					</section>
+				</section>
+			</section>
+		</section>
+	</div>
+<?php $contenu=ob_get_clean(); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 141570 "page"
+      stereotype "source"
+      php_src "<?php
+
+$admin=False;
+$Utilisateur=$Visiteur;
+if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))
+{
+	$admin=True;
+	$Utilisateur=new \\user\\Utilisateur(array(
+		'id' => $_GET['id'],
+	));
+	$Utilisateur->recuperer();
+	$config['user_edition_action']=$config['user_edition_action'].'&id='.$_GET['id'];
+}
+
+$contenu=$config['default_contenu'];
+require 'contenu.php';
+
+$metas=$config['default_metas'];
+array_push($metas, array(
+	'name'    => 'description',
+	'content' => $lang['user_edition_description'],
+));
+
+$css=$config['default_css'];
+array_push($css, 'assets/css/formulaire.css');
+
+$js=$config['default_javascripts'];
+
+ajouterMenuUp($css, $js, $contenu);
+
+$Visiteur->getPage()->set(array(
+	'template'    => file_get_contents($config['default_template']),
+	'contenu'     => $contenu,
+	'titre'       => $lang['user_edition_titre'],
+	'metas'       => $metas,
+	'css'         => $css,
+	'javascripts' => $js,
+));
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

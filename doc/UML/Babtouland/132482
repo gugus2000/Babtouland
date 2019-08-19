@@ -1,0 +1,89 @@
+format 218
+"validation_inscription" // Babtouland::view::user::validation_inscription
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/validation_inscription/"
+  deploymentview 138114 "validation_inscription"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 142594 "page"
+      stereotype "source"
+      php_src "<?php
+
+$Message=new \\user\\Message(array(
+	'contenu'  => $lang['user_validation_inscription_formulaire'],
+	'type'     => \\user\\Message::TYPE_ERREUR,
+	'css'      => $config['message_css'],
+	'js'       => $config['message_js'],
+	'template' => $config['message_template'],
+));
+$get=$config['user_validation_inscription_retour'];
+if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isset($_POST['inscription_mail']) & !empty($_POST['inscription_pseudo']) & !empty($_POST['inscription_mdp']) & !empty($_POST['inscription_mail']))
+{
+	$Message=new \\user\\Message(array(
+		'contenu'  => $lang['user_validation_inscription_pseudo'],
+		'type'     => \\user\\Message::TYPE_ERREUR,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
+	$UtilisateurManager=$Visiteur->Manager();	// ($Visiteur existe déjà)
+	if(!$UtilisateurManager->exist(array('pseudo' => $_POST['inscription_pseudo'])))	// Le pseudo n'est pas déjà pris
+	{
+		$newVisiteur=new \\user\\Visiteur(array(
+			'pseudo'           => $_POST['inscription_pseudo'],
+			'avatar'           => $config['default_avatar'],
+			'date_inscription' => date('Y-m-d H:i:s'),
+			'date_connexion'   => date('Y-m-d H:i:s'),
+			'banni'            => $config['default_banni'],
+			'mail'             => $_POST['inscription_mail'],
+		));
+		$newVisiteur->inscription($_POST['inscription_mdp'], $config['default_role']);
+		$newVisiteur->recuperer();
+		$newVisiteur->connexion($_POST['inscription_mdp']);
+		$get=$config['user_validation_inscription_suivant'];
+		$Visiteur=$newVisiteur;
+		$Message=new \\user\\Message(array(
+			'contenu'  => $lang['user_validation_inscription_succes'],
+			'type'     => \\user\\Message::TYPE_SUCCES,
+			'css'      => $config['message_css'],
+			'js'       => $config['message_js'],
+			'template' => $config['message_template'],
+		));
+	}
+}
+
+$_SESSION['message']=serialize($Message);
+header('location: index.php'.$get);
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

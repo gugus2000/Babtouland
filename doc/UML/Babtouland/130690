@@ -1,0 +1,157 @@
+format 218
+"fil_post" // Babtouland::view::post::fil_post
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/fil_post/"
+  deploymentview 136450 "fil_post"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 139650 "contenu"
+      stereotype "source"
+      php_src "<?php ob_start(); ?>
+	<div id=conteneur>
+		<section class=\"ligne\">
+			<section class=\"colonne\">
+				<?php
+					$BDDFactory=new \\core\\BDDFactory;
+					$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
+					$nbr_post=$PostManager->count();
+					for ($position_post=$config['default_post_fil_post_position_debut']; $position_post < $config['default_post_fil_post_nombre_posts']; $position_post++)
+					{
+						$position_vraie=$page*$config['default_post_fil_post_nombre_posts']-($config['default_post_fil_post_nombre_posts']-$position_post);	// Calcul de la position du Post
+						$Post=new \\post\\Post(array(
+							'id' => $PostManager->getIdByPos($position_vraie, $config['post_fil_post_tri']),
+						));
+						if($PostManager->existId($Post->getId()))
+						{
+							$Post->recuperer();
+							require 'post.php';
+						}
+					}
+				?>
+			</section>
+		</section>
+	</div>
+	<nav class=\"navigation_nombre\">
+		<ul>
+			<?php
+				for ($numero_page=1; $numero_page <= $nbr_post/$config['default_post_fil_post_nombre_posts']; $numero_page++)
+				{ 
+					if ($numero_page==$page)
+					{
+						?>
+							<span class=\"active\"><li><?= $page ?></li></span>
+						<?php
+					}
+					else
+					{
+					?>
+						<a href=\"?application=<?= $Visiteur->getPage()->afficherApplication() ?>&action=<?= $Visiteur->getPage()->afficherAction() ?>&page=<?= $numero_page ?>\" title=\"<?= $lang['post_filPost_nav_description'] ?><?= $numero_page ?>\"><li><?= $numero_page ?></li></a>
+					<?php
+					}
+				}
+			?>
+		</ul>
+	</nav>
+<?php $contenu.=ob_get_clean(); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 139778 "page"
+      stereotype "source"
+      php_src "<?php
+
+$page=$config['post_fil_post_default_page'];
+if(isset($_GET['page']))
+{
+	$page=(int)$_GET['page'];
+}
+
+$bbcode=CreateBBcode();
+
+$contenu=$config['default_contenu'];
+require 'contenu.php';
+
+$metas=$config['default_metas'];
+array_push($metas, array(
+	'name'    => 'description',
+	'content' => $lang['post_fil_post_description'],
+));
+
+$css=$config['default_css'];
+array_push($css, 'assets/css/navigation_nombre.css');
+
+$js=$config['default_javascripts'];
+
+ajouterMenuUp($css, $js, $contenu);
+
+$liens=array($config['post_fil_post_lien_publication']);
+$icones=array('add');
+$descriptions=array($lang['post_fil_post_publication']);
+ajouterToast($css, $js, $contenu, $liens, $icones, $descriptions);
+
+$Visiteur->getPage()->set(array(
+	'template'    => file_get_contents($config['default_template']),
+	'contenu'     => $contenu,
+	'titre'       => $lang['post_fil_post_titre'].$page,
+	'metas'       => $metas,
+	'css'         => $css,
+	'javascripts' => $js,
+));
+
+?>"
+      associated_elems
+      end
+    end
+
+    artifact 139906 "post"
+      stereotype "source"
+      php_src "				<section class=\"carte\">
+					<section class=\"contenu\">
+						<h1><?= $Post->afficherTitre() ?></h1>
+						<i class=\"date_publication\"><?= $Post->afficherDate_publication() ?></i>
+						<br />
+						<i class=\"auteur\"><?= $lang['post_fil_post_auteur_presentation'] ?><a href=\"<?= $config['post_fil_post_lien_auteur'] ?>&id=<?= $Post->recupererAuteur()->afficherId() ?>\" title=\"<?= $lang['post_fil_post_lien_auteur_titre'] ?>\"><?= $Post->recupererAuteur()->afficherPseudo() ?></a></i>
+						<br />
+						<br />
+						<br />
+						<div class=\"contenu\"><?= $bbcode->parse($Post->afficherContenu()) ?></div>
+						<br />
+						<br />
+						<a href=\"<?= $config['post_fil_post_lien_detail'] ?>&id=<?= $Post->afficherId() ?>\" title=\"<?= $lang['post_fil_post_lien_detail_titre'] ?>\"><?= $lang['post_fil_post_detail'] ?></a>
+					</section>
+				</section>
+				<section class=\"espace_colonne\">
+					
+				</section>"
+      associated_elems
+      end
+    end
+  end
+end

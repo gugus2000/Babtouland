@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Message</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Message</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_157954"></a>
+<p>Message type notification alertant l'utilisateur au chargement de la page<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Message </li></ul><p>Artifact : <a href="index.html#ref8_136066"><b>Message.class</b></a></p>
+<div class="sub">
+<a name="ref1_173826"></a>
+<table><tr><td><div class="element">Attribute <b>contenu</b></div></td></tr></table>
+<p>Attributs <br /><br />Contenu du message<br /><br />@var strong<br /><br /></p><p>Declaration :</p><ul><li>Uml : # contenu : strong</li><li>Php : protected $contenu</li></ul><a name="ref1_173954"></a>
+<table><tr><td><div class="element">Attribute <b>type</b></div></td></tr></table>
+<p>Type du message<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : # type : string</li><li>Php : protected $type</li></ul><a name="ref1_174082"></a>
+<table><tr><td><div class="element">Attribute <b>template</b></div></td></tr></table>
+<p>Chemin vers la template utilisÃ©<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : # template : string</li><li>Php : protected $template</li></ul><a name="ref1_174210"></a>
+<table><tr><td><div class="element">Attribute <b>css</b></div></td></tr></table>
+<p>Chemin vers le css utilisÃ©<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : # css : string</li><li>Php : protected $css</li></ul><a name="ref1_174338"></a>
+<table><tr><td><div class="element">Attribute <b>js</b></div></td></tr></table>
+<p>Chemin vers le js utilisÃ©<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : # js : string</li><li>Php : protected $js</li></ul><a name="ref1_174466"></a>
+<table><tr><td><div class="element">Attribute <b>TYPE_SUCCES</b></div></td></tr></table>
+<p>Constantes <br /><br />Type de message: succÃ¨s<br /><br />@var int<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ TYPE_SUCCES : int = 'succes', read only</li><li>Php :  const TYPE_SUCCES</li></ul><a name="ref1_174594"></a>
+<table><tr><td><div class="element">Attribute <b>TYPE_ATTENTION</b></div></td></tr></table>
+<p>Type de message: attention<br /><br />@var int<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ TYPE_ATTENTION : int = 'attention', read only</li><li>Php :  const TYPE_ATTENTION</li></ul><a name="ref1_174722"></a>
+<table><tr><td><div class="element">Attribute <b>TYPE_ERREUR</b></div></td></tr></table>
+<p>Type de message: erreur<br /><br />@var int<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ TYPE_ERREUR : int = 'erreur', read only</li><li>Php :  const TYPE_ERREUR</li></ul><a name="ref2_205314"></a>
+<table><tr><td><div class="element">Operation <b>getContenu</b></div></td></tr></table><p>Accesseurs <br /><br />Accesseur de contenu<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getContenu() : string</li><li>Php : public function getContenu(): string </li></ul><a name="ref2_205442"></a>
+<table><tr><td><div class="element">Operation <b>getType</b></div></td></tr></table><p>Accesseur de type<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getType() : string</li><li>Php : public function getType(): string </li></ul><a name="ref2_205570"></a>
+<table><tr><td><div class="element">Operation <b>getTemplate</b></div></td></tr></table><p>Accesseur de template<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getTemplate() : string</li><li>Php : public function getTemplate(): string </li></ul><a name="ref2_205698"></a>
+<table><tr><td><div class="element">Operation <b>getCss</b></div></td></tr></table><p>Accesseur de css<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getCss() : string</li><li>Php : public function getCss(): string </li></ul><a name="ref2_205826"></a>
+<table><tr><td><div class="element">Operation <b>getJs</b></div></td></tr></table><p>Accesseur de js<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getJs() : string</li><li>Php : public function getJs(): string </li></ul><a name="ref2_205954"></a>
+<table><tr><td><div class="element">Operation <b>setContenu</b></div></td></tr></table><p>DÃ©finisseurs <br /><br />DÃ©finisseur de contenu<br /><br />@param string contenu Contenu du message<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setContenu(in contenu : string) : void</li><li>Php : protected function setContenu($contenu): void </li></ul><a name="ref2_206082"></a>
+<table><tr><td><div class="element">Operation <b>setType</b></div></td></tr></table><p>DÃ©finisseur de type<br /><br />@param string type Type du message<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setType(in type : string) : void</li><li>Php : protected function setType($type): void </li></ul><a name="ref2_206210"></a>
+<table><tr><td><div class="element">Operation <b>setTemplate</b></div></td></tr></table><p>DÃ©finisseur de template<br /><br />@param string template Chemin vers ka tmplate utilisÃ©<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setTemplate(in template : string) : void</li><li>Php : protected function setTemplate($template): void </li></ul><a name="ref2_206338"></a>
+<table><tr><td><div class="element">Operation <b>setCss</b></div></td></tr></table><p>DÃ©finisseur de css<br /><br />@param string css Chemin vers le css utilisÃ©<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setCss(in css : string) : void</li><li>Php : protected function setCss($css): void </li></ul><a name="ref2_206466"></a>
+<table><tr><td><div class="element">Operation <b>setJs</b></div></td></tr></table><p>DÃ©finisseur de js<br /><br />@param string js Chemin vers le js utilisÃ©<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setJs(in js : string) : void</li><li>Php : protected function setJs($js): void </li></ul><a name="ref2_206594"></a>
+<table><tr><td><div class="element">Operation <b>afficherContenu</b></div></td></tr></table><p>Autres mÃ©thodes <br /><br />Afficheur de contenu<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherContenu() : string</li><li>Php : public function afficherContenu(): string </li></ul><a name="ref2_206722"></a>
+<table><tr><td><div class="element">Operation <b>afficherType</b></div></td></tr></table><p>Afficheur de type<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherType() : string</li><li>Php : public function afficherType(): string </li></ul><a name="ref2_206850"></a>
+<table><tr><td><div class="element">Operation <b>afficherTemplate</b></div></td></tr></table><p>Afficheur de template<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherTemplate() : string</li><li>Php : public function afficherTemplate(): string </li></ul><a name="ref2_206978"></a>
+<table><tr><td><div class="element">Operation <b>afficherCss</b></div></td></tr></table><p>Afficheur de css<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherCss() : string</li><li>Php : public function afficherCss(): string </li></ul><a name="ref2_207106"></a>
+<table><tr><td><div class="element">Operation <b>afficherJs</b></div></td></tr></table><p>Afficheur de js<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherJs() : string</li><li>Php : public function afficherJs(): string </li></ul><a name="ref2_207234"></a>
+<table><tr><td><div class="element">Operation <b>afficher</b></div></td></tr></table><p>Afficheur de Message<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficher() : string</li><li>Php : public function afficher(): string </li></ul><a name="ref2_207362"></a>
+<table><tr><td><div class="element">Operation <b>recupererTemplate</b></div></td></tr></table><p>Met la template dans le conteny<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + recupererTemplate() : void</li><li>Php : public function recupererTemplate(): void </li></ul><a name="ref2_207490"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Construction de l'objet<br /><br />@param array attributs Attributs du message<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in attributs : array) : void</li><li>Php : public function __construct($attributs): void </li></ul></div>
+<p>All public operations : <a href="class157954.html#ref2_207490"><b>__construct</b></a> , <a href="class157954.html#ref2_207234"><b>afficher</b></a> , <a href="class157954.html#ref2_206594"><b>afficherContenu</b></a> , <a href="class157954.html#ref2_206978"><b>afficherCss</b></a> , <a href="class157954.html#ref2_207106"><b>afficherJs</b></a> , <a href="class157954.html#ref2_206850"><b>afficherTemplate</b></a> , <a href="class157954.html#ref2_206722"><b>afficherType</b></a> , <a href="class157954.html#ref2_205314"><b>getContenu</b></a> , <a href="class157954.html#ref2_205698"><b>getCss</b></a> , <a href="class157954.html#ref2_205826"><b>getJs</b></a> , <a href="class157954.html#ref2_205570"><b>getTemplate</b></a> , <a href="class157954.html#ref2_205442"><b>getType</b></a> , <a href="class157954.html#ref2_207362"><b>recupererTemplate</b></a> </p>
+</body>
+</html>

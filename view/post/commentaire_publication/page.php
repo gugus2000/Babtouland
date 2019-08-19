@@ -24,7 +24,7 @@ if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['co
 		'css'      => $config['message_css'],
 		'js'       => $config['message_js'],
 		'template' => $config['message_template'],
-	));	$get=$config['post_commentaire_publication_suivant'].'&id='.$_GET['id'];
+	));	$get=$config['post_commentaire_publication_suivant'].'&id='.htmlspecialchars($_GET['id']);
 }
 
 $_SESSION['message']=serialize($Message);

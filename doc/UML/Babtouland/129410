@@ -1,0 +1,88 @@
+format 218
+"erreur" // Babtouland::erreur
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/erreur/"
+  deploymentview 135554 "erreur"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 138114 "contenu"
+      stereotype "source"
+      php_src "<?php ob_start(); ?>
+	<div id=\"conteneur\">
+		<section class=\"ligne\">
+			<section class=\"colonne\">
+				<section class=\"carte\">
+					<section class=\"contenu\">
+						<?= htmlspecialchars($e->getMessage()) ?>
+					</section>
+				</section>
+			</section>
+		</section>
+	</div>
+<?php $contenu.=ob_get_clean(); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 138242 "page"
+      stereotype "source"
+      php_src "<?php
+
+$contenu=$config['default_contenu'];
+require 'contenu.php';
+
+$metas=$config['default_metas'];
+array_push($metas, array(
+	'name'    => 'description',
+	'content' => $lang['erreur_description'],
+));
+
+$css=$config['default_css'];
+
+$js=$config['default_javascripts'];
+
+$titre=$lang['erreur_titre'];
+
+ajouterMenuUp($css, $js, $contenu);
+
+$Visiteur->getPage()->set(array(
+	'template'    => file_get_contents($config['default_template']),
+	'contenu'     => $contenu,
+	'titre'       => $titre,
+	'metas'       => $metas,
+	'css'         => $css,
+	'javascripts' => $js,
+));
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

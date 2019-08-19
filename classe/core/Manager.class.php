@@ -99,7 +99,6 @@ class Manager
 	*/
 	public function add($attributs)
 	{
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
 		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));	// Le tableau ne contient que les attributs valides
 		$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', array_keys($attributs)).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
 		$requete->execute(array_values($attributs));

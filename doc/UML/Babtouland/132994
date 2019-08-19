@@ -1,0 +1,138 @@
+format 218
+"liste_user" // Babtouland::view::utile::liste_user
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/utile/liste_user/"
+  deploymentview 138498 "liste_user"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 143234 "contenu"
+      stereotype "source"
+      php_src "<?php ob_start(); ?>
+	<div id=\"conteneur\">
+		<section class=\"ligne\">
+			<section class=\"colonne\">
+				<section class=\"carte\">
+					<section class=\"contenu\">
+						<table>
+							<caption><?= $lang['utile_liste_user_table_caption'] ?></caption>
+							<thead>
+								<tr>
+									<th><?= $lang['utile_liste_user_table_th_nom'] ?></th>
+									<th><?= $lang['utile_liste_user_table_th_avatar'] ?></th>
+									<th><?= $lang['utile_liste_user_table_th_date_derniere_connexion'] ?></th>
+									<th><?= $lang['utile_liste_user_table_th_date_inscription'] ?></th>
+									<th><?= $lang['utile_liste_user_table_th_role'] ?></th>
+								</tr>
+							</thead>
+							<tbody>
+						<?php
+						$BDDFactory=new \\core\\BDDFactory;
+						$UtilisateurManager=new \\user\\UtilisateurManager($BDDFactory->MysqlConnexion());
+						$attributs=array('pseudo' => 'guest');
+						$operations=array('pseudo' => '!=');
+						$resultats=$UtilisateurManager->getBy($attributs, $operations);
+						foreach ($resultats as $index => $resultat)
+						{
+							$Utilisateur=new \\user\\Utilisateur(array(
+								'id' => $resultat['id'],
+							));
+							$Utilisateur->recuperer();
+							require 'utilisateur.php';
+						}
+						?>
+
+							</tbody>
+						</table>
+					</section>
+				</section>
+			</section>
+		</section>
+	</div>
+<?php $contenu.=ob_get_clean(); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 143362 "page"
+      stereotype "source"
+      php_src "<?php
+
+$contenu=$config['default_contenu'];
+require 'contenu.php';
+
+$metas=$config['default_metas'];
+array_push($metas, array(
+	'name'    => 'description',
+	'content' => $lang['utile_liste_user_description'],
+));
+
+$css=$config['default_css'];
+array_push($css, 'assets/css/liste.css');
+
+$js=$config['default_javascripts'];
+
+$titre=$lang['utile_liste_user_titre'];
+
+ajouterMenuUp($css, $js, $contenu);
+
+$Visiteur->getPage()->set(array(
+	'template'    => file_get_contents($config['default_template']),
+	'contenu'     => $contenu,
+	'titre'       => $titre,
+	'metas'       => $metas,
+	'css'         => $css,
+	'javascripts' => $js,
+));
+
+?>"
+      associated_elems
+      end
+    end
+
+    artifact 143490 "utilisateur"
+      stereotype "source"
+      php_src "<?php
+$classe='';
+if ($index%2==1)
+{
+	$classe=' class=\"impair\"';
+}
+?>
+								<tr<?= $classe ?>>
+									<td><?= $Utilisateur->afficherPseudo() ?></td>
+									<td><img src=\"<?= $config['chemin_avatar'] ?><?= $Utilisateur->afficherAvatar() ?>\" alt=\"<?= $lang['utile_liste_user_table_td_avatar_alt'] ?><?= $Utilisateur->afficherPseudo() ?>\"></td>
+									<td><?= $Utilisateur->afficherDate_connexion() ?></td>
+									<td><?= $Utilisateur->afficherDate_inscription() ?></td>
+									<td><?= $Utilisateur->afficherRole() ?></td>
+								</tr>"
+      associated_elems
+      end
+    end
+  end
+end

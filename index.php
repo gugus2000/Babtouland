@@ -88,11 +88,14 @@ try
 }
 catch (Exception $e)
 {
-	$Visiteur=new \user\Visiteur(array(
-		'pseudo' => $config['nom_guest'],
-	));	// Visiteur avec une "session invitée"
-	$Visiteur->recuperer();
-	$Visiteur->connexion($config['mdp_guest']);
+	if (!$Visiteur->getAvatar())
+	{
+		$Visiteur=new \user\Visiteur(array(
+			'pseudo' => $config['nom_guest'],
+		));	// Visiteur avec une "session invitée"
+		$Visiteur->recuperer();
+		$Visiteur->connexion($config['mdp_guest']);
+	}
 	$Visiteur->loadPage('erreur', 'erreur');
 	require $config['erreur_path'];
 	echo $Visiteur->getPage()->afficher();

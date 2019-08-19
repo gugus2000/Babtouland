@@ -1,0 +1,122 @@
+format 218
+"statut" // Babtouland::view::user::statut
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/statut/"
+  deploymentview 137730 "statut"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 141954 "contenu"
+      stereotype "source"
+      php_src "<?php ob_start(); ?>
+	<div id=\"conteneur\">
+		<section class=\"ligne\">
+			<section class=\"colonne\">
+				<section class=\"carte\">
+					<section class=\"contenu\">
+						<?= $lang['user_statut_pseudo'] ?><?= $Visiteur->afficherPseudo() ?><br />
+						<?= $lang['user_statut_avatar'] ?><img src=\"<?= $config['chemin_avatar'] ?><?= $Visiteur->afficherAvatar() ?>\" alt=\"<?= $lang['user_view_avatar_alt'] ?><?= $Visiteur->afficherPseudo() ?>\"><br />
+						<?= $lang['user_statut_derndateco'] ?><?= $Visiteur->afficherDate_connexion() ?><br />
+						<?= $lang['user_statut_premdatein'] ?><?= $Visiteur->afficherDate_inscription() ?><br />
+						<?= $lang['user_statut_mail'] ?><?= $Visiteur->afficherMail() ?><br />
+						<a href=\"<?= $config['user_statut_lien_edition'] ?>\" title=\"<?= $lang['user_statut_titre_lien_edition'] ?>\"><?= $lang['user_statut_affichage_lien_edition'] ?></a><br />
+						<a href=\"<?= $config['user_statut_lien_deconnexion'] ?>\" title=\"<?= $lang['user_statut_titre_lien_deconnexion'] ?>\"><?= $lang['user_statut_affichage_lien_deconnexion'] ?></a><br />
+						<a href=\"<?= $_SERVER['REQUEST_URI'].'&lang='.$lang['inv_lang'] ?>\" title=\"<?= $lang['user_statut_titre_lien_langage'] ?>\"><?= $lang['user_statut_affichage_lien_langage'] ?></a>
+					</section>
+				</section>
+			</section>
+		</section>
+	</div>
+<?php $contenu.=ob_get_clean(); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 142082 "contenu_guest"
+      stereotype "source"
+      php_src "<?php ob_start(); ?>
+	<div id=\"conteneur\">
+		<section class=\"ligne\">
+			<section class=\"colonne\">
+				<section class=\"carte\">
+					<section class=\"contenu\">
+						<?= $lang['user_statut_nologin'] ?><br />
+						<a href=\"<?= $config['user_statut_lien_connexion'] ?>\" title=\"<?= $lang['user_statut_titre_lien_connexion'] ?>\"><?= $lang['user_statut_affichage_lien_connexion'] ?></a><br />
+						<a href=\"<?= $config['user_statut_lien_inscription'] ?>\" title=\"<?= $lang['user_statut_titre_lien_inscription'] ?>\"><?= $lang['user_statut_affichage_lien_inscription'] ?></a><br />
+						<a href=\"<?= $_SERVER['REQUEST_URI'].'&lang='.$lang['inv_lang'] ?>\" title=\"<?= $lang['user_statut_titre_lien_langage'] ?>\"><?= $lang['user_statut_affichage_lien_langage'] ?></a>
+					</section>
+				</section>
+			</section>
+		</section>
+	</div>
+<?php $contenu.=ob_get_clean(); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 142210 "page"
+      stereotype "source"
+      php_src "<?php
+
+$contenu=$config['default_contenu'];
+if($Visiteur->getPseudo()==$config['nom_guest'])
+{
+	require 'contenu_guest.php';
+}
+else
+{
+	require 'contenu.php';
+}
+
+$metas=$config['default_metas'];
+array_push($metas, array(
+	'name'    => 'description',
+	'content' => $lang['user_connexion_description'],
+));
+
+$css=$config['default_css'];
+
+$js=$config['default_javascripts'];
+
+ajouterMenuUp($css, $js, $contenu);
+
+$Visiteur->getPage()->set(array(
+	'template'    => file_get_contents($config['default_template']),
+	'contenu'     => $contenu,
+	'titre'       => $lang['user_statut_titre'],
+	'metas'       => $metas,
+	'css'         => $css,
+	'javascripts' => $js,
+));
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

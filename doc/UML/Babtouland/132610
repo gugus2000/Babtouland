@@ -1,0 +1,104 @@
+format 218
+"view" // Babtouland::view::user::view
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/view/"
+  deploymentview 138242 "view"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 142722 "contenu"
+      stereotype "source"
+      php_src "<?php
+
+$Utilisateur=new \\user\\Utilisateur(array(
+	'id' => $id,
+));
+$Utilisateur->recuperer();
+
+?>
+<?php ob_start(); ?>
+	<div id=\"conteneur\">
+		<section class=\"ligne\">
+			<section class=\"colonne\">
+				<section class=\"carte\">
+					<section class=\"contenu\">
+						<?= $lang['user_view_pseudo'] ?><?= $Utilisateur->afficherPseudo() ?><br />
+						<?= $lang['user_view_avatar'] ?><img src=\"<?= $config['chemin_avatar'] ?><?= $Utilisateur->afficherAvatar() ?>\" alt=\"<?= $lang['user_view_avatar_alt'] ?><?= $Utilisateur->afficherPseudo() ?>\"><br />
+						<?= $lang['user_view_derndateco'] ?><?= $Utilisateur->afficherDate_connexion() ?><br />
+						<?= $lang['user_view_premdatein'] ?><?= $Utilisateur->afficherDate_inscription() ?><br />
+					</section>
+				</section>
+			</section>
+		</section>
+	</div>
+<?php $contenu.=ob_get_clean(); ?>"
+      associated_elems
+      end
+    end
+
+    artifact 142850 "page"
+      stereotype "source"
+      php_src "<?php
+
+$id=$Visiteur->getId();
+if(isset($_GET['id']))
+{
+	$id=$_GET['id'];
+}
+
+$contenu=$config['default_contenu'];
+
+require 'contenu.php';
+
+$metas=$config['default_metas'];
+array_push($metas, array(
+	'name'    => 'description',
+	'content' => $lang['user_view_description'],
+));
+
+$css=$config['default_css'];
+
+$js=$config['default_javascripts'];
+
+ajouterMenuUp($css, $js, $contenu);
+
+$Visiteur->getPage()->set(array(
+	'template'    => file_get_contents($config['default_template']),
+	'contenu'     => $contenu,
+	'titre'       => $lang['user_view_titre'],
+	'metas'       => $metas,
+	'css'         => $css,
+	'javascripts' => $js,
+));
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

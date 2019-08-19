@@ -1,0 +1,149 @@
+format 218
+
+classcanvas 128002 class_ref 156162 // BDDFactory
+  classdiagramsettings member_max_width 0 end
+  xyz 59 399 2000
+end
+classcanvas 128130 class_ref 156290 // Managed
+  classdiagramsettings member_max_width 0 end
+  xyz 1719 1987 2000
+end
+classcanvas 128258 class_ref 156418 // Manager
+  classdiagramsettings member_max_width 0 end
+  xyz 1698 105 2000
+end
+classcanvas 129410 class_ref 157442 // Commentaire
+  classdiagramsettings member_max_width 0 end
+  xyz 2194 1977 2006
+end
+classcanvas 129666 class_ref 157570 // CommentaireManager
+  classdiagramsettings member_max_width 0 end
+  xyz 2157 56 2006
+end
+classcanvas 129922 class_ref 157698 // Post
+  classdiagramsettings member_max_width 0 end
+  xyz 2191 1351 2011
+end
+classcanvas 130178 class_ref 157826 // PostManager
+  classdiagramsettings member_max_width 0 end
+  xyz 2170 305 2006
+end
+classcanvas 130434 class_ref 157954 // Message
+  classdiagramsettings member_max_width 0 end
+  xyz 591 1591 2000
+end
+classcanvas 130562 class_ref 158082 // Motdepasse
+  classdiagramsettings member_max_width 0 end
+  xyz 785 1335 2006
+end
+classcanvas 130818 class_ref 158210 // MotdepasseManager
+  classdiagramsettings member_max_width 0 end
+  xyz 1119 417 2011
+end
+classcanvas 131074 class_ref 158338 // Page
+  classdiagramsettings member_max_width 0 end
+  xyz 810 1664 2011
+end
+classcanvas 131202 class_ref 158466 // Permission
+  classdiagramsettings member_max_width 0 end
+  xyz 933 1123 2012
+end
+classcanvas 131458 class_ref 158594 // PermissionManager
+  classdiagramsettings member_max_width 0 end
+  xyz 1220 526 2011
+end
+classcanvas 131714 class_ref 158722 // Role
+  classdiagramsettings member_max_width 0 end
+  xyz 973 1561 2017
+end
+classcanvas 131970 class_ref 158978 // Utilisateur
+  classdiagramsettings member_max_width 0 end
+  xyz 1339 1662 2022
+end
+classcanvas 132226 class_ref 159106 // UtilisateurManager
+  classdiagramsettings member_max_width 0 end
+  xyz 989 148 2017
+end
+classcanvas 132482 class_ref 158594 // PermissionManager
+  classdiagramsettings member_max_width 0 end
+  xyz 1012 278 2016
+end
+classcanvas 132738 class_ref 159234 // Visiteur
+  classdiagramsettings member_max_width 0 end
+  xyz 1103 1915 2028
+end
+classcanvas 132994 class_ref 159362 // VisiteurManager
+  classdiagramsettings member_max_width 0 end
+  xyz 745 155 2023
+end
+relationcanvas 129538 relation_ref 157954 // <generalisation>
+  from ref 129410 z 2007 to ref 128130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129794 relation_ref 158082 // <generalisation>
+  from ref 129666 z 2007 to ref 128258
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130050 relation_ref 158210 // <generalisation>
+  from ref 129922 z 2012 to ref 128130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130306 relation_ref 158338 // <generalisation>
+  from ref 130178 z 2007 to ref 128258
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130690 relation_ref 158466 // <generalisation>
+  from ref 130562 z 2007 to ref 128130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130946 relation_ref 158594 // <generalisation>
+  from ref 130818 z 2012 to ref 128258
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131330 relation_ref 158722 // <generalisation>
+  from ref 131202 z 2013 to ref 128130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131586 relation_ref 158850 // <generalisation>
+  from ref 131458 z 2012 to ref 128258
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131842 relation_ref 158978 // <generalisation>
+  from ref 131714 z 2018 to ref 128130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 132098 relation_ref 159234 // <generalisation>
+  from ref 131970 z 2023 to ref 128130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 132354 relation_ref 159362 // <generalisation>
+  from ref 132226 z 2018 to ref 128258
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 132610 relation_ref 158850 // <generalisation>
+  from ref 132482 z 2017 to ref 128258
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 132866 relation_ref 159490 // <generalisation>
+  from ref 132738 z 2029 to ref 131970
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 133122 relation_ref 159618 // <generalisation>
+  from ref 132994 z 2024 to ref 132226
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

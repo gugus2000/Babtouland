@@ -250,13 +250,11 @@ class Post extends \core\Managed
 		return date($format, strtotime($this->date_mise_a_jour));
 	}
 	/**
-	* Converti l'objet Post en string via une template
-	* 
-	* @param string template Chemin vers la template à utiliser
+	* Afficheur de Post
 	*
 	* @return string
 	*/
-	public function afficher($template)
+	public function afficher()
 	{
 		return $this->afficherContenu();
 	}
