@@ -2,9 +2,19 @@
 
 $lang=array(
 		/* Général */
-		'inv_lang' => 'FR',
 		'pseudo'   => 'pseudo',
 		'mdp'      => 'password',
+	/* Langue */
+		'lang_self'   => array(
+			'abbr' => 'EN',
+			'full' => 'English',
+		),
+		'lang_others' => array(
+			'FR' => array(
+				'abbr' => 'FR',
+				'full' => 'Français',
+			),
+		),
 	/* Erreur */
 		'erreur_fichier_introuvable'     => 'Page not found',
 		'erreur_permission_introuvable'  => 'Don\'t have permission',
@@ -16,8 +26,8 @@ $lang=array(
 		'menu-up_accueil'    => 'Home',
 		'menu-up_altlogo'    => 'Logo of ',
 		'menu-up_avatar'     => 'Your avatar',
-		'menu-up_titres'     => array('Home', 'Post thread', 'About'),
-		'menu-up_affichages' => array('Home', 'Post', 'About'),
+		'menu-up_titres'     => array('Home', 'Post thread', 'About', 'Chat'),
+		'menu-up_affichages' => array('Home', 'Post', 'About', 'Chat'),
 	/* user */
 		'user_formulairepseudo' => 'Username:',
 		'user_formulairemdp'    => 'Password:',

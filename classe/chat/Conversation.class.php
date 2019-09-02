@@ -222,7 +222,7 @@ class Conversation extends \core\Managed
 	*/
 	public function creer()
 	{
-		$this->Manager();
+		$Manager=$this->Manager();
 		$Manager->add(array(
 			'nom'         => $this->getNom(),
 			'description' => $this->getDescription(),
@@ -232,9 +232,9 @@ class Conversation extends \core\Managed
 			'description' => $this->getDescription(),
 		)));
 		$id_utilisateurs=array();
-		foreach ($this->getUtilisateurs as $key => $Utilisateur)
+		foreach ($this->getUtilisateurs() as $Utilisateur)
 		{
-			$id_utilisateurs[]==$Utilisateur->getId();
+			$id_utilisateurs[]=$Utilisateur->getId();
 		}
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
@@ -251,21 +251,49 @@ class Conversation extends \core\Managed
 	*/
 	public function modifier()
 	{
-		$this->Manager();
+		$Manager=$this->Manager();
 		$Manager->update(array(
 			'nom'         => $this->getNom(),
 			'description' => $this->getDescription(),
 		), $this->getId());
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
-		$LiaisonConversationUtilisateur->deleteBy(array(
+		$id_utilisateurs=array();
+		foreach ($this->getUtilisateurs() as $Utilisateur)
+		{
+			$id_utilisateurs[]=$Utilisateur->getId();
+		}
+		$donnees_already_in=$LiaisonConversationUtilisateur->get(array(
 			'id_conversation' => $this->getId(),
-		));
-		$LiaisonConversationUtilisateur->(array(
-			'id_utilisateur' =>$this->getUtilisateurs(),
 		), array(
-			'id_conversation' => $this->getId(),
+			'id_conversation' => '=',
 		));
+		$id_utilisateurs_already_in=array();
+		foreach ($donnees_already_in as $donnee)
+		{
+			$id_utilisateurs_already_in[]=$donnee['id_utilisateur'];
+		}
+		$id_utilisateurs_non_modifies=array_intersect($id_utilisateurs_already_in, $id_utilisateurs);
+		if(array_diff($id_utilisateurs_non_modifies, $id_utilisateurs_already_in))	// Il y a des utilisateurs qui ne sont plus dans la discussion
+		{
+			$LiaisonConversationUtilisateur->deleteBy(array(
+				'id_conversation' => $this->getId(),
+			));
+			$LiaisonConversationUtilisateur->addBy(array(
+				'id_utilisateur' => $id_utilisateurs,
+			), array(
+				'id_conversation' => $this->getId(),
+			));
+		}
+		else
+		{
+			$id_utilisateurs_a_ajouter=array_diff($id_utilisateurs, $id_utilisateurs_non_modifies);
+			$LiaisonConversationUtilisateur->addBy(array(
+				'id_utilisateur' => $id_utilisateurs_a_ajouter,
+			), array(
+				'id_conversation' => $this->getId(),
+			));
+		}
 	}
 	/**
 	* Supprimer une conversation
@@ -274,7 +302,7 @@ class Conversation extends \core\Managed
 	*/
 	public function supprimer()
 	{
-		$this->Manager();
+		$Manager=$this->Manager();
 		$Manager->delete($this->getId());
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());

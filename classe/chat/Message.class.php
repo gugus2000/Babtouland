@@ -98,7 +98,7 @@ class Message extends \core\Managed
 	*
 	* @return string
 	*/
-	public function getMise_a_jour()
+	public function getDate_mise_a_jour()
 	{
 		return $this->date_mise_a_jour;
 	}
@@ -267,6 +267,56 @@ class Message extends \core\Managed
 	public function recuperer()
 	{
 		$this->get($this->getId());
+	}
+	/**
+	* Créer un message dans la base de donnée
+	* 
+	* @return void
+	*/
+	public function creer()
+	{
+		$Manager=$this->Manager();
+		$Manager->add(array(
+			'id_conversation'  => $this->getId_conversation(),
+			'id_auteur'        => $this->getId_auteur(),
+			'contenu'          => $this->getContenu(),
+			'date_publication' => $this->getDate_publication(),
+			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+		));
+		$this->setId($Manager->getIdBy(array(
+			'id_conversation'  => $this->getId_conversation(),
+			'id_auteur'        => $this->getId_auteur(),
+			'contenu'          => $this->getContenu(),
+			'date_publication' => $this->getDate_publication(),
+			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+		)));
+	}
+
+	/**
+	* Modifie un message donné
+	* 
+	* @return void
+	*/
+	public function modifier()
+	{
+		$Manager=$this->Manager();
+		$Manager->update(array(
+			'id_conversation'  => $this->getId_conversation(),
+			'id_auteur'        => $this->getId_auteur(),
+			'contenu'          => $this->getContenu(),
+			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+		), $this->getId());
+	}
+
+	/**
+	* Supprime un message donné
+	* 
+	* @return void
+	*/
+	public function supprimer()
+	{
+		$Manager=$this->Manager();
+		$Manager->delete($this->getId());
 	}
 }
 

@@ -10,8 +10,7 @@
 						<?= $lang['user_statut_premdatein'] ?><?= $Visiteur->afficherDate_inscription() ?><br />
 						<?= $lang['user_statut_mail'] ?><?= $Visiteur->afficherMail() ?><br />
 						<a href="<?= $config['user_statut_lien_edition'] ?>" title="<?= $lang['user_statut_titre_lien_edition'] ?>"><?= $lang['user_statut_affichage_lien_edition'] ?></a><br />
-						<a href="<?= $config['user_statut_lien_deconnexion'] ?>" title="<?= $lang['user_statut_titre_lien_deconnexion'] ?>"><?= $lang['user_statut_affichage_lien_deconnexion'] ?></a><br />
-						<a href="<?= $_SERVER['REQUEST_URI'].'&lang='.$lang['inv_lang'] ?>" title="<?= $lang['user_statut_titre_lien_langage'] ?>"><?= $lang['user_statut_affichage_lien_langage'] ?></a>
+						<a href="<?= $config['user_statut_lien_deconnexion'] ?>" title="<?= $lang['user_statut_titre_lien_deconnexion'] ?>"><?= $lang['user_statut_affichage_lien_deconnexion'] ?></a>
 					</section>
 				</section>
 			</section>

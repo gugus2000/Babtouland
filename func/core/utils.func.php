@@ -60,9 +60,18 @@ function loadClass($className)
  **/
 function recuperationApplicationActionLien($lien)
 {
+	global $config;
 	preg_match('#application=(\S+)&action=([^&.]+)[&.=.]*#', $lien, $matches);
-	$array['application']=$matches[1];
-	$array['action']=$matches[2];
+	if($matches)
+	{
+		$array['application']=$matches[1];
+		$array['action']=$matches[2];
+	}
+	else
+	{
+		$array['application']=$config['default_application'];
+		$array['action']=$config['default_action'];
+	}
 	return $array;
 }
 

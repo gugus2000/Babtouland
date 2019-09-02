@@ -23,7 +23,7 @@ $config=array(
 			'default_action'      => 'statut',					// Action par défaut
 			'default_lang'        => $lang,						// Langue de la page par défaut
 			'default_template'    => 'template/template.php',	// Template de la page par défaut
-			'default_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),	// Css de la page par défaut
+			'default_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css', 'assets/css/dropdown.css'),	// Css de la page par défaut
 			'default_javascripts' => array(),					// javascripts de la page par défaut
 			'default_metas'       => array(
 				array(
@@ -58,9 +58,9 @@ $config=array(
 				'message_js'      => 'assets/js/message.js',		// Js des messages
 				'message_template' => 'assets/html/message.html',	// Template des messages
 			/* Menu-up */
-				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos')),	// Liste des liens dans le menu_up (dans l'ordre)
-				'menu-up_icones'      => array('home', 'message', 'info'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
-				'menu-up_lien-statut' => createPageLink('user', 'statut'),														// Lien lors du clic sur l'avatar dans le menu_up
+				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'test')),	// Liste des liens dans le menu_up (dans l'ordre)
+				'menu-up_icones'      => array('home', 'message', 'info', 'chat'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
+				'menu-up_lien-statut' => createPageLink('user', 'statut', 'chat'),														// Lien lors du clic sur l'avatar dans le menu_up
 				'menu-up_css'         => 'assets/css/menu-up.css',																// Css du menu-up
 				'menu-up_js'          => 'assets/js/menu-up.js',																// Js du menu-up
 				'menu-up_contenu'     => 'assets/php/menu-up.php',																// Contenu dynamique du menu-up

@@ -151,7 +151,7 @@ class Manager
 		{
 			$attributsWithOperators[]=$nom.'=?';
 		}
-		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators).'');
+		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
 		$requete->execute(array_values($attributs));
 		return $requete->fetch(\PDO::FETCH_ASSOC)[$this::INDEX];
 	}

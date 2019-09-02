@@ -20,12 +20,14 @@ $css=$config['default_css'];
 
 $js=$config['default_javascripts'];
 
+$titre=$lang['user_statut_titre'];
+
 ajouterMenuUp($css, $js, $contenu);
 
 $Visiteur->getPage()->set(array(
 	'template'    => file_get_contents($config['default_template']),
 	'contenu'     => $contenu,
-	'titre'       => $lang['user_statut_titre'],
+	'titre'       => $titre,
 	'metas'       => $metas,
 	'css'         => $css,
 	'javascripts' => $js,

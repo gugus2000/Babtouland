@@ -100,7 +100,7 @@ class LiaisonManager
 		return $results;
 	}
 	/**
-	* Ajoute les éléments dans l'array avec des paramètres variants et invariants
+	* Ajoute les éléments dans la table avec des paramètres variants et invariants
 	*
 	* @param array variants Valeurs variantes à chaque élément
 	*
@@ -110,22 +110,47 @@ class LiaisonManager
 	*/
 	public function addBy($variants, $invariants)
 	{
-		$attributs=array();
-		foreach ($variants as $attribut => $valeurs)
-		{
-			$attributs[]=$attribut;
+		$variants=array_intersect_key($variants, array_flip($this::ATTRIBUTES));
+		$variant=array_intersect_key($invariants, array_flip($this::ATTRIBUTES));
+		$attributs=array_merge(array_keys($variants),array_keys($invariants));
+		$donnees=array();
+		$nombre_elements=count($variants[array_keys($variants)[0]]);	// Le nombre d'éléments à insérer est le nombre de valeur dans les premières valeurs variantes
+		for ($i=0; $i < $nombre_elements; $i++)
+		{ 
+			$donnee=array();
+			foreach ($variants as $attribut => $valeurs)
+			{
+				$donnee[$attribut]=$valeurs[$i];
+			}
+			foreach ($invariants as $attribut => $valeur)
+			{
+				$donnee[$attribut]=$valeur;
+			}
+			$donnees[]=$donnee;	// donnees est un tableau contenant les attributs et leur valeur pour chaque élément
 		}
-		foreach ($invariants as $attribut => $valeur)
+		foreach ($donnees as $donnee)
 		{
-			$attributs[]=$attribut;
+			$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', $attributs).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
+			$requete->execute(array_values($donnee));
 		}
+	}
+	/**
+	* Supprime des éléments de la base de données en fonction de paramètres définis
+	*
+	* @param array attributs Paramètre permettant de déterminer l'élément à supprimer
+	* 
+	* @return void
+	*/
+	public function deleteBy($attributs)
+	{
+		$attributsWithOperators=array();
 		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
-		foreach ($valeurs as $key => $valeur)
+		foreach ($attributs as $nom => $valeur)
 		{
-			$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));	// Le tableau ne contient que les attributs valides
-			$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', array_keys($attributs)).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
-			$requete->execute(array_values($attributs));
+			$attributsWithOperators[]=$nom.'=?';
 		}
+		$requete=$this->getBdd()->prepare('DELETE FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
+		$requete->execute(array_values($attributs));
 	}
 }
 

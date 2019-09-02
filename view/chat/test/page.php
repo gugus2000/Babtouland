@@ -1,6 +1,6 @@
 <?php
 
-$contenu=$config['default_contenu'];
+$contenu='';
 require 'contenu.php';
 
 $metas=$config['default_metas'];

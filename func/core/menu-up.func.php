@@ -21,7 +21,11 @@ function afficherLiens($liens, $titres, $items, $type_ecran)
 	{
 		foreach ($liens as $index => $lien)
 		{
-			$affichage.='<a href="'.$lien.'" title="'.$titres[$index].'"><div class="saut-ligne"><br />'.$items[$index].'</div></a>';
+			$affichage.='<div class="element ligne">
+							<div class="colonne">
+								<a href="'.$lien.'" title="'.$titres[$index].'">'.$items[$index].'</a>
+							</div>
+						</div>';
 		}
 	}
 	else
@@ -49,10 +53,23 @@ function afficherLiens($liens, $titres, $items, $type_ecran)
 function ajouterMenuUp(&$css, &$js, &$contenu)
 {
 	global $config, $lang, $Visiteur;
-	array_push($css, $config['menu-up_css']);
-	array_push($js, $config['menu-up_js']);
-	require $config['menu-up_contenu'];
-	$contenu=$Contenu.$contenu;
+	foreach ($config['menu-up_liens'] as $key => $lien)	// vérifie les permissions des liens
+	{
+		$array=recuperationApplicationActionLien($lien);
+		if(!$Visiteur->getRole()->existPermission($array['application'], $array['action']))
+		{
+			unset($config['menu-up_liens'][$key]);
+			unset($lang['menu-up_titres'][$key]);
+			unset($lang['menu-up_affichages'][$key]);
+		}
+	}
+	if(!empty($config['menu-up_liens']))		// Aucune permission disponible
+	{
+		array_push($css, $config['menu-up_css']);
+		array_push($js, $config['menu-up_js']);
+		require $config['menu-up_contenu'];
+		$contenu=$Contenu.$contenu;
+	}
 }
 
 ?>

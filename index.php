@@ -71,7 +71,8 @@ try
 		{
 			$Visiteur->getPage()->set(array('message' => unserialize($_SESSION['message'])));
 		}
-		if (!@include_once($Visiteur->getPage()->getPath()))
+
+		if (!@include($Visiteur->getPage()->getPath()))
 		{
 			throw new Exception($lang['erreur_fichier_introuvable']);
 		}

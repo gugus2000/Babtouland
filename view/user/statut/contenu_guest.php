@@ -6,8 +6,7 @@
 					<section class="contenu">
 						<?= $lang['user_statut_nologin'] ?><br />
 						<a href="<?= $config['user_statut_lien_connexion'] ?>" title="<?= $lang['user_statut_titre_lien_connexion'] ?>"><?= $lang['user_statut_affichage_lien_connexion'] ?></a><br />
-						<a href="<?= $config['user_statut_lien_inscription'] ?>" title="<?= $lang['user_statut_titre_lien_inscription'] ?>"><?= $lang['user_statut_affichage_lien_inscription'] ?></a><br />
-						<a href="<?= $_SERVER['REQUEST_URI'].'&lang='.$lang['inv_lang'] ?>" title="<?= $lang['user_statut_titre_lien_langage'] ?>"><?= $lang['user_statut_affichage_lien_langage'] ?></a>
+						<a href="<?= $config['user_statut_lien_inscription'] ?>" title="<?= $lang['user_statut_titre_lien_inscription'] ?>"><?= $lang['user_statut_affichage_lien_inscription'] ?></a>
 					</section>
 				</section>
 			</section>
