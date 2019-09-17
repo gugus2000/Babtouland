@@ -2,6 +2,8 @@
 
 session_start();
 
+error_reporting(E_ALL);
+
 function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd/
 {
    ob_start('ob_gzhandler');
@@ -9,8 +11,7 @@ function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd
 }
 initOutputFilter();
 
-
-require_once 'config/core/config.php';	// Chargement de la configuration par défaut
+require_once 'config/core/config/config.php';	// Chargement de la configuration par défaut
 
 if(isset($_GET['lang']))
 {
@@ -18,23 +19,21 @@ if(isset($_GET['lang']))
 }
 if(isset($_SESSION['lang']))
 {
-	$config['default_lang']=$_SESSION['lang'];
+	$config['lang']=$_SESSION['lang'];
 }
 
-require_once 'config/lang/'.$config['default_lang'].'.php';	// Chargement de la traduction
+require_once 'config/lang/'.$config['lang'].'.php';	// Chargement de la traduction
 require_once 'config/core/bbcode.php';
 
 require_once 'func/core/utils.func.php';
-require_once 'func/core/menu-up.func.php';
-require_once 'func/core/toast.func.php';
 spl_autoload_register('loadClass');
 
-$application=$config['default_application'];
-$action=$config['default_action'];
+$application=$config['defaut_application'];
 if(isset($_GET['application']))
 {
 	$application=$_GET['application'];
 }
+$action=$config['defaut_'.$application.'_action'];
 if(isset($_GET['action']))
 {
 	$action=$_GET['action'];
@@ -45,7 +44,7 @@ try
 	{
 		$Visiteur=new \user\Visiteur(array(
 			'pseudo' => $_SESSION['pseudo'],
-			'id'     => $_SESSION['id']
+			'id'     => $_SESSION['id'],
 		));
 		if ($Visiteur->Manager()->existId($_SESSION['id']) & $Visiteur->Manager()->exist(array('pseudo' => $_SESSION['pseudo'])))
 		{
@@ -65,30 +64,11 @@ try
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
 	}
-	if($Visiteur->loadPage($application, $action))	// Permission accordée
-	{
-		if(isset($_SESSION['message']))
-		{
-			$Visiteur->getPage()->set(array('message' => unserialize($_SESSION['message'])));
-		}
-
-		if (!@include($Visiteur->getPage()->getPath()))
-		{
-			throw new Exception($lang['erreur_fichier_introuvable']);
-		}
-		else
-		{
-			require $Visiteur->getPage()->getPath();
-		}
-		echo $Visiteur->getPage()->afficher();
-	}
-	else
-	{
-		throw new Exception($lang['erreur_permission_introuvable']);
-	}
+	echo $Visiteur->chargePage($application, $action);
 }
 catch (Exception $e)
 {
+	exit($e);
 	if (!$Visiteur->getAvatar())
 	{
 		$Visiteur=new \user\Visiteur(array(
@@ -97,7 +77,7 @@ catch (Exception $e)
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
 	}
-	$Visiteur->loadPage('erreur', 'erreur');
+	$Visiteur->chargePage('erreur', 'erreur');
 	require $config['erreur_path'];
 	echo $Visiteur->getPage()->afficher();
 }

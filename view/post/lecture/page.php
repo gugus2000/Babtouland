@@ -29,20 +29,22 @@ if(isset($Commentaire))
 
 $js=$config['default_javascripts'];
 
-ajouterMenuUp($css, $js, $contenu);
-
-$liens=array($config['post_lecture_lien_mise_a_jour'].'&id='.$id, $config['post_lecture_lien_suppression'].'&id='.$id);
-$icones=array('edit', 'delete');
-$descriptions=array($lang['post_lecture_lien_mise_a_jour'], $lang['post_lecture_lien_suppression']);
-ajouterToast($css, $js, $contenu, $liens, $icones, $descriptions);
+$titre=$lang['post_lecture_titre'].$Post->afficherTitre();
 
 $Visiteur->getPage()->set(array(
 	'template'    => file_get_contents($config['default_template']),
 	'contenu'     => $contenu,
-	'titre'       => $lang['post_lecture_titre'].$Post->afficherTitre(),
+	'titre'       => $titre,
 	'metas'       => $metas,
 	'css'         => $css,
 	'javascripts' => $js,
 ));
+
+$Visiteur->getPage()->ajouterMenuUp($Visiteur);
+
+$liens=array($config['post_lecture_lien_mise_a_jour'].'&id='.$id, $config['post_lecture_lien_suppression'].'&id='.$id);
+$icones=array('edit', 'delete');
+$descriptions=array($lang['post_lecture_lien_mise_a_jour'], $lang['post_lecture_lien_suppression']);
+$Visiteur->getPage()->ajouterToast($Visiteur, $liens, $icones, $descriptions);
 
 ?>

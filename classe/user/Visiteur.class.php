@@ -178,33 +178,6 @@ class Visiteur extends Utilisateur
 		$Manager->delete($this->getId());
 	}
 	/**
-	* Charge une page
-	*
-	* @param string application Application de la page à charger
-	* 
-	* @param string action Action de la page à charger
-	*
-	* @return bool
-	*/
-	public function loadPage($application, $action)
-	{
-		if ($this->getRole()->existPermission($application, $action))
-		{
-			$Page=new \user\Page(array(
-				'application' => $application,
-				'action'      => $action,
-			));
-			$this->setPage($Page);
-			return true;
-		}
-		$Page=new \user\Page(array(
-			'application' => $application,
-			'action'      => $action,
-		));
-		$this->setPage($Page);
-		return false;
-	}
-	/**
 	* Récupère l'id des conversations dont l'utilisateur fait parti
 	*
 	* @return array
@@ -228,6 +201,61 @@ class Visiteur extends Utilisateur
 			$conversations[]=$conversation;
 		}
 		return $conversations;
+	}
+	/**
+	* Charge la page
+	*
+	* @param string application Application de la page
+	*
+	* @param  string action Action de la page
+	* 
+	* @return bool
+	*/
+	public function chargePage($application, $action)
+	{
+		global $config, $lang, $Visiteur;
+		if($this->getRole()->existPermission($application, $action))	// Permission accordée
+		{
+			if (include($this->getPagePath($application, $action)))
+			{
+				$PageElement=new \user\PageElement(array(
+					'template'  => $config['pageElement_page_template'],
+					'fonctions' => $config['pageElement_page_fonctions'],
+					'elements'  => $config['pageElement_elements'],
+				));
+				$this->setPage(new \user\Page(array(
+					'application' => $application,
+					'action'      => $action,
+					'pageElement' => $PageElement,
+				)));
+				return $this->getPage()->afficher();
+			}
+			else
+			{
+				throw new Exception($lang['erreur_general_fichier_introuvable']);
+			}
+		}
+		else
+		{
+			throw new \Exception($lang['erreur_general_autorisations_insuffisantes']);	// Pas l'autorisation
+		}
+	}
+	/**
+	* Trouve le fichier de définition de la page concerné
+	*
+	* @param string application Application de la page
+	*
+	* @param string action Action de la page
+	* 
+	* @return string
+	*/
+	public function getPagePath($application, $action)
+	{
+		$Page=new \user\Page(array(
+			'application' => $application,
+			'action'      => $action,
+		));
+		return $Page->getPath();
 	}
 }
 

@@ -22,20 +22,22 @@ array_push($css, 'assets/css/navigation_nombre.css');
 
 $js=$config['default_javascripts'];
 
-ajouterMenuUp($css, $js, $contenu);
-
-$liens=array($config['post_fil_post_lien_publication']);
-$icones=array('add');
-$descriptions=array($lang['post_fil_post_publication']);
-ajouterToast($css, $js, $contenu, $liens, $icones, $descriptions);
+$titre=$lang['post_fil_post_titre'].$page;
 
 $Visiteur->getPage()->set(array(
 	'template'    => file_get_contents($config['default_template']),
 	'contenu'     => $contenu,
-	'titre'       => $lang['post_fil_post_titre'].$page,
+	'titre'       => $titre,
 	'metas'       => $metas,
 	'css'         => $css,
 	'javascripts' => $js,
 ));
+
+$Visiteur->getPage()->ajouterMenuUp($Visiteur);
+
+$liens=array($config['post_fil_post_lien_publication']);
+$icones=array('add');
+$descriptions=array($lang['post_fil_post_publication']);
+$Visiteur->getPage()->ajouterToast($Visiteur, $liens, $icones, $descriptions);
 
 ?>

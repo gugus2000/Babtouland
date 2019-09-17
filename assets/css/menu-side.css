@@ -1,0 +1,137 @@
+.menu-side
+{
+	background-color: #333333;
+	z-index: 9;
+	box-shadow: 1px 1px 10px rgba(0, 0, 0, 1);
+	box-shadow: -1px -1px 10px rgba(0, 0, 0, 1);
+}
+
+.menu-side.fixed
+{
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+.menu-side.fixed .content
+{
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+}
+
+.menu-side.gauche
+{
+	left:0;
+}
+
+.menu-side.droite
+{
+	right:0;
+}
+
+.menu-side.petit
+{
+	max-width: 200px;
+	min-width: 200px;
+}
+
+.menu-side.moyen
+{
+	max-width: 300px;
+	min-width: 300px;
+}
+
+.menu-side.grand
+{
+	max-width: 400px;
+	min-width: 400px;
+}
+.menu-side .content
+{
+	margin-top: 110px;
+	text-align: center;
+	padding: 10px;
+}
+
+.menu-side .content a
+{
+	text-decoration: none;
+	color: #C6517C;
+}
+
+.menu-side h1, .menu-side h2, .menu-side h3, .menu-side h4, .menu-side h5, .menu-side h6
+{
+	color: #40508E;
+}
+
+.menu-side h1.white, .menu-side h2.white, .menu-side h3.white, .menu-side h4.white, .menu-side h5.white, .menu-side h6.white
+{
+	color: #FFFFFF;
+}
+
+.menu-side ul
+{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.menu-side .content div
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.menu-side .content div.bloc
+{
+	display: block;
+}
+
+/* Button */
+
+.menu-side .content .button, .menu-side .content .button-title
+{
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: none;
+	color: #FFF;
+}
+
+.menu-side .content .button
+{
+	background-color: #444;
+}
+
+.menu-side .content .button-title
+{
+	background-color: #000;
+}
+
+.menu-side .content .button:hover
+{
+	background-color: #666;
+}
+
+.menu-side .content .button:hover a
+{
+	color: #ED84AB;
+}
+
+.menu-side .content button
+{
+	border: solid 1px black;
+	cursor: pointer;
+	color: #C6517C;
+	background-color: #444;
+}
+
+.menu-side .content button:hover
+{
+	color: #ED84AB;
+	background-color: #666;;
+}

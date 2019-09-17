@@ -35,6 +35,8 @@
  * THE SOFTWARE.
  */
 
+/* 17/09/2019 gugus2000 at protonmail.com modified 4 code lines ( __construct and $StringParserNode) to remove E_NOTICE (and provide a better comptability with higher PHP version) /!\ Doc has not been updated /!\ */
+
 /**
  * String parser mode: Search for the next character
  * @see StringParser::_parserMode
@@ -199,7 +201,7 @@ class StringParser {
 	 *
 	 * @access public
 	 */
-	function StringParser () {
+	function __construct() {
 	}
 	
 	/**
@@ -352,8 +354,8 @@ class StringParser {
 			$this->_parsing = false;
 			return $root;
 		}
-		
-		$res = StringParser_Node::destroyNode ($this->_root);
+		$StringParserNode=new StringParser_Node;
+		$res = $StringParserNode->destroyNode ($this->_root);
 		if (!$res) {
 			$this->_parsing = false;
 			return false;
@@ -910,7 +912,7 @@ class StringParser_Node {
 	 *                        occurred at. If not determinable, it is -1.
 	 * @global __STRINGPARSER_NODE_ID
 	 */
-	function StringParser_Node ($occurredAt = -1) {
+	function __construct ($occurredAt = -1) {
 		$this->_id = $GLOBALS['__STRINGPARSER_NODE_ID']++;
 		$this->occurredAt = $occurredAt;
 	}
@@ -1486,8 +1488,8 @@ class StringParser_Node_Text extends StringParser_Node {
 	 *                        occurred at. If not determinable, it is -1.
 	 * @see StringParser_Node_Text::content
 	 */
-	function StringParser_Node_Text ($content, $occurredAt = -1) {
-		parent::StringParser_Node ($occurredAt);
+	function __construct ($content, $occurredAt = -1) {
+		parent::__construct ($occurredAt);
 		$this->content = $content;
 	}
 	

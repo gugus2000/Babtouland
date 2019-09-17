@@ -1,5 +1,4 @@
 <?php
-$lang='FR';
 
 /**
  * Créé un lien vers la page à partir de son application et action
@@ -18,17 +17,15 @@ function createPageLink($application, $action)
 
 $config=array(
 	/* Paramètre par défaut modifiable */
+		/* Général */
+			'lang'        => 'FR',	// Langue par défaut
 		/* Page */
-			'default_application' => 'user',					// Application par défaut
-			'default_action'      => 'statut',					// Action par défaut
-			'default_lang'        => $lang,						// Langue de la page par défaut
-			'default_template'    => 'template/template.php',	// Template de la page par défaut
-			'default_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css', 'assets/css/dropdown.css'),	// Css de la page par défaut
-			'default_javascripts' => array(),					// javascripts de la page par défaut
-			'default_metas'       => array(
+			'css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),							// Css de la page par défaut
+			'javascripts' => array(),																																												// javascripts de la page par défaut
+			'metas'       => array(
 				array(
 					'charset' => 'utf-8',
-					'lang'    => $lang,
+					'lang'    => 'FR',
 				),
 				array(
 					'http-equiv' => 'X-UA-Compatible',
@@ -38,21 +35,60 @@ $config=array(
 					'name'    => 'viewport',
 					'content' => 'width=device-width, initial-scale=1',
 				),
-			),													// Métadonnées de la page par défaut
-			'default_contenu' => '',							// Contenu de la page par défaut
+			),																																																				// Métadonnées de la page par défaut
+			/* PageElement */
+				/* Page */
+					'pageElement_page_template'  => 'assets/html/core/page/page.html',		// Chemin vers la template de la page
+					'pageElement_page_fonctions' => 'func/core/page/page.func.php',			// Chemin vers les fonctions de la page
+					'pageElement_elements'       => array(
+						'tete'  => '',
+						'corps' => '',
+					),																		// Chemin vers les éléments de la page
+				/* Contenu */
+					'filename_contenu_template'  => 'template.html',
+					'filename_contenu_fonctions' => 'func.php',
+				/* Tete */
+					'pageElement_tete_template'  => 'assets/html/core/page/tete.html',
+					'pageElement_tete_fonctions' => 'func/core/page/tete.func.php',
+					'pageElement_tete_elements'  => array(),
+				/* Corps */
+					'pageElement_corps_template'  => 'assets/html/core/page/corps.html',
+					'pageElement_corps_fonctions' => 'func/core/page/corps.func.php',
+					'pageElement_corps_elements'  => array(),
+				/* MenuUp */
+					'pageElement_menuUp_req' => 'config/core/menu-up/config.php',
+				/* Carte */
+					'pageElement_carte_req' => 'config/core/carte/config.php',
+				/* Formulaire */
+					'pageElement_formulaire_req' => 'config/core/formulaire/config.php',
+				/* Toast */
+					'pageElement_toast_req' => 'config/core/toast/config.php',
 		/* Post */
 			/* Fil post */
-				'default_post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
-				'default_post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
+				'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
+				'post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
 	/* Paramètre non modifiable */
 		/* Général */
-			'nom_site'      => 'Babtouland',					// Nom du site
-			'chemin_avatar' => 'assets/img/avatar/',			// Chemin vers le dossier contenant les avatars
-			'size_avatar'   => 1000000,							// Taille de l'avatar maximum
-			'width_avatar'  => 1000,							// Longueur horizontale maximum de l'avatar
-			'height_avatar' => 1000,							// Longueur verticale maximum de l'avatar
-			'ext_avatar'    => array('jpg','gif','png','jpeg'),	// Extensions autorisé pour uploader un avatar
-			'mail_dev'      => 'gugus2000@protonmail.com',		// Mail du développeur
+			'nom_site'           => 'Babtouland',					// Nom du site
+			'mail_dev'           => 'gugus2000@protonmail.com',		// Mail du développeur
+			'defaut_application' => 'user',
+			/* Utilisateur */
+				'chemin_avatar' => 'assets/img/avatar/',			// Chemin vers le dossier contenant les avatars
+				'size_avatar'   => 1000000,							// Taille de l'avatar maximum
+				'width_avatar'  => 1000,							// Longueur horizontale maximum de l'avatar
+				'height_avatar' => 1000,							// Longueur verticale maximum de l'avatar
+				'ext_avatar'    => array('jpg','gif','png','jpeg'),	// Extensions autorisé pour uploader un avatar
+			/* Path */
+				/* Assets */
+					'path_assets'   => 'assets/',
+					'path_template' => 'assets/html/',
+				/* Config */
+					'path_config' => 'config/',
+				/* Func */
+					'path_func' => 'func/',
+				/* Définitions des pages */
+					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
+					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
 			/* Message */
 				'message_css'     => 'assets/css/message.css',		// Css des messages
 				'message_js'      => 'assets/js/message.js',		// Js des messages
@@ -61,21 +97,28 @@ $config=array(
 				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'test')),	// Liste des liens dans le menu_up (dans l'ordre)
 				'menu-up_icones'      => array('home', 'message', 'info', 'chat'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
 				'menu-up_lien-statut' => createPageLink('user', 'statut', 'chat'),														// Lien lors du clic sur l'avatar dans le menu_up
-				'menu-up_css'         => 'assets/css/menu-up.css',																// Css du menu-up
-				'menu-up_js'          => 'assets/js/menu-up.js',																// Js du menu-up
-				'menu-up_contenu'     => 'assets/php/menu-up.php',																// Contenu dynamique du menu-up
-				'menu-up_req'         => 'func/core/menu-up.func.php',															// Fonctions utilisé dans menu-up
+				'menu-up_css'         => 'assets/css/menu-up.css',																		// Css du menu-up
+				'menu-up_js'          => 'assets/js/menu-up.js',																		// Js du menu-up
+				'menu-up_template'    => 'assets/html/menu-up.html',																		// Contenu dynamique du menu-up
+				'menu-up_func'        => 'func/user/menu-up.func.php',																	// Fonctions utilisé dans menu-up
+				'menu-up_conf'        => 'config/user/menu-up.conf.php',
+			/* Menu-side */
+				'menu-side_css'      => 'assets/css/menu-side.css',
+				'menu-side_js'       => '',
+				'menu-side_template' => 'assets/html/menu-side.html',
+				'menu-side_func'     => 'func/user/menu-side.func.php',
 			/* Toast */
-				'toast_css'     => 'assets/css/toast.css',		// Css du toast
-				'toast_js'      => 'assets/js/toast.js',		// Js du toast
-				'toast_contenu' => 'assets/php/toast.php',		// Contenu dynamique du toast
-				'toast_req'     => 'func/core/toast.func.php',	// Fonctions utilisé dans toast
+				'toast_css'      => 'assets/css/toast.css',		// Css du toast
+				'toast_js'       => 'assets/js/toast.js',		// Js du toast
+				'toast_template' => 'assets/html/toast.html',		// Contenu dynamique du toast
+				'toast_func'     => 'func/user/toast.func.php',	// Fonctions utilisé dans toast
 			/* Session Guest */
 				'nom_guest' => 'guest',	// pseudo de l'utilisateur "guest"
 				'mdp_guest' => 'guest',	// mot de passe de l'utilisateur "guest"
 			/* Erreur */
 				'erreur_path' => 'erreur/page.php',	// Chemin vers la page d'erreur
 		/* user */
+			'defaut_user_action' => 'statut',
 			/* inscription */
 				'default_avatar'          => 'default.png',										// Avatar par défaut des nouveaux utilisateurs
 				'default_banni'           => False,												// Statut par défaut des nouveaux utilisateurs
@@ -109,12 +152,14 @@ $config=array(
 				'user_validation_edition_avatar_lien_erreur_extension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de mauvaise extension de fichier
 				'user_validation_edition_avatar_lien_erreur_dimension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar écgoue pour cause de mauvaise dimension
 		/* utile */
+			'defaut_utile_action' => 'a_propos',
 			/* a_propos */
 				'utile_a_propos_formulaire_action' => createPageLink('utile', 'mail'),	// Lien redirigeant le formulaire d'envoi de mail
 			/* mail */
 				'utile_mail_lien_erreur_formulaire' => createPageLink('utile', 'a_propos'),	// Lien de la page à charger lorsque l'envoi du mail échoue
 				'utile_mail_lien_succes'            => createPageLink('utile', 'a_propos'),	// Lien de la page à charger lorsque l'envoi du mail réussi
 		/* post */
+			'defaut_post_action' => 'fil_post',
 			/* fil_post */
 				'post_fil_post_default_page'     => 1,											// Numéro de la page a afficher si non précisé
 				'post_fil_post_lien_detail'      => createPageLink('post', 'lecture'),			// Lien vers la page de lecture complète du post

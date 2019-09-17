@@ -14,15 +14,17 @@ array_push($css, 'assets/css/formulaire.css');
 
 $js=$config['default_javascripts'];
 
-ajouterMenuUp($css, $js, $contenu);
+$titre=$lang['user_connexion_titre'];
 
 $Visiteur->getPage()->set(array(
 	'template'    => file_get_contents($config['default_template']),
 	'contenu'     => $contenu,
-	'titre'       => $lang['user_connexion_titre'],
+	'titre'       => $titre,
 	'metas'       => $metas,
 	'css'         => $css,
 	'javascripts' => $js,
 ));
+
+$Visiteur->getPage()->ajouterMenuUp($Visiteur);
 
 ?>

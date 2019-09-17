@@ -12,4 +12,4 @@
 			</section>
 		</section>
 	</div>
-<?php $contenu.=ob_get_clean(); ?>
+<?php $contenu=ob_get_clean(); ?>

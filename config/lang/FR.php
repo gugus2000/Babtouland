@@ -57,13 +57,13 @@ $lang=array(
 			'user_statut_premdatein'                 => 'Date d\'inscription: ',
 			'user_statut_mail'                       => 'Mail: ',
 			'user_statut_titre'                      => 'statut',
+			'user_statut_description'                => 'Statut du visiteur',
 			'user_statut_titre_lien_connexion'       => 'Page de connexion',
 			'user_statut_affichage_lien_connexion'   => 'Se connecter',
 			'user_statut_titre_lien_inscription'     => 'Page d\'inscription',
 			'user_statut_affichage_lien_inscription' => 'S\'inscrire',
 			'user_statut_titre_lien_deconnexion'     => 'Page de déconnexion',
 			'user_statut_affichage_lien_deconnexion' => 'Se déconnecter',
-			'user_statut_description'                => 'Statut du visiteur',
 			'user_statut_titre_lien_edition'         => 'Page d\'édition de profil',
 			'user_statut_affichage_lien_edition'     => 'Éditer son profil',
 			'user_statut_titre_lien_langage'         => 'Voir en anglais',
@@ -217,6 +217,10 @@ $lang=array(
 			'post_commentaire_validation_edition_message_formulaire' => 'Formulaire non ou mal remplit',
 			'post_commentaire_validation_edition_message_id'         => 'Pas de commentaire ayant cet id',
 			'post_commentaire_validation_edition_message_succes'     => 'Commentaire bien édité',
+	/* chat */
+		/* hub */
+			'chat_hub_titre'       => 'Hub',
+			'chat_hub_description' => 'Centre de contrôle du chat',
 );
 
 ?>

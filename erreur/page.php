@@ -15,8 +15,6 @@ $js=$config['default_javascripts'];
 
 $titre=$lang['erreur_titre'];
 
-ajouterMenuUp($css, $js, $contenu);
-
 $Visiteur->getPage()->set(array(
 	'template'    => file_get_contents($config['default_template']),
 	'contenu'     => $contenu,
@@ -25,5 +23,7 @@ $Visiteur->getPage()->set(array(
 	'css'         => $css,
 	'javascripts' => $js,
 ));
+
+$Visiteur->getpage()->ajouterMenuUp($Visiteur);
 
 ?>
