@@ -2,7 +2,14 @@
 
 if(!isset($_GET['id']))
 {
-	$_SESSION['message']=$lang['post_edition_message_erreur_id'];
+	$Message=new \user\Message(array(
+		'contenu'  =>$lang['post_edition_message_erreur_id'],
+		'type'     => \user\Message::TYPE_ERREUR,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
+	$_SESSION['message']=serialize($Message);
 	header('location: index.php'.$config['post_edition_lien_erreur_id']);
 	exit();
 }
@@ -10,7 +17,14 @@ $BDDFactory=new \core\BDDFactory;
 $PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 if(!$PostManager->existId((int)$_GET['id']))
 {
-	$_SESSION['message']=$lang['post_edition_message_erreur_existe'];
+	$Message=new \user\Message(array(
+		'contenu'  =>$lang['post_edition_message_erreur_existe'],
+		'type'     => \user\Message::TYPE_ERREUR,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
+	$_SESSION['message']=serialize($Message);
 	header('location: index.php'.$config['post_edition_lien_erreur_existe']);
 	exit();
 }
@@ -23,7 +37,14 @@ $Post->recuperer();
 
 if(!autorisationModification($Post, $application, $action))
 {
-	$_SESSION['message']=$lang['post_edition_message_erreur_autorisation'];
+	$Message=new \user\Message(array(
+		'contenu'  =>$lang['post_edition_message_erreur_autorisation'],
+		'type'     => \user\Message::TYPE_ERREUR,
+		'css'      => $config['message_css'],
+		'js'       => $config['message_js'],
+		'template' => $config['message_template'],
+	));
+	$_SESSION['message']=serialize($Message);
 	header('location: index.php'.$config['post_edition_lien_erreur_autorisation'].'&id='.$id);
 	exit();
 }
@@ -84,9 +105,7 @@ $Tete=new \user\PageElement(array(
 	),
 ));
 
-$config['pageElement_elements']=array(
-	'tete'  => $Tete,
-	'corps' => $Corps,
-);
+$config['pageElement_elements']['tete']=$Tete;
+$config['pageElement_elements']['corps']=$Corps;
 
 ?>

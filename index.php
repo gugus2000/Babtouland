@@ -23,7 +23,6 @@ if(isset($_SESSION['lang']))
 }
 
 require_once 'config/lang/'.$config['lang'].'.php';	// Chargement de la traduction
-require_once 'config/core/bbcode.php';
 
 require_once 'func/core/utils.func.php';
 spl_autoload_register('loadClass');

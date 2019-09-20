@@ -16,12 +16,12 @@ $lang=array(
 			),
 		),
 	/* Erreur */
-		'erreur_fichier_introuvable'     => 'Page non trouvé',
-		'erreur_permission_introuvable'  => 'Pas la permission',
-		'erreur_connexion_mot_de_passe'  => 'Problème lors de la connexion',
-		'erreur_connexion_utilisateur'   => 'L\'utilisateur n\'existe pas',
-		'erreur_titre'                   => 'Erreur',
-		'erreur_description'             => 'Page d\'erreur',
+		'erreur_general_fichier_introuvable'         => 'Page non trouvé',
+		'erreur_general_autorisations_insuffisantes' => 'Pas la permission',
+		'erreur_connexion_mot_de_passe'              => 'Problème lors de la connexion',
+		'erreur_connexion_utilisateur'               => 'L\'utilisateur n\'existe pas',
+		'erreur_titre'                               => 'Erreur',
+		'erreur_description'                         => 'Page d\'erreur',
 	/* menu-up */
 		'menu-up_accueil'    => 'Accueil',
 		'menu-up_altlogo'    => 'Logo de ',
@@ -203,6 +203,7 @@ $lang=array(
 		/* validation_edition */
 			'post_validation_edition_message_formulaire' => 'Formulaire non ou mal remplit',
 			'post_validation_edition_message_id'         => 'Pas de post ayant cet id',
+			'post_validation_edition_message_permission' => 'Vous n\'avez pas la permission d\'éditer ce post',
 			'post_validation_edition_message_succes'     => 'Post bien édité',
 		/* commentaire_edition */
 			'post_commentaire_edition_message_erreur_id'           => 'Impossible de modifier un commentaire sans id',
@@ -216,6 +217,7 @@ $lang=array(
 		/* commentaire_validation_edition */
 			'post_commentaire_validation_edition_message_formulaire' => 'Formulaire non ou mal remplit',
 			'post_commentaire_validation_edition_message_id'         => 'Pas de commentaire ayant cet id',
+			'post_commentaire_validation_edition_message_permission' => 'Vous n\'avez pas la permission d\'éditer ce commentaire',
 			'post_commentaire_validation_edition_message_succes'     => 'Commentaire bien édité',
 	/* chat */
 		/* hub */

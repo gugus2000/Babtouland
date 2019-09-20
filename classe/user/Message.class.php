@@ -232,8 +232,8 @@ class Message
 	public function recupererTemplate()
 	{
 		$template_contenu=file_get_contents($this->getTemplate());
-		$contenu=preg_replace('#message_contenu#', $this->afficherContenu(), $template_contenu);
-		$contenu=preg_replace('#message_type#', $this->afficherType(), $contenu);
+		$contenu=preg_replace('#\|message\|#', $this->afficherContenu(), $template_contenu);
+		$contenu=preg_replace('#\|message_type\|#', $this->afficherType(), $contenu);
 		$this->setContenu($contenu);
 	}
 	/**

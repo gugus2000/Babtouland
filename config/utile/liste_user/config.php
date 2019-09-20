@@ -88,9 +88,7 @@ $Tete=new \user\PageElement(array(
 	),
 ));
 
-$config['pageElement_elements']=array(
-	'tete'  => $Tete,
-	'corps' => $Corps,
-);
+$config['pageElement_elements']['tete']=$Tete;
+$config['pageElement_elements']['corps']=$Corps;
 
 ?>

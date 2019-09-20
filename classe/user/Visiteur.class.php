@@ -216,6 +216,14 @@ class Visiteur extends Utilisateur
 		global $config, $lang, $Visiteur;
 		if($this->getRole()->existPermission($application, $action))	// Permission accordée
 		{
+			if (isset($_SESSION['message']))
+			{
+				$Message=unserialize($_SESSION['message']);
+				$config['pageElement_elements']['message']=$Message;
+				$config['css'][]=$config['message_css'];
+				$config['javascripts'][]=$config['message_js'];
+				unset($_SESSION['message']);
+			}
 			if (include($this->getPagePath($application, $action)))
 			{
 				$PageElement=new \user\PageElement(array(
@@ -232,7 +240,7 @@ class Visiteur extends Utilisateur
 			}
 			else
 			{
-				throw new Exception($lang['erreur_general_fichier_introuvable']);
+				throw new \Exception($lang['erreur_general_fichier_introuvable']);
 			}
 		}
 		else

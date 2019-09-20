@@ -1,5 +1,7 @@
 <?php
 
+require $config['bbcode_config'];
+
 $config['css'][]=$config['path_assets'].'css/navigation_nombre.css';
 
 $page=$config['post_fil_post_default_page'];
@@ -122,9 +124,7 @@ $Tete=new \user\PageElement(array(
 	),
 ));
 
-$config['pageElement_elements']=array(
-	'tete'  => $Tete,
-	'corps' => $Corps,
-);
+$config['pageElement_elements']['tete']=$Tete;
+$config['pageElement_elements']['corps']=$Corps;
 
 ?>

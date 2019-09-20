@@ -1,5 +1,6 @@
 <?php
 
+
 $Message=new \user\Message(array(
 	'contenu'  => $lang['post_validation_edition_message_formulaire'],
 	'type'     => \user\Message::TYPE_ERREUR,
@@ -25,14 +26,13 @@ if(isset($_GET['id']) & isset($_POST['edition_titre']) & isset($_POST['edition_c
 	if($PostManager->existId((int)$_GET['id']))
 	{
 		$Message=new \user\Message(array(
-
-			'contenu'  => $lang['post_validation_edition_message_succes'],
-			'type'     => \user\Message::TYPE_SUCCES,
+			'contenu'  =>$lang['post__validation_edition_message_permission'],
+			'type'     => \user\Message::TYPE_ERREUR,
 			'css'      => $config['message_css'],
 			'js'       => $config['message_js'],
 			'template' => $config['message_template'],
 		));
-		$get=$config['post_validation_edition_lien_succes'].'&id='.$_GET['id'];
+		$get=$config['post_edition_lien_erreur_autorisation'].'&id='.$_GET['id'];
 
 		$Post=new \post\Post(array(
 			'id' => $_GET['id'],
@@ -40,7 +40,19 @@ if(isset($_GET['id']) & isset($_POST['edition_titre']) & isset($_POST['edition_c
 			'contenu' => $_POST['edition_contenu'],
 			'date_mise_a_jour' => date('Y-m-d H:i:s'),
 		));
-		$Post->mettre_a_jour();
+		if(autorisationModification($Post, $application, $action))
+		{
+			$Message=new \user\Message(array(
+
+				'contenu'  => $lang['post_validation_edition_message_succes'],
+				'type'     => \user\Message::TYPE_SUCCES,
+				'css'      => $config['message_css'],
+				'js'       => $config['message_js'],
+				'template' => $config['message_template'],
+			));
+			$get=$config['post_validation_edition_lien_succes'].'&id='.$_GET['id'];
+			$Post->mettre_a_jour();
+		}
 	}
 }
 

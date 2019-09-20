@@ -41,8 +41,9 @@ $config=array(
 					'pageElement_page_template'  => 'assets/html/core/page/page.html',		// Chemin vers la template de la page
 					'pageElement_page_fonctions' => 'func/core/page/page.func.php',			// Chemin vers les fonctions de la page
 					'pageElement_elements'       => array(
-						'tete'  => '',
-						'corps' => '',
+						'tete'    => '',
+						'message' => '',
+						'corps'   => '',
 					),																		// Chemin vers les éléments de la page
 				/* Contenu */
 					'filename_contenu_template'  => 'template.html',
@@ -67,6 +68,8 @@ $config=array(
 			/* Fil post */
 				'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
 				'post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
+		/* BBcode */
+			'bbcode_config' => 'config/core/bbcode.php';
 	/* Paramètre non modifiable */
 		/* Général */
 			'nom_site'           => 'Babtouland',					// Nom du site
@@ -90,9 +93,9 @@ $config=array(
 					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
 			/* Message */
-				'message_css'     => 'assets/css/message.css',		// Css des messages
-				'message_js'      => 'assets/js/message.js',		// Js des messages
-				'message_template' => 'assets/html/message.html',	// Template des messages
+				'message_css'      => 'assets/css/message.css',					// Css des messages
+				'message_js'       => 'assets/js/message.js',					// Js des messages
+				'message_template' => 'assets/html/core/message/message.html',	// Template des messages
 			/* Menu-up */
 				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'test')),	// Liste des liens dans le menu_up (dans l'ordre)
 				'menu-up_icones'      => array('home', 'message', 'info', 'chat'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
@@ -212,9 +215,10 @@ $config=array(
 				'post_commentaire_edition_admin_application'        => 'core',														// Application dont la permission est nécessaire pour éditer les commentaires des autres
 				'post_commentaire_edition_admin_action'             => 'edition_commentaire',										// Action dont la permission est nécessaire pour éditer les commentaires des autres
 			/* commentaire_validation_edition */
-				'post_commentaire_validation_edition_lien_formulaire' => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faute d'arguments
-				'post_commentaire_validation_edition_lien_id'         => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faut d'id valide
-				'post_commentaire_validation_edition_lien_succes'     => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque l'édition du commentaire réussie
+				'post_commentaire_validation_edition_lien_formulaire'   => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faute d'arguments
+				'post_commentaire_validation_edition_lien_id'           => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faut d'id valide
+				'post_commentaire_validation_edition_lien_permission'   => createPageLink('post', 'lecture'),
+				'post_commentaire_validation_edition_lien_succes'       => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque l'édition du commentaire réussie
 );
 
 ?>

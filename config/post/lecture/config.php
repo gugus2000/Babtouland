@@ -1,5 +1,7 @@
 <?php
 
+require $config['bbcode_config'];
+
 $BDDFactory=new \core\BDDFactory;
 $PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 $id=$PostManager->getIdByPos(0, 'date_mise_a_jour');
@@ -144,9 +146,7 @@ $Tete=new \user\PageElement(array(
 	),
 ));
 
-$config['pageElement_elements']=array(
-	'tete'  => $Tete,
-	'corps' => $Corps,
-);
+$config['pageElement_elements']['tete']=$Tete;
+$config['pageElement_elements']['corps']=$Corps;
 
 ?>
