@@ -22,73 +22,60 @@ $BDDFactory=new \core\BDDFactory;
 $PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 $nbr_post=$PostManager->count();
 
-ob_start();?>
-<nav class="navigation_nombre">
-	<ul>
-		<?php
-			for ($numero_page=1; $numero_page <= $nbr_post/$config['post_fil_post_nombre_posts']; $numero_page++)
-			{ 
-				if ($numero_page==$page)
-				{
-					?>
-						<span class="active"><li><?= $page ?></li></span>
-					<?php
-				}
-				else
-				{
-				?>
-					<a href="?application=<?= $Visiteur->getPage()->afficherApplication() ?>&action=<?= $Visiteur->getPage()->afficherAction() ?>&page=<?= $numero_page ?>" title="<?= $lang['post_filPost_nav_description'] ?><?= $numero_page ?>"><li><?= $numero_page ?></li></a>
-				<?php
-				}
-			}
-		?>
-	</ul>
-</nav>
-<?php
-$Pagination=ob_get_clean();
-
-ob_start();?>
-<?php
-	for ($position_post=$config['post_fil_post_position_debut']; $position_post < $config['post_fil_post_nombre_posts']; $position_post++)
+$liste_navigation=[];
+for ($numero_page=1; $numero_page <= $nbr_post/$config['post_fil_post_nombre_posts']; $numero_page++)
+{ 
+	if ($numero_page==$page)
 	{
-		$position_vraie=$page*$config['post_fil_post_nombre_posts']-($config['post_fil_post_nombre_posts']-$position_post);	// Calcul de la position du Post
-		$Post=new \post\Post(array(
-			'id' => $PostManager->getIdByPos($position_vraie, $config['post_fil_post_tri']),
-		));
-		if($PostManager->existId($Post->getId()))
-		{
-			$Post->recuperer();
-			?>
-			<section class="carte">
-				<section class="contenu">
-					<h1><?= $Post->afficherTitre() ?></h1>
-					<i class="date_publication"><?= $Post->afficherDate_publication() ?></i>
-					<br />
-					<i class="auteur"><?= $lang['post_fil_post_auteur_presentation'] ?><a href="<?= $config['post_fil_post_lien_auteur'] ?>&id=<?= $Post->recupererAuteur()->afficherId() ?>" title="<?= $lang['post_fil_post_lien_auteur_titre'] ?>"><?= $Post->recupererAuteur()->afficherPseudo() ?></a></i>
-					<br />
-					<br />
-					<br />
-					<div class="contenu"><?= $bbcode->parse($Post->afficherContenu()) ?></div>
-					<br />
-					<br />
-					<a href="<?= $config['post_fil_post_lien_detail'] ?>&id=<?= $Post->afficherId() ?>" title="<?= $lang['post_fil_post_lien_detail_titre'] ?>"><?= $lang['post_fil_post_detail'] ?></a>
-				</section>
-			</section>
-			<section class="espace_colonne">
-				
-			</section>
-			<?php
-		}
+		$liste_navigation[]='<span class="active"><li>'.$page.'</li></span>';
 	}
-?>
-<?php
-$contenu=ob_get_clean();
+	else
+	{
+		$liste_navigation[]='<a href="?application='.$application.'&action='.$action.'&page='.$numero_page.'title="'.$lang['post_filPost_nav_description'].$numero_page.'"><li>'.$numero_page.'</li></a>';
+	}
+}
+
+$Pagination=new \user\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/navigation_nombre.html',
+	'elements' => array(
+		'liste_navigation' => $liste_navigation,
+	),
+));
+
+$liste_post=[];
+for ($position_post=$config['post_fil_post_position_debut']; $position_post < $config['post_fil_post_nombre_posts']; $position_post++)
+{
+	$position_vraie=$page*$config['post_fil_post_nombre_posts']-($config['post_fil_post_nombre_posts']-$position_post);	// Calcul de la position du Post
+	$Post=new \post\Post(array(
+		'id' => $PostManager->getIdByPos($position_vraie, $config['post_fil_post_tri']),
+	));
+	if($PostManager->existId($Post->getId()))
+	{
+		$Post->recuperer();
+		$PostElement=new \user\PageElement(array(
+			'template' => $config['path_template'].$application.'/'.$action.'/post.html',
+			'elements' => array(
+				'titre'               => $Post->afficherTitre(),
+				'date_publication'    => $Post->afficherDate_publication(),
+				'presentation_auteur' => $lang['post_fil_post_auteur_presentation'],
+				'auteur_lien_href'    => $config['post_fil_post_lien_auteur'].'&id='.$Post->recupererAuteur()->afficherId(),
+				'auteur_lien_title'   => $lang['post_fil_post_lien_auteur_titre'],
+				'auteur'              => $Post->recupererAuteur()->afficherPseudo(),
+				'contenu'             => $bbcode->parse($Post->afficherContenu()),
+				'post_lien_href'      => $config['post_fil_post_lien_detail'].'&id='.$Post->afficherId(),
+				'post_lien_title'     => $lang['post_fil_post_lien_detail_titre'],
+				'post_lien'           => $lang['post_fil_post_detail'],
+			),
+		));
+		$liste_post[]=$PostElement;
+	}
+}
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
 	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
-		'liste_post' => $contenu,
+		'liste_post' => $liste_post,
 		'pagination' => $Pagination,
 	),
 ));

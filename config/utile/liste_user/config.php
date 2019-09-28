@@ -8,25 +8,12 @@ $config['metas'][]=array(
 	'content' => $lang[$application.'_'.$action.'_description'],
 );
 
-ob_start();?>
-<table>
-	<caption><?= $lang['utile_liste_user_table_caption'] ?></caption>
-	<thead>
-		<tr>
-			<th><?= $lang['utile_liste_user_table_th_nom'] ?></th>
-			<th><?= $lang['utile_liste_user_table_th_avatar'] ?></th>
-			<th><?= $lang['utile_liste_user_table_th_date_derniere_connexion'] ?></th>
-			<th><?= $lang['utile_liste_user_table_th_date_inscription'] ?></th>
-			<th><?= $lang['utile_liste_user_table_th_role'] ?></th>
-		</tr>
-	</thead>
-	<tbody>
-<?php
 $BDDFactory=new \core\BDDFactory;
 $UtilisateurManager=new \user\UtilisateurManager($BDDFactory->MysqlConnexion());
 $attributs=array('pseudo' => 'guest');
 $operations=array('pseudo' => '!=');
 $resultats=$UtilisateurManager->getBy($attributs, $operations);
+$lignes=[];
 foreach ($resultats as $index => $resultat)
 {
 	$Utilisateur=new \user\Utilisateur(array(
@@ -38,28 +25,31 @@ foreach ($resultats as $index => $resultat)
 	{
 		$classe=' class="impair"';
 	}
-	?>
-		<tr<?= $classe ?>>
-			<td><?= $Utilisateur->afficherPseudo() ?></td>
-			<td><img src="<?= $config['chemin_avatar'] ?><?= $Utilisateur->afficherAvatar() ?>" alt="<?= $lang['utile_liste_user_table_td_avatar_alt'] ?><?= $Utilisateur->afficherPseudo() ?>"></td>
-			<td><?= $Utilisateur->afficherDate_connexion() ?></td>
-			<td><?= $Utilisateur->afficherDate_inscription() ?></td>
-			<td><?= $Utilisateur->afficherRole() ?></td>
-		</tr>
-	<?php
+	$lignes[]=new \user\PageElement(array(
+		'template' => $config['path_template'].$application.'/'.$action.'/ligne.html',
+		'elements' => array(
+			'classe'                 => $classe,
+			'pseudo'                 => $Utilisateur->afficherPseudo(),
+			'avatar_src'             => $config['chemin_avatar'].$Utilisateur->afficherAvatar(),
+			'avatar_alt'             => $lang['utile_liste_user_table_td_avatar_alt'].$Utilisateur->afficherPseudo(),
+			'date_derniere_connexion' => $Utilisateur->afficherDate_connexion(),
+			'date_inscription'       => $Utilisateur->afficherDate_inscription(),
+			'role'                   => $Utilisateur->afficherRole(),
+		),
+	));
 }
-?>
-
-	</tbody>
-</table>
-<?php
-$contenu=ob_get_clean();
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
 	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
-		'contenu'    => $contenu,
+		'caption'                      => $lang['utile_liste_user_table_caption'],
+		'user_nom'                     => $lang['utile_liste_user_table_th_nom'],
+		'user_avatar'                  => $lang['utile_liste_user_table_th_avatar'],
+		'user_date_derniere_connexion' => $lang['utile_liste_user_table_th_date_derniere_connexion'],
+		'user_date_inscription'        => $lang['utile_liste_user_table_th_date_inscription'],
+		'user_role'                    => $lang['utile_liste_user_table_th_role'],
+		'contenu'                      => $lignes,
 	),
 ));
 

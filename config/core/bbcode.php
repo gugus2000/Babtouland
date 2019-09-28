@@ -1,221 +1,4 @@
 <?php
-$BBCodeElements=array(
-	'b' => array(
-		'code'     => 'b',
-		'type'     => 'simple_replace',
-		'callback' => null,
-		'params'   => array(
-			'start_tag' => '<span class="bbcode b">',
-			'end_tag'   => '</span>',
-		),
-		'content_type' => 'inline',
-		'allowed_in'   => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'i' => array(
-		'code'           => 'i',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<span class="bbcode i">',
-			'end_tag'   => '</span>',
-		),
-		'content_type'   => 'inline',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'u' => array(
-		'code'           => 'u',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<span class="bbcode u">',
-			'end_tag'   => '</span>',
-		),
-		'content_type'   => 'inline',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	's' => array(
-		'code'           => 's',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag'  => '<span class="bbcode s">',
-			'end_tag'    => '</span>',
-		),
-		'content_type'   => 'inline',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'url' => array(
-		'code'           => 'url',
-		'type'           => 'usecontent?',
-		'callback'       => 'do_bbcode_url',
-		'params'         => array(
-			'usecontent_param' => 'default',
-		),
-		'content_type'   => 'link',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'listitem',
-		),
-		'not_allowed_in' => array(
-			'link',
-		),
-	),
-	'link' => array(
-		'code'           => 'link',
-		'type'           => 'callback_replace_single',
-		'callback'       => 'do_bbcode_url',
-		'params'         => array(),
-		'content_type'   => 'link',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'listitem',
-		),
-		'not_allowed_in' => array(
-			'link',
-		),
-	),
-	'img' => array(
-		'code'           => 'img',
-		'type'           => 'usecontent',
-		'callback'       => 'do_bbcode_img',
-		'params'         => array(),
-		'content_type'   => 'image',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-		),
-		'not_allowed_in' => array(),
-	),
-	'list' => array(
-		'code'           => 'list',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<ul class="bbcode">',
-			'end_tag'   => '</ul>',
-		),
-		'content_type'   => 'list',
-		'allowed_in'     => array(
-			'block',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'*' => array(
-		'code'           => '*',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<li>',
-			'end_tag'   => '</li>'
-		),
-		'content_type'   =>'listitem',
-		'allowed_in'     => array(
-			'list',
-		),
-		'not_allowed_in' => array(),
-	),
-	'align' => array(
-		'code'           => 'align',
-		'type'           => 'callback_replace',
-		'callback'       => 'do_bbcode_align',
-		'params'         => array(),
-		'content_type'   => 'block',
-		'allowed_in'     => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-	'float' => array(
-		'code'         => 'float',
-		'type'         => 'callback_replace',
-		'callback'     => 'do_bbcode_float',
-		'params'       => array(),
-		'content_type' => 'block',
-		'allowed_in'   => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-	'ligne' => array(
-		'code'         => 'ligne',
-		'type'         => 'simple_replace',
-		'callback'     => null,
-		'params'       => array(
-			'start_tag' => '<div class="ligne">',
-			'end_tag'   => '</div>',
-		),
-		'content_type' => 'block',
-		'allowed_in'   => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-	'colonne' => array(
-		'code'         => 'colonne',
-		'type'         => 'simple_replace',
-		'callback'     => null,
-		'params'       => array(
-			'start_tag' => '<div class="colonne">',
-			'end_tag'   => '</div>',
-		),
-		'content_type' => 'block',
-		'allowed_in'   => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-);
 
 /**
  * Unify line breaks of different operating systems
@@ -457,7 +240,223 @@ function BBCodeAddElement(&$bbcode,$bbcode_elements_list)
  **/
 function CreateBBcode()
 {
-	global $BBCodeElements;
+	$BBCodeElements=array(
+		'b' => array(
+			'code'     => 'b',
+			'type'     => 'simple_replace',
+			'callback' => null,
+			'params'   => array(
+				'start_tag' => '<span class="bbcode b">',
+				'end_tag'   => '</span>',
+			),
+			'content_type' => 'inline',
+			'allowed_in'   => array(
+				'block',
+				'inline',
+				'link',
+				'listitem',
+			),
+			'not_allowed_in' => array(),
+		),
+		'i' => array(
+			'code'           => 'i',
+			'type'           => 'simple_replace',
+			'callback'       => null,
+			'params'         => array(
+				'start_tag' => '<span class="bbcode i">',
+				'end_tag'   => '</span>',
+			),
+			'content_type'   => 'inline',
+			'allowed_in'     => array(
+				'block',
+				'inline',
+				'link',
+				'listitem',
+			),
+			'not_allowed_in' => array(),
+		),
+		'u' => array(
+			'code'           => 'u',
+			'type'           => 'simple_replace',
+			'callback'       => null,
+			'params'         => array(
+				'start_tag' => '<span class="bbcode u">',
+				'end_tag'   => '</span>',
+			),
+			'content_type'   => 'inline',
+			'allowed_in'     => array(
+				'block',
+				'inline',
+				'link',
+				'listitem',
+			),
+			'not_allowed_in' => array(),
+		),
+		's' => array(
+			'code'           => 's',
+			'type'           => 'simple_replace',
+			'callback'       => null,
+			'params'         => array(
+				'start_tag'  => '<span class="bbcode s">',
+				'end_tag'    => '</span>',
+			),
+			'content_type'   => 'inline',
+			'allowed_in'     => array(
+				'block',
+				'inline',
+				'link',
+				'listitem',
+			),
+			'not_allowed_in' => array(),
+		),
+		'url' => array(
+			'code'           => 'url',
+			'type'           => 'usecontent?',
+			'callback'       => 'do_bbcode_url',
+			'params'         => array(
+				'usecontent_param' => 'default',
+			),
+			'content_type'   => 'link',
+			'allowed_in'     => array(
+				'block',
+				'inline',
+				'listitem',
+			),
+			'not_allowed_in' => array(
+				'link',
+			),
+		),
+		'link' => array(
+			'code'           => 'link',
+			'type'           => 'callback_replace_single',
+			'callback'       => 'do_bbcode_url',
+			'params'         => array(),
+			'content_type'   => 'link',
+			'allowed_in'     => array(
+				'block',
+				'inline',
+				'listitem',
+			),
+			'not_allowed_in' => array(
+				'link',
+			),
+		),
+		'img' => array(
+			'code'           => 'img',
+			'type'           => 'usecontent',
+			'callback'       => 'do_bbcode_img',
+			'params'         => array(),
+			'content_type'   => 'image',
+			'allowed_in'     => array(
+				'block',
+				'inline',
+			),
+			'not_allowed_in' => array(),
+		),
+		'list' => array(
+			'code'           => 'list',
+			'type'           => 'simple_replace',
+			'callback'       => null,
+			'params'         => array(
+				'start_tag' => '<ul class="bbcode">',
+				'end_tag'   => '</ul>',
+			),
+			'content_type'   => 'list',
+			'allowed_in'     => array(
+				'block',
+				'listitem',
+			),
+			'not_allowed_in' => array(),
+		),
+		'*' => array(
+			'code'           => '*',
+			'type'           => 'simple_replace',
+			'callback'       => null,
+			'params'         => array(
+				'start_tag' => '<li>',
+				'end_tag'   => '</li>'
+			),
+			'content_type'   =>'listitem',
+			'allowed_in'     => array(
+				'list',
+			),
+			'not_allowed_in' => array(),
+		),
+		'align' => array(
+			'code'           => 'align',
+			'type'           => 'callback_replace',
+			'callback'       => 'do_bbcode_align',
+			'params'         => array(),
+			'content_type'   => 'block',
+			'allowed_in'     => array(
+				'block',
+			),
+			'not_allowed_in' => array(
+				'list',
+				'listitem',
+				'inline',
+				'link',
+				'listitem',
+			),
+		),
+		'float' => array(
+			'code'         => 'float',
+			'type'         => 'callback_replace',
+			'callback'     => 'do_bbcode_float',
+			'params'       => array(),
+			'content_type' => 'block',
+			'allowed_in'   => array(
+				'block',
+			),
+			'not_allowed_in' => array(
+				'list',
+				'listitem',
+				'inline',
+				'link',
+				'listitem',
+			),
+		),
+		'ligne' => array(
+			'code'         => 'ligne',
+			'type'         => 'simple_replace',
+			'callback'     => null,
+			'params'       => array(
+				'start_tag' => '<div class="ligne">',
+				'end_tag'   => '</div>',
+			),
+			'content_type' => 'block',
+			'allowed_in'   => array(
+				'block',
+			),
+			'not_allowed_in' => array(
+				'list',
+				'listitem',
+				'inline',
+				'link',
+				'listitem',
+			),
+		),
+		'colonne' => array(
+			'code'         => 'colonne',
+			'type'         => 'simple_replace',
+			'callback'     => null,
+			'params'       => array(
+				'start_tag' => '<div class="colonne">',
+				'end_tag'   => '</div>',
+			),
+			'content_type' => 'block',
+			'allowed_in'   => array(
+				'block',
+			),
+			'not_allowed_in' => array(
+				'list',
+				'listitem',
+				'inline',
+				'link',
+				'listitem',
+			),
+		),
+	);
 	require_once 'classe/lib/StringParser_BBCode.class.php';
 	$StringParser_BBcode=new \StringParser_BBcode;
 	$StringParser_BBcode->addFilter(STRINGPARSER_FILTER_PRE, 'convertLineBreaks');

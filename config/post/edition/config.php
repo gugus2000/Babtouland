@@ -55,20 +55,18 @@ $config['metas'][]=array(
 	'content' => $lang[$application.'_'.$action.'_description'],
 );
 
-
-ob_start();?>
-<form action="<?= $config['post_edition_formulaire_action'] ?>&id=<?= $Post->afficherId() ?>" method="POST" accept-charset="utf-8">
-	<fieldset>
-		<legend><?= $lang['post_edition_formulaire_legend'] ?></legend>
-		<label for="edition_titre"><?= $lang['post_edition_formulaire_titre'] ?></label>
-		<input type="text" name="edition_titre" value="<?= $Post->afficherTitre() ?>"><br />
-		<label for="edition_contenu"><?= $lang['post_edition_formulaire_contenu'] ?></label>
-		<textarea name="edition_contenu"><?= $Post->afficherContenu() ?></textarea><br />
-		<input type="submit" value="<?= $lang['post_edition_formulaire_submit'] ?>">
-	</fieldset>
-</form>
-<?php
-$Contenu=ob_get_clean();
+$Contenu=new \user\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'elements' => array(
+		'action'        => $config['post_edition_formulaire_action'].'&id='.$Post->afficherId(),
+		'legend'        => $lang['post_edition_formulaire_legend'],
+		'label_titre'   => $lang['post_edition_formulaire_titre'],
+		'titre'         => $Post->afficherTitre(),
+		'label_contenu' => $lang['post_edition_formulaire_contenu'],
+		'contenu'       => $Post->afficherContenu(),
+		'submit'        => $lang['post_edition_formulaire_submit'],
+	),
+));
 
 require $config['pageElement_formulaire_req'];
 

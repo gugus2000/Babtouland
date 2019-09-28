@@ -16,13 +16,17 @@ $Utilisateur=new \user\Utilisateur(array(
 ));
 $Utilisateur->recuperer();
 
-ob_start();?>
-<?= $lang['user_view_pseudo'] ?><?= $Utilisateur->afficherPseudo() ?><br />
-<?= $lang['user_view_avatar'] ?><img src="<?= $config['chemin_avatar'] ?><?= $Utilisateur->afficherAvatar() ?>" alt="<?= $lang['user_view_avatar_alt'] ?><?= $Utilisateur->afficherPseudo() ?>"><br />
-<?= $lang['user_view_derndateco'] ?><?= $Utilisateur->afficherDate_connexion() ?><br />
-<?= $lang['user_view_premdatein'] ?><?= $Utilisateur->afficherDate_inscription() ?><br />
-<?php
-$contenu=ob_get_clean();
+$contenu=new \user\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/contenu.html',
+	'elements' => array(
+		'pseudo' => $lang['user_view_pseudo'].$Utilisateur->afficherPseudo(),
+		'avatar_texte' => $lang['user_view_avatar'],
+		'avatar_src' => $config['chemin_avatar'].$Utilisateur->afficherAvatar(),
+		'avatar_alt' => $lang['user_view_avatar_alt'].$Utilisateur->afficherPseudo(),
+		'date_connexion' => $lang['user_view_derndateco'].$Utilisateur->afficherDate_connexion(),
+		'date_inscription' => $lang['user_view_premdatein'].$Utilisateur->afficherDate_inscription(),
+	),
+));
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],

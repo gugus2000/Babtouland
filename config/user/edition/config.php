@@ -7,6 +7,7 @@ $config['metas'][]=array(
 );
 
 $admin=False;
+$partie_admin='';
 $Utilisateur=$Visiteur;
 if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))
 {
@@ -16,30 +17,33 @@ if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edit
 	));
 	$Utilisateur->recuperer();
 	$config['user_edition_action']=$config['user_edition_action'].'&id='.$_GET['id'];
+	$checked='';
+	if($Utilisateur->getBanni())
+	{
+		$checked=' checked=""';
+	}
+	$partie_admin=new \user\PageElement(array(
+		'template' => $config['path_template'].$application.'/'.$action.'/partie_admin.html',
+		'elements' => array(
+			'label_banni' => $lang['user_edition_label_banni'],
+			'checked'     => $checked,
+		),
+	));
 }
 
-ob_start();?>
-<form enctype="multipart/form-data" action="<?= $config['user_edition_action'] ?>" method="POST" accept-charset="utf-8">
-	<fieldset>
-		<legend><?= $lang['user_edition_legend'] ?><?= $Utilisateur->afficherPseudo() ?></legend>
-		<label for="edition_avatar"><?= $lang['user_edition_label_avatar'] ?></label>
-		<input type="file" name="edition_avatar" value="<?= $Utilisateur->afficherAvatar() ?>"><br />
-		<label for="edition_mail"><?= $lang['user_edition_label_mail'] ?></label>
-		<input type="text" name="edition_mail" value="<?= $Visiteur->afficherMail() ?>"><br />
-		<?php
-		if($admin)
-		{
-			?>
-		<label for="edition_banni"><?= $lang['user_edition_label_banni'] ?></label>
-		<input type="checkbox" name="edition_banni" value="oui"<?= $checked ?>><br />
-			<?php
-		}
-		?>
-		<input type="submit" value="<?= $lang['user_edition_submit'] ?>">
-	</fieldset>
-</form>
-<?php
-$Contenu=ob_get_clean();
+$Contenu=new \user\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'elements' => array(
+		'action'       => $config['user_edition_action'],
+		'legend'       => $lang['user_edition_legend'].$Utilisateur->afficherPseudo(),
+		'label_avatar' => $lang['user_edition_label_avatar'],
+		'avatar'       => $Utilisateur->afficherAvatar(),
+		'label_mail'   => $lang['user_edition_label_mail'],
+		'mail'         => $Utilisateur->afficherMail(),
+		'partie_admin' => $partie_admin,
+		'submit'       => $lang['user_edition_submit'],
+	),
+));
 
 require $config['pageElement_formulaire_req'];
 

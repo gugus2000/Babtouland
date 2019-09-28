@@ -1,33 +1,46 @@
 <?php
 
+$Conversations=$Visiteur->recupererConversations();
+
 $titre=$lang[$application.'_'.$action.'_titre'];
 $config['metas'][]=array(
 	'name'    => 'description',
 	'content' => $lang[$application.'_'.$action.'_description'],
 );
 
-$Contenu=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
-	'elements' => array(
-		'action'        => $config['post_publication_action'],
-		'legend'        => $lang['post_publication_legend'],
-		'label_titre'   => $lang['post_publication_titreForm'],
-		'label_contenu' => $lang['post_publication_contenu'],
-		'submit'        => $lang['post_publication_submit'],
-	),
-));
+$Cartes=array();
 
-require $config['pageElement_formulaire_req'];
+foreach ($Conversations as $Conversation)
+{
+	$Cartes[]=new \user\PageElement(array(
+		'template' => $config['path_template'].$application.'/'.$action.'/cartes.html',
+		'elements' => array(
+			'nom_conversation'        => $Conversation->afficherNom(),
+			'description'             => $Conversation->afficherDescription(),
+			'nombre_utilisateur'      => $lang['chat_hub_nombre_utilisateur'].count($Conversation->getUtilisateurs()),
+			'lien_href_conversation'  => $config['chat_hub_lien_voir_conversation'].'&id='.$Conversation->afficherId(),
+			'lien_title_conversation' => $lang['chat_hub_lien_titre_voir_conversation'],
+			'lien_conversation'       => $lang['chat_hub_lien_voir_conversation'],
+		),
+	));
+}
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
 	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
-		'formulaire' => $Formulaire,
+		'cartes'         => $Cartes,
 	),
 ));
 
-require $config['pageElement_carte_req'];
+$toast_liens=array(
+	'lien'        => array($config['chat_hub_lien_ajouter_conversation']),
+	'description' => array($lang['chat_hub_lien_ajouter_conversation']),
+	'icone'       => array('add'),
+);
+
+
+require $config['pageElement_toast_req'];
 
 require $config['pageElement_menuUp_req'];
 
@@ -36,8 +49,8 @@ $Corps=new \user\PageElement(array(
 	'fonctions' => $config['pageElement_corps_fonctions'],
 	'elements'  => array(
 		'haut'   => $MenuUp,
-		'centre' => $Carte,
-		'bas'    => '',
+		'centre' => $Contenu,
+		'bas'    => $Toast,
 	),
 ));
 

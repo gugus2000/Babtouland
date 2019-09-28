@@ -69,18 +69,19 @@ $config=array(
 				'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
 				'post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
 		/* BBcode */
-			'bbcode_config' => 'config/core/bbcode.php';
+			'bbcode_config' => 'config/core/bbcode.php',
 	/* Paramètre non modifiable */
 		/* Général */
 			'nom_site'           => 'Babtouland',					// Nom du site
 			'mail_dev'           => 'gugus2000@protonmail.com',		// Mail du développeur
 			'defaut_application' => 'user',
 			/* Utilisateur */
-				'chemin_avatar' => 'assets/img/avatar/',			// Chemin vers le dossier contenant les avatars
-				'size_avatar'   => 1000000,							// Taille de l'avatar maximum
-				'width_avatar'  => 1000,							// Longueur horizontale maximum de l'avatar
-				'height_avatar' => 1000,							// Longueur verticale maximum de l'avatar
-				'ext_avatar'    => array('jpg','gif','png','jpeg'),	// Extensions autorisé pour uploader un avatar
+				'chemin_avatar'       => 'assets/img/avatar/',				// Chemin vers le dossier contenant les avatars
+				'size_avatar'         => 1000000,							// Taille de l'avatar maximum
+				'width_avatar'        => 1000,								// Longueur horizontale maximum de l'avatar
+				'height_avatar'       => 1000,								// Longueur verticale maximum de l'avatar
+				'ext_avatar'          => array('jpg','gif','png','jpeg'),	// Extensions autorisé pour uploader un avatar
+				'id_conversation_all' => 1, 								// Id de la conversation disponible à tous
 			/* Path */
 				/* Assets */
 					'path_assets'   => 'assets/',
@@ -97,7 +98,7 @@ $config=array(
 				'message_js'       => 'assets/js/message.js',					// Js des messages
 				'message_template' => 'assets/html/core/message/message.html',	// Template des messages
 			/* Menu-up */
-				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'test')),	// Liste des liens dans le menu_up (dans l'ordre)
+				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
 				'menu-up_icones'      => array('home', 'message', 'info', 'chat'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
 				'menu-up_lien-statut' => createPageLink('user', 'statut', 'chat'),														// Lien lors du clic sur l'avatar dans le menu_up
 				'menu-up_css'         => 'assets/css/menu-up.css',																		// Css du menu-up
@@ -126,9 +127,9 @@ $config=array(
 				'default_avatar'          => 'default.png',										// Avatar par défaut des nouveaux utilisateurs
 				'default_banni'           => False,												// Statut par défaut des nouveaux utilisateurs
 				'default_role'            => 'membre',											// Role par défaut des nouveaux utilisateurs
-				'post_inscription_action' => createPageLink('user', 'validation_inscription'),	// Lien redirigeant le formulaire d'inscription
+				'user_inscription_action' => createPageLink('user', 'validation_inscription'),	// Lien redirigeant le formulaire d'inscription
 			/* connexion */
-				'post_connexion_action' => createPageLink('user', 'validation_connexion'),	// Lien redirigeant le formulaire de connexion
+				'user_connexion_action' => createPageLink('user', 'validation_connexion'),	// Lien redirigeant le formulaire de connexion
 			/* statut */
 				'user_statut_lien_connexion'   => createPageLink('user', 'connexion'),		// Lien pour se connecter affiché dans la page de statut
 				'user_statut_lien_inscription' => createPageLink('user', 'inscription'),	// Lien pour s'inscrire affiché dans la page de statut
@@ -219,6 +220,13 @@ $config=array(
 				'post_commentaire_validation_edition_lien_id'           => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faut d'id valide
 				'post_commentaire_validation_edition_lien_permission'   => createPageLink('post', 'lecture'),
 				'post_commentaire_validation_edition_lien_succes'       => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque l'édition du commentaire réussie
+		/* erreur */
+			'defaut_erreur_action' => 'erreur',
+		/* chat */
+			'defaut_chat_action' => 'hub',
+			/* hub */
+				'chat_hub_lien_voir_conversation'    => createPageLink('chat', 'voir_conversation'),
+				'chat_hub_lien_ajouter_conversation' => createPageLink('chat', 'ajouter_conversation'),
 );
 
 ?>

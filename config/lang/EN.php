@@ -1,7 +1,7 @@
 <?php
 
 $lang=array(
-		/* Général */
+	/* Général */
 		'pseudo'   => 'pseudo',
 		'mdp'      => 'password',
 	/* Langue */
@@ -57,13 +57,13 @@ $lang=array(
 			'user_statut_premdatein'                 => 'Registration date: ',
 			'user_statut_mail'                       => 'E-Mail: ',
 			'user_statut_titre'                      => 'status',
+			'user_statut_description'                => 'Visitor status',
 			'user_statut_titre_lien_connexion'       => 'Login page',
 			'user_statut_affichage_lien_connexion'   => 'Sign in',
 			'user_statut_titre_lien_inscription'     => 'Registration page',
 			'user_statut_affichage_lien_inscription' => 'Sign up',
 			'user_statut_titre_lien_deconnexion'     => 'Logout page',
 			'user_statut_affichage_lien_deconnexion' => 'Log out',
-			'user_statut_description'                => 'Visitor status',
 			'user_statut_titre_lien_edition'         => 'profile edition page',
 			'user_statut_affichage_lien_edition'     => 'Edit your profile',
 			'user_statut_titre_lien_langage'         => 'View in french',
@@ -203,6 +203,7 @@ $lang=array(
 		/* validation_edition */
 			'post_validation_edition_message_formulaire' => 'Form not or incorrectly completed',
 			'post_validation_edition_message_id'         => 'No post with this id',
+			'post_validation_edition_message_permission' => 'No permission to edit this post',
 			'post_validation_edition_message_succes'     => 'Post well edited',
 		/* commentaire_edition */
 			'post_commentaire_edition_message_erreur_id'           => 'Cannot change a comment without an id',
@@ -216,7 +217,16 @@ $lang=array(
 		/* commentaire_validation_edition */
 			'post_commentaire_validation_edition_message_formulaire' => 'Form not or incorrectly completed',
 			'post_commentaire_validation_edition_message_id'         => 'No comment with this id',
+			'post_commentaire_validation_edition_message_permission' => 'No permission to edit this comment',
 			'post_commentaire_validation_edition_message_succes'     => 'Comment well edited',
+	/* chat */
+		/* hub */
+			'chat_hub_titre'       => 'Hub',
+			'chat_hub_description' => 'Control panel for chat',
+	/* erreur */
+		/* erreur */
+			'erreur_erreur_titre'       => 'Error',
+			'erreur_erreur_description' => 'Error page',
 );
 
 ?>

@@ -219,10 +219,18 @@ $lang=array(
 			'post_commentaire_validation_edition_message_id'         => 'Pas de commentaire ayant cet id',
 			'post_commentaire_validation_edition_message_permission' => 'Vous n\'avez pas la permission d\'éditer ce commentaire',
 			'post_commentaire_validation_edition_message_succes'     => 'Commentaire bien édité',
+	/* erreur */
+		/* erreur */
+			'erreur_erreur_titre'       => 'Erreur',
+			'erreur_erreur_description' => 'Page d\'erreur',
 	/* chat */
 		/* hub */
-			'chat_hub_titre'       => 'Hub',
-			'chat_hub_description' => 'Centre de contrôle du chat',
+			'chat_hub_titre'                        => 'Hub',
+			'chat_hub_description'                  => 'Centre de contrôle du chat',
+			'chat_hub_nombre_utilisateur'           => 'Membres dans la conversation: ',
+			'chat_hub_lien_titre_voir_conversation' => 'Voir la conversation',
+			'chat_hub_lien_voir_conversation'       => 'Voir',
+			'chat_hub_lien_ajouter_conversation'    => 'Ajouter une nouvelle conversation',
 );
 
 ?>

@@ -16,23 +16,32 @@
  **/
 function afficherLiens($liens, $titres, $items, $type_ecran)
 {
+	global $Visiteur;
 	$affichage='';
 	if($type_ecran=='grand-ecran')		// Menu grand écran
 	{
 		foreach ($liens as $index => $lien)
 		{
-			$affichage.='<div class="element ligne">
-							<div class="colonne">
-								<a href="'.$lien.'" title="'.$titres[$index].'">'.$items[$index].'</a>
-							</div>
-						</div>';
+			$page=recuperationApplicationActionLien($lien);
+			if ($Visiteur->getRole()->existPermission($page['application'], $page['action']))
+			{
+				$affichage.='<div class="element ligne">
+								<div class="colonne">
+									<a href="'.$lien.'" title="'.$titres[$index].'">'.$items[$index].'</a>
+								</div>
+							</div>';
+			}
 		}
 	}
 	else
 	{
 		foreach ($liens as $index => $lien)
 		{
-			$affichage.='<a href="'.$lien.'" title="'.$titres[$index].'" class="lien-item"><i class="material-icons">'.$items[$index].'</i></a>';
+			$page=recuperationApplicationActionLien($lien);
+			if ($Visiteur->getRole()->existPermission($page['application'], $page['action']))
+			{
+				$affichage.='<a href="'.$lien.'" title="'.$titres[$index].'" class="lien-item"><i class="material-icons">'.$items[$index].'</i></a>';
+			}
 		}
 	}
 	return $affichage;

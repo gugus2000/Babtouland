@@ -6,26 +6,12 @@ $config['metas'][]=array(
 	'content' => $lang[$application.'_'.$action.'_description'],
 );
 
-$Contenu=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
-	'elements' => array(
-		'action'        => $config['post_publication_action'],
-		'legend'        => $lang['post_publication_legend'],
-		'label_titre'   => $lang['post_publication_titreForm'],
-		'label_contenu' => $lang['post_publication_contenu'],
-		'submit'        => $lang['post_publication_submit'],
-	),
-));
-
-require $config['pageElement_formulaire_req'];
-
-$Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
-	'elements'  => array(
-		'formulaire' => $Formulaire,
-	),
-));
+ob_start();?>
+<section class="contenu">
+	<?= htmlspecialchars($e->getMessage()) ?>
+</section>
+<?php
+$Contenu=ob_get_clean();
 
 require $config['pageElement_carte_req'];
 

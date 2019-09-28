@@ -123,7 +123,7 @@ class Visiteur extends Utilisateur
 			'avatar'           => $this->getAvatar(),
 			'date_inscription' => $this->getDate_inscription(),
 			'date_connexion'   => $this->getDate_connexion(),
-			'banni'            => $this->getBanni(),
+			'banni'            => (int)$this->getBanni(),
 			'mail'             => $this->getMail(),
 		));
 		$this->setId($VisiteurManager->getIdBy(array(
@@ -131,7 +131,7 @@ class Visiteur extends Utilisateur
 			'avatar'           => $this->getAvatar(),
 			'date_inscription' => $this->getDate_inscription(),
 			'date_connexion'   => $this->getDate_connexion(),
-			'banni'            => $this->getBanni(),
+			'banni'            => (int)$this->getBanni(),
 			'mail'             => $this->getMail(),
 		)));
 		$this->setMotdepasse(new \user\Motdepasse(array(
@@ -152,6 +152,14 @@ class Visiteur extends Utilisateur
 		$MotdepasseManager->update(array(
 			'mot_de_passe' => $this->getMotdepasse()->getMot_de_passe(),
 		), $this->getId());
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());	// On met l'utilisateur dans la conversation "général"
+		global $config;
+		$LiaisonConversationUtilisateur->addBy(array(
+			'id_conversation' => $config['id_conversation_all'],
+		), array(
+			'id_utilisateur' => $this->getId(),
+		));
 	}
 	/**
 	* Met à jour l'utilisateur
@@ -163,7 +171,7 @@ class Visiteur extends Utilisateur
 		$Manager=$this->Manager();
 		$Manager->update(array(
 			'avatar' => $this->getAvatar(),
-			'banni'  => $this->getBanni(),
+			'banni'  => (int)$this->getBanni(),
 			'mail'   => $this->getMail(),
 		), $this->getId());
 	}
@@ -176,31 +184,6 @@ class Visiteur extends Utilisateur
 	{
 		$Manager=$this->Manager();
 		$Manager->delete($this->getId());
-	}
-	/**
-	* Récupère l'id des conversations dont l'utilisateur fait parti
-	*
-	* @return array
-	*/
-	public function recupererConversations()
-	{
-		$BDDFactory=new \core\BDDFactory;
-		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
-		$resultats=$Liaison->get(array(
-			'id_utilisateur' => $this->getId(),
-		), array(
-			'id_utilisateur' => '=',
-		));
-		$conversations=array();
-		foreach ($resultats as $key => $resultat)
-		{
-			$conversation=new \chat\Conversation(array(
-				'id' => $resultat['id_conversation'],
-			));
-			$conversation->recuperer();
-			$conversations[]=$conversation;
-		}
-		return $conversations;
 	}
 	/**
 	* Charge la page

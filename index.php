@@ -76,9 +76,7 @@ catch (Exception $e)
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
 	}
-	$Visiteur->chargePage('erreur', 'erreur');
-	require $config['erreur_path'];
-	echo $Visiteur->getPage()->afficher();
+	echo $Visiteur->chargePage('erreur', 'erreur');
 }
 
 ?>

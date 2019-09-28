@@ -10,13 +10,18 @@
  **/
 function toast_liensAfficher($liens)
 {
+	global $Visiteur;
 	$affichage="";
 	foreach ($liens['lien'] as $index => $lien)
 	{
-		$affichage.='
-			<div class="element">
-				<a href="'.$lien.'" title="'.$liens['description'][$index].'"><i class="material-icons">'.$liens['icone'][$index].'</i></a>
-			</div>';
+		$page=recuperationApplicationActionLien($lien);
+		if ($Visiteur->getRole()->existPermission($page['application'], $page['action']))
+		{
+			$affichage.='
+				<div class="element">
+					<a href="'.$lien.'" title="'.$liens['description'][$index].'"><i class="material-icons">'.$liens['icone'][$index].'</i></a>
+				</div>';
+		}
 	}
 	return $affichage;
 }

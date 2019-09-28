@@ -6,19 +6,16 @@ $config['metas'][]=array(
 	'content' => $lang['user_connexion_description'],
 );
 
-ob_start();?>
-<form action="<?= $config['post_connexion_action'] ?>" method="POST" accept-charset="utf-8">
-	<fieldset>
-		<legend><?= $lang['user_connexion_fieldset'] ?></legend>
-		<label for="connexion_pseudo"><?= $lang['user_formulairepseudo'] ?></label>
-		<input type="text" name="connexion_pseudo"><br />
-		<label for="connexion_mdp"><?= $lang['user_formulairemdp'] ?></label>
-		<input type="password" name="connexion_mdp"><br />
-		<input type="submit" value="<?= $lang['user_connexion_submit'] ?>">
-	</fieldset>
-</form>
-<?php
-$Contenu=ob_get_clean();
+$Contenu=new \user\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'elements' => array(
+		'action'       => $config['user_connexion_action'],
+		'legend'       => $lang['user_connexion_fieldset'],
+		'label_pseudo' => $lang['user_formulairepseudo'],
+		'label_mdp'    => $lang['user_formulairemdp'],
+		'submit'       => $lang['user_connexion_submit'],
+	),
+));
 
 require $config['pageElement_formulaire_req'];
 

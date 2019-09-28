@@ -69,8 +69,8 @@ function recuperationApplicationActionLien($lien)
 	}
 	else
 	{
-		$array['application']=$config['default_application'];
-		$array['action']=$config['default_action'];
+		$array['application']=$config['defaut_application'];
+		$array['action']=$config['defaut_'.$array['application'].'_action'];
 	}
 	return $array;
 }

@@ -34,18 +34,16 @@ $config['metas'][]=array(
 	'content' => $lang[$application.'_'.$action.'_description'],
 );
 
-
-ob_start();?>
-<form action="<?= $config['post_commentaire_edition_formulaire_action'] ?>&id=<?= $Commentaire->afficherId() ?>" method="POST" accept-charset="utf-8">
-	<fieldset>
-		<legend><?= $lang['post_commentaire_edition_formulaire_legend'] ?></legend>
-		<label for="edition_commentaire_contenu"><?= $lang['post_commentaire_edition_formulaire_contenu'] ?></label>
-		<textarea name="edition_commentaire_contenu"><?= $Commentaire->afficherContenu() ?></textarea><br />
-		<input type="submit" value="<?= $lang['post_commentaire_edition_formulaire_submit'] ?>">
-	</fieldset>
-</form>
-<?php
-$Contenu=ob_get_clean();
+$Contenu=new \user\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'elements' => array(
+		'action'        => $config['post_commentaire_edition_formulaire_action'].'>&id='.$Commentaire->afficherId(),
+		'legend'        => $lang['post_commentaire_edition_formulaire_legend'],
+		'label_contenu' => $lang['post_commentaire_edition_formulaire_contenu'],
+		'contenu'       => $Commentaire->afficherContenu(),
+		'submit'        => $lang['post_commentaire_edition_formulaire_submit'],
+	),
+));
 
 require $config['pageElement_formulaire_req'];
 

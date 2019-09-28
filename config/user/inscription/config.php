@@ -6,21 +6,17 @@ $config['metas'][]=array(
 	'content' => $lang['user_inscription_description'],
 );
 
-ob_start();?>
-<form action="<?= $config['post_inscription_action'] ?>" method="POST" accept-charset="utf-8">
-	<fieldset>
-		<legend><?= $lang['user_inscription_fieldset'] ?></legend>
-		<label for="inscription_pseudo"><?= $lang['user_formulairepseudo'] ?></label>
-		<input type="text" name="inscription_pseudo"><br />
-		<label for="inscription_mdp"><?= $lang['user_formulairemdp'] ?></label>
-		<input type="password" name="inscription_mdp"><br />
-		<label for="inscription_mail"><?= $lang['user_formulairemail'] ?></label>
-		<input type="text" name="inscription_mail"><br />
-		<input type="submit" value="<?= $lang['user_inscription_submit'] ?>">
-	</fieldset>
-</form>
-<?php
-$Contenu=ob_get_clean();
+$Contenu=new \user\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'elements' => array(
+		'action'       => $config['user_inscription_action'],
+		'legend'       => $lang['user_inscription_fieldset'],
+		'label_pseudo' => $lang['user_formulairepseudo'],
+		'label_mdp'    => $lang['user_formulairemdp'],
+		'label_mail'   => $lang['user_formulairemail'],
+		'submit'       => $lang['user_inscription_submit'],
+	)
+));
 
 require $config['pageElement_formulaire_req'];
 

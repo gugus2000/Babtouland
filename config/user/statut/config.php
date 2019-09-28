@@ -8,14 +8,18 @@ $config['metas'][]=array(
 
 if ($Visiteur->getPseudo()!=$config['nom_guest'])
 {
-	ob_start();?>
-	<?= $lang['user_statut_pseudo'] ?><?= $Visiteur->afficherPseudo() ?><br />
-	<?= $lang['user_statut_avatar'] ?><img src="<?= $config['chemin_avatar'] ?><?= $Visiteur->afficherAvatar() ?>" alt="<?= $lang['user_view_avatar_alt'] ?><?= $Visiteur->afficherPseudo() ?>"><br />
-	<?= $lang['user_statut_derndateco'] ?><?= $Visiteur->afficherDate_connexion() ?><br />
-	<?= $lang['user_statut_premdatein'] ?><?= $Visiteur->afficherDate_inscription() ?><br />
-	<?= $lang['user_statut_mail'] ?><?= $Visiteur->afficherMail() ?><br />
-	<?php
-	$statut=ob_get_clean();
+	$statut=new \user\PageElement(array(
+		'template' => $config['path_template'].$application.'/'.$action.'/statut.html',
+		'elements' => array(
+			'pseudo'           => $lang['user_statut_pseudo'].$Visiteur->afficherPseudo(),
+			'avatar_texte'     => $lang['user_statut_avatar'],
+			'avatar_src'       =>  $config['chemin_avatar'].$Visiteur->afficherAvatar(),
+			'avatar_alt'       => $lang['user_view_avatar_alt'].$Visiteur->afficherPseudo(),
+			'date_connexion'   => $lang['user_statut_derndateco'].$Visiteur->afficherDate_connexion(),
+			'date_inscription' => $lang['user_statut_premdatein'].$Visiteur->afficherDate_connexion(),
+			'mail'             => $lang['user_statut_mail'].$Visiteur->afficherMail(),
+		),
+	));
 	$lien_connexionEdition='<a href="'.$config['user_statut_lien_edition'].'" title="'.$lang['user_statut_titre_lien_edition'].'">'.$lang['user_statut_affichage_lien_edition'].'</a><br />';
 	$lien_inscriptionDeconnexion='<a href="'.$config['user_statut_lien_deconnexion'].'" title="'.$lang['user_statut_titre_lien_deconnexion'].'">'.$lang['user_statut_affichage_lien_deconnexion'].'</a>';
 }
