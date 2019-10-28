@@ -2,7 +2,9 @@
 
 session_start();
 
-error_reporting(E_ALL);
+error_reporting(E_ALL);	// En prod
+
+date_default_timezone_set('UTC');	// On travaillera toujours en UTC (on peut changer pour chaque affichage après plus facilement) ! pas changer (Javascripts)
 
 function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd/
 {
@@ -22,7 +24,7 @@ if(isset($_SESSION['lang']))
 	$config['lang']=$_SESSION['lang'];
 }
 
-require_once 'config/lang/'.$config['lang'].'.php';	// Chargement de la traduction
+require_once 'config/core/lang/'.$config['lang'].'/lang.php';	// Chargement de la traduction
 
 require_once 'func/core/utils.func.php';
 spl_autoload_register('loadClass');
@@ -68,7 +70,7 @@ try
 catch (Exception $e)
 {
 	exit($e);
-	if (!$Visiteur->getAvatar())
+	if (!isset($Visiteur))
 	{
 		$Visiteur=new \user\Visiteur(array(
 			'pseudo' => $config['nom_guest'],

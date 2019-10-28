@@ -1,12 +1,12 @@
 <?php
 
-$config['css'][]=$config['path_assets'].'css/liste.css';
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/liste.css');
 
-$titre=$lang[$application.'_'.$action.'_titre'];
-$config['metas'][]=array(
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 	'name'    => 'description',
-	'content' => $lang[$application.'_'.$action.'_description'],
-);
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+));
 
 $BDDFactory=new \core\BDDFactory;
 $UtilisateurManager=new \user\UtilisateurManager($BDDFactory->MysqlConnexion());
@@ -53,32 +53,10 @@ $Contenu=new \user\PageElement(array(
 	),
 ));
 
-require $config['pageElement_carte_req'];
+$Carte=new \user\page\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
+$Corps=new \user\page\Corps($MenuUp, $Carte, '');
 
-require $config['pageElement_menuUp_req'];
-
-$Corps=new \user\PageElement(array(
-	'template'  => $config['pageElement_corps_template'],
-	'fonctions' => $config['pageElement_corps_fonctions'],
-	'elements'  => array(
-		'haut'   => $MenuUp,
-		'centre' => $Carte,
-		'bas'    => '',
-	),
-));
-
-$Tete=new \user\PageElement(array(
-	'template'  => $config['pageElement_tete_template'],
-	'fonctions' => $config['pageElement_tete_fonctions'],
-	'elements'  => array(
-		'metas'       => $config['metas'],
-		'titre'       => $titre,
-		'css'         => $config['css'],
-		'javascripts' => $config['javascripts'],
-	),
-));
-
-$config['pageElement_elements']['tete']=$Tete;
-$config['pageElement_elements']['corps']=$Corps;
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>

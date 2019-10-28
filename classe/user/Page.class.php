@@ -27,6 +27,12 @@ class Page
 	* @var PageElement
 	*/
 	protected $pageElement;
+	/**
+	* Notifications dans la page
+	* 
+	* @var array
+	*/
+	protected $notifications;
 
 	/* Accesseurs */
 
@@ -56,6 +62,15 @@ class Page
 	public function getPageElement()
 	{
 		return $this->pageElement;
+	}
+	/**
+	* Accesseur de notifications
+	* 
+	* @return array
+	*/
+	public function getNotifications()
+	{
+		return $this->notifications;
 	}
 
 	/* Définisseurs */
@@ -93,6 +108,17 @@ class Page
 	{
 		$this->pageElement=$pageElement;
 	}
+	/**
+	* Définisseur de notifications
+	*
+	* @param array notifications Notifications à ajouter dans la page
+	* 
+	* @return void
+	*/
+	protected function setNotifications($notifications)
+	{
+		$this->notifications=$notifications;
+	}
 
 	/* Autres méthodes */
 
@@ -124,12 +150,30 @@ class Page
 		return $this->pageElement->afficher();
 	}
 	/**
+	* Afficheur de notifications
+	* 
+	* @return string
+	*/
+	public function afficherNotifications()
+	{
+		$affichage='';
+		foreach ($this->notifications as $notification)
+		{
+			$affichage.=$notification->afficher();
+		}
+		return $affichage;
+	}
+	/**
 	* Afficheur de Page
 	* 
 	* @return string
 	*/
 	public function afficher()
 	{
+		global $config;
+		$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].$config['message_css']);
+		$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('javascripts', $config['path_assets'].$config['message_js']);
+		$this->getPageElement()->ajouterElement('notifications', $this->afficherNotifications());
 		return $this->afficherPageElement();
 	}
 	/**
@@ -141,6 +185,7 @@ class Page
 	*/
 	public function __construct($attributs)
 	{
+		global $config, $lang, $Visiteur;
 		foreach ($attributs as $key => $value)
 		{
 			$method='set'.ucfirst($key);
@@ -148,7 +193,30 @@ class Page
 			{
 				$this->$method($value);
 			}
+			$PageElement=new \user\PageElement(array(
+				'template'  => $config['pageElement_page_template'],
+				'fonctions' => $config['pageElement_page_fonctions'],
+				'elements'  => $config['pageElement_elements'],
+			));
+			$Tete=new \user\page\Tete(array(
+				'metas'       => $config['tete_metas'],
+				'css'         => $config['tete_css'],
+				'javascripts' => $config['tete_javascripts'],
+			));
+			$PageElement->ajouterElement($config['tete_nom'], $Tete);
+			$this->setPageElement($PageElement);
 		}
+	}
+	/**
+	* Ajout d'une notification dans la page
+	*
+	* @param Notification Notification Notification à rajouter dans la page
+	* 
+	* @return void
+	*/
+	public function ajouter_Notification($Notification)
+	{
+		$this->notifications[]=$Notification;
 	}
 	/**
 	* Obtient le path du fichier de définition de la page à afficher

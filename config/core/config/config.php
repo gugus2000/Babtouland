@@ -20,50 +20,61 @@ $config=array(
 		/* Général */
 			'lang'        => 'FR',	// Langue par défaut
 		/* Page */
-			'css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),							// Css de la page par défaut
-			'javascripts' => array(),																																												// javascripts de la page par défaut
-			'metas'       => array(
-				array(
-					'charset' => 'utf-8',
-					'lang'    => 'FR',
-				),
-				array(
-					'http-equiv' => 'X-UA-Compatible',
-					'content'    => 'IE=edge',
-				),
-				array(
-					'name'    => 'viewport',
-					'content' => 'width=device-width, initial-scale=1',
-				),
-			),																																																				// Métadonnées de la page par défaut
 			/* PageElement */
 				/* Page */
 					'pageElement_page_template'  => 'assets/html/core/page/page.html',		// Chemin vers la template de la page
 					'pageElement_page_fonctions' => 'func/core/page/page.func.php',			// Chemin vers les fonctions de la page
 					'pageElement_elements'       => array(
-						'tete'    => '',
-						'message' => '',
-						'corps'   => '',
-					),																		// Chemin vers les éléments de la page
+					),								// Chemin vers les éléments de la page
 				/* Contenu */
 					'filename_contenu_template'  => 'template.html',
 					'filename_contenu_fonctions' => 'func.php',
 				/* Tete */
-					'pageElement_tete_template'  => 'assets/html/core/page/tete.html',
-					'pageElement_tete_fonctions' => 'func/core/page/tete.func.php',
 					'pageElement_tete_elements'  => array(),
+					'tete_path_template'  => 'core/page/tete.html',
+					'tete_path_fonctions' => 'core/page/tete.func.php',
+					'tete_metas'       => array(
+						array(
+							'charset' => 'utf-8',
+							'lang'    => 'FR',
+						),
+						array(
+							'http-equiv' => 'X-UA-Compatible',
+							'content'    => 'IE=edge',
+						),
+						array(
+							'name'    => 'viewport',
+							'content' => 'width=device-width, initial-scale=1',
+						),
+					),																																																			// Métadonnées de la page par défaut
+					'tete_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),							// Css de la page par défaut
+					'tete_javascripts' => array(),																																												// javascripts de la page par défaut
+					'tete_nom'         => 'tete',
 				/* Corps */
-					'pageElement_corps_template'  => 'assets/html/core/page/corps.html',
-					'pageElement_corps_fonctions' => 'func/core/page/corps.func.php',
-					'pageElement_corps_elements'  => array(),
+					'corps_path_template'  => 'core/page/corps.html',
+					'corps_path_fonctions' => 'core/page/corps.func.php',
+					'corps_nom'            => 'corps',
 				/* MenuUp */
-					'pageElement_menuUp_req' => 'config/core/menu-up/config.php',
+					'menuUp_path_template'   => 'core/menu-up/menu-up.html',
+					'menuUp_path_fonctions'  => 'core/menu-up/menu-up.func.php',
+					'menuUp_path_css'        => 'css/menu-up.css',
+					'menuUp_path_javascript' => 'js/menu-up.js',
+				/* Dropdown */
+					'dropdown_path_template'  => 'core/menu-up/dropdown.html',
+					'dropdown_path_fonctions' => 'core/menu-up/dropdown.func.php',
+					'dropdown_path_css'       => 'css/dropdown.css',
 				/* Carte */
-					'pageElement_carte_req' => 'config/core/carte/config.php',
+					'carte_path_template'  => 'core/carte/carte.html',
+					'carte_path_fonctions' => 'core/carte/carte.func.php',
 				/* Formulaire */
-					'pageElement_formulaire_req' => 'config/core/formulaire/config.php',
+					'formulaire_path_template'  => 'core/formulaire/formulaire.html',
+					'formulaire_path_fonctions' => 'core/formulaire/formulaire.func.php',
+					'formulaire_path_css'       => 'css/formulaire.css',
 				/* Toast */
-					'pageElement_toast_req' => 'config/core/toast/config.php',
+					'toast_path_template'   => 'core/toast/toast.html',
+					'toast_path_fonctions'  => 'core/toast/toast.func.php',
+					'toast_path_css'        => 'css/toast.css',
+					'toast_path_javascript' => 'js/toast.js',
 		/* Post */
 			/* Fil post */
 				'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
@@ -94,28 +105,18 @@ $config=array(
 					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
 			/* Message */
-				'message_css'      => 'assets/css/message.css',					// Css des messages
-				'message_js'       => 'assets/js/message.js',					// Js des messages
+				'message_css'      => 'css/message.css',						// Css des messages
+				'message_js'       => 'js/message.js',							// Js des messages
 				'message_template' => 'assets/html/core/message/message.html',	// Template des messages
 			/* Menu-up */
 				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
 				'menu-up_icones'      => array('home', 'message', 'info', 'chat'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
 				'menu-up_lien-statut' => createPageLink('user', 'statut', 'chat'),														// Lien lors du clic sur l'avatar dans le menu_up
-				'menu-up_css'         => 'assets/css/menu-up.css',																		// Css du menu-up
-				'menu-up_js'          => 'assets/js/menu-up.js',																		// Js du menu-up
-				'menu-up_template'    => 'assets/html/menu-up.html',																		// Contenu dynamique du menu-up
-				'menu-up_func'        => 'func/user/menu-up.func.php',																	// Fonctions utilisé dans menu-up
-				'menu-up_conf'        => 'config/user/menu-up.conf.php',
 			/* Menu-side */
 				'menu-side_css'      => 'assets/css/menu-side.css',
 				'menu-side_js'       => '',
 				'menu-side_template' => 'assets/html/menu-side.html',
 				'menu-side_func'     => 'func/user/menu-side.func.php',
-			/* Toast */
-				'toast_css'      => 'assets/css/toast.css',		// Css du toast
-				'toast_js'       => 'assets/js/toast.js',		// Js du toast
-				'toast_template' => 'assets/html/toast.html',		// Contenu dynamique du toast
-				'toast_func'     => 'func/user/toast.func.php',	// Fonctions utilisé dans toast
 			/* Session Guest */
 				'nom_guest' => 'guest',	// pseudo de l'utilisateur "guest"
 				'mdp_guest' => 'guest',	// mot de passe de l'utilisateur "guest"
@@ -224,9 +225,40 @@ $config=array(
 			'defaut_erreur_action' => 'erreur',
 		/* chat */
 			'defaut_chat_action' => 'hub',
+			'chat_temps_0'       => '2019-01-01 00:00:00',
 			/* hub */
 				'chat_hub_lien_voir_conversation'    => createPageLink('chat', 'voir_conversation'),
 				'chat_hub_lien_ajouter_conversation' => createPageLink('chat', 'ajouter_conversation'),
+			/* voir_conversation */
+				'chat_voir_conversation_form_action'         => createPageLink('chat', 'envoyer_message'),
+				'chat_voir_conversation_date_comparaison'    => 'PT10M',
+				'chat_voir_conversation_message_edition'     => createPageLink('chat', 'editer_message'),
+				'chat_voir_conversation_message_suppression' => createPageLink('chat', 'supprimer_message'),
+			/* envoyer_message */
+				'chat_envoyer_message_erreur_id_conversation' => createPageLink('chat', 'hub'),
+				'chat_envoyer_message_erreur_permission'      => createPageLink('chat', 'voir_conversation'),
+				'chat_envoyer_message_erreur_contenu'         => createPageLink('chat', 'voir_conversation'),
+				'chat_envoyer_message_succes'                 => createPageLink('chat', 'voir_conversation'),
+			/* editer_message */
+				'chat_editer_message_admin_application'   => 'core',
+				'chat_editer_message_admin_action'        => 'editer_message',
+				'chat_editer_message_erreur_id_message'                => createPageLink('chat', 'hub'),
+				'chat_editer_message_erreur_conversation_autorisation' => createPageLink('chat', 'hub'),
+				'chat_editer_message_erreur_message_autorisation'      => createPageLink('chat', 'voir_conversation'),
+				'chat_editer_message_form_action'                      => createPageLink('chat', 'validation_editer_message'),
+			/* supprimer_message */
+				'chat_supprimer_message_admin_application'                => 'core',
+				'chat_supprimer_message_admin_action'                     => 'supprimer_message',
+				'chat_supprimer_message_erreur_id_message'                => createPageLink('chat', 'hub'),
+				'chat_supprimer_message_erreur_conversation_autorisation' => createPageLink('chat', 'hub'),
+				'chat_supprimer_message_erreur_message_autorisation'      => createPageLink('chat', 'voir_conversation'),
+				'chat_supprimer_message_succes'                           => createPageLink('chat', 'voir_conversation'),
+			/* validation_editer_message */
+				'chat_validation_editer_message_succes' => createPageLink('chat', 'voir_conversation'),
+		/* xhr */
+			'defaut_xhr_action' => 'chat',
+			/* chat */
+
 );
 
 ?>

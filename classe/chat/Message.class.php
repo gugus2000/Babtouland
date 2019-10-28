@@ -301,8 +301,6 @@ class Message extends \core\Managed
 	{
 		$Manager=$this->Manager();
 		$Manager->update(array(
-			'id_conversation'  => $this->getId_conversation(),
-			'id_auteur'        => $this->getId_auteur(),
 			'contenu'          => $this->getContenu(),
 			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
 		), $this->getId());
@@ -317,6 +315,20 @@ class Message extends \core\Managed
 	{
 		$Manager=$this->Manager();
 		$Manager->delete($this->getId());
+	}
+	/* Récupère l'auteur du Message */
+	/**
+	* Récupère l'auteur du Message
+	* 
+	* @return Utilisateur
+	*/
+	public function recupererAuteur()
+	{
+		$Auteur=new \user\Utilisateur(array(
+			'id' => $this->getId_auteur(),
+		));
+		$Auteur->recuperer();
+		return $Auteur;
 	}
 }
 

@@ -2,22 +2,30 @@
 
 $Conversations=$Visiteur->recupererConversations();
 
-$titre=$lang[$application.'_'.$action.'_titre'];
-$config['metas'][]=array(
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 	'name'    => 'description',
-	'content' => $lang[$application.'_'.$action.'_description'],
-);
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+));
 
 $Cartes=array();
 
 foreach ($Conversations as $Conversation)
 {
+	$connecte=[];
+	foreach ($Conversation->recupererUtilisateurs() as $Utilisateur)
+	{
+		if ($Utilisateur->estConnecte())
+		{
+			$connecte[]=$Utilisateur;
+		}
+	}
 	$Cartes[]=new \user\PageElement(array(
 		'template' => $config['path_template'].$application.'/'.$action.'/cartes.html',
 		'elements' => array(
 			'nom_conversation'        => $Conversation->afficherNom(),
 			'description'             => $Conversation->afficherDescription(),
-			'nombre_utilisateur'      => $lang['chat_hub_nombre_utilisateur'].count($Conversation->getUtilisateurs()),
+			'nombre_utilisateur'      => $lang['chat_hub_nombre_utilisateur'].count($Conversation->getId_utilisateurs()).'/'.count($connecte),
 			'lien_href_conversation'  => $config['chat_hub_lien_voir_conversation'].'&id='.$Conversation->afficherId(),
 			'lien_title_conversation' => $lang['chat_hub_lien_titre_voir_conversation'],
 			'lien_conversation'       => $lang['chat_hub_lien_voir_conversation'],
@@ -40,32 +48,18 @@ $toast_liens=array(
 );
 
 
-require $config['pageElement_toast_req'];
+if(verifLiens($Visiteur, $toast_liens['lien']))
+{
+	$Toast=new \user\page\Toast($toast_liens, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+}
+else
+{
+	$Toast='';
+}
 
-require $config['pageElement_menuUp_req'];
+$MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
+$Corps=new \user\page\Corps($MenuUp, $Contenu, $Toast);
 
-$Corps=new \user\PageElement(array(
-	'template'  => $config['pageElement_corps_template'],
-	'fonctions' => $config['pageElement_corps_fonctions'],
-	'elements'  => array(
-		'haut'   => $MenuUp,
-		'centre' => $Contenu,
-		'bas'    => $Toast,
-	),
-));
-
-$Tete=new \user\PageElement(array(
-	'template'  => $config['pageElement_tete_template'],
-	'fonctions' => $config['pageElement_tete_fonctions'],
-	'elements'  => array(
-		'metas'       => $config['metas'],
-		'titre'       => $titre,
-		'css'         => $config['css'],
-		'javascripts' => $config['javascripts'],
-	),
-));
-
-$config['pageElement_elements']['tete']=$Tete;
-$config['pageElement_elements']['corps']=$Corps;
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>

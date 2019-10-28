@@ -17,13 +17,14 @@ $Post=new \post\Post(array(
 ));
 $Post->recuperer();
 
-$titre=$lang[$application.'_'.$action.'_titre'].$Post->afficherTitre();
-$config['metas'][]=array(
-	'name'    => 'description',
-	'content' => $lang[$application.'_'.$action.'_description'],
-);
-$config['css'][]=$config['path_assets'].'css/commentaire.css';
-$config['css'][]=$config['path_assets'].'css/post.css';
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre'].$Post->afficherTitre());
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+	'name' => 'description',
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+));
+
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/commentaire.css');
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/post.css');
 
 
 $post=new \user\PageElement(array(
@@ -73,7 +74,7 @@ foreach ($Commentaires as $index => $Commentaire)
 
 $Contenu='';
 
-require $config['pageElement_formulaire_req'];
+$Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
 $formulaire='';
 $array=recuperationApplicationActionLien($config['post_lecture_publication_commentaire']);
@@ -106,32 +107,17 @@ $toast_liens=array(
 	'icone'       => array('edit', 'delete'),
 );
 
-require $config['pageElement_toast_req'];
+if(verifLiens($Visiteur, $toast_liens['lien']))
+{
+	$Toast=new \user\page\Toast($toast_liens, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+}
+else
+{
+	$Toast='';
+}
+$MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$Corps=new \user\page\Corps($MenuUp, $Contenu, $Toast);
 
-require $config['pageElement_menuUp_req'];
-
-$Corps=new \user\PageElement(array(
-	'template'  => $config['pageElement_corps_template'],
-	'fonctions' => $config['pageElement_corps_fonctions'],
-	'elements'  => array(
-		'haut'   => $MenuUp,
-		'centre' => $Contenu,
-		'bas'    => $Toast,
-	),
-));
-
-$Tete=new \user\PageElement(array(
-	'template'  => $config['pageElement_tete_template'],
-	'fonctions' => $config['pageElement_tete_fonctions'],
-	'elements'  => array(
-		'metas'       => $config['metas'],
-		'titre'       => $titre,
-		'css'         => $config['css'],
-		'javascripts' => $config['javascripts'],
-	),
-));
-
-$config['pageElement_elements']['tete']=$Tete;
-$config['pageElement_elements']['corps']=$Corps;
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>

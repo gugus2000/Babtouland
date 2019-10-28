@@ -1,0 +1,40 @@
+.carte .contenu
+{
+	padding-bottom: 0;
+}
+#chat
+{
+	overflow: auto;
+	max-height: 300px;
+	border: solid 1px rgb(189, 189, 189);
+}
+#chat .ligne_chat
+{
+	display: flex;
+	flex-direction: row;
+	text-align: left;
+}
+#chat .colonne_chat
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	text-align: left;
+}
+#chat .espace
+{
+	text-align: center;
+	width: 10px;
+}
+#chat .marge
+{
+	width: 100px;
+}
+#chat .separation
+{
+	height: 10px;
+}
+#chat .action_chat a
+{
+	color: black;
+}

@@ -7,6 +7,15 @@ namespace core;
 */
 class Managed
 {
+	/* Constantes */
+
+	/**
+	* Critères (attributs) permettant de vérifier une similarité
+	*
+	* @var array
+	*/
+	const CRITERES_SIMILAIRE=array('id');
+
 	/* Autres méthodes */
 
 	/**
@@ -60,6 +69,26 @@ class Managed
 	{
 		$Manager=$this->Manager();
 		$this->hydrater($Manager->get($index));
+	}
+	/**
+	* Vérifie si deux objets managé sont identiques
+	*
+	* @param Managed objet L'objet qui vérifie la similarité
+	* 
+	* @return bool
+	*/
+	public function similaire($objet)
+	{
+		$resultat=0;
+		foreach ($this::CRITERES_SIMILAIRE as $critere)
+		{
+			$accesseur='get'.ucfirst($critere);
+			if ($this->$accesseur()==$objet->$accesseur())
+			{
+				$resultat+=1;
+			}
+		}
+		return $resultat==count($this::CRITERES_SIMILAIRE);
 	}
 
 }

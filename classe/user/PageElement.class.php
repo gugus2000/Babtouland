@@ -160,6 +160,17 @@ class PageElement
 		return $contenuElement;
 	}
 	/**
+	* Accesseur d'un élément de elements
+	*
+	* @param mixed index Index de l'élément à récupérer
+	* 
+	* @return mixed
+	*/
+	public function getElement($index)
+	{
+		return $this->elements[$index];
+	}
+	/**
 	* Construction de l'objet PageElement
 	*
 	* @param array attributs Attributs du PageElement
@@ -176,6 +187,32 @@ class PageElement
 				$this->$method($value);
 			}
 		}
+	}
+	/**
+	* Ajoute un élément
+	*
+	* @param string nom Nom de l'élément à ajouter
+	*
+	* @param PageElement element PageElement à ajouter
+	* 
+	* @return void
+	*/
+	public function ajouterElement($nom, $element)
+	{
+		$this->elements[$nom]=$element;
+	}
+	/**
+	* Ajoute un élément dans un élément array dans elements
+	*
+	* @param mixed index Index de l'élément à laquelle ajouter la valeur
+	*
+	* @param mixed valeur Valeur de l'élément de l'élément à ajouter
+	* 
+	* @return void
+	*/
+	public function ajouterValeurElement($index, $valeur)
+	{
+		$this->elements[$index][]=$valeur;
 	}
 }
 

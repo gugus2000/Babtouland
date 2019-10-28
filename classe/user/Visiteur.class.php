@@ -118,7 +118,7 @@ class Visiteur extends Utilisateur
 	public function inscription($motdepasse, $nom_role)
 	{
 		$VisiteurManager=$this->Manager();
-		$VisiteurManager->add(array(
+		$VisiteurManager->add(array(				// Inscription dans la base de donnée
 			'pseudo'           => $this->getPseudo(),
 			'avatar'           => $this->getAvatar(),
 			'date_inscription' => $this->getDate_inscription(),
@@ -126,7 +126,7 @@ class Visiteur extends Utilisateur
 			'banni'            => (int)$this->getBanni(),
 			'mail'             => $this->getMail(),
 		));
-		$this->setId($VisiteurManager->getIdBy(array(
+		$this->setId($VisiteurManager->getIdBy(array(	// Récupération de l'id
 			'pseudo'           => $this->getPseudo(),
 			'avatar'           => $this->getAvatar(),
 			'date_inscription' => $this->getDate_inscription(),
@@ -145,19 +145,19 @@ class Visiteur extends Utilisateur
 		$this->getRole()->recuperer_permissions();
 		$RoleManager=$this->getRole()->Manager();
 		$RoleManager->update(array(
-			'nom_role' => $this->getRole()->getNom_role(),
+			'nom_role' => $this->getRole()->getNom_role(),	// Inscription du role dans la table utilisateur
 		), $this->getId());
 		$MotdepasseManager=$this->getMotdepasse()->Manager();
 		$this->getMotdepasse()->hash();
-		$MotdepasseManager->update(array(
+		$MotdepasseManager->update(array(					// Inscription du mot de passe
 			'mot_de_passe' => $this->getMotdepasse()->getMot_de_passe(),
 		), $this->getId());
 		$BDDFactory=new \core\BDDFactory;
-		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());	// On met l'utilisateur dans la conversation "général"
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
 		global $config;
-		$LiaisonConversationUtilisateur->addBy(array(
+		$LiaisonConversationUtilisateur->addBy(array(array(			// On met l'utilisateur dans la conversation "général"
 			'id_conversation' => $config['id_conversation_all'],
-		), array(
+		)), array(
 			'id_utilisateur' => $this->getId(),
 		));
 	}
@@ -192,33 +192,26 @@ class Visiteur extends Utilisateur
 	*
 	* @param  string action Action de la page
 	* 
-	* @return bool
+	* @return string
 	*/
 	public function chargePage($application, $action)
 	{
 		global $config, $lang, $Visiteur;
 		if($this->getRole()->existPermission($application, $action))	// Permission accordée
 		{
+			$this->setPage(new \user\Page(array(
+				'application'   => $application,
+				'action'        => $action,
+				'notifications' => array(),
+			)));
 			if (isset($_SESSION['message']))
 			{
 				$Message=unserialize($_SESSION['message']);
-				$config['pageElement_elements']['message']=$Message;
-				$config['css'][]=$config['message_css'];
-				$config['javascripts'][]=$config['message_js'];
+				$this->getPage()->ajouter_Notification($Message);
 				unset($_SESSION['message']);
 			}
-			if (include($this->getPagePath($application, $action)))
+			if (include($this->getPage()->getPath()))
 			{
-				$PageElement=new \user\PageElement(array(
-					'template'  => $config['pageElement_page_template'],
-					'fonctions' => $config['pageElement_page_fonctions'],
-					'elements'  => $config['pageElement_elements'],
-				));
-				$this->setPage(new \user\Page(array(
-					'application' => $application,
-					'action'      => $action,
-					'pageElement' => $PageElement,
-				)));
 				return $this->getPage()->afficher();
 			}
 			else
@@ -230,23 +223,6 @@ class Visiteur extends Utilisateur
 		{
 			throw new \Exception($lang['erreur_general_autorisations_insuffisantes']);	// Pas l'autorisation
 		}
-	}
-	/**
-	* Trouve le fichier de définition de la page concerné
-	*
-	* @param string application Application de la page
-	*
-	* @param string action Action de la page
-	* 
-	* @return string
-	*/
-	public function getPagePath($application, $action)
-	{
-		$Page=new \user\Page(array(
-			'application' => $application,
-			'action'      => $action,
-		));
-		return $Page->getPath();
 	}
 }
 

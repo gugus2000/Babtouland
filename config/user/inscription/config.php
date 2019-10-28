@@ -1,10 +1,10 @@
 <?php
 
-$titre=$lang['user_inscription_titre'];
-$config['metas'][]=array(
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 	'name'    => 'description',
-	'content' => $lang['user_inscription_description'],
-);
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+));
 
 $Contenu=new \user\PageElement(array(
 	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
@@ -18,7 +18,7 @@ $Contenu=new \user\PageElement(array(
 	)
 ));
 
-require $config['pageElement_formulaire_req'];
+$Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
@@ -28,32 +28,10 @@ $Contenu=new \user\PageElement(array(
 	),
 ));
 
-require $config['pageElement_carte_req'];
+$Carte=new \user\page\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$Corps=new \user\page\Corps($MenuUp, $Carte, '');
 
-require $config['pageElement_menuUp_req'];
-
-$Corps=new \user\PageElement(array(
-	'template'  => $config['pageElement_corps_template'],
-	'fonctions' => $config['pageElement_corps_fonctions'],
-	'elements'  => array(
-		'haut'   => $MenuUp,
-		'centre' => $Carte,
-		'bas'    => '',
-	),
-));
-
-$Tete=new \user\PageElement(array(
-	'template'  => $config['pageElement_tete_template'],
-	'fonctions' => $config['pageElement_tete_fonctions'],
-	'elements'  => array(
-		'metas'       => $config['metas'],
-		'titre'       => $titre,
-		'css'         => $config['css'],
-		'javascripts' => $config['javascripts'],
-	),
-));
-
-$config['pageElement_elements']['tete']=$Tete;
-$config['pageElement_elements']['corps']=$Corps;
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>

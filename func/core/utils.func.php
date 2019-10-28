@@ -90,7 +90,45 @@ function recuperationApplicationActionLien($lien)
 function autorisationModification($Objet, $application, $action)
 {
 	global $Visiteur, $config;
-	return ($Objet->recupererAuteur()->getPseudo()==$Visiteur->getPseudo() | $Visiteur->getRole()->existPermission($config[$application.'_'.$action.'_admin_application'], $config[$application.'_'.$action.'_admin_action']));
+	return ($Objet->recupererAuteur()->similaire($Visiteur) | $Visiteur->getRole()->existPermission($config[$application.'_'.$action.'_admin_application'], $config[$application.'_'.$action.'_admin_action']));
+}
+
+/**
+ * Vérifie si au moins un lien de la liste est ouvert d'accès au visiteur
+ *
+ * @param Visiteur Visiteur Visiteur à vérifier
+ *
+ * @param array liens Liens à vérifier
+ *
+ * @return bool
+ * @author gugus2000
+ **/
+function verifLiens($Visiteur, $liens)
+{
+	$compteur=0;
+	foreach ($liens as $index => $lien)
+	{
+		$page=recuperationApplicationActionLien($lien);
+		if ($Visiteur->getRole()->existPermission($page['application'], $page['action']))
+		{
+			$compteur++;
+		}
+	}
+	return $compteur>0;
+}
+
+/**
+ * Polyfill de array_key_first
+ *
+ * @author PHP
+ **/
+if (!function_exists('array_key_first')) {
+    function array_key_first(array $arr) {
+        foreach($arr as $key => $unused) {
+            return $key;
+        }
+        return NULL;
+    }
 }
 
 ?>

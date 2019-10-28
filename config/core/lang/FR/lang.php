@@ -28,6 +28,8 @@ $lang=array(
 		'menu-up_avatar'     => 'Votre avatar',
 		'menu-up_titres'     => array('Accueil', 'Fil des posts', 'À propos', 'Chat'),
 		'menu-up_affichages' => array('Accueil', 'Post', 'À propos', 'Chat'),
+	/* tete */
+		'tete_titre' => 'sans titre',
 	/* user */
 		'user_formulairepseudo' => 'Pseudo:',
 		'user_formulairemdp'    => 'Mot de passe:',
@@ -227,10 +229,40 @@ $lang=array(
 		/* hub */
 			'chat_hub_titre'                        => 'Hub',
 			'chat_hub_description'                  => 'Centre de contrôle du chat',
-			'chat_hub_nombre_utilisateur'           => 'Membres dans la conversation: ',
+			'chat_hub_nombre_utilisateur'           => 'Membres dans la conversation/actuellement connectés: ',
 			'chat_hub_lien_titre_voir_conversation' => 'Voir la conversation',
 			'chat_hub_lien_voir_conversation'       => 'Voir',
 			'chat_hub_lien_ajouter_conversation'    => 'Ajouter une nouvelle conversation',
+		/* voir_conversation */
+			'chat_voir_conversation_titre'              => 'Conversation ',
+			'chat_voir_conversation_description'        => 'Page de consultation d\'une conversation',
+			'chat_voir_conversation_erreur_no_id'       => 'Il faut l\'id de la conversation pour la lire',
+			'chat_voir_conversation_auteur'             => 'Par ',
+			'chat_voir_conversation_date'               => 'le ',
+			'chat_voir_conversation_form_legend'        => 'Envoyer un message',
+			'chat_voir_conversation_form_label_message' => 'Message',
+			'chat_voir_conversation_form_submit'        => 'ENVOYER',
+		/* envoyer_message */
+			'chat_envoyer_message_erreur_id_conversation' => 'Il faut l\'id de la conversation pour y écrire un message',
+			'chat_envoyer_message_erreur_permission'      => 'Vous ne pouvez pas écrire dans cette conversation',
+			'chat_envoyer_message_erreur_contenu'         => 'Le formulaire est vide ou mal remplit',
+			'chat_envoyer_message_succes'                 => 'Le message a bien été envoyé',
+		/* editer_message */
+			'chat_editer_message_titre'                            => 'Édition de message',
+			'chat_editer_message_description'                      => 'Permet l\'édition d\'un message déjà envoyé',
+			'chat_editer_message_erreur_id_message'                => 'Il vous faut l\'id du message pour l\'éditer',
+			'chat_editer_message_erreur_conversation_autorisation' => 'Vous n\'avez pas la permission d\'accéder à la conversation de ce message',
+			'chat_editer_message_erreur_message_autorisation'      => 'Vous n\'avez pas la permission d\'éditer ce message',
+			'chat_editer_message_form_legend'                      => 'Éditer un message',
+			'chat_editer_message_form_label_message'               => 'Message',
+			'chat_editer_message_form_submit'                      => 'ÉDITER',
+		/* supprimer_message */
+			'chat_supprimer_message_erreur_id_message'                => 'Il vous faut l\'id du message pour le supprimer',
+			'chat_supprimer_message_erreur_conversation_autorisation' => 'Vous n\'avez pas la permission d\'accéder à la conversation de ce message',
+			'chat_supprimer_message_erreur_message_autorisation'      => 'Vous n\'avez pas la permission de supprimer ce message',
+			'chat_supprimer_message_succes'                           => 'Vous avez bien supprimé le message',
+		/* validation_editer_message */
+			'chat_validation_editer_message_succes' => 'Vous avez bien édité le message',
 );
 
 ?>

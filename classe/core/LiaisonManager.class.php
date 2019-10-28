@@ -110,17 +110,20 @@ class LiaisonManager
 	*/
 	public function addBy($variants, $invariants)
 	{
-		$variants=array_intersect_key($variants, array_flip($this::ATTRIBUTES));
-		$variant=array_intersect_key($invariants, array_flip($this::ATTRIBUTES));
-		$attributs=array_merge(array_keys($variants),array_keys($invariants));
+		foreach ($variants as $variant)
+		{
+			$variant=array_intersect_key($variant, array_flip($this::ATTRIBUTES));
+		}
+		$invariants=array_intersect_key($invariants, array_flip($this::ATTRIBUTES));
+		$attributs=array_merge(array_keys($variants[\array_key_first($variants)]),array_keys($invariants));
 		$donnees=array();
-		$nombre_elements=count($variants[array_keys($variants)[0]]);	// Le nombre d'éléments à insérer est le nombre de valeur dans les premières valeurs variantes
+		$nombre_elements=count($variants[\array_key_first($variants)]);	// Le nombre d'éléments à insérer est le nombre de valeur dans les premières valeurs variantes
 		for ($i=0; $i < $nombre_elements; $i++)
 		{ 
 			$donnee=array();
-			foreach ($variants as $attribut => $valeurs)
+			foreach ($variants[$i] as $attribut => $valeurs)
 			{
-				$donnee[$attribut]=$valeurs[$i];
+				$donnee[$attribut]=$valeurs;
 			}
 			foreach ($invariants as $attribut => $valeur)
 			{

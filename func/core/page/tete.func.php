@@ -73,7 +73,7 @@ function javascriptsAfficher($javascripts)
 	{
 		foreach ($javascripts as $value)
 		{
-			$affichage.='<script src="'.$value.'" type="text/javascript" charset="utf-8" async defer></script>';
+			$affichage.='<script src="'.$value.'" type="text/javascript" charset="utf-8"></script>';
 		}
 	}
 	return $affichage;

@@ -1,10 +1,10 @@
 <?php
 
-$titre=$lang['user_statut_titre'];
-$config['metas'][]=array(
-	'name'    => 'description',
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang['user_statut_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+	'name' => 'description',
 	'content' => $lang['user_statut_description'],
-);
+));
 
 if ($Visiteur->getPseudo()!=$config['nom_guest'])
 {
@@ -40,32 +40,10 @@ $Contenu=new \user\PageElement(array(
 	),
 ));
 
-require $config['pageElement_carte_req'];
+$Carte=new \user\page\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$Corps=new \user\page\Corps($MenuUp, $Carte, '');
 
-require $config['pageElement_menuUp_req'];
-
-$Corps=new \user\PageElement(array(
-	'template'  => $config['pageElement_corps_template'],
-	'fonctions' => $config['pageElement_corps_fonctions'],
-	'elements'  => array(
-		'haut'   => $MenuUp,
-		'centre' => $Carte,
-		'bas'    => '',
-	),
-));
-
-$Tete=new \user\PageElement(array(
-	'template'  => $config['pageElement_tete_template'],
-	'fonctions' => $config['pageElement_tete_fonctions'],
-	'elements'  => array(
-		'metas'       => $config['metas'],
-		'titre'       => $titre,
-		'css'         => $config['css'],
-		'javascripts' => $config['javascripts'],
-	),
-));
-
-$config['pageElement_elements']['tete']=$Tete;
-$config['pageElement_elements']['corps']=$Corps;
+$Visiteur->getPage()->getpageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>
