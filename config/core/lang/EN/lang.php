@@ -16,18 +16,20 @@ $lang=array(
 			),
 		),
 	/* Erreur */
-		'erreur_fichier_introuvable'     => 'Page not found',
-		'erreur_permission_introuvable'  => 'Don\'t have permission',
-		'erreur_connexion_mot_de_passe'  => 'Login error',
-		'erreur_connexion_utilisateur'   => 'User don\'t exist',
-		'erreur_titre'                   => 'Error',
-		'erreur_description'             => 'Error page',
+		'erreur_general_fichier_introuvable'         => 'Page not found',
+		'erreur_general_autorisations_insuffisantes' => 'Don\'t have permission',
+		'erreur_connexion_mot_de_passe'              => 'Login error',
+		'erreur_connexion_utilisateur'               => 'User don\'t exist',
+		'erreur_titre'                               => 'Error',
+		'erreur_description'                         => 'Error page',
 	/* menu-up */
 		'menu-up_accueil'    => 'Home',
 		'menu-up_altlogo'    => 'Logo of ',
 		'menu-up_avatar'     => 'Your avatar',
 		'menu-up_titres'     => array('Home', 'Post thread', 'About', 'Chat'),
 		'menu-up_affichages' => array('Home', 'Post', 'About', 'Chat'),
+	/* tete */
+		'tete_titre' => 'untitled',
 	/* user */
 		'user_formulairepseudo' => 'Username:',
 		'user_formulairemdp'    => 'Password:',
@@ -219,14 +221,48 @@ $lang=array(
 			'post_commentaire_validation_edition_message_id'         => 'No comment with this id',
 			'post_commentaire_validation_edition_message_permission' => 'No permission to edit this comment',
 			'post_commentaire_validation_edition_message_succes'     => 'Comment well edited',
-	/* chat */
-		/* hub */
-			'chat_hub_titre'       => 'Hub',
-			'chat_hub_description' => 'Control panel for chat',
 	/* erreur */
 		/* erreur */
 			'erreur_erreur_titre'       => 'Error',
 			'erreur_erreur_description' => 'Error page',
+	/* chat */
+		/* hub */
+			'chat_hub_titre'                        => 'Hub',
+			'chat_hub_description'                  => 'Control panel for chat',
+			'chat_hub_nombre_utilisateur'           => 'Members in the conversation/Connected now',
+			'chat_hub_lien_titre_voir_conversation' => 'View the conversation',
+			'chat_hub_lien_voir_conversation'       => 'View',
+			'chat_hub_lien_ajouter_conversation'    => 'Add a new conversation',
+		/* voir_conversation */
+			'chat_voir_conversation_titre'              => 'Conversation ',
+			'chat_voir_conversation_description'        => 'View a conversation',
+			'chat_voir_conversation_erreur_no_id'       => 'Id of the conversation needed to read it',
+			'chat_voir_conversation_auteur'             => 'By ',
+			'chat_voir_conversation_date'               => 'at ',
+			'chat_voir_conversation_form_legend'        => 'Send a message',
+			'chat_voir_conversation_form_label_message' => 'Message',
+			'chat_voir_conversation_form_submit'        => 'SEND',
+		/* envoyer_message */
+			'chat_envoyer_message_erreur_id_conversation' => 'Id of the conversation needed to write a message in it',
+			'chat_envoyer_message_erreur_permission'      => 'You haven\'t the right to write a message in this conversation',
+			'chat_envoyer_message_erreur_contenu'         => 'Form not or incorrectly completed',
+			'chat_envoyer_message_succes'                 => 'Message well sent',
+		/* editer_message */
+			'chat_editer_message_titre'                            => 'Message editing',
+			'chat_editer_message_description'                      => 'Message editing page',
+			'chat_editer_message_erreur_id_message'                => 'Id of the message needed to edit it',
+			'chat_editer_message_erreur_conversation_autorisation' => 'You haven\'t the right to access to the conversation of this message',
+			'chat_editer_message_erreur_message_autorisation'      => 'You haven\'t the right to edit this message',
+			'chat_editer_message_form_legend'                      => 'Edit a message',
+			'chat_editer_message_form_label_message'               => 'Message',
+			'chat_editer_message_form_submit'                      => 'EDIT',
+		/* supprimer_message */
+			'chat_supprimer_message_erreur_id_message'                => 'Id of the message needed to delete it',
+			'chat_supprimer_message_erreur_conversation_autorisation' => 'You haven\'t the right to access to the conversation of this message',
+			'chat_supprimer_message_erreur_message_autorisation'      => 'You haven\'t the right to delete this message',
+			'chat_supprimer_message_succes'                           => 'Message well deleted',
+		/* validation_editer_message */
+			'chat_validation_editer_message_succes' => 'Message well edited',
 );
 
 ?>
