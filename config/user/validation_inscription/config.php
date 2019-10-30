@@ -1,22 +1,7 @@
 <?php
 
-$Message=new \user\Message(array(
-	'contenu'  => $lang['user_validation_inscription_formulaire'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['user_validation_inscription_retour'];
 if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isset($_POST['inscription_mail']) & !empty($_POST['inscription_pseudo']) & !empty($_POST['inscription_mdp']) & !empty($_POST['inscription_mail']))
 {
-	$Message=new \user\Message(array(
-		'contenu'  => $lang['user_validation_inscription_pseudo'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
 	$UtilisateurManager=$Visiteur->Manager();	// ($Visiteur existe déjà)
 	if(!$UtilisateurManager->exist(array('pseudo' => $_POST['inscription_pseudo'])))	// Le pseudo n'est pas déjà pris
 	{
@@ -31,19 +16,32 @@ if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isse
 		$newVisiteur->inscription($_POST['inscription_mdp'], $config['default_role']);
 		$newVisiteur->recuperer();
 		$newVisiteur->connexion($_POST['inscription_mdp']);
-		$get=$config['user_validation_inscription_suivant'];
 		$Visiteur=$newVisiteur;
-		$Message=new \user\Message(array(
-			'contenu'  => $lang['user_validation_inscription_succes'],
-			'type'     => \user\Message::TYPE_SUCCES,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_SUCCES,
+			'contenu' => $lang['user_validation_inscription_succes'],
 		));
+		$get=$config['user_validation_inscription_suivant'];
+	}
+	else
+	{
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['user_validation_inscription_pseudo'],
+		));
+		$get=$config['user_validation_inscription_retour'];
 	}
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['user_validation_inscription_formulaire'],
+	));
+	$get=$config['user_validation_inscription_retour'];
+}
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>

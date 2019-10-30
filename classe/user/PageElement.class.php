@@ -212,7 +212,10 @@ class PageElement
 	*/
 	public function ajouterValeurElement($index, $valeur)
 	{
-		$this->elements[$index][]=$valeur;
+		if (!in_array($valeur, $this->elements[$index]))		// La valeur n'existe pas déjà (évite de mettre plusieurs fois le même css par exemple)
+		{
+			$this->elements[$index][]=$valeur;
+		}
 	}
 }
 

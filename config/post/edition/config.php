@@ -2,14 +2,11 @@
 
 if(!isset($_GET['id']))
 {
-	$Message=new \user\Message(array(
-		'contenu'  =>$lang['post_edition_message_erreur_id'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_edition_message_erreur_id'],
 	));
-	$_SESSION['message']=serialize($Message);
+	$this->getPage()->envoyerNotificationsSession();
 	header('location: index.php'.$config['post_edition_lien_erreur_id']);
 	exit();
 }
@@ -17,14 +14,11 @@ $BDDFactory=new \core\BDDFactory;
 $PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 if(!$PostManager->existId((int)$_GET['id']))
 {
-	$Message=new \user\Message(array(
-		'contenu'  =>$lang['post_edition_message_erreur_existe'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_edition_message_erreur_existe'],
 	));
-	$_SESSION['message']=serialize($Message);
+	$this->getPage()->envoyerNotificationsSession();
 	header('location: index.php'.$config['post_edition_lien_erreur_existe']);
 	exit();
 }
@@ -37,14 +31,11 @@ $Post->recuperer();
 
 if(!autorisationModification($Post, $application, $action))
 {
-	$Message=new \user\Message(array(
-		'contenu'  =>$lang['post_edition_message_erreur_autorisation'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_edition_message_erreur_autorisation'],
 	));
-	$_SESSION['message']=serialize($Message);
+	$this->getPage()->envoyerNotificationsSession();
 	header('location: index.php'.$config['post_edition_lien_erreur_autorisation'].'&id='.$id);
 	exit();
 }

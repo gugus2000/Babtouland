@@ -1,13 +1,5 @@
 <?php
 
-$Message=new \user\Message(array(
-	'contenu'  => $lang['post_validation_publication_message_formulaire'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['post_validation_publication_retour'];
 if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !empty($_POST['publication_titre']) & !empty($_POST['publication_contenu']))
 {
 	$Post=new \post\Post(array(
@@ -18,17 +10,22 @@ if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !
 		'date_mise_a_jour' => date('Y-m-d H:i:s'),
 	));
 	$Post->publier();
-	$Message=new \user\Message(array(
-		'contenu'  => $lang['post_validation_publication_message_succes'],
-		'type'     => \user\Message::TYPE_SUCCES,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_SUCCES,
+		'contenu' => $lang['post_validation_publication_message_succes'],
 	));
 	$get=$config['post_validation_publication_suivant'];
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_validation_publication_message_formulaire'],
+	));
+	$get=$config['post_validation_publication_retour'];
+}
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>

@@ -57,40 +57,31 @@ if (isset($_GET['id']))
 		}
 		else
 		{
-			$UserMessage=new \user\Message(array(
-				'contenu'  => $lang['chat_editer_message_erreur_message_autorisation'],
-				'type'     => \user\Message::TYPE_ERREUR,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['chat_editer_message_erreur_message_autorisation'],
 			));
-			$_SESSION['message']=serialize($UserMessage);
+			$this->getPage()->envoyerNotificationsSession();
 			header('location: index.php'.$config['chat_editer_message_erreur_message_autorisation']);
 		}
 	}
 	else
 	{
-		$UserMessage=new \user\Message(array(
-			'contenu'  => $lang['chat_editer_message_erreur_conversation_autorisation'],
-			'type'     => \user\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['chat_editer_message_erreur_conversation_autorisation'],
 		));
-		$_SESSION['message']=serialize($UserMessage);
+		$this->getPage()->envoyerNotificationsSession();
 		header('location: index.php'.$config['chat_editer_message_erreur_conversation_autorisation']);
 	}
 }
 else
 {
-	$UserMessage=new \user\Message(array(
-		'contenu'  => $lang['chat_editer_message_erreur_id_message'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['chat_editer_message_erreur_id_message'],
 	));
-	$_SESSION['message']=serialize($UserMessage);
+	$this->getPage()->envoyerNotificationsSession();
 	header('location: index.php'.$config['chat_editer_message_erreur_id_message']);
 }
 

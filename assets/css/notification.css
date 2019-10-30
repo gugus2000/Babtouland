@@ -1,4 +1,4 @@
-.succes.message, .attention.message, .erreur.message
+.succes.notification, .attention.notification, .erreur.notification
 {
 	z-index: 99999;
 	position: fixed;
@@ -12,7 +12,7 @@
 	box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25), -4px 4px 8px rgba(0, 0, 0, 0.25);
 }
 
-.succes.message #content, .attention.message #content, .erreur.message #content
+.succes.notification #content, .attention.notification #content, .erreur.notification #content
 {
 	width: 90%;
 	left: 5%;
@@ -23,40 +23,40 @@
 	text-align: center;
 }
 
-.succes.message #content a, .attention.message #content a, .erreur.message #content a
+.succes.notification #content a, .attention.notification #content a, .erreur.notification #content a
 {
 	text-decoration: none;
 }
 
-.erreur.message #content
+.erreur.notification #content
 {
 	background-color: #F2DEDE;
 	color: #A94442;
 }
 
-.erreur.message #content a
+.erreur.notification #content a
 {
 	color: #A96334;
 }
 
-.attention.message #content
+.attention.notification #content
 {
 	background-color: #F2EADE;
 	color: #A97F42;
 }
 
-.attention.message #content a
+.attention.notification #content a
 {
 	color: #A99234;
 }
 
-.succes.message #content
+.succes.notification #content
 {
 	background-color: #DFF0D8;
 	color: #3C763D;
 }
 
-.succes.message #content a
+.succes.notification #content a
 {
 	color: #2B542C;
 }

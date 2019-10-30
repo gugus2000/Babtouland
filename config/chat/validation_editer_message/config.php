@@ -21,12 +21,9 @@ if (isset($_GET['id']))
 	{
 		if(autorisationModification($ChatMessage, $application, 'editer_message'))	// On peut le modifier
 		{
-			$UserMessage=new \user\Message(array(
-				'contenu'  => $lang['chat_validation_editer_message_succes'],
-				'type'     => \user\Message::TYPE_SUCCES,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_SUCCES,
+				'contenu' => $lang['chat_validation_editer_message_succes'],
 			));
 			$get=$config['chat_validation_editer_message_succes'].'&id='.$Conversation->afficherId();
 			$ChatMessage=new \chat\Message(array(
@@ -38,41 +35,32 @@ if (isset($_GET['id']))
 		}
 		else
 		{
-			$UserMessage=new \user\Message(array(
-				'contenu'  => $lang['chat_editer_message_erreur_message_autorisation'],
-				'type'     => \user\Message::TYPE_ERREUR,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['chat_editer_message_erreur_message_autorisation'],
 			));
 			$get=$config['chat_editer_message_erreur_message_autorisation'];
 		}
 	}
 	else
 	{
-		$UserMessage=new \user\Message(array(
-			'contenu'  => $lang['chat_editer_message_erreur_conversation_autorisation'],
-			'type'     => \user\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['chat_editer_message_erreur_conversation_autorisation'],
 		));
 		$get=$config['chat_editer_message_erreur_conversation_autorisation'];
 	}
 }
 else
 {
-	$UserMessage=new \user\Message(array(
-		'contenu'  => $lang['chat_editer_message_erreur_id_message'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['chat_editer_message_erreur_id_message'],
 	));
 	$get=$config['chat_editer_message_erreur_id_message'];
 }
 
-$_SESSION['message']=serialize($UserMessage);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get)
 
 ?>

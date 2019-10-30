@@ -1,35 +1,16 @@
 <?php
 
-$Message=new \user\Message(array(
-	'contenu'  => $lang['user_validation_edition_message_formulaire'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['user_validation_edition_lien_erreur_formulaire'];
 if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (isset($_POST['edition_mail']) & !empty($_POST['mail'])) | $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))
 {
-	$Message=new \user\Message(array(
-		'contenu'  => $lang['user_validation_edition_message_succes'],
-		'type'     => \user\Message::TYPE_SUCCES,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$get=$config['user_validation_edition_lien_succes'];
 	$id=$Visiteur->getId();
 	$banni=$Visiteur->getBanni();
 	$avatar=$Visiteur->getAvatar();
 	if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))	// On change quelqu'un d'autre
 	{
 		$id=(int)$_GET['id'];
-		$Message=new \user\Message(array(
-			'contenu'  => $lang['user_validation_edition_message_admin_succes'],
-			'type'     => \user\Message::TYPE_SUCCES,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_SUCCES,
+			'contenu' => $lang['user_validation_edition_message_admin_succes'],
 		));
 		$get=$config['user_validation_edition_lien_admin_succes'].'&id='.$id;
 		$Utilisateur=new \user\Utilisateur(array(
@@ -42,6 +23,14 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		{
 			$banni=True;
 		}
+	}
+	else
+	{
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_SUCCES,
+			'contenu' => $lang['user_validation_edition_message_succes'],
+		));
+		$get=$config['user_validation_edition_lien_succes'];
 	}
 	if(isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar']))	// Avatar changé
 	{
@@ -84,14 +73,13 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		/************************************************************
 		 * Creation du repertoire cible si inexistant
 		 *************************************************************/
-		if( !is_dir(TARGET) ) {
-		  if( !mkdir(TARGET, 0755) ) {
-		  	$Message=new \user\Message(array(
-		  		'contenu'  => $lang['user_validation_edition_avatar_message_erreur_dossier'],
-				'type'     => \user\Message::TYPE_ERREUR,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+		if( !is_dir(TARGET) )
+		{
+		  if( !mkdir(TARGET, 0755) )
+		  {
+		  	$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['user_validation_edition_avatar_message_erreur_dossier'],
 			));
 		    $get=$config['user_validation_edition_avatar_lien_erreur_dossier'];
 		  }
@@ -133,24 +121,18 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		            else
 		            {
 					// Sinon on affiche une erreur systeme
-					$Message=new \user\Message(array(
-						'contenu'  => $lang['user_validation_edition_avatar_message_erreur_upload'],
-						'type'     => \user\Message::TYPE_ERREUR,
-						'css'      => $config['message_css'],
-						'js'       => $config['message_js'],
-						'template' => $config['message_template'],
+					$Notification=new \user\page\Notification(array(
+						'type'    => \user\page\Notification::TYPE_ERREUR,
+						'contenu' => $lang['user_validation_edition_avatar_message_erreur_upload'],
 					));
 					$get=$config['user_validation_edition_avatar_lien_erreur_upload'];
 		            }
 		          }
 		          else
 		          {
-		          	$Message=new \user\Message(array(
-		          		'contenu'  => $lang['user_validation_edition_avatar_message_erreur_interne'],
-						'type'     => \user\Message::TYPE_ERREUR,
-						'css'      => $config['message_css'],
-						'js'       => $config['message_js'],
-						'template' => $config['message_template'],
+		          	$Notification=new \user\page\Notification(array(
+						'type'    => \user\page\Notification::TYPE_ERREUR,
+						'contenu' => $lang['user_validation_edition_avatar_message_erreur_interne'],
 					));
 		          	$get=$config['user_validation_edition_avatar_lien_erreur_interne'];
 		          }
@@ -158,12 +140,9 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		        else
 		        {
 					// Sinon erreur sur les dimensions et taille de l'image
-					$Message=new \user\Message(array(
-			          	'contenu'  => $lang['user_validation_edition_avatar_message_erreur_dimension'],
-						'type'     => \user\Message::TYPE_ERREUR,
-						'css'      => $config['message_css'],
-						'js'       => $config['message_js'],
-						'template' => $config['message_template'],
+		        	$Notification=new \user\page\Notification(array(
+						'type'    => \user\page\Notification::TYPE_ERREUR,
+						'contenu' => $lang['user_validation_edition_avatar_message_erreur_dimension'],
 					));
 					$get=$config['user_validation_edition_avatar_lien_erreur_dimension'];
 		        }
@@ -171,27 +150,21 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		      else
 		      {
 		        // Sinon erreur sur le type de l'image
-		        $Message=new \user\Message(array(
-		        	'contenu'  => $lang['user_validation_edition_avatar_message_erreur_type'],
-					'type'     => \user\Message::TYPE_ERREUR,
-					'css'      => $config['message_css'],
-					'js'       => $config['message_js'],
-					'template' => $config['message_template'],
+		      	$Notification=new \user\page\Notification(array(
+					'type'    => \user\page\Notification::TYPE_ERREUR,
+					'contenu' => $lang['user_validation_edition_avatar_message_erreur_type'],
 				));
 		        $get=$config['user_validation_edition_avatar_lien_erreur_type'];
 		      }
 		    }
 		    else
 		    {
-		      // Sinon on affiche une erreur pour l'extension
-		      $Message=new \user\Message(array(
-		      	'contenu'  => $lang['user_validation_edition_avatar_message_erreur_extension'],
-				'type'     => \user\Message::TYPE_ERREUR,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
-			  ));
-		      $get=$config['user_validation_edition_avatar_lien_erreur_extension'];
+		     	// Sinon on affiche une erreur pour l'extension
+		    	$Notification=new \user\page\Notification(array(
+					'type'    => \user\page\Notification::TYPE_ERREUR,
+					'contenu' => $lang['user_validation_edition_avatar_message_erreur_extension'],
+				));
+				$get=$config['user_validation_edition_avatar_lien_erreur_extension'];
 		    }
 		}
 
@@ -205,8 +178,16 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 	));
 	$Utilisateur->mettre_a_jour();
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['user_validation_edition_message_formulaire'],
+	));
+	$get=$config['user_validation_edition_lien_erreur_formulaire'];
+}
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get)
 
 ?>

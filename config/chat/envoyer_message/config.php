@@ -1,23 +1,7 @@
 <?php
 
-$UserMessage=new \user\Message(array(
-	'contenu'  => $lang['chat_envoyer_message_erreur_id_conversation'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['chat_envoyer_message_erreur_id_conversation'];
 if (isset($_GET['id']))
 {
-	$UserMessage=new \user\Message(array(
-		'contenu'  => $lang['chat_envoyer_message_erreur_permission'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$get=$config['chat_envoyer_message_erreur_permission'].'&id='.$_GET['id'];
 	$id=(int)$_GET['id'];
 	$Conversation=new \chat\Conversation(array(
 		'id' => $id,
@@ -32,22 +16,11 @@ if (isset($_GET['id']))
 	}
 	if ($Id_utilisateurs[$index])
 	{
-		$UserMessage=new \user\Message(array(
-			'contenu'  => $lang['chat_envoyer_message_erreur_contenu'],
-			'type'     => \user\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
-		$get=$config['chat_envoyer_message_erreur_contenu'].'&id='.$_GET['id'];
 		if (isset($_POST['chat_message']))
 		{
-			$UserMessage=new \user\Message(array(
-				'contenu'  => $lang['chat_envoyer_message_succes'],
-				'type'     => \user\Message::TYPE_SUCCES,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_SUCCES,
+				'contenu' => $lang['chat_envoyer_message_succes'],
 			));
 			$get=$config['chat_envoyer_message_succes'].'&id='.$_GET['id'];
 			$ChatMessage=new \chat\Message(array(
@@ -59,10 +32,34 @@ if (isset($_GET['id']))
 			));
 			$ChatMessage->creer();
 		}
+		else
+		{
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['chat_envoyer_message_erreur_contenu'],
+			));
+			$get=$config['chat_envoyer_message_erreur_contenu'].'&id='.$_GET['id'];
+		}
+	}
+	else
+	{
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['chat_envoyer_message_erreur_permission'],
+		));
+		$get=$config['chat_envoyer_message_erreur_permission'].'&id='.$_GET['id'];
 	}
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['chat_envoyer_message_erreur_id_conversation'],
+	));
+	$get=$config['chat_envoyer_message_erreur_id_conversation'];
+}
 
-$_SESSION['message']=serialize($UserMessage);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>

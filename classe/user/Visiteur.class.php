@@ -202,14 +202,7 @@ class Visiteur extends Utilisateur
 			$this->setPage(new \user\Page(array(
 				'application'   => $application,
 				'action'        => $action,
-				'notifications' => array(),
 			)));
-			if (isset($_SESSION['message']))
-			{
-				$Message=unserialize($_SESSION['message']);
-				$this->getPage()->ajouter_Notification($Message);
-				unset($_SESSION['message']);
-			}
 			if (include($this->getPage()->getPath()))
 			{
 				return $this->getPage()->afficher();

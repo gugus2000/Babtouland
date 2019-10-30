@@ -1,23 +1,7 @@
 <?php
 
-$UserMessage=new \user\Message(array(
-	'contenu'  => $lang['chat_supprimer_message_erreur_id_message'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['chat_supprimer_message_erreur_id_message'];
 if (isset($_GET['id']))
 {
-	$UserMessage=new \user\Message(array(
-		'contenu'  => $lang['chat_supprimer_message_erreur_conversation_autorisation'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$get=$config['chat_supprimer_message_erreur_conversation_autorisation'];
 	$Message=new \chat\Message(array(
 		'id' => $_GET['id'],
 	));
@@ -35,31 +19,43 @@ if (isset($_GET['id']))
 	}
 	if ($Id_utilisateurs[$index])
 	{
-		$UserMessage=new \user\Message(array(
-			'contenu'  => $lang['chat_supprimer_message_erreur_message_autorisation'],
-			'type'     => \user\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
-		$get=$config['chat_supprimer_message_erreur_message_autorisation'].'&id='.$Conversation->afficherId();
 		if (autorisationModification($Message, $application, $action))
 		{
-			$UserMessage=new \user\Message(array(
-				'contenu'  => $lang['chat_supprimer_message_succes'],
-				'type'     => \user\Message::TYPE_SUCCES,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_SUCCES,
+				'contenu' => $lang['chat_supprimer_message_succes'],
 			));
 			$get=$config['chat_supprimer_message_succes'].'&id='.$Conversation->afficherId();
 			$Message->supprimer();
 		}
+		else
+		{
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['chat_supprimer_message_erreur_message_autorisation'],
+			));
+			$get=$config['chat_supprimer_message_erreur_message_autorisation'].'&id='.$Conversation->afficherId();
+		}
+	}
+	else
+	{
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['chat_supprimer_message_erreur_conversation_autorisation'],
+		));
+		$get=$config['chat_supprimer_message_erreur_conversation_autorisation'];
 	}
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['chat_supprimer_message_erreur_id_message'],
+	));
+	$get=$config['chat_supprimer_message_erreur_id_message'];
+}
 
-
-$_SESSION['message']=serialize($UserMessage);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>

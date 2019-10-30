@@ -24,13 +24,11 @@ $config=array(
 				/* Page */
 					'pageElement_page_template'  => 'assets/html/core/page/page.html',		// Chemin vers la template de la page
 					'pageElement_page_fonctions' => 'func/core/page/page.func.php',			// Chemin vers les fonctions de la page
-					'pageElement_elements'       => array(
-					),								// Chemin vers les éléments de la page
+					'pageElement_page_elements'       => array(),							// Chemin vers les éléments de la page
 				/* Contenu */
 					'filename_contenu_template'  => 'template.html',
 					'filename_contenu_fonctions' => 'func.php',
 				/* Tete */
-					'pageElement_tete_elements'  => array(),
 					'tete_path_template'  => 'core/page/tete.html',
 					'tete_path_fonctions' => 'core/page/tete.func.php',
 					'tete_metas'       => array(
@@ -75,6 +73,12 @@ $config=array(
 					'toast_path_fonctions'  => 'core/toast/toast.func.php',
 					'toast_path_css'        => 'css/toast.css',
 					'toast_path_javascript' => 'js/toast.js',
+				/* Notification */
+					'notification_path_template' => 'core/notification/notification.html',	// Template des messages
+					'notification_path_css'      => 'css/notification.css',								// Css des messages
+					'notification_path_js'       => 'js/notification.js',								// Js des messages
+					'notification_elements'      => array(),
+					'notification_nom'          => 'notifications',
 		/* Post */
 			/* Fil post */
 				'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
@@ -104,10 +108,6 @@ $config=array(
 				/* Définitions des pages */
 					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
-			/* Message */
-				'message_css'      => 'css/message.css',						// Css des messages
-				'message_js'       => 'js/message.js',							// Js des messages
-				'message_template' => 'assets/html/core/message/message.html',	// Template des messages
 			/* Menu-up */
 				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
 				'menu-up_icones'      => array('home', 'message', 'info', 'chat'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)

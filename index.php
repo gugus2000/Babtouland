@@ -69,7 +69,6 @@ try
 }
 catch (Exception $e)
 {
-	exit($e);
 	if (!isset($Visiteur))
 	{
 		$Visiteur=new \user\Visiteur(array(

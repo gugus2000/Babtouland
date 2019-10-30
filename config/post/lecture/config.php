@@ -52,7 +52,7 @@ foreach ($Commentaires as $index => $Commentaire)
 			'elements' => array(
 				'suppression_href'  => $config['post_lecture_lien_commentaire_suppression'].'&id='.$Commentaire->afficherId(),
 				'suppression_title' => $lang['post_lecture_lien_commentaire_suppression_titre'],
-				'edition_href'      => $config['post_lecture_lien_commentaire_edition'].'>&id='.$Commentaire->afficherId(),
+				'edition_href'      => $config['post_lecture_lien_commentaire_edition'].'&id='.$Commentaire->afficherId(),
 				'edition_title'     => $lang['post_lecture_lien_commentaire_edition_titre'],
 			),
 		));

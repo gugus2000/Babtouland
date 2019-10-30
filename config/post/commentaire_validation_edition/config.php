@@ -1,24 +1,8 @@
 <?php
 
-$Message=new \user\Message(array(
-	'contenu'  => $lang['post_commentaire_validation_edition_message_formulaire'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['post_commentaire_validation_edition_lien_formulaire'];
 
 if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_GET['id'])& !empty($_POST['edition_commentaire_contenu']))
 {
-	$Message=new \user\Message(array(
-		'contenu'  => $lang['post_commentaire_validation_edition_message_id'],
-		'type'     => \user\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$get=$config['post_commentaire_validation_edition_lien_id'];
 
 	$BDDFactory=new \core\BDDFactory;
 	$CommentaireManager=new \post\CommentaireManager($BDDFactory->MysqlConnexion());
@@ -29,22 +13,11 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 		));
 		$Commentaire->recuperer();
 		$Post=$Commentaire->recupererPost();
-		$Message=new \user\Message(array(
-			'contenu'  => $lang['post_commentaire_validation_edition_message_permission'],
-			'type'     => \user\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
-		$get=$config['post_commentaire_validation_edition_permission'].'&id='.$Post->afficherId();
 		if(autorisationModification($Commentaire, $application, $action))
 		{
-			$Message=new \user\Message(array(
-				'contenu'  => $lang['post_commentaire_validation_edition_message_succes'],
-				'type'     => \user\Message::TYPE_SUCCES,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_SUCCES,
+				'contenu' => $lang['post_commentaire_validation_edition_message_succes'],
 			));
 			$get=$config['post_commentaire_validation_edition_lien_succes'].'&id='.$Post->afficherId();
 
@@ -55,10 +28,34 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 			));
 			$Commentaire->mettre_a_jour();
 		}
+		else
+		{
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['post_commentaire_validation_edition_message_permission'],
+			));
+			$get=$config['post_commentaire_validation_edition_permission'].'&id='.$Post->afficherId();
+		}
+	}
+	else
+	{
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['post_commentaire_validation_edition_message_id'],
+		));
+		$get=$config['post_commentaire_validation_edition_lien_id'];
 	}
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_commentaire_validation_edition_message_formulaire'],
+	));
+	$get=$config['post_commentaire_validation_edition_lien_formulaire'];
+}
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>

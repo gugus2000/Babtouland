@@ -3,15 +3,12 @@
 session_destroy();
 session_start();
 
-$Message=new \user\Message(array(
+$Notification=new \user\page\Notification(array(
+	'type'     => \user\page\Notification::TYPE_SUCCES,
 	'contenu'  => $lang['user_deconnexion_message'],
-	'type'     => \user\Message::TYPE_SUCCES,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
+), $this->getPage()->getPageElement());
 
-$_SESSION['message']=serialize($Message);
+$Visiteur->getPage()->envoyerNotificationsSession();
 header('location: index.php')
 
 ?>

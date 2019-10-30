@@ -1,13 +1,5 @@
 <?php
 
-$Message=new \user\Message(array(
-	'contenu'  => $lang['user_validation_connexion_formulaire'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['user_validation_connexion_retour'];
 if(isset($_POST['connexion_pseudo']) & isset($_POST['connexion_mdp']) & !empty($_POST['connexion_pseudo']) & !empty($_POST['connexion_mdp']))
 {
 	if ($Visiteur->Manager()->exist(array('pseudo' => $_POST['connexion_pseudo'])))
@@ -18,39 +10,40 @@ if(isset($_POST['connexion_pseudo']) & isset($_POST['connexion_mdp']) & !empty($
 		$Visiteur->recuperer();
 		if ($Visiteur->connexion($_POST['connexion_mdp']))
 		{
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_SUCCES,
+				'contenu' => $lang['user_validation_connexion_succes']
+			), $this->getPage()->getPageElement());
 			$get=$config['user_validation_connexion_suivant'];
-			$Message=new \user\Message(array(
-				'contenu'  => $lang['user_validation_connexion_succes'],
-				'type'     => \user\Message::TYPE_SUCCES,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
-			));
 		}
 		else
 		{
-			$Message=new \user\Message(array(
-				'contenu'  => $lang['erreur_connexion_mot_de_passe'],
-				'type'     => \user\Message::TYPE_ERREUR,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
-			));
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['erreur_connexion_mot_de_passe'],
+			), $this->getPage()->getPageElement());
+			$get=$config['user_validation_connexion_retour'];
 		}
 	}
 	else
 	{
-		$Message=new \user\Message(array(
-			'contenu'  => $lang['erreur_connexion_utilisateur'],
-			'type'     => \user\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['erreur_connexion_utilisateur'],
+		), $this->getPage()->getPageElement());
+		$get=$config['user_validation_connexion_retour'];
 	}
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['user_validation_connexion_formulaire'],
+	), $this->getPage()->getPageElement());
+	$get=$config['user_validation_connexion_retour'];
+}
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>

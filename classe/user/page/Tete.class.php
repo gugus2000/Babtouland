@@ -3,7 +3,7 @@
 namespace user\page;
 
 /**
- * Tete de page classique
+ * Tête de page classique
  */
 class Tete extends \user\PageElement
 {
@@ -11,17 +11,19 @@ class Tete extends \user\PageElement
 
 	/**
 	* Constructeur de Tete
-	*
-	* @param array elements Éléments à insérer sous la forme d'une array
 	* 
 	* @return void
 	*/
-	public function __construct($elements)
+	public function __construct()
 	{
 		global $config, $lang, $Visiteur;
 		$this->setTemplate($config['path_template'].$config['tete_path_template']);
 		$this->setFonctions($config['path_func'].$config['tete_path_fonctions']);
-		$this->setElements($elements);
+		$this->setElements(array(
+			'metas'       => $config['tete_metas'],
+			'css'         => $config['tete_css'],
+			'javascripts' => $config['tete_javascripts'],
+		));
 	}
 }
 

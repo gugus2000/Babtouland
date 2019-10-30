@@ -1,16 +1,7 @@
 <?php
 
-$Message=new \user\Message(array(
-	'contenu'  => $lang['post_commentaire_suppression_message_argument'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['post_commentaire_suppression_retour'];
 if(isset($_GET['id']))
 {
-	$_SESSION['message']=$lang['post_commentaire_suppression_message_inexistant'];
 	$BDDFactory=new \core\BDDFactory;
 	$CommentaireManager=new \post\CommentaireManager($BDDFactory->MysqlConnexion());
 	if($CommentaireManager->existId((int)$_GET['id']))
@@ -19,30 +10,43 @@ if(isset($_GET['id']))
 			'id' => $_GET['id'],
 		));
 		$Commentaire->recuperer();
-		$Message=new \user\Message(array(
-			'contenu'  => $lang['post_commentaire_suppression_message_permission'],
-			'type'     => \user\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
-		$get=$config['post_commentaire_suppression_permission'].'&id='.$Commentaire->recupererPost()->afficherId();
 		if(autorisationModification($Commentaire, $application, $action))
 		{
-			$Message=new \user\Message(array(
-				'contenu'  => $lang['post_commentaire_suppression_message_succes'],
-				'type'     => \user\Message::TYPE_SUCCES,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_SUCCES,
+				'contenu' => $lang['post_commentaire_suppression_message_succes'],
 			));
 			$get=$config['post_commentaire_suppression_suivant'].'&id='.$Commentaire->recupererPost()->afficherId();
 			$Commentaire->supprimer();
 		}
+		else
+		{
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['post_commentaire_suppression_message_permission'],
+			));
+			$get=$config['post_commentaire_suppression_permission'].'&id='.$Commentaire->recupererPost()->afficherId();
+		}
+	}
+	else
+	{
+		$Notification=new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['post_commentaire_suppression_message_inexistant'],
+		));
+		$get=$config['post_commentaire_suppression_retour'];
 	}
 }
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_commentaire_suppression_message_argument'],
+	));
+	$get=$config['post_commentaire_suppression_retour'];
+}
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>

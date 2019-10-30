@@ -37,7 +37,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 $Contenu=new \user\PageElement(array(
 	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
 	'elements' => array(
-		'action'        => $config['post_commentaire_edition_formulaire_action'].'>&id='.$Commentaire->afficherId(),
+		'action'        => $config['post_commentaire_edition_formulaire_action'].'&id='.$Commentaire->afficherId(),
 		'legend'        => $lang['post_commentaire_edition_formulaire_legend'],
 		'label_contenu' => $lang['post_commentaire_edition_formulaire_contenu'],
 		'contenu'       => $Commentaire->afficherContenu(),

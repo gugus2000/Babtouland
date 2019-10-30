@@ -1,13 +1,5 @@
 <?php
 
-$Message=new \user\Message(array(
-	'contenu'  => $lang['post_commentaire_publication_message_formulaire'],
-	'type'     => \user\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['post_commentaire_publication_retour'];
 if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['commentaire_contenu']) & !empty($_GET['id']))
 {
 	$Commentaire=new \post\Commentaire(array(
@@ -18,16 +10,22 @@ if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['co
 		'date_mise_a_jour' => date('Y-m-d H:i:s'),
 	));
 	$Commentaire->publier();
-	$Message=new \user\Message(array(
-		'contenu'  => $lang['post_commentair_publication_message_succes'],
-		'type'     => \user\Message::TYPE_SUCCES,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));	$get=$config['post_commentaire_publication_suivant'].'&id='.htmlspecialchars($_GET['id']);
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_SUCCES,
+		'contenu' => $lang['post_commentaire_publication_message_succes'],
+	));
+	$get=$config['post_commentaire_publication_suivant'].'&id='.htmlspecialchars($_GET['id']);
+}
+else
+{
+	$Notification=new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_commentaire_publication_message_formulaire'],
+	));
+	$get=$config['post_commentaire_publication_retour'];
 }
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
  ?>
