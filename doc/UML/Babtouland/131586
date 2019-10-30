@@ -1,10 +1,12 @@
-format 218
-"connexion" // Babtouland::view::user::connexion
+format 222
+"erreur" // Babtouland::config::erreur::erreur
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,69 +30,35 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/connexion/"
-  deploymentview 137218 "connexion"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/erreur/erreur/"
+  deploymentview 130818 "erreur"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 141058 "contenu"
-      stereotype "source"
-      php_src "<?php ob_start(); ?>
-	<div id=\"conteneur\">
-		<section class=\"ligne\">
-			<section class=\"colonne\">
-				<section class=\"carte\">
-					<section class=\"contenu\">
-						<div class=\"formulaire\">
-							<form action=\"<?= $config['post_connexion_action'] ?>\" method=\"POST\" accept-charset=\"utf-8\">
-								<fieldset>
-									<legend><?= $lang['user_connexion_fieldset'] ?></legend>
-									<label for=\"connexion_pseudo\"><?= $lang['user_formulairepseudo'] ?></label>
-									<input type=\"text\" name=\"connexion_pseudo\"><br />
-									<label for=\"connexion_mdp\"><?= $lang['user_formulairemdp'] ?></label>
-									<input type=\"password\" name=\"connexion_mdp\"><br />
-									<input type=\"submit\" value=\"<?= $lang['user_connexion_submit'] ?>\">
-								</fieldset>
-							</form>
-						</div>
-					</section>
-				</section>
-			</section>
-		</section>
-	</div>
-<?php $contenu.=ob_get_clean(); ?>"
-      associated_elems
-      end
-    end
-
-    artifact 141186 "page"
+    artifact 134914 "config"
       stereotype "source"
       php_src "<?php
 
-$contenu=$config['default_contenu'];
-require 'contenu.php';
+global $e;
 
-$metas=$config['default_metas'];
-array_push($metas, array(
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 	'name'    => 'description',
-	'content' => $lang['user_connexion_description'],
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
 ));
 
-$css=$config['default_css'];
-array_push($css, 'assets/css/formulaire.css');
+ob_start();?>
+<section class=\"contenu\">
+	<?= htmlspecialchars($e->getMessage()) ?>
+</section>
+<?php
+$Contenu=ob_get_clean();
 
-$js=$config['default_javascripts'];
+$Carte=new \\user\\page\\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$MenuUp=new \\user\\page\\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
+$Corps=new \\user\\page\\Corps($MenuUp, $Carte, '');
 
-ajouterMenuUp($css, $js, $contenu);
-
-$Visiteur->getPage()->set(array(
-	'template'    => file_get_contents($config['default_template']),
-	'contenu'     => $contenu,
-	'titre'       => $lang['user_connexion_titre'],
-	'metas'       => $metas,
-	'css'         => $css,
-	'javascripts' => $js,
-));
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>"
       associated_elems

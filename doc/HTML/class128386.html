@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Manager</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Manager</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128386"></a>
+<p>Connexion entre un objet et la base de donnée qui le caractérise<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Manager </li></ul><p>Directly inherited by : <a href="class130178.html#ref4_130178"><b>CommentaireManager</b></a> <a href="class128258.html#ref4_128258"><b>ConversationManager</b></a> <a href="class128898.html#ref4_128898"><b>MessageManager</b></a> <a href="class130818.html#ref4_130818"><b>MotdepasseManager</b></a> <a href="class131330.html#ref4_131330"><b>PermissionManager</b></a> <a href="class130434.html#ref4_130434"><b>PostManager</b></a> <a href="class131586.html#ref4_131586"><b>RoleManager</b></a> <a href="class131842.html#ref4_131842"><b>UtilisateurManager</b></a> </p>
+<p>Artifact : <a href="index.html#ref8_129410"><b>Manager.class</b></a></p>
+<div class="sub">
+<a name="ref2_135810"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Construction du Manager<br /><br />@param PDO bdd Connexion avec la base de donnée<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in bdd : PDO) : void</li><li>Php : public function __construct($bdd): void </li></ul><a name="ref1_130690"></a>
+<table><tr><td><div class="element">Attribute <b>bdd</b></div></td></tr></table>
+<p>Attributs <br /><br />Connexion avec la base de donnée<br /><br />@var PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : # bdd : PDO</li><li>Php : protected $bdd</li></ul><a name="ref1_130818"></a>
+<table><tr><td><div class="element">Attribute <b>TABLE</b></div></td></tr></table>
+<p>Constantes <br /><br />Nom de la table lié à l'objet<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ TABLE : string = '', read only</li><li>Php :  const TABLE</li></ul><a name="ref1_130946"></a>
+<table><tr><td><div class="element">Attribute <b>ATTRIBUTES</b></div></td></tr></table>
+<p>Liste de tous les attributs de la table<br /><br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ ATTRIBUTES : array = array(), read only</li><li>Php :  const ATTRIBUTES</li></ul><a name="ref1_131074"></a>
+<table><tr><td><div class="element">Attribute <b>INDEX</b></div></td></tr></table>
+<p>Index utilisé (clef primaire)<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ INDEX : string = 'id', read only</li><li>Php :  const INDEX</li></ul><a name="ref2_135938"></a>
+<table><tr><td><div class="element">Operation <b>getBdd</b></div></td></tr></table><p>Accesseurs <br /><br />Accesseur de bdd<br /><br />@return PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getBdd() : PDO</li><li>Php : public function getBdd(): PDO </li></ul><a name="ref2_136066"></a>
+<table><tr><td><div class="element">Operation <b>setBdd</b></div></td></tr></table><p>Définisseurs <br /><br />Définisseur de bdd<br /><br />@param PDO bdd Connexion à la base de donnée<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setBdd(in bdd : PDO) : void</li><li>Php : protected function setBdd($bdd): void </li></ul><a name="ref2_136194"></a>
+<table><tr><td><div class="element">Operation <b>get</b></div></td></tr></table><p>Autres méthodes <br /><br />Récupère le résulat d'une requête Mysql sur un élément<br /><br />@param mixed index Index de l'élément<br /><br />@return array<br /><br /></p><p>Declaration :</p><ul><li>Uml : + get(in index : mixed) : array</li><li>Php : public function get($index): array </li></ul><a name="ref2_136322"></a>
+<table><tr><td><div class="element">Operation <b>add</b></div></td></tr></table><p>Ajoute un élément dans la base de donnée<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + add(in attributs : array) : void</li><li>Php : public function add($attributs): void </li></ul><a name="ref2_136450"></a>
+<table><tr><td><div class="element">Operation <b>update</b></div></td></tr></table><p>Met à jour un élément de la base de donnée<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut a modifier<br /><br />@param mixed index Index de l'élément à modifier<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + update(in attributs : array, in index : mixed) : void</li><li>Php : public function update($attributs, $index): void </li></ul><a name="ref2_136578"></a>
+<table><tr><td><div class="element">Operation <b>delete</b></div></td></tr></table><p>Supprime un élément de la base de donnée<br /><br />@param mixed index Index de l'élément à supprimer<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + delete(in index : mixed) : void</li><li>Php : public function delete($index): void </li></ul><a name="ref2_136706"></a>
+<table><tr><td><div class="element">Operation <b>getIdBy</b></div></td></tr></table><p>Obtient l'index de l'élément<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attributs permettant de déterminer l'index de l'élément<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getIdBy(in attributs : array) : string</li><li>Php : public function getIdBy($attributs): string </li></ul><a name="ref2_136834"></a>
+<table><tr><td><div class="element">Operation <b>getIdByPos</b></div></td></tr></table><p>Obtient l'index de l'élément à partir de sa position par rapport à un attribut<br /><br />@param int position Position de l'élément (0=premier)<br /><br />@param string attribut Attribut sur lequel se positionne l'élément<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getIdByPos(in position : int, in attribut : string) : string</li><li>Php : public function getIdByPos($position, $attribut): string </li></ul><a name="ref2_136962"></a>
+<table><tr><td><div class="element">Operation <b>getBy</b></div></td></tr></table><p>Récupère le résultat de la requête MYSQL crée à partir des paramètres<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut<br /><br />@param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs<br /><br />@return array<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getBy(in attributs : array, in operations : array) : array</li><li>Php : public function getBy($attributs, $operations): array </li></ul><a name="ref2_137090"></a>
+<table><tr><td><div class="element">Operation <b>existId</b></div></td></tr></table><p>Vérifie l'existence d'un élément<br /><br />@param mixed index Index de l'élément à vérifier<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + existId(in index : mixed) : bool</li><li>Php : public function existId($index): bool </li></ul><a name="ref2_137218"></a>
+<table><tr><td><div class="element">Operation <b>exist</b></div></td></tr></table><p>Vérifie l'existence d'un élément<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attributs de l'élément<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + exist(in attributs : array) : bool</li><li>Php : public function exist($attributs): bool </li></ul><a name="ref2_137346"></a>
+<table><tr><td><div class="element">Operation <b>count</b></div></td></tr></table><p>Compte le nombre d'élément dans la base de donnée<br /><br />@return int<br /><br /></p><p>Declaration :</p><ul><li>Uml : + count() : int</li><li>Php : public function count(): int </li></ul></div>
+<p>All public operations : <a href="class128386.html#ref2_135810"><b>__construct</b></a> , <a href="class128386.html#ref2_136322"><b>add</b></a> , <a href="class128386.html#ref2_137346"><b>count</b></a> , <a href="class128386.html#ref2_136578"><b>delete</b></a> , <a href="class128386.html#ref2_137218"><b>exist</b></a> , <a href="class128386.html#ref2_137090"><b>existId</b></a> , <a href="class128386.html#ref2_136194"><b>get</b></a> , <a href="class128386.html#ref2_135938"><b>getBdd</b></a> , <a href="class128386.html#ref2_136962"><b>getBy</b></a> , <a href="class128386.html#ref2_136706"><b>getIdBy</b></a> , <a href="class128386.html#ref2_136834"><b>getIdByPos</b></a> , <a href="class128386.html#ref2_136450"><b>update</b></a> </p>
+</body>
+</html>

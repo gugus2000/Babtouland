@@ -1,10 +1,12 @@
-format 218
-"validation_connexion" // Babtouland::view::user::validation_connexion
+format 222
+"commentaire_validation_edition" // Babtouland::config::post::commentaire_validation_edition
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,66 +30,71 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/validation_connexion/"
-  deploymentview 137858 "validation_connexion"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/commentaire_validation_edition/"
+  deploymentview 131330 "commentaire_validation_edition"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 142338 "page"
+    artifact 135426 "config"
       stereotype "source"
       php_src "<?php
 
-$Message=new \\user\\Message(array(
-	'contenu'  => $lang['user_validation_connexion_formulaire'],
-	'type'     => \\user\\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['user_validation_connexion_retour'];
-if(isset($_POST['connexion_pseudo']) & isset($_POST['connexion_mdp']) & !empty($_POST['connexion_pseudo']) & !empty($_POST['connexion_mdp']))
+
+if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_GET['id'])& !empty($_POST['edition_commentaire_contenu']))
 {
-	if ($Visiteur->Manager()->exist(array('pseudo' => $_POST['connexion_pseudo'])))
+
+	$BDDFactory=new \\core\\BDDFactory;
+	$CommentaireManager=new \\post\\CommentaireManager($BDDFactory->MysqlConnexion());
+	if($CommentaireManager->existId((int)$_GET['id']))
 	{
-		$Visiteur=new \\user\\Visiteur(array(
-			'pseudo' => $_POST['connexion_pseudo'],
+		$Commentaire=new \\post\\Commentaire(array(
+			'id' => $_GET['id'],
 		));
-		$Visiteur->recuperer();
-		if ($Visiteur->connexion($_POST['connexion_mdp']))
+		$Commentaire->recuperer();
+		$Post=$Commentaire->recupererPost();
+		if(autorisationModification($Commentaire, $application, $action))
 		{
-			$get=$config['user_validation_connexion_suivant'];
-			$Message=new \\user\\Message(array(
-				'contenu'  => $lang['user_validation_connexion_succes'],
-				'type'     => \\user\\Message::TYPE_SUCCES,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+				'contenu' => $lang['post_commentaire_validation_edition_message_succes'],
 			));
+			$get=$config['post_commentaire_validation_edition_lien_succes'].'&id='.$Post->afficherId();
+
+			$Commentaire=new \\post\\Commentaire(array(
+				'id' => $_GET['id'],
+				'contenu' => $_POST['edition_commentaire_contenu'],
+				'date_mise_a_jour' => date('Y-m-d H:i:s'),
+			));
+			$Commentaire->mettre_a_jour();
 		}
 		else
 		{
-			$Message=new \\user\\Message(array(
-				'contenu'  => $lang['erreur_connexion_mot_de_passe'],
-				'type'     => \\user\\Message::TYPE_ERREUR,
-				'css'      => $config['message_css'],
-				'js'       => $config['message_js'],
-				'template' => $config['message_template'],
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+				'contenu' => $lang['post_commentaire_validation_edition_message_permission'],
 			));
+			$get=$config['post_commentaire_validation_edition_permission'].'&id='.$Post->afficherId();
 		}
 	}
 	else
 	{
-		$Message=new \\user\\Message(array(
-			'contenu'  => $lang['erreur_connexion_utilisateur'],
-			'type'     => \\user\\Message::TYPE_ERREUR,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
+		$Notification=new \\user\\page\\Notification(array(
+			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+			'contenu' => $lang['post_commentaire_validation_edition_message_id'],
 		));
+		$get=$config['post_commentaire_validation_edition_lien_id'];
 	}
 }
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_commentaire_validation_edition_message_formulaire'],
+	));
+	$get=$config['post_commentaire_validation_edition_lien_formulaire'];
+}
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>"

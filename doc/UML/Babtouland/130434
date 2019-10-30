@@ -1,10 +1,12 @@
-format 218
-"commentaire_validation_edition" // Babtouland::view::post::commentaire_validation_edition
+format 222
+"carte" // Babtouland::config::core::carte
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,64 +30,22 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/commentaire_validation_edition/"
-  deploymentview 136194 "commentaire_validation_edition"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/core/carte/"
+  deploymentview 129922 "carte"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 139266 "page"
+    artifact 134018 "config"
       stereotype "source"
       php_src "<?php
 
-$Message=new \\user\\Message(array(
-	'contenu'  => $lang['post_commentaire_validation_edition_message_formulaire'],
-	'type'     => \\user\\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
+$Carte=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].'core/carte/carte.html',
+	'fonctions' => $config['path_func'].'core/carte/carte.func.php',
+	'elements'  => array(
+		'contenu' => $Contenu,
+	),
 ));
-$get=$config['post_commentaire_validation_edition_lien_formulaire'];
-
-if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_GET['id'])& !empty($_POST['edition_commentaire_contenu']))
-{
-	$Message=new \\user\\Message(array(
-		'contenu'  => $lang['post_commentaire_validation_edition_message_id'],
-		'type'     => \\user\\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$get=$config['post_commentaire_validation_edition_lien_id'];
-
-	$BDDFactory=new \\core\\BDDFactory;
-	$CommentaireManager=new \\post\\CommentaireManager($BDDFactory->MysqlConnexion());
-	if($CommentaireManager->existId((int)$_GET['id']))
-	{
-		$Commentaire=new \\post\\Commentaire(array(
-			'id' => $_GET['id'],
-		));
-		$Commentaire->recuperer();
-		$Post=$Commentaire->recupererPost();
-		$Message=new \\user\\Message(array(
-			'contenu'  => $lang['post_commentaire_validation_edition_message_succes'],
-			'type'     => \\user\\Message::TYPE_SUCCES,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
-		$get=$config['post_commentaire_validation_edition_lien_succes'].'&id='.$Post->afficherId();
-
-		$Commentaire=new \\post\\Commentaire(array(
-			'id' => $_GET['id'],
-			'contenu' => $_POST['edition_commentaire_contenu'],
-			'date_mise_a_jour' => date('Y-m-d H:i:s'),
-		));
-		$Commentaire->mettre_a_jour();
-	}
-}
-
-$_SESSION['message']=serialize($Message);
-header('location: index.php'.$get);
 
 ?>"
       associated_elems

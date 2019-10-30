@@ -1,10 +1,12 @@
-format 218
-"core" // Babtouland::classe::core
+format 222
+"chat" // Babtouland::classe::chat
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,13 +30,13 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/core/"
-  php_namespace "core"
-  deploymentview 134786 "core"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/chat/"
+  php_namespace "chat"
+  deploymentview 128258 "chat"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 134914 "BDDFactory.class"
+    artifact 128386 "Conversation.class"
       stereotype "source"
       php_src "<?php
 
@@ -43,11 +47,11 @@ ${definition}
 
 ?>"
       associated_elems
-	class_ref 156162 // BDDFactory
+	class_ref 128002 // Conversation
       end
     end
 
-    artifact 135042 "Managed.class"
+    artifact 128514 "ConversationManager.class"
       stereotype "source"
       php_src "<?php
 
@@ -58,11 +62,11 @@ ${definition}
 
 ?>"
       associated_elems
-	class_ref 156290 // Managed
+	class_ref 128258 // ConversationManager
       end
     end
 
-    artifact 135170 "Manager.class"
+    artifact 128642 "LiaisonConversationUtilisateur.class"
       stereotype "source"
       php_src "<?php
 
@@ -73,18 +77,52 @@ ${definition}
 
 ?>"
       associated_elems
-	class_ref 156418 // Manager
+	class_ref 128514 // LiaisonConversationUtilisateur
+      end
+    end
+
+    artifact 128770 "Message.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 128770 // Message
+      end
+    end
+
+    artifact 128898 "MessageManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 128898 // MessageManager
       end
     end
   end
 
-  classview 134530 "core"
+  classview 128002 "chat"
     
     classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
     
     collaborationdiagramsettings end
     
     objectdiagramsettings end
+    
+    objectcompositediagramsettings end
     
     sequencediagramsettings end
     
@@ -94,7 +132,7 @@ ${definition}
     
     activitydiagramsettings
      end
-    class 156162 "BDDFactory"
+    class 128002 "Conversation"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -107,169 +145,18 @@ ${members}}
       mysql_decl ""
       
       comment "
-Permet la création de connexion à la base de donnée
+Conversation d'un chat
 "
-      operation 182274 "MysqlConnexion"
-	class_operation public explicit_return_type "PDO"
-	nparams 1
-	  param in name "dbname" explicit_type "string"
-	    defaultvalue "'babtouland'"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment " Autres méthodes 
-
-Création d'une connexion à la base de donnée
-
-@param ${t0} dbname Nom de la base de donnée à laquelle il faut se connecter
-
-@return ${type}
-"
-      end
-    end
-
-    class 156290 "Managed"
-      visibility package 
-      cpp_decl ""
-      java_decl ""
-      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      comment "
-Objet managé par un Manager
-"
-      operation 182402 "__construct"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "attributs" explicit_type "array"
-	    defaultvalue "array()"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment " Autres méthodes 
-
-Construction de l'objet
-
-@param ${t0} attributs Attributs de l'objet
-
-@return ${type}
-"
+      classrelation 128002 // <generalisation>
+	relation 128002 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128002 // <generalisation>
+	  b parent class_ref 128130 // Managed
       end
 
-      operation 182530 "hydrater"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "attributs" explicit_type "array"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Hydrate l'objet
-
-@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut de l'objet
-
-@return ${type}
-"
-      end
-
-      operation 182658 "Manager"
-	public explicit_return_type "Manager"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Crée une instance de la clase du manager de l'objet managé
-
-@return ${type}
-"
-      end
-
-      operation 182786 "get"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "index" explicit_type "mixed"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Remplir l'objet managé
-
-@param ${t0} index Index de l'objet managé
-
-@return ${type}
-"
-      end
-    end
-
-    class 156418 "Manager"
-      visibility package 
-      cpp_decl ""
-      java_decl ""
-      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      comment "
-Connexion entre un objet et la base de donnée qui le caractérise
-"
-      operation 182914 "__construct"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "bdd" explicit_type "PDO"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Construction du Manager
-
-@param ${t0} bdd Connexion avec la base de donnée
-
-@return ${type}
-"
-      end
-
-      attribute 166018 "bdd"
-	protected explicit_type "PDO"
+      attribute 128002 "id"
+	protected explicit_type "int"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -280,34 +167,14 @@ Construction du Manager
 	MysqlColumn
 	comment " Attributs 
 
-Connexion avec la base de donnée
+Id de la conversation
 
 @var ${type}
 "
       end
 
-      attribute 166146 "TABLE"
-	const_attribute package explicit_type "string"
-	init_value "''"
-	cpp_decl ""
-	java_decl ""
-	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
-"
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment " Constantes 
-
-Nom de la table lié à l'objet
-
-@var ${type}
-"
-      end
-
-      attribute 166274 "ATTRIBUTES"
-	const_attribute package explicit_type "array"
-	init_value "array()"
+      attribute 128130 "nom"
+	protected explicit_type "string"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -317,15 +184,14 @@ Nom de la table lié à l'objet
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Liste de tous les attributs de la table
+Nom de la conversation
 
 @var ${type}
 "
       end
 
-      attribute 166402 "INDEX"
-	const_attribute package explicit_type "string"
-	init_value "'id'"
+      attribute 128258 "description"
+	protected explicit_type "string"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -335,14 +201,48 @@ Liste de tous les attributs de la table
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Index utilisé (clef primaire)
+Description de la conversation
 
 @var ${type}
 "
       end
 
-      operation 183042 "getBdd"
-	public explicit_return_type "PDO"
+      attribute 128386 "id_messages"
+	protected explicit_type "array"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id des messages de la conversation
+
+@var ${type}
+"
+      end
+
+      attribute 128514 "id_utilisateurs"
+	protected explicit_type "array"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id des utilisateurs de la conversations
+
+@var ${type}
+"
+      end
+
+      operation 128002 "getId"
+	public explicit_return_type "int"
 	nparams 0
 	
 	
@@ -354,16 +254,88 @@ Index utilisé (clef primaire)
 	
 	comment " Accesseurs 
 
-Accesseur de bdd
+Accesseur de id
 
 @return ${type}
 "
       end
 
-      operation 183170 "setBdd"
+      operation 128130 "getNom"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de nom
+
+@return ${type}
+"
+      end
+
+      operation 128258 "getDescription"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de description
+
+@return ${type}
+"
+      end
+
+      operation 128386 "getId_messages"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de messages
+
+@return ${type}
+"
+      end
+
+      operation 128514 "getId_utilisateurs"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de utilisateurs
+
+@return ${type}
+"
+      end
+
+      operation 128642 "setId"
 	protected explicit_return_type "void"
 	nparams 1
-	  param in name "bdd" explicit_type "PDO"
+	  param in name "id" explicit_type "int"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -374,21 +346,104 @@ Accesseur de bdd
 	
 	comment " Définisseurs 
 
-Définisseur de bdd
+Définisseur de id
 
-@param ${t0} bdd Connexion à la base de donnée
+@param ${t0} id Id de la conversation
 
 @return ${type}
 "
       end
 
-      operation 183298 "get"
-	public explicit_return_type "array"
+      operation 128770 "setNom"
+	protected explicit_return_type "void"
 	nparams 1
-	  param in name "index" explicit_type "mixed"
+	  param in name "nom" explicit_type "string"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de nom
+
+@param ${t0} nom Nom de la conversation
+
+@return ${type}
+"
+      end
+
+      operation 128898 "setDescription"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "description" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de description
+
+@param ${t0} description Description de la conversation
+
+@return ${type}
+"
+      end
+
+      operation 129026 "setId_messages"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "messages" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de messages
+
+@param ${t0} messages Messages de la conversation
+
+@return ${type}
+"
+      end
+
+      operation 129154 "setId_utilisateurs"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "utilisateurs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de utilisateurs
+
+@param ${t0} utilisateurs Utilisateurs de la conversation
+
+@return ${type}
+"
+      end
+
+      operation 129282 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
 {
   ${body}}
 "
@@ -396,84 +451,89 @@ Définisseur de bdd
 	
 	comment " Autres méthodes 
 
-Récupère le résulat d'une requête Mysql sur un élément
-
-@param ${t0} index Index de l'élément
+Afficheur de id
 
 @return ${type}
 "
       end
 
-      operation 183426 "add"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "attributs" explicit_type "array"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Ajoute un élément dans la base de donnée
-
-@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut
-
-@return ${type}
-"
-      end
-
-      operation 183554 "update"
-	public explicit_return_type "void"
-	nparams 2
-	  param in name "attributs" explicit_type "array"
-	  param in name "index" explicit_type "mixed"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Met à jour un élément de la base de donnée
-
-@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut a modifier
-
-@param ${t1} index Index de l'élément à modifier
-
-@return ${type}
-"
-      end
-
-      operation 183682 "delete"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "index" explicit_type "mixed"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Supprime un élément de la base de donnée
-
-@param ${t0} index Index de l'élément à supprimer
-
-@return ${type}
-"
-      end
-
-      operation 183810 "getIdBy"
+      operation 129410 "afficherNom"
 	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de nom
+
+@return ${type}
+"
+      end
+
+      operation 129538 "afficherDescription"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de description
+
+@return ${type}
+"
+      end
+
+      operation 129666 "afficherId_messages"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de messages
+
+@return ${type}
+"
+      end
+
+      operation 129794 "afficheId_utilisateurs"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de utilisateurs
+
+@return ${type}
+"
+      end
+
+      operation 129922 "recuperer"
+	public explicit_return_type "void"
 	nparams 1
-	  param in name "attributs" explicit_type "array"
+	  param in name "date_historique" explicit_type "mixed"
+	    defaultvalue "null"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -483,66 +543,109 @@ Supprime un élément de la base de donnée
 	
 	
 	comment "
-Obtient l'index de l'élément
+Recuperer une conversation
 
-@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attributs permettant de déterminer l'index de l'élément
+@param ${t0} date_historique Optionnel, date après laquelle les messages de la conversation vont être récupéré
 
 @return ${type}
 "
       end
 
-      operation 183938 "getIdByPos"
-	public explicit_return_type "string"
-	nparams 2
-	  param in name "position" explicit_type "int"
-	  param in name "attribut" explicit_type "string"
+      operation 130050 "creer"
+	public explicit_return_type "void"
+	nparams 0
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Obtient l'index de l'élément à partir de sa position par rapport à un attribut
-
-@param ${t0} position Position de l'élément (0=premier)
-
-@param ${t1} attribut Attribut sur lequel se positionne l'élément
+Créer une conversation
 
 @return ${type}
 "
       end
 
-      operation 184066 "getBy"
+      operation 130178 "modifier"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Modifier une conversation
+
+@return ${type}
+"
+      end
+
+      operation 130306 "supprimer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Supprimer une conversation
+
+@return ${type}
+"
+      end
+
+      operation 130434 "recupererId_utilisateurs"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère l'id des utilisateurs participant à la conversation
+
+@return ${type}
+"
+      end
+
+      operation 130562 "recupererUtilisateurs"
 	public explicit_return_type "array"
-	nparams 2
-	  param in name "attributs" explicit_type "array"
-	  param in name "operations" explicit_type "array"
+	nparams 0
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Récupère le résultat de la requête MYSQL crée à partir des paramètres
-
-@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut
-
-@param ${t1} operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
+Récupère les utilisateurs participant à la conversation
 
 @return ${type}
 "
       end
 
-      operation 184194 "existId"
-	public explicit_return_type "bool"
+      operation 130690 "recupererId_messages"
+	public explicit_return_type "void"
 	nparams 1
-	  param in name "index" explicit_type "mixed"
+	  param in name "date_historique" explicit_type "mixed"
+	    defaultvalue "null"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -552,36 +655,308 @@ Récupère le résultat de la requête MYSQL crée à partir des paramètres
 	
 	
 	comment "
-Vérifie l'existence d'un élément
+Récupère les id des messages de la conversations
 
-@param ${t0} index Index de l'élément à vérifier
+@param ${t0} date_historique Optionnel, date après laquelle les messages de la conversation vont être récupéré
 
 @return ${type}
 "
       end
 
-      operation 184322 "exist"
-	public explicit_return_type "bool"
-	nparams 1
-	  param in name "attributs" explicit_type "array"
+      operation 130818 "recupererMessages"
+	public explicit_return_type "array"
+	nparams 0
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Vérifie l'existence d'un élément
+Récupère les messages de la conversations
 
-@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attributs de l'élément
+@return ${type}
+"
+      end
+    end
+
+    class 128258 "ConversationManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Conversation
+"
+      classrelation 128130 // <generalisation>
+	relation 128130 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128130 // <generalisation>
+	  b parent class_ref 128386 // Manager
+      end
+
+      attribute 128642 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'conversation'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par Conversation
+
+@var ${type}
+"
+      end
+
+      attribute 128770 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'nom',
+		2 => 'description',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+
+    class 128514 "LiaisonConversationUtilisateur"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Liaison entre les tables conversation et utilisateur
+"
+      classrelation 128258 // <generalisation>
+	relation 128258 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128258 // <generalisation>
+	  b parent class_ref 128642 // LiaisonManager
+      end
+
+      attribute 128898 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'liaisonconversationutilisateur'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par la liaison
+
+@var ${type}
+"
+      end
+
+      attribute 129026 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id_conversation',
+		1 => 'id_utilisateur',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+
+    class 128770 "Message"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Message d'une conversation
+"
+      classrelation 128386 // <generalisation>
+	relation 128386 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128386 // <generalisation>
+	  b parent class_ref 128130 // Managed
+      end
+
+      attribute 129154 "id"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Id du message
+
+@var ${type}
+"
+      end
+
+      attribute 129282 "id_conversation"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id de la conversation dans lauelle est le message
+
+@var ${type}
+"
+      end
+
+      attribute 129410 "id_auteur"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id de l'auteur du message
+
+@var ${type}
+"
+      end
+
+      attribute 129538 "contenu"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Contenu du message
+
+@var ${type}
+"
+      end
+
+      attribute 129666 "date_publication"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de la publication du message
+
+@var ${type}
+"
+      end
+
+      attribute 129794 "date_mise_a_jour"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de la dernière mise à jour du message
+
+@var ${type}
+"
+      end
+
+      operation 130946 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de id
 
 @return ${type}
 "
       end
 
-      operation 184450 "count"
+      operation 131074 "getId_conversation"
 	public explicit_return_type "int"
 	nparams 0
 	
@@ -593,9 +968,536 @@ Vérifie l'existence d'un élément
 	
 	
 	comment "
-Compte le nombre d'élément dans la base de donnée
+Accesseur de id_conversation
 
 @return ${type}
+"
+      end
+
+      operation 131202 "getId_auteur"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de id_auteur
+
+@return ${type}
+"
+      end
+
+      operation 131330 "getContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 131458 "getDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_publication
+
+@return ${type}
+"
+      end
+
+      operation 131586 "getDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_mise_a_jour
+
+@return ${type}
+"
+      end
+
+      operation 131714 "setId"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de id
+
+@param ${t0} id Id du message
+
+@return ${type}
+"
+      end
+
+      operation 131842 "setId_conversation"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id_conversation" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de id_conversation
+
+@param ${t0} id_conversation Id de la conversation dans laquelle est le message
+
+@return ${type}
+"
+      end
+
+      operation 131970 "setId_auteur"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id_auteur" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de id_auteur
+
+@param ${t0} id_auteur Id de l'auteur du message
+
+@return ${type}
+"
+      end
+
+      operation 132098 "setContenu"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de contenu
+
+@param ${t0} contenu Contenu du message
+
+@return ${type}
+"
+      end
+
+      operation 132226 "setDate_publication"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_publication" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_publication
+
+@param ${t0} date_publication Date de la publication du message
+
+@return ${type}
+"
+      end
+
+      operation 132354 "setDate_mise_a_jour"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_mise_a_jour" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_mise_a_jour
+
+@param ${t0} date_mise_a_jour Date de la dernière mise à jour du message
+
+@return ${type}
+"
+      end
+
+      operation 132482 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de id
+
+@return ${type}
+"
+      end
+
+      operation 132610 "afficherId_conversation"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de id_conversation
+
+@return ${type}
+"
+      end
+
+      operation 132738 "afficherId_auteur"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de id_auteur
+
+@return ${type}
+"
+      end
+
+      operation 132866 "afficherContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 132994 "afficherDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_publication
+
+@return ${type}
+"
+      end
+
+      operation 133122 "afficherDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_mise_a_jour
+
+@return ${type}
+"
+      end
+
+      operation 133250 "afficherDate_publicationFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_publication avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 133378 "afficherDate_mise_a_jourFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_mise_a_jour avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 133506 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de Message
+
+@return ${type}
+"
+      end
+
+      operation 133634 "recuperer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère le message
+
+@return ${type}
+"
+      end
+
+      operation 133762 "creer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Créer un message dans la base de donnée
+
+@return ${type}
+"
+      end
+
+      operation 133890 "modifier"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Modifie un message donné
+
+@return ${type}
+"
+      end
+
+      operation 134018 "supprimer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Supprime un message donné
+
+@return ${type}
+"
+      end
+
+      operation 134146 "recupererAuteur"
+	public explicit_return_type "Utilisateur"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Récupère l'auteur du Message 
+
+Récupère l'auteur du Message
+
+@return ${type}
+"
+      end
+    end
+
+    class 128898 "MessageManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Message
+"
+      classrelation 128514 // <generalisation>
+	relation 128514 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128514 // <generalisation>
+	  b parent class_ref 128386 // Manager
+      end
+
+      attribute 129922 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'message'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par Conversation
+
+@var ${type}
+"
+      end
+
+      attribute 130050 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'id_conversation',
+		2 => 'id_auteur',
+		3 => 'contenu',
+		4 => 'date_publication',
+		5 => 'date_mise_a_jour',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
 "
       end
     end

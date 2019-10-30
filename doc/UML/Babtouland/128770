@@ -1,10 +1,12 @@
-format 218
-"post" // Babtouland::classe::post
+format 222
+"lib" // Babtouland::classe::lib
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,80 +30,216 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/post/"
-  php_namespace "post"
-  deploymentview 135042 "post"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/lib/"
+  deploymentview 128514 "lib"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 135554 "Commentaire.class"
+    artifact 129538 "StringParser.class"
       stereotype "source"
       php_src "<?php
+/**
+ * Generic string parsing infrastructure
+ *
+ * These classes provide the means to parse any kind of string into a tree-like
+ * memory structure. It would e.g. be possible to create an HTML parser based
+ * upon this class.
+ * 
+ * Version: 0.3.3
+ *
+ * @author Christian Seiler <spam@christian-seiler.de>
+ * @copyright Christian Seiler 2004-2008
+ * @package stringparser
+ *
+ * The MIT License
+ *
+ * Copyright (c) 2004-2009 Christian Seiler
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 
-${namespace}
+/* 17/09/2019 gugus2000 at protonmail.com modified 4 code lines ( __construct and $StringParserNode) to remove E_NOTICE (and provide a better comptability with higher PHP version) /!\\ Doc has not been updated /!\\ */
+
+/**
+ * String parser mode: Search for the next character
+ * @see StringParser::_parserMode
+ */
+define ('STRINGPARSER_MODE_SEARCH', 1);
+/**
+ * String parser mode: Look at each character of the string
+ * @see StringParser::_parserMode
+ */
+define ('STRINGPARSER_MODE_LOOP', 2);
+/**
+ * Filter type: Prefilter
+ * @see StringParser::addFilter, StringParser::_prefilters
+ */
+define ('STRINGPARSER_FILTER_PRE', 1);
+/**
+ * Filter type: Postfilter
+ * @see StringParser::addFilter, StringParser::_postfilters
+ */
+define ('STRINGPARSER_FILTER_POST', 2);
+
 ${definition}
-
 
 
 ?>"
       associated_elems
-	class_ref 157442 // Commentaire
+	class_ref 129154 // StringParser
+	extra_definition_ref 128002 // 
+	class_ref 129282 // StringParser_Node
+	class_ref 129410 // StringParser_Node_Root
+	class_ref 129538 // StringParser_Node_Text
+      end
+      extra_definition 128002 ""
+	
+	cpp "" ""
+	java ""
+	php "
+/**
+ * Node type: Unknown node
+ * @see StringParser_Node::_type
+ */
+define ('STRINGPARSER_NODE_UNKNOWN', 0);
+
+/**
+ * Node type: Root node
+ * @see StringParser_Node::_type
+ */
+define ('STRINGPARSER_NODE_ROOT', 1);
+
+/**
+ * Node type: Text node
+ * @see StringParser_Node::_type
+ */
+define ('STRINGPARSER_NODE_TEXT', 2);
+
+/**
+ * Global value that is a counter of string parser node ids. Compare it to a
+ * sequence in databases.
+ * @var int
+ */
+$GLOBALS['__STRINGPARSER_NODE_ID'] = 0;
+"
+	python ""
+	idl ""
+	mysql ""
       end
     end
 
-    artifact 135682 "CommentaireManager.class"
+    artifact 129666 "StringParser_BBCode.class"
       stereotype "source"
       php_src "<?php
+/**
+ * BB code string parsing class
+ *
+ * Version: 0.3.3
+ *
+ * @author Christian Seiler <spam@christian-seiler.de>
+ * @copyright Christian Seiler 2004-2008
+ * @package stringparser
+ *
+ * The MIT License
+ *
+ * Copyright (c) 2004-2008 Christian Seiler
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the \"Software\"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+ 
+require_once dirname(__FILE__).'/StringParser.class.php';
 
-${namespace}
+define ('BBCODE_CLOSETAG_FORBIDDEN', -1);
+define ('BBCODE_CLOSETAG_OPTIONAL', 0);
+define ('BBCODE_CLOSETAG_IMPLICIT', 1);
+define ('BBCODE_CLOSETAG_IMPLICIT_ON_CLOSE_ONLY', 2);
+define ('BBCODE_CLOSETAG_MUSTEXIST', 3);
+
+define ('BBCODE_NEWLINE_PARSE', 0);
+define ('BBCODE_NEWLINE_IGNORE', 1);
+define ('BBCODE_NEWLINE_DROP', 2);
+
+define ('BBCODE_PARAGRAPH_ALLOW_BREAKUP', 0);
+define ('BBCODE_PARAGRAPH_ALLOW_INSIDE', 1);
+define ('BBCODE_PARAGRAPH_BLOCK_ELEMENT', 2);
+
 ${definition}
-
 
 
 ?>"
       associated_elems
-	class_ref 157570 // CommentaireManager
+	class_ref 129666 // StringParser_BBCode
+	extra_definition_ref 128130 // 
+	class_ref 129794 // StringParser_BBCode_Node_Paragraph
+	class_ref 129922 // StringParser_BBCode_Node_Element
       end
-    end
+      extra_definition 128130 ""
+	
+	cpp "" ""
+	java ""
+	php "
+/**
+ * Node type: BBCode Element node
+ * @see StringParser_BBCode_Node_Element::_type
+ */
+define ('STRINGPARSER_BBCODE_NODE_ELEMENT', 32);
 
-    artifact 135810 "Post.class"
-      stereotype "source"
-      php_src "<?php
-
-${namespace}
-${definition}
-
-
-
-?>"
-      associated_elems
-	class_ref 157698 // Post
-      end
-    end
-
-    artifact 135938 "PostManager.class"
-      stereotype "source"
-      php_src "<?php
-
-${namespace}
-${definition}
-
-
-
-?>"
-      associated_elems
-	class_ref 157826 // PostManager
+/**
+ * Node type: BBCode Paragraph node
+ * @see StringParser_BBCode_Node_Paragraph::_type
+ */
+define ('STRINGPARSER_BBCODE_NODE_PARAGRAPH', 33);
+"
+	python ""
+	idl ""
+	mysql ""
       end
     end
   end
 
-  classview 134786 "post"
+  classview 128258 "lib"
     
     classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
     
     collaborationdiagramsettings end
     
     objectdiagramsettings end
+    
+    objectcompositediagramsettings end
     
     sequencediagramsettings end
     
@@ -109,7 +249,7 @@ ${definition}
     
     activitydiagramsettings
      end
-    class 157442 "Commentaire"
+    class 129154 "StringParser"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -122,18 +262,15 @@ ${members}}
       mysql_decl ""
       
       comment "
-Commentaire d'un post
-"
-      classrelation 159746 // <generalisation>
-	relation 157954 ---|>
-	  a public
-	    php "${type}"
-	    classrelation_ref 159746 // <generalisation>
-	  b parent class_ref 156290 // Managed
-      end
+Generic string parser class
 
-      attribute 171778 "id"
+This is an abstract class for any type of string parser.
+
+@package stringparser
+"
+      attribute 131202 "_parserMode"
 	protected explicit_type "int"
+	init_value " STRINGPARSER_MODE_SEARCH"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -142,16 +279,210 @@ Commentaire d'un post
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment " Attributs 
+	comment "
+String parser mode
 
-Id du Commentaire
+There are two possible modes: searchmode and loop mode. In loop mode
+every single character is looked at in a loop and it is then decided
+what action to take. This is the most straight-forward approach to
+string parsing but due to the nature of PHP as a scripting language,
+it can also cost performance. In search mode the class posseses a
+list of relevant characters for parsing and uses the
+{@link PHP_MANUAL#strpos strpos} function to search for the next
+relevant character. The search mode will be faster than the loop mode
+in most circumstances but it is also more difficult to implement.
+The subclass that does the string parsing itself will define which
+mode it will implement.
 
+@access ${visibility}
+@var ${type}
+@see STRINGPARSER_MODE_SEARCH, STRINGPARSER_MODE_LOOP
+"
+      end
+
+      attribute 131330 "_text"
+	protected explicit_type "string"
+	init_value " ''"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Raw text
+@access ${visibility}
 @var ${type}
 "
       end
 
-      attribute 171906 "id_auteur"
+      attribute 131458 "_stack"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Parse stack
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 131586 "_cpos"
+	protected explicit_type "integer"
+	init_value " -1"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Current position in raw text
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 131714 "_root"
+	protected explicit_type "mixed"
+	init_value " null"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Root node
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 131842 "_length"
+	protected explicit_type "integer"
+	init_value " -1"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Length of the text
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 131970 "_parsing"
+	protected explicit_type "boolean"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Flag if this object is already parsing a text
+
+This flag is to prevent recursive calls to the parse() function that
+would cause very nasty things.
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 132098 "strict"
+	public explicit_type "boolean"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Strict mode
+
+Whether to stop parsing if a parse error occurs.
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 132226 "_charactersSearch"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Characters or strings to look for
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 132354 "_charactersAllowed"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Characters currently allowed
+
+Note that this will only be evaluated in loop mode; in search mode
+this would ruin every performance increase. Note that only single
+characters are permitted here, no strings. Please also note that in
+loop mode, {@link StringParser::_charactersSearch _charactersSearch}
+is evaluated before this variable.
+
+If in strict mode, parsing is stopped if a character that is not
+allowed is encountered. If not in strict mode, the character is
+simply ignored.
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 132482 "_status"
 	protected explicit_type "int"
+	init_value " 0"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -161,14 +492,15 @@ Id du Commentaire
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Id de l'auteur du Commentaire
-
+Current parser status
+@access ${visibility}
 @var ${type}
 "
       end
 
-      attribute 172034 "id_post"
-	protected explicit_type "int"
+      attribute 132610 "_prefilters"
+	protected explicit_type "array"
+	init_value " array ()"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -178,14 +510,15 @@ Id de l'auteur du Commentaire
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Id du Post du Commentaire
-
+Prefilters
+@access ${visibility}
 @var ${type}
 "
       end
 
-      attribute 172162 "contenu"
-	protected explicit_type "string"
+      attribute 132738 "_postfilters"
+	protected explicit_type "array"
+	init_value " array ()"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -195,14 +528,15 @@ Id du Post du Commentaire
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Contenu du Commentaire
-
+Postfilters
+@access ${visibility}
 @var ${type}
 "
       end
 
-      attribute 172290 "date_publication"
-	protected explicit_type "string"
+      attribute 132866 "_recentlyReparsed"
+	protected explicit_type "bool"
+	init_value " false"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -212,164 +546,59 @@ Contenu du Commentaire
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Date de la publication du Commentaire
-
+Recently reparsed?
+@access ${visibility}
 @var ${type}
 "
       end
 
-      attribute 172418 "date_mise_a_jour"
-	protected explicit_type "string"
-	cpp_decl ""
-	java_decl ""
-	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
-"
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "
-Date de la mise à jour du Commentaire
-
-@var ${type}
-"
-      end
-
-      operation 198402 "getId"
-	public explicit_return_type "int"
+      operation 137474 "__construct"
+	public explicit_return_type ""
 	nparams 0
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment " Accesseurs 
-
-Accesseur de id
-
-@return ${type}
-"
-      end
-
-      operation 198530 "getId_auteur"
-	public explicit_return_type "int"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Accesseur de id_auteur
+Constructor
 
-@return ${type}
+@access ${visibility}
 "
       end
 
-      operation 198658 "getId_post"
-	public explicit_return_type "int"
-	nparams 0
+      operation 137602 "addFilter"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "type" explicit_type "int"
+	  param in name "callback" explicit_type "mixed"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Accesseur de id_post
+Add a filter
 
+@access ${visibility}
+@param ${t0} ${p0} The type of the filter
+@param ${t1} ${p1} The callback to call
 @return ${type}
+@see STRINGPARSER_FILTER_PRE, STRINGPARSER_FILTER_POST
 "
       end
 
-      operation 198786 "getContenu"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Accesseur de contenu
-
-@return ${type}
-"
-      end
-
-      operation 198914 "getDate_publication"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Accesseur de date_publication
-
-@return ${type}
-"
-      end
-
-      operation 199042 "getDate_mise_a_jour"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Accesseur de date_mise_a_jour
-
-@return ${type}
-"
-      end
-
-      operation 199170 "setId"
-	protected explicit_return_type "void"
+      operation 137730 "clearFilters"
+	public explicit_return_type "bool"
 	nparams 1
-	  param in name "id" explicit_type "int"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment " Définisseurs 
-
-Définisseur de id
-
-@param ${t0} id Id du Commentaire
-
-@return ${type}
-"
-      end
-
-      operation 199298 "setId_auteur"
-	protected explicit_return_type "void"
-	nparams 1
-	  param in name "id_auteur" explicit_type "int"
+	  param in name "type" explicit_type "int"
+	    defaultvalue "0"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -379,18 +608,19 @@ Définisseur de id
 	
 	
 	comment "
-Définisseur de id_auteur
+Remove all filters
 
-@param ${t0} id_auteur Id de l'auteur du Commentaire
-
+@access ${visibility}
+@param ${t0} ${p0} The type of the filter or 0 for all
 @return ${type}
+@see STRINGPARSER_FILTER_PRE, STRINGPARSER_FILTER_POST
 "
       end
 
-      operation 199426 "setId_post"
-	protected explicit_return_type "void"
+      operation 137858 "parse"
+	public explicit_return_type "mixed"
 	nparams 1
-	  param in name "id_post" explicit_type "int"
+	  param in name "text" explicit_type "string"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -400,18 +630,21 @@ Définisseur de id_auteur
 	
 	
 	comment "
-Définisseur de id_post
+This function parses the text
 
-@param ${t0} id_post Id du Post du Commentaire
-
-@return ${type}
+@access ${visibility}
+@param ${t0} ${p0} The text to parse
+@return ${type} Either the root object of the tree if no output method
+              is defined, the tree reoutput to e.g. a string or false
+              if an internal error occured, such as a parse error if
+              in strict mode or the object is already parsing a text.
 "
       end
 
-      operation 199554 "setContenu"
-	protected explicit_return_type "void"
+      operation 137986 "_applyPrefilters"
+	package explicit_return_type ""
 	nparams 1
-	  param in name "contenu" explicit_type "string"
+	  param in name "text" explicit_type ""
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -421,18 +654,17 @@ Définisseur de id_post
 	
 	
 	comment "
-Définisseur de contenu
+Apply prefilters
 
-@param ${t0} contenu Contenu du Commentaire
-
-@return ${type}
+It is possible to specify prefilters for the parser to do some
+manipulating of the string beforehand.
 "
       end
 
-      operation 199682 "setDate_publication"
-	protected explicit_return_type "void"
+      operation 138114 "_applyPostfilters"
+	package explicit_return_type ""
 	nparams 1
-	  param in name "date_publication" explicit_type "string"
+	  param in name "text" explicit_type ""
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -442,18 +674,109 @@ Définisseur de contenu
 	
 	
 	comment "
-Définisseur de date_publication
+Apply postfilters
 
-@param ${t0} date_publication Date de la publication du Commentaire
+It is possible to specify postfilters for the parser to do some
+manipulating of the string afterwards.
+"
+      end
 
+      operation 138242 "_modifyTree"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method: Manipulate the tree
+@access ${visibility}
 @return ${type}
 "
       end
 
-      operation 199810 "setDate_mise_a_jour"
-	protected explicit_return_type "void"
+      operation 138370 "_outputTree"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method: Output tree
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 138498 "_reparseAfterCurrentBlock"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Restart parsing after current block
+
+To achieve this the current top stack object is removed from the
+tree. Then the current item
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 138626 "_closeRemainingBlocks"
+	protected explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method: Close remaining blocks
+@access ${visibility}
+"
+      end
+
+      operation 138754 "_parserInit"
+	protected explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method: Initialize the parser
+@access ${visibility}
+"
+      end
+
+      operation 138882 "_setStatus"
+	protected explicit_return_type ""
 	nparams 1
-	  param in name "date_mise_a_jour" explicit_type "string"
+	  param in name "status" explicit_type ""
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -463,35 +786,35 @@ Définisseur de date_publication
 	
 	
 	comment "
-Définisseur de date_mise_a_jour
-
-@param ${t0} date_mise_a_jour Date de la mise à jour du Commentaire
-
-@return ${type}
+Abstract method: Set a specific status
+@access ${visibility}
 "
       end
 
-      operation 199938 "afficherId"
-	public explicit_return_type "string"
-	nparams 0
+      operation 139010 "_handleStatus"
+	protected explicit_return_type "bool"
+	nparams 2
+	  param in name "status" explicit_type "int"
+	  param in name "needle" explicit_type "string"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
 {
   ${body}}
 "
 	
 	
-	comment " Autres méthodes 
-
-Afficheur de id
-
+	comment "
+Abstract method: Handle status
+@access ${visibility}
+@param ${t0} ${p0} The current status
+@param ${t1} ${p1} The needle that was found
 @return ${type}
 "
       end
 
-      operation 200066 "afficherId_auteur"
-	public explicit_return_type "string"
+      operation 139138 "_searchLoop"
+	protected explicit_return_type "bool"
 	nparams 0
 	
 	
@@ -502,14 +825,14 @@ Afficheur de id
 	
 	
 	comment "
-Afficheur de id_auteur
-
+Search mode loop
+@access ${visibility}
 @return ${type}
 "
       end
 
-      operation 200194 "afficherid_post"
-	public explicit_return_type "string"
+      operation 139266 "_loop"
+	protected explicit_return_type "bool"
 	nparams 0
 	
 	
@@ -520,70 +843,17 @@ Afficheur de id_auteur
 	
 	
 	comment "
-Afficheur de id_post
+Loop mode loop
 
+@access ${visibility}
 @return ${type}
 "
       end
 
-      operation 200322 "afficherContenu"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de contenu
-
-@return ${type}
-"
-      end
-
-      operation 200450 "afficherDate_publication"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de date_publication
-
-@return ${type}
-"
-      end
-
-      operation 200578 "afficherDate_mise_a_jour"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de date_mise_a_jour
-
-@return ${type}
-"
-      end
-
-      operation 200706 "afficherDate_publicationFormat"
-	public explicit_return_type "string"
+      operation 139394 "_appendText"
+	protected explicit_return_type "bool"
 	nparams 1
-	  param in name "format" explicit_type "string"
+	  param in name "text" explicit_type "string"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -593,18 +863,17 @@ Afficheur de date_mise_a_jour
 	
 	
 	comment "
-Affiche date_publication avec le bon format
-
-@param ${t0} format Format de l'affichage de la date
-
-@return ${type}
+Abstract method Append text depending on current status
+@access ${visibility}
+@param ${t0} ${p0} The text to append
+@return ${type} On success, the function returns true, else false
 "
       end
 
-      operation 200834 "afficherDate_mise_a_jourFormat"
-	public explicit_return_type "string"
+      operation 139522 "_appendToLastTextChild"
+	protected explicit_return_type "bool"
 	nparams 1
-	  param in name "format" explicit_type "string"
+	  param in name "text" explicit_type "string"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -614,16 +883,91 @@ Affiche date_publication avec le bon format
 	
 	
 	comment "
-Affiche date_mise_a_jour avec le bon format
-
-@param ${t0} format Format de l'affichage de la date
-
-@return ${type}
+Append text to last text child of current top parser stack node
+@access ${visibility}
+@param ${t0} ${p0} The text to append
+@return ${type} On success, the function returns true, else false
 "
       end
 
-      operation 200962 "afficher"
-	public explicit_return_type "string"
+      operation 139650 "_strpos"
+	protected explicit_return_type "array"
+	nparams 2
+	  param in name "needles" explicit_type "array"
+	  param in name "offset" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Searches {@link StringParser::_text _text} for every needle that is
+specified by using the {@link PHP_MANUAL#strpos strpos} function. It
+returns an associative array with the key <code>'needle'</code>
+pointing at the string that was found first and the key
+<code>'offset'</code> pointing at the offset at which the string was
+found first. If no needle was found, the <code>'needle'</code>
+element is <code>false</code> and the <code>'offset'</code> element
+is <code>-1</code>.
+
+@access ${visibility}
+@param ${t0} ${p0}
+@param ${t1} ${p1}
+@return ${type}
+@see StringParser::_text
+"
+      end
+
+      operation 139778 "_strDetect"
+	protected explicit_return_type "mixed"
+	nparams 2
+	  param in name "needles" explicit_type "array"
+	  param in name "offset" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Detects a string at the current position
+
+@access ${visibility}
+@param ${t0} ${p0} The strings that are to be detected
+@param ${t1} ${p1} The current offset
+@return ${type} The string that was detected or the needle
+"
+      end
+
+      operation 139906 "_pushNode"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param inout name "node" explicit_type "object"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Adds a node to the current parse stack
+
+@access ${visibility}
+@param ${t0} ${p0} The node that is to be added
+@return ${type} True on success, else false.
+@see StringParser_Node, StringParser::_stack
+"
+      end
+
+      operation 140034 "_popNode"
+	protected explicit_return_type "bool"
 	nparams 0
 	
 	
@@ -634,14 +978,16 @@ Affiche date_mise_a_jour avec le bon format
 	
 	
 	comment "
-Converti l'objet Post en string
+Removes a node from the current parse stack
 
-@return ${type}
+@access ${visibility}
+@return ${type} True on success, else false.
+@see StringParser_Node, StringParser::_stack
 "
       end
 
-      operation 201090 "publier"
-	public explicit_return_type "void"
+      operation 140162 "_topNode"
+	protected explicit_return_type "mixed"
 	nparams 0
 	
 	
@@ -652,104 +998,35 @@ Converti l'objet Post en string
 	
 	
 	comment "
-Publie le Commentaire
+Execute a method on the top element
 
+@access ${visibility}
 @return ${type}
 "
       end
 
-      operation 201218 "mettre_a_jour"
-	public explicit_return_type "void"
-	nparams 0
+      operation 140290 "_topNodeVar"
+	protected explicit_return_type "mixed"
+	nparams 1
+	  param in name "var" explicit_type ""
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Met à jour le Commentaire
+Get a variable of the top element
 
-@return ${type}
-"
-      end
-
-      operation 201346 "supprimer"
-	public explicit_return_type "void"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Supprime le Commentaire
-
-@return ${type}
-"
-      end
-
-      operation 201474 "recupererAuteur"
-	public explicit_return_type "Utilisateur"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Obtient l'auteur du Commentaire
-
-@return ${type}
-"
-      end
-
-      operation 201602 "recupererPost"
-	public explicit_return_type "Post"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Obtient le Post du Commentaire
-
-@return ${type}
-"
-      end
-
-      operation 201730 "recuperer"
-	public explicit_return_type "void"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Récupérer le Commentaire à partir de son id
-
+@access ${visibility}
 @return ${type}
 "
       end
     end
 
-    class 157570 "CommentaireManager"
+    class 129282 "StringParser_Node"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -762,86 +1039,19 @@ ${members}}
       mysql_decl ""
       
       comment "
-Manager de Commentaire
-"
-      classrelation 159874 // <generalisation>
-	relation 158082 ---|>
-	  a public
-	    php "${type}"
-	    classrelation_ref 159874 // <generalisation>
-	  b parent class_ref 156418 // Manager
-      end
+Generic string parser node class
 
-      attribute 172546 "TABLE"
-	const_attribute package explicit_type "string"
-	init_value "'commentaire'"
-	cpp_decl ""
-	java_decl ""
-	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
-"
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment " Constantes 
+This is an abstract class for any type of node that is used within the
+string parser. General warning: This class contains code regarding references
+that is very tricky. Please do not touch this code unless you exactly know
+what you are doing. Incorrect handling of references may cause PHP to crash
+with a segmentation fault! You have been warned.
 
-Table de donnée utilisé par Commentaire
-
-@var ${type}
+@package stringparser
 "
-      end
-
-      attribute 172674 "ATTRIBUTES"
-	const_attribute package explicit_type "array"
-	init_value "array(
-		0 => 'id',
-		1 => 'id_auteur',
-		2 => 'id_post',
-		3 => 'contenu',
-		4 => 'date_publication',
-		5 => 'date_mise_a_jour',
-	)"
-	cpp_decl ""
-	java_decl ""
-	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
-"
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "
-Attributs
-
-@var ${type}
-"
-      end
-    end
-
-    class 157698 "Post"
-      visibility package 
-      cpp_decl ""
-      java_decl ""
-      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      comment "
-Post du site
-"
-      classrelation 160002 // <generalisation>
-	relation 158210 ---|>
-	  a public
-	    php "${type}"
-	    classrelation_ref 160002 // <generalisation>
-	  b parent class_ref 156290 // Managed
-      end
-
-      attribute 172802 "id"
+      attribute 132994 "_type"
 	protected explicit_type "int"
+	init_value " STRINGPARSER_NODE_UNKNOWN"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -850,16 +1060,23 @@ Post du site
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment " Attributs 
+	comment "
+The type of this node.
 
-Id du Post
+There are three standard node types: root node, text node and unknown
+node. All node types are integer constants. Any node type of a
+subclass must be at least 32 to allow future developements.
 
+@access ${visibility}
 @var ${type}
+@see STRINGPARSER_NODE_ROOT, STRINGPARSER_NODE_TEXT
+@see STRINGPARSER_NODE_UNKNOWN
 "
       end
 
-      attribute 172930 "id_auteur"
+      attribute 133122 "_id"
 	protected explicit_type "int"
+	init_value " -1"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -869,14 +1086,23 @@ Id du Post
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Id de l'auteur du Post
+The node ID
 
+This ID uniquely identifies this node. This is needed when searching
+for a specific node in the children array. Please note that this is
+only an internal variable and should never be used - not even in
+subclasses and especially not in external data structures. This ID
+has nothing to do with any type of ID in HTML oder XML.
+
+@access ${visibility}
 @var ${type}
+@see StringParser_Node::_children
 "
       end
 
-      attribute 173058 "titre"
-	protected explicit_type "string"
+      attribute 133250 "_parent"
+	protected explicit_type "mixed"
+	init_value " null"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -886,14 +1112,19 @@ Id de l'auteur du Post
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Titre du Post
+The parent of this node.
 
+It is either null (root node) or a reference to the parent object.
+
+@access ${visibility}
 @var ${type}
+@see StringParser_Node::_children
 "
       end
 
-      attribute 173186 "contenu"
-	protected explicit_type "string"
+      attribute 133378 "_children"
+	protected explicit_type "array"
+	init_value " array ()"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -903,14 +1134,20 @@ Titre du Post
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Contenu du Post
+The children of this node.
 
+It contains an array of references to all the children nodes of this
+node.
+
+@access ${visibility}
 @var ${type}
+@see StringParser_Node::_parent
 "
       end
 
-      attribute 173314 "date_publication"
-	protected explicit_type "string"
+      attribute 133506 "occurredAt"
+	public explicit_type "int"
+	init_value " -1"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -920,49 +1157,43 @@ Contenu du Post
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Date de la publication du Post
+Occured at
 
+This defines the position in the parsed text where this node occurred
+at. If -1, this value was not possible to be determined.
+
+@access ${visibility}
 @var ${type}
 "
       end
 
-      attribute 173442 "date_mise_a_jour"
-	protected explicit_type "string"
-	cpp_decl ""
-	java_decl ""
-	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
-"
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "
-Date de la dernière mise à jour du Post
-
-@var ${type}
-"
-      end
-
-      operation 201858 "getId"
-	public explicit_return_type "int"
-	nparams 0
+      operation 140418 "__construct"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "occurredAt" explicit_type "int"
+	    defaultvalue "-1"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
 {
   ${body}}
 "
 	
 	
-	comment " Accesseurs 
+	comment "
+Constructor
 
-Accesseur de id
+Currently, the constructor only allocates a new ID for the node and
+assigns it.
 
-@return ${type}
+@access ${visibility}
+@param ${t0} ${p0} The position in the text where this node
+                       occurred at. If not determinable, it is -1.
+@global __STRINGPARSER_NODE_ID
 "
       end
 
-      operation 201986 "getId_auteur"
+      operation 140546 "type"
 	public explicit_return_type "int"
 	nparams 0
 	
@@ -974,110 +1205,40 @@ Accesseur de id
 	
 	
 	comment "
-Accesseur de id_auteur
+Type of the node
 
+This function returns the type of the node
+
+@access ${visibility}
 @return ${type}
 "
       end
 
-      operation 202114 "getTitre"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Accesseur de titre
-
-@return ${type}
-"
-      end
-
-      operation 202242 "getContenu"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Accesseur de contenu
-
-@return ${type}
-"
-      end
-
-      operation 202370 "getDate_publication"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Accesseur de date_publication
-
-@return ${type}
-"
-      end
-
-      operation 202498 "getDate_mise_a_jour"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Accesseur de date_mise_a_jour
-
-@return ${type}
-"
-      end
-
-      operation 202626 "setId"
-	protected explicit_return_type "void"
+      operation 140674 "prependChild"
+	public explicit_return_type "bool"
 	nparams 1
-	  param in name "id" explicit_type "int"
+	  param inout name "node" explicit_type "object"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
 {
   ${body}}
 "
 	
 	
-	comment " Définisseurs 
+	comment "
+Prepend a node
 
-Définisseur de id
-
-@param ${t0} id Id du Post
-
-@return ${type}
+@access ${visibility}
+@param ${t0} ${p0} The node to be prepended.
+@return ${type} On success, the function returns true, else false.
 "
       end
 
-      operation 202754 "setId_auteur"
-	protected explicit_return_type "void"
+      operation 140802 "appendToLastTextChild"
+	public explicit_return_type "bool"
 	nparams 1
-	  param in name "id_auteur" explicit_type "int"
+	  param in name "text" explicit_type "string"
 	
 	
 	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
@@ -1087,362 +1248,348 @@ Définisseur de id
 	
 	
 	comment "
-Définisseur de id_auteur
-
-@param ${t0} id_auteur Id de l'auteur du Post
-
-@return ${type}
+Append text to last text child
+@access ${visibility}
+@param ${t0} ${p0} The text to append
+@return ${type} On success, the function returns true, else false
 "
       end
 
-      operation 202882 "setTitre"
-	protected explicit_return_type "void"
+      operation 140930 "appendChild"
+	public explicit_return_type "bool"
 	nparams 1
-	  param in name "titre" explicit_type "string"
+	  param inout name "node" explicit_type "object"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Définisseur de titre
+Append a node to the children
 
-@param ${t0} titre Titre du Post
+This function appends a node to the children array(). It
+automatically sets the {@link StrinParser_Node::_parent _parent}
+property of the node that is to be appended.
 
+@access ${visibility}
+@param ${t0} ${p0} The node that is to be appended.
+@return ${type} On success, the function returns true, else false.
+"
+      end
+
+      operation 141058 "insertChildBefore"
+	public explicit_return_type "bool"
+	nparams 2
+	  param inout name "node" explicit_type "object"
+	  param inout name "reference" explicit_type "object"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}, & ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Insert a node before another node
+
+@access ${visibility}
+@param ${t0} ${p0} The node to be inserted.
+@param ${t1} ${p1} The reference node where the new node is
+                         to be inserted before.
+@return ${type} On success, the function returns true, else false.
+"
+      end
+
+      operation 141186 "insertChildAfter"
+	public explicit_return_type "bool"
+	nparams 2
+	  param inout name "node" explicit_type "object"
+	  param inout name "reference" explicit_type "object"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}, & ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Insert a node after another node
+
+@access ${visibility}
+@param ${t0} ${p0} The node to be inserted.
+@param ${t1} ${p1} The reference node where the new node is
+                         to be inserted after.
+@return ${type} On success, the function returns true, else false.
+"
+      end
+
+      operation 141314 "removeChild"
+	public explicit_return_type "bool"
+	nparams 2
+	  param inout name "child" explicit_type "mixed"
+	  param in name "destroy" explicit_type "bool"
+	    defaultvalue "false"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Remove a child node
+
+This function removes a child from the children array. A parameter
+tells the function whether to destroy the child afterwards or not.
+If the specified node is not a child of this node, the function will
+return false.
+
+@access ${visibility}
+@param ${t0} ${p0} The child to destroy; either an integer
+                    specifying the index of the child or a reference
+                    to the child itself.
+@param ${t1} ${p1} Destroy the child afterwards.
+@return ${type} On success, the function returns true, else false.
+"
+      end
+
+      operation 141442 "firstChild"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get the first child of this node
+
+@access ${visibility}
 @return ${type}
 "
       end
 
-      operation 203010 "setContenu"
-	protected explicit_return_type "void"
+      operation 141570 "lastChild"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get the last child of this node
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 141698 "destroyNode"
+	public explicit_return_type "bool"
 	nparams 1
-	  param in name "contenu" explicit_type "string"
+	  param inout name "node" explicit_type "object"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Définisseur de contenu
+Destroy a node
 
-@param ${t0} contenu Contenu du Post
-
-@return ${type}
+@access ${visibility}
+@static
+@param ${t0} ${p0} The node to destroy
+@return ${type} True on success, else false.
 "
       end
 
-      operation 203138 "setDate_publication"
-	protected explicit_return_type "void"
+      operation 141826 "_destroy"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Destroy this node
+
+
+@access ${visibility}
+@return ${type} True on success, else false.
+"
+      end
+
+      operation 141954 "_findChild"
+	protected explicit_return_type "mixed"
 	nparams 1
-	  param in name "date_publication" explicit_type "string"
+	  param inout name "child" explicit_type "mixed"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
 {
   ${body}}
 "
 	
 	
-	comment "
-Définisseur de date_publication
+	comment " 
+Find a child node
 
-@param ${t0} date_publication Date de publication du Post
+This function searches for a node in the own children and returns
+the index of the node or false if the node is not a child of this
+node.
 
-@return ${type}
+@access ${visibility}
+@param ${t0} ${p0} The node to look for.
+@return ${type} The index of the child node on success, else false.
 "
       end
 
-      operation 203266 "setDate_mise_a_jour"
-	protected explicit_return_type "void"
+      operation 142082 "equals"
+	public explicit_return_type "bool"
 	nparams 1
-	  param in name "date_mise_a_jour" explicit_type "string"
+	  param inout name "node" explicit_type "mixed"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " 
+Checks equality of this node and another node
+
+@access ${visibility}
+@param ${t0} ${p0} The node to be compared with
+@return ${type} True if the other node equals to this node, else false.
+"
+      end
+
+      operation 142210 "matchesCriterium"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "criterium" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Définisseur de date_mise_a_jour
+Determines whether a criterium matches this node
 
-@param ${t0} date_mise_a_jour Date de la dernière mise à jour du Post
-
-@return ${type}
+@access ${visibility}
+@param ${t0} ${p0} The criterium that is to be checked
+@param ${t1} ${p1} The value that is to be compared
+@return ${type} True if this node matches that criterium
 "
       end
 
-      operation 203394 "afficherId"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment " Autres méthodes 
-
-Afficheur de id
-
-@return ${type}
-"
-      end
-
-      operation 203522 "afficherId_auteur"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de id_auteur
-
-@return ${type}
-"
-      end
-
-      operation 203650 "afficherTitre"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de titre
-
-@return ${type}
-"
-      end
-
-      operation 203778 "afficherContenu"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de contenu
-
-@return ${type}
-"
-      end
-
-      operation 203906 "afficherDate_publication"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de date_publication
-
-@return ${type}
-"
-      end
-
-      operation 204034 "afficherDate_mise_a_jour"
-	public explicit_return_type "string"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Afficheur de date_mise_a_jour
-
-@return ${type}
-"
-      end
-
-      operation 204162 "afficherDate_publicationFormat"
-	public explicit_return_type "string"
-	nparams 1
-	  param in name "format" explicit_type "string"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Affiche date_publication avec le bon format
-
-@param ${t0} format Format de l'affichage de la date
-
-@return ${type}
-"
-      end
-
-      operation 204290 "afficherDate_mise_a_jourFormat"
-	public explicit_return_type "string"
-	nparams 1
-	  param in name "format" explicit_type "string"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Affiche date_mise_a_jour avec le bon format
-
-@param ${t0} format Format de l'affichage de la date
-
-@return ${type}
-"
-      end
-
-      operation 204418 "afficher"
-	public explicit_return_type "string"
-	nparams 1
-	  param in name "template" explicit_type "string"
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Converti l'objet Post en string via une template
-
-@param ${t0} template Chemin vers la template à utiliser
-
-@return ${type}
-"
-      end
-
-      operation 204546 "publier"
-	public explicit_return_type "void"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Publie le Post
-
-@return ${type}
-"
-      end
-
-      operation 204674 "mettre_a_jour"
-	public explicit_return_type "void"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Met à jour le Post
-
-@return ${type}
-"
-      end
-
-      operation 204802 "supprimer"
-	public explicit_return_type "void"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Supprime le Post
-
-@return ${type}
-"
-      end
-
-      operation 204930 "recupererAuteur"
-	public explicit_return_type "Utilisateur"
-	nparams 0
-	
-	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
-{
-  ${body}}
-"
-	
-	
-	comment "
-Obtient l'auteur du Post
-
-@return ${type}
-"
-      end
-
-      operation 205058 "recupererCommentaires"
+      operation 142338 "getNodesByCriterium"
 	public explicit_return_type "array"
-	nparams 0
+	nparams 2
+	  param in name "criterium" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
 	
 	
-	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
 {
   ${body}}
 "
 	
 	
 	comment "
-Obtient les Commentaires du Post
+Search for nodes with a certain criterium
 
+This may be used to implement getElementsByTagName etc.
+
+@access ${visibility}
+@param ${t0} ${p0} The criterium that is to be checked
+@param ${t1} ${p1} The value that is to be compared
+@return ${type} All subnodes that match this criterium
+"
+      end
+
+      operation 142466 "getNodeCountByCriterium"
+	public explicit_return_type "int"
+	nparams 2
+	  param in name "criterium" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Search for nodes with a certain criterium and return the count
+
+Similar to getNodesByCriterium
+
+@access ${visibility}
+@param ${t0} ${p0} The criterium that is to be checked
+@param ${t1} ${p1} The value that is to be compared
+@return ${type} The number of subnodes that match this criterium
+"
+      end
+
+      operation 142594 "dump"
+	public explicit_return_type "string"
+	nparams 3
+	  param in name "prefix" explicit_type "string"
+	    defaultvalue "\" \""
+	  param in name "linesep" explicit_type "string"
+	    defaultvalue "\"\\n\""
+	  param in name "level" explicit_type "int"
+	    defaultvalue "0"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Dump nodes
+
+This dumps a tree of nodes
+
+@access ${visibility}
+@param ${t0} ${p0} The prefix that is to be used for indentation
+@param ${t1} ${p1} The line separator
+@param ${t2} ${p2} The initial level of indentation
 @return ${type}
 "
       end
 
-      operation 205186 "recuperer"
-	public explicit_return_type "void"
+      operation 142722 "_dumpToString"
+	protected explicit_return_type "string"
 	nparams 0
 	
 	
@@ -1453,14 +1600,15 @@ Obtient les Commentaires du Post
 	
 	
 	comment "
-Récupère le Post à partir de son id
+Dump this node to a string
 
+@access ${visibility}
 @return ${type}
 "
       end
     end
 
-    class 157826 "PostManager"
+    class 129410 "StringParser_Node_Root"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -1473,19 +1621,21 @@ ${members}}
       mysql_decl ""
       
       comment "
-Manager de Post
+String parser root node class
+
+@package stringparser
 "
-      classrelation 160130 // <generalisation>
-	relation 158338 ---|>
+      classrelation 128642 // <generalisation>
+	relation 128642 ---|>
 	  a public
 	    php "${type}"
-	    classrelation_ref 160130 // <generalisation>
-	  b parent class_ref 156418 // Manager
+	    classrelation_ref 128642 // <generalisation>
+	  b parent class_ref 129282 // StringParser_Node
       end
 
-      attribute 173570 "TABLE"
-	const_attribute package explicit_type "string"
-	init_value "'post'"
+      attribute 133634 "_type"
+	protected explicit_type "int"
+	init_value " STRINGPARSER_NODE_ROOT"
 	cpp_decl ""
 	java_decl ""
 	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
@@ -1494,23 +1644,401 @@ Manager de Post
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment " Constantes 
+	comment "
+The type of this node.
 
-Table de donnée utilisé par Post
+This node is a root node.
 
+@access ${visibility}
+@var ${type}
+@see STRINGPARSER_NODE_ROOT
+"
+      end
+    end
+
+    class 129538 "StringParser_Node_Text"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+String parser text node class
+
+@package stringparser
+"
+      classrelation 128770 // <generalisation>
+	relation 128770 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128770 // <generalisation>
+	  b parent class_ref 129282 // StringParser_Node
+      end
+
+      attribute 133762 "_type"
+	protected explicit_type "int"
+	init_value " STRINGPARSER_NODE_TEXT"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+The type of this node.
+
+This node is a text node.
+
+@access ${visibility}
+@var ${type}
+@see STRINGPARSER_NODE_TEXT
+"
+      end
+
+      attribute 133890 "_flags"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Node flags
+
+@access ${visibility}
 @var ${type}
 "
       end
 
-      attribute 173698 "ATTRIBUTES"
-	const_attribute package explicit_type "array"
-	init_value "array(
-		0 => 'id',
-		1 => 'id_auteur',
-		2 => 'titre',
-		3 => 'contenu',
-		4 => 'date_publication',
-		5 => 'date_mise_a_jour',
+      attribute 134018 "content"
+	public explicit_type "string"
+	init_value " ''"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+The content of this node
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      operation 142850 "__construct"
+	public explicit_return_type ""
+	nparams 2
+	  param in name "content" explicit_type "string"
+	  param in name "occurredAt" explicit_type "int"
+	    defaultvalue "-1"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Constructor
+
+@access ${visibility}
+@param ${t0} ${p0} The initial content of this element
+@param ${t1} ${p1} The position in the text where this node
+                       occurred at. If not determinable, it is -1.
+@see StringParser_Node_Text::content
+"
+      end
+
+      operation 142978 "appendText"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "text" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Append text to content
+
+@access ${visibility}
+@param ${t0} ${p0} The text to append
+@see StringParser_Node_Text::content
+"
+      end
+
+      operation 143106 "setFlag"
+	public explicit_return_type ""
+	nparams 2
+	  param in name "name" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set a flag
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the flag
+@param ${t1} ${p1} The value of the flag
+"
+      end
+
+      operation 143234 "getFlag"
+	public explicit_return_type ""
+	nparams 3
+	  param in name "flag" explicit_type "string"
+	  param in name "type" explicit_type "string"
+	    defaultvalue "'mixed'"
+	  param in name "default" explicit_type "mixed"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get Flag
+
+@access ${visibility}
+@param ${t0} ${p0} The requested flag
+@param ${t1} ${p1} The requested type of the return value
+@param ${t2} ${p2} The default return value
+"
+      end
+
+      operation 143362 "_dumpToString"
+	package explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Dump this node to a string
+"
+      end
+    end
+
+    class 129666 "StringParser_BBCode"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+BB code string parser class
+
+@package stringparser
+"
+      classrelation 128898 // <generalisation>
+	relation 128898 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128898 // <generalisation>
+	  b parent class_ref 129154 // StringParser
+      end
+
+      attribute 134146 "_parserMode"
+	protected explicit_type "int"
+	init_value " STRINGPARSER_MODE_SEARCH"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+String parser mode
+
+The BBCode string parser works in search mode
+
+@access ${visibility}
+@var ${type}
+@see STRINGPARSER_MODE_SEARCH, STRINGPARSER_MODE_LOOP
+"
+      end
+
+      attribute 134274 "_codes"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Defined BB Codes
+
+The registered BB codes
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 134402 "_parsers"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Registered parsers
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 134530 "_maxOccurrences"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Defined maximum occurrences
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 134658 "_rootContentType"
+	protected explicit_type "string"
+	init_value " 'block'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Root content type
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 134786 "_noOutput"
+	protected explicit_type "bool"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Do not output but return the tree
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 134914 "_caseSensitive"
+	protected explicit_type "bool"
+	init_value " true"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Global setting: case sensitive
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 135042 "_rootParagraphHandling"
+	protected explicit_type "bool"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Root paragraph handling enabled
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 135170 "_paragraphHandling"
+	protected explicit_type "array"
+	init_value " array (
+		'detect_string' => \"\\n\\n\",
+		'start_tag' => '<p>',
+		'end_tag' => \"</p>\\n\"
 	)"
 	cpp_decl ""
 	java_decl ""
@@ -1521,9 +2049,1532 @@ Table de donnée utilisé par Post
 	mysql_decl ""
 	MysqlColumn
 	comment "
-Attributs
-
+Paragraph handling parameters
+@access ${visibility}
 @var ${type}
+"
+      end
+
+      attribute 135298 "_mixedAttributeTypes"
+	private explicit_type "bool"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Allow mixed attribute types (e.g. [code=bla attr=blub])
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 135426 "_validateAgain"
+	protected explicit_type "bool"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Whether to call validation function again (with $action == 'validate_auto') when closetag comes
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      operation 143490 "addCode"
+	public explicit_return_type "bool"
+	nparams 7
+	  param in name "name" explicit_type "string"
+	  param in name "callback_type" explicit_type "string"
+	  param in name "callback_func" explicit_type "string"
+	  param in name "callback_params" explicit_type "array"
+	  param in name "content_type" explicit_type "string"
+	  param in name "allowed_within" explicit_type "array"
+	  param in name "not_allowed_within" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}, ${p4}${v4}, ${p5}${v5}, ${p6}${v6}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Add a code
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the code
+@param ${t1} ${p1} See documentation
+@param ${t2} ${p2} The callback function to call
+@param ${t3} ${p3} The callback parameters
+@param ${t4} ${p4} See documentation
+@param ${t5} ${p5} See documentation
+@param ${t6} ${p6} See documentation
+@return ${type}
+"
+      end
+
+      operation 143618 "removeCode"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "name" explicit_type "$name"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Remove a code
+
+@access ${visibility}
+@param ${t0} The code to remove
+@return ${type}
+"
+      end
+
+      operation 143746 "removeAllCodes"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Remove all codes
+
+@access ${visibility}
+"
+      end
+
+      operation 143874 "setCodeFlag"
+	public explicit_return_type "bool"
+	nparams 3
+	  param in name "name" explicit_type "string"
+	  param in name "flag" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set a code flag
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the code
+@param ${t1} ${p1} The name of the flag to set
+@param ${t2} ${p2} The value of the flag to set
+@return ${type}
+"
+      end
+
+      operation 144002 "setOccurrenceType"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "code" explicit_type "string"
+	  param in name "type" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set occurrence type
+
+Example:
+  $bbcode->setOccurrenceType ('url', 'link');
+  $bbcode->setMaxOccurrences ('link', 4);
+Would create the situation where a link may only occur four
+times in the hole text.
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the code
+@param ${t1} ${p1} The name of the occurrence type to set
+@return ${type}
+"
+      end
+
+      operation 144130 "setMaxOccurrences"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "type" explicit_type "string"
+	  param in name "count" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set maximum number of occurrences
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the occurrence type
+@param ${t1} ${p1} The maximum number of occurrences
+@return ${type}
+"
+      end
+
+      operation 144258 "addParser"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "type" explicit_type "string"
+	  param in name "parser" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Add a parser
+
+@access ${visibility}
+@param ${t0} ${p0} The content type for which the parser is to add
+@param ${t1} ${p1} The function to call
+@return ${type}
+"
+      end
+
+      operation 144386 "setRootContentType"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "content_type" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set root content type
+
+@access ${visibility}
+@param ${t0} ${p0} The new root content type
+"
+      end
+
+      operation 144514 "setRootParagraphHandling"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "enabled" explicit_type "bool"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set paragraph handling on root element
+
+@access ${visibility}
+@param ${t0} ${p0} The new status of paragraph handling on root element
+"
+      end
+
+      operation 144642 "setParagraphHandlingParameters"
+	public explicit_return_type ""
+	nparams 3
+	  param in name "detect_string" explicit_type "string"
+	  param in name "start_tag" explicit_type "string"
+	  param in name "end_tag" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set paragraph handling parameters
+
+@access ${visibility}
+@param ${t0} ${p0} The string to detect
+@param ${t1} ${p1} The replacement for the start tag (e.g. <p>)
+@param ${t2} ${p2} The replacement for the start tag (e.g. </p>)
+"
+      end
+
+      operation 144770 "setGlobalCaseSensitive"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "caseSensitive" explicit_type "bool"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set global case sensitive flag
+
+If this is set to true, the class normally is case sensitive, but
+the case_sensitive code flag may override this for a single code.
+
+If this is set to false, all codes are case insensitive.
+
+@access ${visibility}
+@param ${t0} ${p0}
+"
+      end
+
+      operation 144898 "globalCaseSensitive"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get global case sensitive flag
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 145026 "setMixedAttributeTypes"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "mixedAttributeTypes" explicit_type "bool"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set mixed attribute types flag
+
+If set, [code=val1 attr=val2] will cause 2 attributes to be parsed:
+'default' will have value 'val1', 'attr' will have value 'val2'.
+If not set, only one attribute 'default' will have the value
+'val1 attr=val2' (the default and original behaviour)
+
+@access ${visibility}
+@param ${t0} ${p0}
+"
+      end
+
+      operation 145154 "mixedAttributeTypes"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get mixed attribute types flag
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 145282 "setValidateAgain"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "validateAgain" explicit_type "bool"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set validate again flag
+
+If this is set to true, the class calls the validation function
+again with $action == 'validate_again' when closetag comes.
+
+@access ${visibility}
+@param ${t0} ${p0}
+"
+      end
+
+      operation 145410 "validateAgain"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get validate again flag
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 145538 "getCodeFlag"
+	public explicit_return_type "bool"
+	nparams 4
+	  param in name "name" explicit_type "string"
+	  param in name "flag" explicit_type "string"
+	  param in name "type" explicit_type "string"
+	    defaultvalue "'mixed'"
+	  param in name "default" explicit_type "mixed"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get a code flag
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the code
+@param ${t1} ${p1} The name of the flag to get
+@param ${t2} ${p2} The type of the return value
+@param ${t3} ${p3} The default return value
+@return ${type}
+"
+      end
+
+      operation 145666 "_setStatus"
+	protected explicit_return_type ""
+	nparams 1
+	  param in name "status" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set a specific status
+@access ${visibility}
+"
+      end
+
+      operation 145794 "_appendText"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param in name "text" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method Append text depending on current status
+@access ${visibility}
+@param ${t0} ${p0} The text to append
+@return ${type} On success, the function returns true, else false
+"
+      end
+
+      operation 145922 "_reparseAfterCurrentBlock"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Restart parsing after current block
+
+To achieve this the current top stack object is removed from the
+tree. Then the current item
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 146050 "_applyParsers"
+	package explicit_return_type ""
+	nparams 2
+	  param in name "type" explicit_type ""
+	  param in name "text" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Apply parsers
+"
+      end
+
+      operation 146178 "_handleStatus"
+	protected explicit_return_type "bool"
+	nparams 2
+	  param in name "status" explicit_type "int"
+	  param in name "needle" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Handle status
+@access ${visibility}
+@param ${t0} ${p0} The current status
+@param ${t1} ${p1} The needle that was found
+@return ${type}
+"
+      end
+
+      operation 146306 "_openElement"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param in name "type" explicit_type ""
+	    defaultvalue "0"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Open the next element
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 146434 "_isCloseable"
+	protected explicit_return_type "bool"
+	nparams 2
+	  param in name "name" explicit_type ""
+	  param inout name "closecount" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, & ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Is a node closeable?
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 146562 "_validateCloseTags"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param in name "closecount" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Revalidate codes when close tags appear
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 146690 "_isOpenable"
+	protected explicit_return_type "bool"
+	nparams 2
+	  param in name "name" explicit_type ""
+	  param inout name "closecount" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, & ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Is a node openable?
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 146818 "_isOpenableWithClose"
+	protected explicit_return_type "bool"
+	nparams 2
+	  param in name "name" explicit_type ""
+	  param inout name "closecount" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, & ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Is a node openable by closing other nodes?
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 146946 "_closeRemainingBlocks"
+	protected explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method: Close remaining blocks
+@access ${visibility}
+"
+      end
+
+      operation 147074 "_findNamedNode"
+	protected explicit_return_type "mixed"
+	nparams 2
+	  param in name "name" explicit_type ""
+	  param in name "searchdeeper" explicit_type ""
+	    defaultvalue "false"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Find a node with a specific name in stack
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 147202 "_outputTree"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method: Output tree
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 147330 "_outputNode"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param inout name "node" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Output a node
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 147458 "_modifyTree"
+	protected explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Abstract method: Manipulate the tree
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 147586 "_handleParagraphs"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param inout name "node" explicit_type "object"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Handle paragraphs
+@access ${visibility}
+@param ${t0} ${p0} The node to handle
+@return ${type}
+"
+      end
+
+      operation 147714 "_hasParagraphAncestor"
+	protected explicit_return_type "bool"
+	nparams 1
+	  param inout name "node" explicit_type "object"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Search for a paragraph node in tree in upward direction
+@access ${visibility}
+@param ${t0} ${p0} The node to analyze
+@return ${type}
+"
+      end
+
+      operation 147842 "_breakupNodeByParagraphs"
+	protected explicit_return_type "array"
+	nparams 1
+	  param inout name "node" explicit_type "object"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}& ${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Break up nodes
+@access ${visibility}
+@param ${t0} ${p0} The node to break up
+@return ${type}
+"
+      end
+
+      operation 147970 "_isUseContent"
+	protected explicit_return_type "bool"
+	nparams 2
+	  param inout name "node" explicit_type "object"
+	  param in name "check_attrs" explicit_type "bool"
+	    defaultvalue "false"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}& ${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Is this node a usecontent node
+@access ${visibility}
+@param ${t0} ${p0} The node to check
+@param ${t1} ${p1} Also check whether 'usecontent?'-attributes exist
+@return ${type}
+"
+      end
+
+      operation 148098 "_getCanonicalName"
+	protected explicit_return_type "string"
+	nparams 1
+	  param in name "name" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get canonical name of a code
+
+@access ${visibility}
+@param ${t0} ${p0}
+@return ${type}
+"
+      end
+    end
+
+    class 129794 "StringParser_BBCode_Node_Paragraph"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+BBCode String parser paragraph node class
+
+@package stringparser
+"
+      classrelation 129026 // <generalisation>
+	relation 129026 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 129026 // <generalisation>
+	  b parent class_ref 129282 // StringParser_Node
+      end
+
+      attribute 135554 "_type"
+	protected explicit_type "int"
+	init_value " STRINGPARSER_BBCODE_NODE_PARAGRAPH"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+The type of this node.
+
+This node is a bbcode paragraph node.
+
+@access ${visibility}
+@var ${type}
+@see STRINGPARSER_BBCODE_NODE_PARAGRAPH
+"
+      end
+
+      operation 148226 "matchesCriterium"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "criterium" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Determines whether a criterium matches this node
+
+@access ${visibility}
+@param ${t0} ${p0} The criterium that is to be checked
+@param ${t1} ${p1} The value that is to be compared
+@return ${type} True if this node matches that criterium
+"
+      end
+    end
+
+    class 129922 "StringParser_BBCode_Node_Element"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+BBCode String parser element node class
+
+@package stringparser
+"
+      classrelation 129154 // <generalisation>
+	relation 129154 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 129154 // <generalisation>
+	  b parent class_ref 129282 // StringParser_Node
+      end
+
+      attribute 135682 "_type"
+	protected explicit_type "int"
+	init_value " STRINGPARSER_BBCODE_NODE_ELEMENT"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+The type of this node.
+
+This node is a bbcode element node.
+
+@access ${visibility}
+@var ${type}
+@see STRINGPARSER_BBCODE_NODE_ELEMENT
+"
+      end
+
+      attribute 135810 "_name"
+	protected explicit_type "string"
+	init_value " ''"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Element name
+
+@access ${visibility}
+@var ${type}
+@see StringParser_BBCode_Node_Element::name
+@see StringParser_BBCode_Node_Element::setName
+@see StringParser_BBCode_Node_Element::appendToName
+"
+      end
+
+      attribute 135938 "_flags"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Element flags
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 136066 "_attributes"
+	protected explicit_type "array"
+	init_value " array ()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Element attributes
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 136194 "_hadCloseTag"
+	protected explicit_type "bool"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Had a close tag
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      attribute 136322 "_paragraphHandled"
+	protected explicit_type "bool"
+	init_value " false"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Was processed by paragraph handling
+
+@access ${visibility}
+@var ${type}
+"
+      end
+
+      operation 148354 "duplicate"
+	public explicit_return_type "object"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "////////////////////////////////////////////////
+
+Duplicate this node (but without children / parents)
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 148482 "name"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Retreive name of this element
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 148610 "setName"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "name" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set name of this element
+
+@access ${visibility}
+@param ${t0} ${p0} The new name of the element
+"
+      end
+
+      operation 148738 "appendToName"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "chars" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Append to name of this element
+
+@access ${visibility}
+@param ${t0} ${p0} The chars to append to the name of the element
+"
+      end
+
+      operation 148866 "appendToAttribute"
+	public explicit_return_type ""
+	nparams 2
+	  param in name "name" explicit_type "string"
+	  param in name "chars" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Append to attribute of this element
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the attribute
+@param ${t1} ${p1} The chars to append to the attribute of the element
+"
+      end
+
+      operation 148994 "setAttribute"
+	public explicit_return_type ""
+	nparams 2
+	  param in name "name" explicit_type "string"
+	  param in name "value" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set attribute
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the attribute
+@param ${t1} ${p1} The new value of the attribute
+"
+      end
+
+      operation 149122 "setCodeInfo"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "info" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set code info
+
+@access ${visibility}
+@param ${t0} ${p0} The code info array
+"
+      end
+
+      operation 149250 "attribute"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "name" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get attribute value
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the attribute
+"
+      end
+
+      operation 149378 "setHadCloseTag"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set flag that this element had a close tag
+
+@access ${visibility}
+"
+      end
+
+      operation 149506 "setParagraphHandled"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set flag that this element was already processed by paragraph handling
+
+@access ${visibility}
+"
+      end
+
+      operation 149634 "paragraphHandled"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get flag if this element was already processed by paragraph handling
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 149762 "hadCloseTag"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get flag if this element had a close tag
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 149890 "matchesCriterium"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "criterium" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Determines whether a criterium matches this node
+
+@access ${visibility}
+@param ${t0} ${p0} The criterium that is to be checked
+@param ${t1} ${p1} The value that is to be compared
+@return ${type} True if this node matches that criterium
+"
+      end
+
+      operation 150018 "firstChildIfText"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get first child if it is a text node
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 150146 "lastChildIfText"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get last child if it is a text node AND if this element had a close tag
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 150274 "findNextAdjentTextNode"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Find next adjent text node after close tag
+
+returns the node or null if none exists
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 150402 "findPrevAdjentTextNode"
+	public explicit_return_type "mixed"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Find previous adjent text node before open tag
+
+returns the node or null if none exists
+
+@access ${visibility}
+@return ${type}
+"
+      end
+
+      operation 150530 "_findPrevAdjentTextNodeHelper"
+	package explicit_return_type ""
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function &${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Helper function for findPrevAdjentTextNode
+
+Looks at the last child node; if it's a text node, it returns it,
+if the element node did not have an open tag, it calls itself
+recursively.
+"
+      end
+
+      operation 150658 "getFlag"
+	public explicit_return_type "mixed"
+	nparams 3
+	  param in name "flag" explicit_type "string"
+	  param in name "type" explicit_type "string"
+	    defaultvalue "'mixed'"
+	  param in name "default" explicit_type "mixed"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get Flag
+
+@access ${visibility}
+@param ${t0} ${p0} The requested flag
+@param ${t1} ${p1} The requested type of the return value
+@param ${t2} ${p2} The default return value
+@return ${type}
+"
+      end
+
+      operation 150786 "setFlag"
+	public explicit_return_type ""
+	nparams 2
+	  param in name "name" explicit_type "string"
+	  param in name "value" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Set a flag
+
+@access ${visibility}
+@param ${t0} ${p0} The name of the flag
+@param ${t1} ${p1} The value of the flag
+"
+      end
+
+      operation 150914 "validate"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "action" explicit_type "string"
+	    defaultvalue "'validate'"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Validate code
+
+@access ${visibility}
+@param ${t0} ${p0} The action which is to be called ('validate'
+                      for first validation, 'validate_again' for
+                      second validation (optional))
+@return ${type}
+"
+      end
+
+      operation 151042 "getReplacement"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "subcontent" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Get replacement for this code
+
+@access ${visibility}
+@param ${t0} ${p0} The content of all sub-nodes
+@return ${type}
+"
+      end
+
+      operation 151170 "_dumpToString"
+	protected explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Dump this node to a string
+
+@access ${visibility}
+@return ${type}
 "
       end
     end

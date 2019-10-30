@@ -1,10 +1,12 @@
-format 218
-"deconnexion" // Babtouland::view::user::deconnexion
+format 222
+"post" // Babtouland::config::post
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,32 +30,26 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/deconnexion/"
-  deploymentview 137346 "deconnexion"
-    //deployment diagram settings
-    deploymentdiagramsettings
-     end
-    artifact 141314 "page"
-      stereotype "source"
-      php_src "<?php
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/"
+  package_ref 131842 // commentaire_edition
 
-session_destroy();
-session_start();
+  package_ref 131970 // commentaire_publication
 
-$Message=new \\user\\Message(array(
-	'contenu'  => $lang['user_deconnexion_message'],
-	'type'     => \\user\\Message::TYPE_SUCCES,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
+  package_ref 132098 // commentaire_suppression
 
-$_SESSION['message']=serialize($Message);
-header('location: index.php')
+  package_ref 132226 // commentaire_validation_edition
 
-?>"
-      associated_elems
-      end
-    end
-  end
+  package_ref 132354 // edition
+
+  package_ref 132482 // fil_post
+
+  package_ref 132610 // lecture
+
+  package_ref 132738 // publication
+
+  package_ref 132866 // suppression
+
+  package_ref 132994 // validation_edition
+
+  package_ref 133122 // validation_publication
 end

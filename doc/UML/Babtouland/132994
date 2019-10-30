@@ -1,10 +1,12 @@
-format 218
-"liste_user" // Babtouland::view::utile::liste_user
+format 222
+"validation_edition" // Babtouland::config::post::validation_edition
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,111 +30,69 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/utile/liste_user/"
-  deploymentview 138498 "liste_user"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/validation_edition/"
+  deploymentview 132098 "validation_edition"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 143234 "contenu"
-      stereotype "source"
-      php_src "<?php ob_start(); ?>
-	<div id=\"conteneur\">
-		<section class=\"ligne\">
-			<section class=\"colonne\">
-				<section class=\"carte\">
-					<section class=\"contenu\">
-						<table>
-							<caption><?= $lang['utile_liste_user_table_caption'] ?></caption>
-							<thead>
-								<tr>
-									<th><?= $lang['utile_liste_user_table_th_nom'] ?></th>
-									<th><?= $lang['utile_liste_user_table_th_avatar'] ?></th>
-									<th><?= $lang['utile_liste_user_table_th_date_derniere_connexion'] ?></th>
-									<th><?= $lang['utile_liste_user_table_th_date_inscription'] ?></th>
-									<th><?= $lang['utile_liste_user_table_th_role'] ?></th>
-								</tr>
-							</thead>
-							<tbody>
-						<?php
-						$BDDFactory=new \\core\\BDDFactory;
-						$UtilisateurManager=new \\user\\UtilisateurManager($BDDFactory->MysqlConnexion());
-						$attributs=array('pseudo' => 'guest');
-						$operations=array('pseudo' => '!=');
-						$resultats=$UtilisateurManager->getBy($attributs, $operations);
-						foreach ($resultats as $index => $resultat)
-						{
-							$Utilisateur=new \\user\\Utilisateur(array(
-								'id' => $resultat['id'],
-							));
-							$Utilisateur->recuperer();
-							require 'utilisateur.php';
-						}
-						?>
-
-							</tbody>
-						</table>
-					</section>
-				</section>
-			</section>
-		</section>
-	</div>
-<?php $contenu.=ob_get_clean(); ?>"
-      associated_elems
-      end
-    end
-
-    artifact 143362 "page"
+    artifact 136194 "config"
       stereotype "source"
       php_src "<?php
 
-$contenu=$config['default_contenu'];
-require 'contenu.php';
+if(isset($_GET['id']) & isset($_POST['edition_titre']) & isset($_POST['edition_contenu']) & !empty($_GET['id']) & !empty($_POST['edition_titre']) & !empty($_POST['edition_contenu']))
+{
 
-$metas=$config['default_metas'];
-array_push($metas, array(
-	'name'    => 'description',
-	'content' => $lang['utile_liste_user_description'],
-));
+	$BDDFactory=new \\core\\BDDFactory;
+	$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
+	if($PostManager->existId((int)$_GET['id']))
+	{
+		$Post=new \\post\\Post(array(
+			'id' => $_GET['id'],
+			'titre' => $_POST['edition_titre'],
+			'contenu' => $_POST['edition_contenu'],
+			'date_mise_a_jour' => date('Y-m-d H:i:s'),
+		));
+		$Post->recuperer();
+		if(autorisationModification($Post, $this->getPage()->getApplication(), $this->getPage()->getAction()))
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+				'contenu' => $lang['post_validation_edition_message_succes'],
+			));
+			$get=$config['post_validation_edition_lien_succes'].'&id='.$_GET['id'];
+			$Post->mettre_a_jour();
+		}
+		else
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+				'contenu' => $lang['post_validation_edition_message_permission'],
+			));
+			$get=$config['post_edition_lien_erreur_autorisation'].'&id='.$_GET['id'];
+		}
+	}
+	else
+	{
+		$Notification=new \\user\\page\\Notification(array(
+			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+			'contenu' => $lang['post_validation_edition_message_id'],
+		));
+		$get=$config['post_validation_edition_lien_id'];
+	}
+}
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_validation_edition_message_formulaire'],
+	));
+	$get=$config['post_validation_edition_lien_formulaire'];
+}
 
-$css=$config['default_css'];
-array_push($css, 'assets/css/liste.css');
-
-$js=$config['default_javascripts'];
-
-$titre=$lang['utile_liste_user_titre'];
-
-ajouterMenuUp($css, $js, $contenu);
-
-$Visiteur->getPage()->set(array(
-	'template'    => file_get_contents($config['default_template']),
-	'contenu'     => $contenu,
-	'titre'       => $titre,
-	'metas'       => $metas,
-	'css'         => $css,
-	'javascripts' => $js,
-));
+$this->getPage()->envoyerNotificationsSession();
+header('location: index.php'.$get);
 
 ?>"
-      associated_elems
-      end
-    end
-
-    artifact 143490 "utilisateur"
-      stereotype "source"
-      php_src "<?php
-$classe='';
-if ($index%2==1)
-{
-	$classe=' class=\"impair\"';
-}
-?>
-								<tr<?= $classe ?>>
-									<td><?= $Utilisateur->afficherPseudo() ?></td>
-									<td><img src=\"<?= $config['chemin_avatar'] ?><?= $Utilisateur->afficherAvatar() ?>\" alt=\"<?= $lang['utile_liste_user_table_td_avatar_alt'] ?><?= $Utilisateur->afficherPseudo() ?>\"></td>
-									<td><?= $Utilisateur->afficherDate_connexion() ?></td>
-									<td><?= $Utilisateur->afficherDate_inscription() ?></td>
-									<td><?= $Utilisateur->afficherRole() ?></td>
-								</tr>"
       associated_elems
       end
     end

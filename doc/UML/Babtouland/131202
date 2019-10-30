@@ -1,10 +1,12 @@
-format 218
-"validation_edition" // Babtouland::view::post::validation_edition
+format 222
+"menu-up" // Babtouland::config::core::menu-up
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,61 +30,73 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/validation_edition/"
-  deploymentview 136962 "validation_edition"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/core/menu-up/"
+  deploymentview 130562 "menu-up"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 140802 "page"
+    artifact 134658 "config"
       stereotype "source"
       php_src "<?php
 
-$Message=new \\user\\Message(array(
-	'contenu'  => $lang['post_validation_edition_message_formulaire'],
-	'type'     => \\user\\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
+$config['css'][]=$config['menu-up_css'];
+$config['css'][]='assets/css/dropdown.css';
+
+$config['javascripts'][]=$config['menu-up_js'];
+
+$Logo=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].'core/menu-up/logo.html',
+	'fonctions' => $config['path_func'].'core/menu-up/logo.func.php',
+	'elements'  => array(
+		'titre_lien_accueil' => $lang['menu-up_accueil'],
+		'src_logo'           => 'assets/img/icone/icone-transparent.png',
+		'alt_logo'           => $lang['menu-up_altlogo'].$config['nom_site'],
+		'titre_texte'        => $config['nom_site'],
+	),
 ));
-$get=$config['post_validation_edition_lien_formulaire'];
 
-if(isset($_GET['id']) & isset($_POST['edition_titre']) & isset($_POST['edition_contenu']) & !empty($_GET['id']) & !empty($_POST['edition_titre']) & !empty($_POST['edition_contenu']))
-{
-	$Message=new \\user\\Message(array(
-		'contenu'  => $lang['post_validation_edition_message_id'],
-		'type'     => \\user\\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$get=$config['post_validation_edition_lien_id'];
+$DropdownLang=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].'core/menu-up/dropdown.html',
+	'fonctions' => $config['path_func'].'core/menu-up/dropdown.func.php',
+	'elements'  => array(
+		'dropdown_select' => $lang['lang_self']['full'],
+		'dropdown_others' => $lang['lang_others'],
+	),
+));
 
-	$BDDFactory=new \\core\\BDDFactory;
-	$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
-	if($PostManager->existId((int)$_GET['id']))
-	{
-		$Message=new \\user\\Message(array(
+$Avatar=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].'core/menu-up/avatar.html',
+	'fonctions' => $config['path_func'].'core/menu-up/avatar.func.php',
+	'elements'  => array(
+		'lien_avatar' => $config['menu-up_lien-statut'],
+		'lien_titre'  => $Visiteur->afficherPseudo(),
+		'src_avatar'  => 'assets/img/avatar/'.$Visiteur->afficherAvatar(),
+		'alt_avatar'  => $lang['menu-up_avatar'],
+	),
+));
 
-			'contenu'  => $lang['post_validation_edition_message_succes'],
-			'type'     => \\user\\Message::TYPE_SUCCES,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
-		$get=$config['post_validation_edition_lien_succes'].'&id='.$_GET['id'];
-
-		$Post=new \\post\\Post(array(
-			'id' => $_GET['id'],
-			'titre' => $_POST['edition_titre'],
-			'contenu' => $_POST['edition_contenu'],
-			'date_mise_a_jour' => date('Y-m-d H:i:s'),
-		));
-		$Post->mettre_a_jour();
-	}
-}
-
-$_SESSION['message']=serialize($Message);
-header('location: index.php'.$get);
+$MenuUp=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].'core/menu-up/menu-up.html',
+	'fonctions' => $config['path_func'].'core/menu-up/menu-up.func.php',
+	'elements'  => array(
+		'logo'             => $Logo,
+		'liens_grand_ecran' => array(
+			'liens'      => $config['menu-up_liens'],
+			'titres'     => $lang['menu-up_titres'],
+			'items'      => $lang['menu-up_affichages'],
+			'type_ecran' => 'grand-ecran',
+		),
+		'dropdown_lang'    => $DropdownLang,
+		'avatar'           => $Avatar,
+		'menu_petit_ecran' => '<a href=\"#\" class=\"petit-ecran-menu\"><i class=\"material-icons petit-ecran-menu\">menu</i></a>',
+		'liens_petit_ecran' => array(
+			'liens'      => $config['menu-up_liens'],
+			'titres'     => $lang['menu-up_titres'],
+			'items'      => $config['menu-up_icones'],
+			'type_ecran' => 'petit-ecran',
+		),
+	),
+));
 
 ?>"
       associated_elems

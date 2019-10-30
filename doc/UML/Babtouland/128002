@@ -1,10 +1,12 @@
-format 218
+format 222
 "Babtouland" // Babtouland
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -27,15 +31,19 @@ format 218
    end
   
   php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/"
-  deploymentview 134530 "Babtouland"
+  deploymentview 128002 "Babtouland"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 134530 "index"
+    artifact 128002 "index"
       stereotype "source"
       php_src "<?php
 
 session_start();
+
+error_reporting(E_ALL);	// En prod
+
+date_default_timezone_set('UTC');	// On travaillera toujours en UTC (on peut changer pour chaque affichage après plus facilement) ! pas changer (Javascripts)
 
 function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd/
 {
@@ -44,8 +52,7 @@ function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd
 }
 initOutputFilter();
 
-
-require_once 'config/core/config.php';	// Chargement de la configuration par défaut
+require_once 'config/core/config/config.php';	// Chargement de la configuration par défaut
 
 if(isset($_GET['lang']))
 {
@@ -53,23 +60,20 @@ if(isset($_GET['lang']))
 }
 if(isset($_SESSION['lang']))
 {
-	$config['default_lang']=$_SESSION['lang'];
+	$config['lang']=$_SESSION['lang'];
 }
 
-require_once 'config/lang/'.$config['default_lang'].'.php';	// Chargement de la traduction
-require_once 'config/core/bbcode.php';
+require_once 'config/core/lang/'.$config['lang'].'/lang.php';	// Chargement de la traduction
 
 require_once 'func/core/utils.func.php';
-require_once 'func/core/menu-up.func.php';
-require_once 'func/core/toast.func.php';
 spl_autoload_register('loadClass');
 
-$application=$config['default_application'];
-$action=$config['default_action'];
+$application=$config['defaut_application'];
 if(isset($_GET['application']))
 {
 	$application=$_GET['application'];
 }
+$action=$config['defaut_'.$application.'_action'];
 if(isset($_GET['action']))
 {
 	$action=$_GET['action'];
@@ -80,7 +84,7 @@ try
 	{
 		$Visiteur=new \\user\\Visiteur(array(
 			'pseudo' => $_SESSION['pseudo'],
-			'id'     => $_SESSION['id']
+			'id'     => $_SESSION['id'],
 		));
 		if ($Visiteur->Manager()->existId($_SESSION['id']) & $Visiteur->Manager()->exist(array('pseudo' => $_SESSION['pseudo'])))
 		{
@@ -100,37 +104,19 @@ try
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
 	}
-	if($Visiteur->loadPage($application, $action))	// Permission accordée
-	{
-		if(isset($_SESSION['message']))
-		{
-			$Visiteur->getPage()->set(array('message' => unserialize($_SESSION['message'])));
-		}
-		if (!@include_once($Visiteur->getPage()->getPath()))
-		{
-			throw new Exception($lang['erreur_fichier_introuvable']);
-		}
-		else
-		{
-			require $Visiteur->getPage()->getPath();
-		}
-		echo $Visiteur->getPage()->afficher();
-	}
-	else
-	{
-		throw new Exception($lang['erreur_permission_introuvable']);
-	}
+	echo $Visiteur->chargePage($application, $action);
 }
 catch (Exception $e)
 {
-	$Visiteur=new \\user\\Visiteur(array(
-		'pseudo' => $config['nom_guest'],
-	));	// Visiteur avec une \"session invitée\"
-	$Visiteur->recuperer();
-	$Visiteur->connexion($config['mdp_guest']);
-	$Visiteur->loadPage('erreur', 'erreur');
-	require $config['erreur_path'];
-	echo $Visiteur->getPage()->afficher();
+	if (!isset($Visiteur))
+	{
+		$Visiteur=new \\user\\Visiteur(array(
+			'pseudo' => $config['nom_guest'],
+		));	// Visiteur avec une \"session invitée\"
+		$Visiteur->recuperer();
+		$Visiteur->connexion($config['mdp_guest']);
+	}
+	echo $Visiteur->chargePage('erreur', 'erreur');
 }
 
 ?>"
@@ -143,33 +129,7 @@ catch (Exception $e)
 
   package_ref 128386 // classe
 
-  package_ref 129026 // config
+  package_ref 129282 // config
 
-  package_ref 129410 // erreur
-
-  package_ref 129538 // func
-
-  package_ref 129794 // view
-
-  classview 135042 "test"
-    
-    classdiagramsettings member_max_width 0 end
-    
-    collaborationdiagramsettings end
-    
-    objectdiagramsettings end
-    
-    sequencediagramsettings end
-    
-    statediagramsettings
-     end
-    
-    
-    activitydiagramsettings
-     end
-    classdiagram 141186 "test"
-      classdiagramsettings member_max_width 0 end
-      size A0
-    end
-  end
+  package_ref 135298 // func
 end

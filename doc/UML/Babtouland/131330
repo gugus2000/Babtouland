@@ -1,10 +1,12 @@
-format 218
-"validation_publication" // Babtouland::view::post::validation_publication
+format 222
+"toast" // Babtouland::config::core::toast
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,46 +30,41 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/validation_publication/"
-  deploymentview 137090 "validation_publication"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/core/toast/"
+  deploymentview 130690 "toast"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 140930 "page"
+    artifact 134786 "config"
       stereotype "source"
       php_src "<?php
 
-$Message=new \\user\\Message(array(
-	'contenu'  => $lang['post_validation_publication_message_formulaire'],
-	'type'     => \\user\\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$_SESSION['message']=serialize($Message);
-$get=$config['post_validation_publication_retour'];
-if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !empty($_POST['publication_titre']) & !empty($_POST['publication_contenu']))
+$compteur=0;
+foreach ($toast_liens['lien'] as $index => $toast_lien)
 {
-	$Post=new \\post\\Post(array(
-		'id_auteur'        => $Visiteur->getId(),
-		'titre'            => $_POST['publication_titre'],
-		'contenu'          => $_POST['publication_contenu'],
-		'date_publication' => date('Y-m-d H:i:s'),
-		'date_mise_a_jour' => 0,
-	));
-	$Post->publier();
-	$Message=new \\user\\Message(array(
-		'contenu'  => $lang['post_validation_publication_message_succes'],
-		'type'     => \\user\\Message::TYPE_SUCCES,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$_SESSION['message']=serialize($Message);
-	$get=$config['post_validation_publication_suivant'];
+	$page=recuperationApplicationActionLien($toast_lien);
+	if ($Visiteur->getRole()->existPermission($page['application'], $page['action']))
+	{
+		$compteur++;
+	}
 }
+if ($compteur>0)
+{
+	$config['css'][]=$config['toast_css'];
+	$config['javascripts'][]=$config['toast_js'];
 
-header('location: index.php'.$get);
+	$Toast=new \\user\\PageElement(array(
+		'template'  => $config['path_template'].'core/toast/toast.html',
+		'fonctions' => $config['path_func'].'core/toast/toast.func.php',
+		'elements'  => array(
+			'toast_liens' => $toast_liens,
+		),
+	));
+}
+else
+{
+	$Toast='';
+}
 
 ?>"
       associated_elems

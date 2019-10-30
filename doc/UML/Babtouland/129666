@@ -1,10 +1,12 @@
-format 218
-"core" // Babtouland::func::core
+format 222
+"envoyer_message" // Babtouland::config::chat::envoyer_message
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,236 +30,76 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/func/core/"
-  deploymentview 135682 "core"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/chat/envoyer_message/"
+  deploymentview 129154 "envoyer_message"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 138370 "menu-up.func"
+    artifact 133250 "config"
       stereotype "source"
       php_src "<?php
 
-/**
- * Permet de mettre en forme menu-up (version petit écran et garnd écran)
- *
- * @param array liens Liens à afficher
- * 
- * @param array titres Titre des liens à afficher
- * 
- * @pram array items Icones pour les liens sur petit écran et Affichage pour les liens sur grand écran
- * 
- * @param string type_ecran Type de l'écran
- * 
- * @return string
- * @author gugus2000
- **/
-function afficherLiens($liens, $titres, $items, $type_ecran)
+if (isset($_GET['id']))
 {
-	$affichage='';
-	if($type_ecran=='grand-ecran')		// Menu grand écran
+	$id=(int)$_GET['id'];
+	$Conversation=new \\chat\\Conversation(array(
+		'id' => $id,
+	));
+	$date_maintenant=new \\DateTime(date('Y-m-d H:i:s'));
+	$Conversation->recuperer($date_maintenant->format('Y-m-d H:i:s'));
+	$Id_utilisateurs=$Conversation->getId_utilisateurs();
+	$index=0;
+	while (isset($Id_tilisateurs[$index]) & $Id_utilisateurs[$index]==$Visiteur->getId())		// Évite de parcourir toute la liste
 	{
-		foreach ($liens as $index => $lien)
+		$index++;
+	}
+	if ($Id_utilisateurs[$index])
+	{
+		if (isset($_POST['chat_message']))
 		{
-			$affichage.='<a href=\"'.$lien.'\" title=\"'.$titres[$index].'\"><div class=\"saut-ligne\"><br />'.$items[$index].'</div></a>';
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+				'contenu' => $lang['chat_envoyer_message_succes'],
+			));
+			$get=$config['chat_envoyer_message_succes'].'&id='.$_GET['id'];
+			$ChatMessage=new \\chat\\Message(array(
+				'id_conversation' => $id,
+				'id_auteur'       => $Visiteur->getId(),
+				'contenu'         => $_POST['chat_message'],
+				'date_publication' => date('Y-m-d H:i:s'),
+				'date_mise_a_jour' => date('Y-m-d H:i:s'),
+			));
+			$ChatMessage->creer();
+		}
+		else
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+				'contenu' => $lang['chat_envoyer_message_erreur_contenu'],
+			));
+			$get=$config['chat_envoyer_message_erreur_contenu'].'&id='.$_GET['id'];
 		}
 	}
 	else
 	{
-		foreach ($liens as $index => $lien)
-		{
-			$affichage.='<a href=\"'.$lien.'\" title=\"'.$titres[$index].'\" class=\"lien-item\"><i class=\"material-icons\">'.$items[$index].'</i></a>';
-		}
-	}
-	return $affichage;
-}
-
-/**
- * Ajoute le menu-up dans l'objet Page
- *
- * @param array css Css déjà utilisé dans la page
- * 
- * @param array js Js déjà utilisé dans la page
- * 
- * @param string contenu Contenu de la page a afficher (sera après menu-up)
- * 
- * @return void
- * @author gugus2000
- **/
-function ajouterMenuUp(&$css, &$js, &$contenu)
-{
-	global $config, $lang, $Visiteur;
-	array_push($css, $config['menu-up_css']);
-	array_push($js, $config['menu-up_js']);
-	require $config['menu-up_contenu'];
-	$contenu=$Contenu.$contenu;
-}
-
-?>"
-      associated_elems
-      end
-    end
-
-    artifact 138498 "toast.func"
-      stereotype "source"
-      php_src "<?php
-
-/**
- * Ajoute les différents élément au toast
- * 
- * @param array liens Liens à mettre dans le float
- * 
- * @param array icones Icônes à mettre dans le float
- * 
- * @param array descriptions Description des actions des liens du float
- * 
- * @return string
- * @author gugus2000
- **/
-function insererLiens($liens, $icones, $descriptions)
-{
-	$affichage=\"\";
-	foreach ($liens as $index => $lien)
-	{
-		$affichage.='
-			<div class=\"element\">
-				<a href=\"'.$lien.'\" title=\"'.$descriptions[$index].'\"><i class=\"material-icons\">'.$icones[$index].'</i></a>
-			</div>';
-	}
-	return $affichage;
-}
-
-/**
- * Ajoute le toast l'objet Page
- *
- * @param array css Css déjà utilisé dans la page
- * 
- * @param array js Js déjà utilisé dans la page
- * 
- * @param string contenu Contenu de la page a afficher (sera avant le toast)
- * 
- * @param array liens Liens à mettre dans le float
- * 
- * @param array icones Icônes à mettre dans le float
- * 
- * @param array descriptions Description des actions des liens du float
- * 
- * @return void
- * @author gugus2000
- **/
-function ajouterToast(&$css, &$js, &$contenu, $liens, $icones, $descriptions)
-{
-	global $config, $lang, $Visiteur;
-	foreach ($liens as $key => $lien)	// vérifie les permissions des liens
-	{
-		$array=recuperationApplicationActionLien($lien);
-		if(!$Visiteur->getRole()->existPermission($array['application'], $array['action']))
-		{
-			unset($liens[$key]);
-			unset($icones[$key]);
-			unset($descriptions[$key]);
-		}
-	}
-	if(!empty($liens))		// Aucune permission disponible
-	{
-		array_push($css, $config['toast_css']);
-		array_push($js, $config['toast_js']);
-		require $config['toast_contenu'];
-		$contenu.=$Contenu;
+		$Notification=new \\user\\page\\Notification(array(
+			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+			'contenu' => $lang['chat_envoyer_message_erreur_permission'],
+		));
+		$get=$config['chat_envoyer_message_erreur_permission'].'&id='.$_GET['id'];
 	}
 }
-
-?>"
-      associated_elems
-      end
-    end
-
-    artifact 138626 "utils.func"
-      stereotype "source"
-      php_src "<?php
-
-/**
- * Retourne le nom de la classe sans son namespace
- *
- * @param string className Nom de la classe
- * 
- * @return string
- * 
- * @author  pierstoval at gmail dot com
- **/
-function get_class_name($className)
+else
 {
-    if ($pos = strrpos($className, '\\\\')) return substr($className, $pos + 1);
-    return $pos;
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['chat_envoyer_message_erreur_id_conversation'],
+	));
+	$get=$config['chat_envoyer_message_erreur_id_conversation'];
 }
 
-/**
- * Charge la classe de façon dynamique
- * 
- * @param string className Nom de la classe
- *
- * @return void
- * 
- * @author  dave at shax dot com
- **/
-function loadClass($className)
-{
-	$fileName = '';
-	$namespace = '';
-
-	$includePath = 'classe';
-
-	if (false !== ($lastNsPos = strripos($className, '\\\\')))
-	{
-			$namespace = substr($className, 0, $lastNsPos);
-			$className = substr($className, $lastNsPos + 1);
-			$fileName = str_replace('\\\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-	}
-	$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.class.php';
-	$fullFileName = $includePath . DIRECTORY_SEPARATOR . $fileName;
-
-	if (file_exists($fullFileName))
-	{
-		require_once $fullFileName;
-	}
-	else
-	{
-		throw new Exception('Class \"'.$className.'\" does not exist.');
-	}
-}
-
-/**
- * Retourne l'action et l'application du lien
- *
- * @param string lien Lien à déchiffrer
- * 
- * @return array
- * @author gugus2000
- **/
-function recuperationApplicationActionLien($lien)
-{
-	preg_match('#application=(\\S+)&action=([^&.]+)[&.=.]*#', $lien, $matches);
-	$array['application']=$matches[1];
-	$array['action']=$matches[2];
-	return $array;
-}
-
-/**
- * Vérifie l'autorisation pour l'édition ou la suppression d'un objet
- *
- * @param mixed Objet Objet qui va être modifié
- * 
- * @param string application Application de la page
- * 
- * @param string action Action de la page
- * 
- * @return bool
- * @author gugus2000
- **/
-function autorisationModification($Objet, $application, $action)
-{
-	global $Visiteur, $config;
-	return ($Objet->recupererAuteur()->getPseudo()==$Visiteur->getPseudo() | $Visiteur->getRole()->existPermission($config[$application.'_'.$action.'_admin_application'], $config[$application.'_'.$action.'_admin_action']));
-}
+$this->getPage()->envoyerNotificationsSession();
+header('location: index.php'.$get);
 
 ?>"
       associated_elems

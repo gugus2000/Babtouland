@@ -1,10 +1,12 @@
-format 218
-"edition" // Babtouland::view::user::edition
+format 222
+"commentaire_edition" // Babtouland::config::post::commentaire_edition
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,99 +30,75 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/edition/"
-  deploymentview 137474 "edition"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/commentaire_edition/"
+  deploymentview 130946 "commentaire_edition"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 141442 "contenu"
+    artifact 135042 "config"
       stereotype "source"
       php_src "<?php
 
-$checked='';
-if($Utilisateur->getBanni())
+if(!isset($_GET['id']))
 {
-	$checked=' checked=\"\"';
+	$_SESSION['message']=$lang['post_commentaire_edition_message_erreur_id'];
+	header('location: index.php'.$config['post_commentaire_edition_lien_erreur_id']);
+	exit();
+}
+$BDDFactory=new \\core\\BDDFactory;
+$CommentaireManager=new \\post\\CommentaireManager($BDDFactory->MysqlConnexion());
+if(!$CommentaireManager->existId((int)$_GET['id']))
+{
+	$_SESSION['message']=$lang['post_commentaire_edition_message_erreur_existe'];
+	header('location: index.php'.$config['post_commentaire_edition_lien_erreur_existe']);
+	exit();
+}
+$id=$_GET['id'];
+
+$Commentaire=new \\post\\Commentaire(array(
+	'id' => $id,
+));
+$Commentaire->recuperer();
+
+if(!autorisationModification($Commentaire, $application, $action))
+{
+	$_SESSION['message']=$lang['post_commentaire_edition_message_erreur_autorisation'];
+	header('location: index.php'.$config['post_commentaire_edition_lien_erreur_autorisation'].'&id='.$id);
+	exit();
 }
 
-?>
-<?php ob_start(); ?>
-	<div id=\"conteneur\">
-		<section class=\"ligne\">
-			<section class=\"ligne\">
-				<section class=\"carte\">
-					<section class=\"contenu\">
-						<div class=\"formulaire\">
-							<form enctype=\"multipart/form-data\" action=\"<?= $config['user_edition_action'] ?>\" method=\"POST\" accept-charset=\"utf-8\">
-								<fieldset>
-									<legend><?= $lang['user_edition_legend'] ?><?= $Utilisateur->afficherPseudo() ?></legend>
-									<label for=\"edition_avatar\"><?= $lang['user_edition_label_avatar'] ?></label>
-									<input type=\"file\" name=\"edition_avatar\" value=\"<?= $Utilisateur->afficherAvatar() ?>\"><br />
-									<label for=\"edition_mail\"><?= $lang['user_edition_label_mail'] ?></label>
-									<input type=\"text\" name=\"edition_mail\" value=\"<?= $Visiteur->afficherMail() ?>\"><br />
-									<?php
-									if($admin)
-									{
-										?>
-									<label for=\"edition_banni\"><?= $lang['user_edition_label_banni'] ?></label>
-									<input type=\"checkbox\" name=\"edition_banni\" value=\"oui\"<?= $checked ?>><br />
-										<?php
-									}
-									?>
-									<input type=\"submit\" value=\"<?= $lang['user_edition_submit'] ?>\">
-								</fieldset>
-							</form>
-						</div>
-					</section>
-				</section>
-			</section>
-		</section>
-	</div>
-<?php $contenu=ob_get_clean(); ?>"
-      associated_elems
-      end
-    end
-
-    artifact 141570 "page"
-      stereotype "source"
-      php_src "<?php
-
-$admin=False;
-$Utilisateur=$Visiteur;
-if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))
-{
-	$admin=True;
-	$Utilisateur=new \\user\\Utilisateur(array(
-		'id' => $_GET['id'],
-	));
-	$Utilisateur->recuperer();
-	$config['user_edition_action']=$config['user_edition_action'].'&id='.$_GET['id'];
-}
-
-$contenu=$config['default_contenu'];
-require 'contenu.php';
-
-$metas=$config['default_metas'];
-array_push($metas, array(
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 	'name'    => 'description',
-	'content' => $lang['user_edition_description'],
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
 ));
 
-$css=$config['default_css'];
-array_push($css, 'assets/css/formulaire.css');
-
-$js=$config['default_javascripts'];
-
-ajouterMenuUp($css, $js, $contenu);
-
-$Visiteur->getPage()->set(array(
-	'template'    => file_get_contents($config['default_template']),
-	'contenu'     => $contenu,
-	'titre'       => $lang['user_edition_titre'],
-	'metas'       => $metas,
-	'css'         => $css,
-	'javascripts' => $js,
+$Contenu=new \\user\\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'elements' => array(
+		'action'        => $config['post_commentaire_edition_formulaire_action'].'&id='.$Commentaire->afficherId(),
+		'legend'        => $lang['post_commentaire_edition_formulaire_legend'],
+		'label_contenu' => $lang['post_commentaire_edition_formulaire_contenu'],
+		'contenu'       => $Commentaire->afficherContenu(),
+		'submit'        => $lang['post_commentaire_edition_formulaire_submit'],
+	),
 ));
+
+$Formulaire=new \\user\\page\\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+
+$Contenu=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'elements'  => array(
+		'formulaire' => $Formulaire,
+	),
+));
+
+$Carte=new \\user\\page\\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$MenuUp=new \\user\\page\\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
+$Corps=new \\user\\page\\Corps($MenuUp, $Carte, '');
+
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>"
       associated_elems

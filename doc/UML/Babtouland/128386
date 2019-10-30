@@ -1,10 +1,12 @@
-format 218
+format 222
 "classe" // Babtouland::classe
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -27,11 +31,13 @@ format 218
    end
   
   php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/"
-  package_ref 128514 // core
+  package_ref 128514 // chat
 
-  package_ref 128642 // lib
+  package_ref 128642 // core
 
-  package_ref 128770 // post
+  package_ref 128770 // lib
 
-  package_ref 128898 // user
+  package_ref 128898 // post
+
+  package_ref 129026 // user
 end

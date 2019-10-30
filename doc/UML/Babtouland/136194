@@ -1,0 +1,73 @@
+format 222
+"toast" // Babtouland::func::core::toast
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/func/core/toast/"
+  deploymentview 134658 "toast"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 139138 "toast.func"
+      stereotype "source"
+      php_src "<?php
+
+/**
+ * Ajoute les différents élément au toast
+ * 
+ * @param array liens Liens à mettre dans le toast
+ * 
+ * @return string
+ * @author gugus2000
+ **/
+function toast_liensAfficher($liens)
+{
+	global $Visiteur;
+	$affichage=\"\";
+	foreach ($liens['lien'] as $index => $lien)
+	{
+		$page=recuperationApplicationActionLien($lien);
+		if ($Visiteur->getRole()->existPermission($page['application'], $page['action']))
+		{
+			$affichage.='
+				<div class=\"element\">
+					<a href=\"'.$lien.'\" title=\"'.$liens['description'][$index].'\"><i class=\"material-icons\">'.$liens['icone'][$index].'</i></a>
+				</div>';
+		}
+	}
+	return $affichage;
+}
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

@@ -1,10 +1,12 @@
-format 218
-"utile" // Babtouland::view::utile
+format 222
+"publication" // Babtouland::config::post::publication
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,10 +30,51 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/utile/"
-  package_ref 132866 // a_propos
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/publication/"
+  deploymentview 131842 "publication"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 135938 "config"
+      stereotype "source"
+      php_src "<?php
 
-  package_ref 132994 // liste_user
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+	'name'    => 'description',
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+));
 
-  package_ref 133122 // mail
+$Contenu=new \\user\\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'elements' => array(
+		'action'        => $config['post_publication_action'],
+		'legend'        => $lang['post_publication_legend'],
+		'label_titre'   => $lang['post_publication_titreForm'],
+		'label_contenu' => $lang['post_publication_contenu'],
+		'submit'        => $lang['post_publication_submit'],
+	),
+));
+
+$Formulaire=new \\user\\page\\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+
+$Contenu=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'elements'  => array(
+		'formulaire' => $Formulaire,
+	),
+));
+
+$Carte=new \\user\\page\\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+$MenuUp=new \\user\\page\\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
+$Corps=new \\user\\page\\Corps($MenuUp, $Carte, '');
+
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
+
+?>"
+      associated_elems
+      end
+    end
+  end
 end

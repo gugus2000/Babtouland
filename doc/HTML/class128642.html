@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class LiaisonManager</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class LiaisonManager</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_128642"></a>
+<p>Manager d'une table de liaison entre deux autres tables de données<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class LiaisonManager </li></ul><p>Directly inherited by : <a href="class128514.html#ref4_128514"><b>LiaisonConversationUtilisateur</b></a> </p>
+<p>Artifact : <a href="index.html#ref8_129154"><b>LiaisonManager.class</b></a></p>
+<div class="sub">
+<a name="ref2_134402"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Construction du Manager<br /><br />@param PDO bdd Connexion avec la base de donnée<br /><br />@param ??? attributs Liste des attributs de la table déjà connus<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in bdd : PDO) : void</li><li>Php : public function __construct($bdd): void </li></ul><a name="ref1_130178"></a>
+<table><tr><td><div class="element">Attribute <b>bdd</b></div></td></tr></table>
+<p>Attributs <br /><br />Connexion avec la base de donnée<br /><br />@var PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : # bdd : PDO</li><li>Php : protected $bdd</li></ul><a name="ref1_130306"></a>
+<table><tr><td><div class="element">Attribute <b>TABLE</b></div></td></tr></table>
+<p>Constantes <br /><br />Nom de la table lié à l'objet<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ TABLE : string = '', read only</li><li>Php :  const TABLE</li></ul><a name="ref1_130434"></a>
+<table><tr><td><div class="element">Attribute <b>ATTRIBUTES</b></div></td></tr></table>
+<p>Liste de tous les attributs de la table<br /><br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ ATTRIBUTES : array = array(), read only</li><li>Php :  const ATTRIBUTES</li></ul><a name="ref2_134530"></a>
+<table><tr><td><div class="element">Operation <b>getBdd</b></div></td></tr></table><p>Accesseurs <br /><br />Accesseur de bdd<br /><br />@return PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getBdd() : PDO</li><li>Php : public function getBdd(): PDO </li></ul><a name="ref2_134658"></a>
+<table><tr><td><div class="element">Operation <b>setBdd</b></div></td></tr></table><p>Définisseurs <br /><br />Définisseur de bdd<br /><br />@param PDO bdd Connexion à la base de donnée<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setBdd(in bdd : PDO) : void</li><li>Php : protected function setBdd($bdd): void </li></ul><a name="ref2_134786"></a>
+<table><tr><td><div class="element">Operation <b>get</b></div></td></tr></table><p>Autres méthodes <br /><br />Récupère certains attributs de la table<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut<br /><br />@param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs<br /><br />@return array<br /><br /></p><p>Declaration :</p><ul><li>Uml : + get(in attributs : array, in operations : array) : array</li><li>Php : public function get($attributs, $operations): array </li></ul><a name="ref2_134914"></a>
+<table><tr><td><div class="element">Operation <b>addBy</b></div></td></tr></table><p>Ajoute les éléments dans la table avec des paramètres variants et invariants<br /><br />@param array variants Valeurs variantes à chaque élément<br /><br />@param array invariants Valeurs invariantes communes à tous les éléments à ajouter<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + addBy(in variants : array, in invariants : array) : void</li><li>Php : public function addBy($variants, $invariants): void </li></ul><a name="ref2_135042"></a>
+<table><tr><td><div class="element">Operation <b>deleteBy</b></div></td></tr></table><p>Supprime des éléments de la base de données en fonction de paramètres définis<br /><br />@param array attributs Paramètre permettant de déterminer l'élément à supprimer<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + deleteBy(in attributs : array) : void</li><li>Php : public function deleteBy($attributs): void </li></ul></div>
+<p>All public operations : <a href="class128642.html#ref2_134402"><b>__construct</b></a> , <a href="class128642.html#ref2_134914"><b>addBy</b></a> , <a href="class128642.html#ref2_135042"><b>deleteBy</b></a> , <a href="class128642.html#ref2_134786"><b>get</b></a> , <a href="class128642.html#ref2_134530"><b>getBdd</b></a> </p>
+</body>
+</html>

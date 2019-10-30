@@ -1,10 +1,12 @@
-format 218
-"validation_inscription" // Babtouland::view::user::validation_inscription
+format 222
+"fil_post" // Babtouland::config::post::fil_post
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,60 +30,113 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/validation_inscription/"
-  deploymentview 138114 "validation_inscription"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/fil_post/"
+  deploymentview 131586 "fil_post"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 142594 "page"
+    artifact 135682 "config"
       stereotype "source"
       php_src "<?php
 
-$Message=new \\user\\Message(array(
-	'contenu'  => $lang['user_validation_inscription_formulaire'],
-	'type'     => \\user\\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['user_validation_inscription_retour'];
-if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isset($_POST['inscription_mail']) & !empty($_POST['inscription_pseudo']) & !empty($_POST['inscription_mdp']) & !empty($_POST['inscription_mail']))
+require $config['bbcode_config'];
+
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/navigation_nombre.css');
+
+$page=$config['post_fil_post_default_page'];
+if(isset($_GET['page']))
 {
-	$Message=new \\user\\Message(array(
-		'contenu'  => $lang['user_validation_inscription_pseudo'],
-		'type'     => \\user\\Message::TYPE_ERREUR,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
-	));
-	$UtilisateurManager=$Visiteur->Manager();	// ($Visiteur existe déjà)
-	if(!$UtilisateurManager->exist(array('pseudo' => $_POST['inscription_pseudo'])))	// Le pseudo n'est pas déjà pris
+	$page=(int)$_GET['page'];
+}
+
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+	'name'    => 'description',
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+));
+
+$bbcode=CreateBBcode();
+
+$BDDFactory=new \\core\\BDDFactory;
+$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
+$nbr_post=$PostManager->count();
+
+$liste_navigation=[];
+for ($numero_page=1; $numero_page <= $nbr_post/$config['post_fil_post_nombre_posts']; $numero_page++)
+{ 
+	if ($numero_page==$page)
 	{
-		$newVisiteur=new \\user\\Visiteur(array(
-			'pseudo'           => $_POST['inscription_pseudo'],
-			'avatar'           => $config['default_avatar'],
-			'date_inscription' => date('Y-m-d H:i:s'),
-			'date_connexion'   => date('Y-m-d H:i:s'),
-			'banni'            => $config['default_banni'],
-			'mail'             => $_POST['inscription_mail'],
-		));
-		$newVisiteur->inscription($_POST['inscription_mdp'], $config['default_role']);
-		$newVisiteur->recuperer();
-		$newVisiteur->connexion($_POST['inscription_mdp']);
-		$get=$config['user_validation_inscription_suivant'];
-		$Visiteur=$newVisiteur;
-		$Message=new \\user\\Message(array(
-			'contenu'  => $lang['user_validation_inscription_succes'],
-			'type'     => \\user\\Message::TYPE_SUCCES,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
+		$liste_navigation[]='<span class=\"active\"><li>'.$page.'</li></span>';
+	}
+	else
+	{
+		$liste_navigation[]='<a href=\"?application='.$application.'&action='.$action.'&page='.$numero_page.'title=\"'.$lang['post_filPost_nav_description'].$numero_page.'\"><li>'.$numero_page.'</li></a>';
 	}
 }
 
-$_SESSION['message']=serialize($Message);
-header('location: index.php'.$get);
+$Pagination=new \\user\\PageElement(array(
+	'template' => $config['path_template'].$application.'/'.$action.'/navigation_nombre.html',
+	'elements' => array(
+		'liste_navigation' => $liste_navigation,
+	),
+));
+
+$liste_post=[];
+for ($position_post=$config['post_fil_post_position_debut']; $position_post < $config['post_fil_post_nombre_posts']; $position_post++)
+{
+	$position_vraie=$page*$config['post_fil_post_nombre_posts']-($config['post_fil_post_nombre_posts']-$position_post);	// Calcul de la position du Post
+	$Post=new \\post\\Post(array(
+		'id' => $PostManager->getIdByPos($position_vraie, $config['post_fil_post_tri']),
+	));
+	if($PostManager->existId($Post->getId()))
+	{
+		$Post->recuperer();
+		$PostElement=new \\user\\PageElement(array(
+			'template' => $config['path_template'].$application.'/'.$action.'/post.html',
+			'elements' => array(
+				'titre'               => $Post->afficherTitre(),
+				'date_publication'    => $Post->afficherDate_publication(),
+				'presentation_auteur' => $lang['post_fil_post_auteur_presentation'],
+				'auteur_lien_href'    => $config['post_fil_post_lien_auteur'].'&id='.$Post->recupererAuteur()->afficherId(),
+				'auteur_lien_title'   => $lang['post_fil_post_lien_auteur_titre'],
+				'auteur'              => $Post->recupererAuteur()->afficherPseudo(),
+				'contenu'             => $bbcode->parse($Post->afficherContenu()),
+				'post_lien_href'      => $config['post_fil_post_lien_detail'].'&id='.$Post->afficherId(),
+				'post_lien_title'     => $lang['post_fil_post_lien_detail_titre'],
+				'post_lien'           => $lang['post_fil_post_detail'],
+			),
+		));
+		$liste_post[]=$PostElement;
+	}
+}
+
+$Contenu=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'elements'  => array(
+		'liste_post' => $liste_post,
+		'pagination' => $Pagination,
+	),
+));
+
+$toast_liens=array(
+	'lien'        => array($config['post_fil_post_lien_publication']),
+	'description' => array($lang['post_fil_post_publication']),
+	'icone'       => array('add'),
+);
+
+if(verifLiens($Visiteur, $toast_liens['lien']))
+{
+	$Toast=new \\user\\page\\Toast($toast_liens, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+}
+else
+{
+	$Toast='';
+}
+$MenuUp=new \\user\\page\\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
+$Corps=new \\user\\page\\Corps($MenuUp, $Contenu, $Toast);
+
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
 ?>"
       associated_elems

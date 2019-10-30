@@ -1,10 +1,12 @@
-format 218
-"lecture" // Babtouland::view::post::lecture
+format 222
+"lang" // Babtouland::config::core::lang
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,166 +30,8 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/lecture/"
-  deploymentview 136578 "lecture"
-    //deployment diagram settings
-    deploymentdiagramsettings
-     end
-    artifact 140034 "commentaire"
-      stereotype "source"
-      php_src "					<?php
-					$Auteur=$Commentaire->recupererAuteur();
-					?>
-					<section class=\"espace_colonne\">
-						
-					</section>
-					<section class=\"carte\">
-						<?php
-						if(autorisationModification($Commentaire, 'post', 'commentaire_suppression'))
-						{
-							?>
-							<a class='suppression' href=\"<?= $config['post_lecture_lien_commentaire_suppression'] ?>&id=<?= $Commentaire->afficherId() ?>\" title=\"<?= $lang['post_lecture_lien_commentaire_suppression_titre'] ?>\"><i class=\"material-icons petit-ecran-menu\">close</i></a>
-							<a class=\"edition\" href=\"<?= $config['post_lecture_lien_commentaire_edition'] ?>&id=<?= $Commentaire->afficherId() ?>\" title=\"<?= $lang['post_lecture_lien_commentaire_edition_titre'] ?>\"><i class=\"material-icons petit-ecran-menu\">edit</i></a>
-							<?php
-						}
-						?>
-						<section class=\"contenu commentaire\">
-							<section class=\"ligne\">
-								<div class=\"colonne cote_gauche\">
-									<i class=\"date_publication\"><?= $Commentaire->afficherDate_publication() ?></i>
-									<a href=\"<?= $config['post_lecture_lien_auteur'] ?>&id=<?= $Auteur->afficherId() ?>\" title=\"<?= $lang['post_lecture_commentaire_lien_avatar_titre'] ?><?= $Auteur->afficherPseudo() ?>\"><img src=\"<?= $config['chemin_avatar'] ?><?= $Auteur->afficherAvatar() ?>\" alt=\"<?= $lang['post_lecture_commentaire_avatar_description'] ?><?= $Auteur->afficherPseudo() ?>\"></a>	
-								</div>
-								<div class=\"colonne cote_droit\">
-									<div class=\"contenu\"><?= $bbcode->parse($Commentaire->afficherContenu()) ?></div>
-								</div>
-							</section>
-						</section>
-					</section>"
-      associated_elems
-      end
-    end
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/core/lang/"
+  package_ref 130946 // EN
 
-    artifact 140162 "contenu"
-      stereotype "source"
-      php_src "<?php
-
-$Post=new \\post\\Post(array(
-	'id' => $id,
-));
-$Post->recuperer();
-
-?>
-<?php ob_start(); ?>
-	<div id=\"conteneur\">
-		<section class=\"ligne\">
-			<section class=\"colonne\">
-				<section class=\"carte\">
-					<section class=\"contenu\">
-						<h1><?= $Post->afficherTitre() ?></h1>
-						<i class=\"date_publication\"><?= $Post->afficherDate_publication() ?></i>
-						<br />
-						<i class=\"auteur\"><?= $lang['post_lecture_auteur_presentation'] ?><a href=\"<?= $config['post_lecture_lien_auteur'] ?>&id=<?= $Post->recupererAuteur()->afficherId() ?>\" title=\"<?= $lang['post_lecture_lien_auteur_titre'] ?>\"><?= $Post->recupererAuteur()->afficherPseudo() ?></a></i>
-						<br />
-						<br />
-						<br />
-						<div class=\"contenu\"><?= $bbcode->parse($Post->afficherContenu()) ?></div>
-						<br />
-					</section>
-				</section>
-				<?php
-
-				$Commentaires=$Post->recupererCommentaires();
-				foreach ($Commentaires as $index => $Commentaire)
-				{
-					require 'commentaire.php';
-				}
-
-				?>
-				<?php
-				$array=recuperationApplicationActionLien($config['post_lecture_publication_commentaire']);
-				if($Visiteur->getRole()->existPermission($array['application'], $array['action']))		// L'utilisateur a la permission de publier un commentaire
-				{
-					?>
-				<section class=\"espace_colonne\">
-					
-				</section>
-				<section class=carte>
-					<section class=\"contenu\">
-						<section class=\"formulaire\">
-							<form action=\"<?= $config['post_lecture_publication_commentaire'] ?>&id=<?= $Post->afficherId() ?>\" method=\"POST\" accept-charset=\"utf-8\">
-								<fieldset>
-									<legend><?= $lang['post_lecture_legend'] ?></legend>
-									<label for=\"commentaire_contenu\"><?= $lang['post_lecture_commentaire_contenu'] ?></label>
-									<textarea name=\"commentaire_contenu\"></textarea><br />
-									<input type=\"submit\" value=\"<?= $lang['post_lecture_commentaire_submit'] ?>\">
-								</fieldset>
-							</form>
-						</section>
-					</section>
-				</section>
-				<?php
-				}
-				?>
-			</section>
-		</section>
-	</div>
-<?php $contenu.=ob_get_clean(); ?>"
-      associated_elems
-      end
-    end
-
-    artifact 140290 "page"
-      stereotype "source"
-      php_src "<?php
-
-$BDDFactory=new \\core\\BDDFactory;
-$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
-$id=$PostManager->getIdByPos(0, 'date_mise_a_jour');
-if(isset($_GET['id']))
-{
-	$id=(int)$_GET['id'];
-}
-
-$bbcode=CreateBBcode();
-
-$contenu=$config['default_contenu'];
-require 'contenu.php';
-
-$metas=$config['default_metas'];
-array_push($metas, array(
-	'name'    => 'description',
-	'content' => $lang['post_lecture_description'],
-));
-
-$css=$config['default_css'];
-array_push($css, 'assets/css/formulaire.css');
-array_push($css, 'assets/css/post.css');
-if(isset($Commentaire))
-{
-	array_push($css, 'assets/css/commentaire.css');
-}
-
-$js=$config['default_javascripts'];
-
-ajouterMenuUp($css, $js, $contenu);
-
-$liens=array($config['post_lecture_lien_mise_a_jour'].'&id='.$id, $config['post_lecture_lien_suppression'].'&id='.$id);
-$icones=array('edit', 'delete');
-$descriptions=array($lang['post_lecture_lien_mise_a_jour'], $lang['post_lecture_lien_suppression']);
-ajouterToast($css, $js, $contenu, $liens, $icones, $descriptions);
-
-$Visiteur->getPage()->set(array(
-	'template'    => file_get_contents($config['default_template']),
-	'contenu'     => $contenu,
-	'titre'       => $lang['post_lecture_titre'].$Post->afficherTitre(),
-	'metas'       => $metas,
-	'css'         => $css,
-	'javascripts' => $js,
-));
-
-?>"
-      associated_elems
-      end
-    end
-  end
+  package_ref 131074 // FR
 end

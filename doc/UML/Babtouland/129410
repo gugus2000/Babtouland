@@ -1,10 +1,12 @@
-format 218
-"erreur" // Babtouland::erreur
+format 222
+"chat" // Babtouland::config::chat
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,63 +30,16 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/erreur/"
-  deploymentview 135554 "erreur"
-    //deployment diagram settings
-    deploymentdiagramsettings
-     end
-    artifact 138114 "contenu"
-      stereotype "source"
-      php_src "<?php ob_start(); ?>
-	<div id=\"conteneur\">
-		<section class=\"ligne\">
-			<section class=\"colonne\">
-				<section class=\"carte\">
-					<section class=\"contenu\">
-						<?= htmlspecialchars($e->getMessage()) ?>
-					</section>
-				</section>
-			</section>
-		</section>
-	</div>
-<?php $contenu.=ob_get_clean(); ?>"
-      associated_elems
-      end
-    end
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/chat/"
+  package_ref 129538 // editer_message
 
-    artifact 138242 "page"
-      stereotype "source"
-      php_src "<?php
+  package_ref 129666 // envoyer_message
 
-$contenu=$config['default_contenu'];
-require 'contenu.php';
+  package_ref 129794 // hub
 
-$metas=$config['default_metas'];
-array_push($metas, array(
-	'name'    => 'description',
-	'content' => $lang['erreur_description'],
-));
+  package_ref 129922 // supprimer_message
 
-$css=$config['default_css'];
+  package_ref 130050 // validation_editer_message
 
-$js=$config['default_javascripts'];
-
-$titre=$lang['erreur_titre'];
-
-ajouterMenuUp($css, $js, $contenu);
-
-$Visiteur->getPage()->set(array(
-	'template'    => file_get_contents($config['default_template']),
-	'contenu'     => $contenu,
-	'titre'       => $titre,
-	'metas'       => $metas,
-	'css'         => $css,
-	'javascripts' => $js,
-));
-
-?>"
-      associated_elems
-      end
-    end
-  end
+  package_ref 130178 // voir_conversation
 end

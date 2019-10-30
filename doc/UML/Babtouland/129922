@@ -1,10 +1,12 @@
-format 218
-"post" // Babtouland::view::post
+format 222
+"supprimer_message" // Babtouland::config::chat::supprimer_message
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,26 +30,76 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/"
-  package_ref 130050 // commentaire_edition
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/chat/supprimer_message/"
+  deploymentview 129410 "supprimer_message"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 133506 "config"
+      stereotype "source"
+      php_src "<?php
 
-  package_ref 130178 // commentaire_publication
+if (isset($_GET['id']))
+{
+	$Message=new \\chat\\Message(array(
+		'id' => $_GET['id'],
+	));
+	$Message->recuperer();
+	$Conversation=new \\chat\\Conversation(array(
+		'id' => $Message->getId_conversation(),
+	));
+	$date_maintenant=new \\DateTime(date('Y-m-d H:i:s'));
+	$Conversation->recuperer($date_maintenant->format('Y-m-d H:i:s'));
+	$Id_utilisateurs=$Conversation->getId_utilisateurs();
+	$index=0;
+	while (isset($Id_utilisateurs[$index]) & $Id_utilisateurs[$index]==$Visiteur->getId())		// Évite de parcourir toute la liste
+	{
+		$index++;
+	}
+	if ($Id_utilisateurs[$index])
+	{
+		if (autorisationModification($Message, $application, $action))
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+				'contenu' => $lang['chat_supprimer_message_succes'],
+			));
+			$get=$config['chat_supprimer_message_succes'].'&id='.$Conversation->afficherId();
+			$Message->supprimer();
+		}
+		else
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+				'contenu' => $lang['chat_supprimer_message_erreur_message_autorisation'],
+			));
+			$get=$config['chat_supprimer_message_erreur_message_autorisation'].'&id='.$Conversation->afficherId();
+		}
+	}
+	else
+	{
+		$Notification=new \\user\\page\\Notification(array(
+			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+			'contenu' => $lang['chat_supprimer_message_erreur_conversation_autorisation'],
+		));
+		$get=$config['chat_supprimer_message_erreur_conversation_autorisation'];
+	}
+}
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['chat_supprimer_message_erreur_id_message'],
+	));
+	$get=$config['chat_supprimer_message_erreur_id_message'];
+}
 
-  package_ref 130306 // commentaire_suppression
+$this->getPage()->envoyerNotificationsSession();
+header('location: index.php'.$get);
 
-  package_ref 130434 // commentaire_validation_edition
-
-  package_ref 130562 // edition
-
-  package_ref 130690 // fil_post
-
-  package_ref 130818 // lecture
-
-  package_ref 130946 // publication
-
-  package_ref 131074 // suppression
-
-  package_ref 131202 // validation_edition
-
-  package_ref 131330 // validation_publication
+?>"
+      associated_elems
+      end
+    end
+  end
 end

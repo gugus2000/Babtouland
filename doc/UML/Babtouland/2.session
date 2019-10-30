@@ -1,12 +1,11 @@
-window_sizes 1600 877 375 1220 748 83
+window_sizes 1600 877 375 1220 747 84
 
-diagrams
-  active  classdiagram_ref 141186 // test
-    1220 748 100 A0 0 279
-end
 show_stereotypes
-selected deploymentview_ref 128002 // Babtouland
+selected 
+  package_ref 128002 // Babtouland
 open
+  
+  package_ref 128002 // Babtouland
 end
 end
 verbose

@@ -1,10 +1,12 @@
-format 218
-"core" // Babtouland::config::core
+format 222
+"page" // Babtouland::classe::user::page
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,671 +30,671 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/core/"
-  deploymentview 135298 "core"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/user/page/"
+  php_namespace "user\\page"
+  deploymentview 128898 "page"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 137602 "bbcode"
+    artifact 131970 "Carte.class"
       stereotype "source"
       php_src "<?php
-$BBCodeElements=array(
-	'b' => array(
-		'code'     => 'b',
-		'type'     => 'simple_replace',
-		'callback' => null,
-		'params'   => array(
-			'start_tag' => '<span class=\"bbcode b\">',
-			'end_tag'   => '</span>',
-		),
-		'content_type' => 'inline',
-		'allowed_in'   => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'i' => array(
-		'code'           => 'i',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<span class=\"bbcode i\">',
-			'end_tag'   => '</span>',
-		),
-		'content_type'   => 'inline',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'u' => array(
-		'code'           => 'u',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<span class=\"bbcode u\">',
-			'end_tag'   => '</span>',
-		),
-		'content_type'   => 'inline',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	's' => array(
-		'code'           => 's',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag'  => '<span class=\"bbcode s\">',
-			'end_tag'    => '</span>',
-		),
-		'content_type'   => 'inline',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'link',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'url' => array(
-		'code'           => 'url',
-		'type'           => 'usecontent?',
-		'callback'       => 'do_bbcode_url',
-		'params'         => array(
-			'usecontent_param' => 'default',
-		),
-		'content_type'   => 'link',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'listitem',
-		),
-		'not_allowed_in' => array(
-			'link',
-		),
-	),
-	'link' => array(
-		'code'           => 'link',
-		'type'           => 'callback_replace_single',
-		'callback'       => 'do_bbcode_url',
-		'params'         => array(),
-		'content_type'   => 'link',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-			'listitem',
-		),
-		'not_allowed_in' => array(
-			'link',
-		),
-	),
-	'img' => array(
-		'code'           => 'img',
-		'type'           => 'usecontent',
-		'callback'       => 'do_bbcode_img',
-		'params'         => array(),
-		'content_type'   => 'image',
-		'allowed_in'     => array(
-			'block',
-			'inline',
-		),
-		'not_allowed_in' => array(),
-	),
-	'list' => array(
-		'code'           => 'list',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<ul class=\"bbcode\">',
-			'end_tag'   => '</ul>',
-		),
-		'content_type'   => 'list',
-		'allowed_in'     => array(
-			'block',
-			'listitem',
-		),
-		'not_allowed_in' => array(),
-	),
-	'*' => array(
-		'code'           => '*',
-		'type'           => 'simple_replace',
-		'callback'       => null,
-		'params'         => array(
-			'start_tag' => '<li>',
-			'end_tag'   => '</li>'
-		),
-		'content_type'   =>'listitem',
-		'allowed_in'     => array(
-			'list',
-		),
-		'not_allowed_in' => array(),
-	),
-	'align' => array(
-		'code'           => 'align',
-		'type'           => 'callback_replace',
-		'callback'       => 'do_bbcode_align',
-		'params'         => array(),
-		'content_type'   => 'block',
-		'allowed_in'     => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-	'float' => array(
-		'code'         => 'float',
-		'type'         => 'callback_replace',
-		'callback'     => 'do_bbcode_float',
-		'params'       => array(),
-		'content_type' => 'block',
-		'allowed_in'   => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-	'ligne' => array(
-		'code'         => 'ligne',
-		'type'         => 'simple_replace',
-		'callback'     => null,
-		'params'       => array(
-			'start_tag' => '<div class=\"ligne\">',
-			'end_tag'   => '</div>',
-		),
-		'content_type' => 'block',
-		'allowed_in'   => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-	'colonne' => array(
-		'code'         => 'colonne',
-		'type'         => 'simple_replace',
-		'callback'     => null,
-		'params'       => array(
-			'start_tag' => '<div class=\"colonne\">',
-			'end_tag'   => '</div>',
-		),
-		'content_type' => 'block',
-		'allowed_in'   => array(
-			'block',
-		),
-		'not_allowed_in' => array(
-			'list',
-			'listitem',
-			'inline',
-			'link',
-			'listitem',
-		),
-	),
-);
 
-/**
- * Unify line breaks of different operating systems
- * 
- * @param string text Text to convert
- *
- * @return mixed
- * @author Christian Seiler
- **/
-function convertLineBreaks($text)
-{
-	return preg_replace(\"/\\015\\012|\\015|\\012/\", \"\\n\", $text);
-}
+${namespace}
+${definition}
 
-/**
- * Remove everything but the newline character
- * 
- * @param string text Text to change
- *
- * @return mixed
- * @author Christian Seiler
- **/
-function BBCodeStripContents($text)
-{
-	return preg_replace (\"/[^\\n]/\", '', $text);
-}
 
-/**
- * Fonctions de CallBack pour les liens
- * 
- * @param action
- * 
- * @param array attributes Attributes in the bbcode
- * 
- * @param string content Content inside the block
- * 
- * @param params
- * 
- * @param node_object
- *
- * @return string
- * @author Christian Seiler
- **/
-function do_bbcode_url($action, $attributes, $content, $params, $node_object)
-{
-    if (isset($attributes['default']))
-    {
-    	$url = $attributes['default'];
-        $url = str_replace('&quot;', '', $url);
-        $text = $content;
-    }
-    else if(isset($attributes['url']))
-    {
-    	$url = $attributes['url'];
-        $url = str_replace('&quot;', '', $url);
-        $text = $attributes['url'];
-    }
-    else
-    {
-    	$url = $content;
-        $text = $content;
-    }
-    if(isset ($attributes['title']))
-    {
-    	$attributes['title'] = str_replace('&quot;', '', $attributes['title']);
-    	$title=' title=\"'.$attributes['title'].'\"';
-    }
-    else
-    {
-    	$title='';
-    }
-    if ($action == 'validate')
-    {
-        if (substr($url, 0, 5) == 'data:' || substr($url, 0, 5) == 'file:'
-          || substr($url, 0, 11) == 'javascript:' || substr($url, 0, 4) == 'jar:')
-        {
-			return false;
-        }
-        return true;
-    }
-    return '<a href=\"'.$url.'\"'.$title.'>'.htmlspecialchars($text).'</a>';
-}
-
-/**
- * Fonctions de CallBack pour les images
- * 
- * @param action
- * 
- * @param array attributes Attributes in the bbcode
- * 
- * @param string content Content inside the block
- * 
- * @param params
- * 
- * @param node_object
- *
- * @return string
- * @author Christian Seiler
- **/
-function do_bbcode_img($action, $attributes, $content, $params, $node_object)
-{
-	if (!isset($attributes['src']))
-	{
-		$src=$content;
-		$alt=\"\";
-	}
-	else
-	{
-		$src=$attributes['src'];
-		$src=str_replace('&quot;', '', $src);
-		$alt=$content;
-	}
-    if ($action == 'validate') {
-        if (substr($content, 0, 5) == 'data:' || substr($content, 0, 5) == 'file:'
-          || substr($content, 0, 11) == 'javascript:' || substr($content, 0, 4) == 'jar:')
-        {
-            return false;
-        }
-        return true;
-    }
-    return '<img src=\"'.htmlspecialchars($src).'\" alt=\"'.htmlspecialchars($alt).'\">';
-}
-
-/**
- * Fonctions de CallBack pour les \"align\"
- * 
- * @param action
- * 
- * @param array attributes Attributes in the bbcode
- * 
- * @param string content Content inside the block
- * 
- * @param params
- * 
- * @param node_object
- *
- * @return string
- * @author gugus2000
- **/
-function do_bbcode_align($action, $attributes, $content, $params, $node_object)
-{
-	if (isset($attributes['align']))
-	{
-		$text=$content;
-		$align=$attributes['align'];
-		$align=str_replace('&quot;', '', $align);
-	}
-	else if (isset($attributes['default']))
-	{
-		$text=$content;
-		$align=$attributes['default'];
-		$align=str_replace('&quot;', '', $align);
-	}
-	else
-	{
-		$text=$content;
-		$align=\"center\";
-	}
-    if ($action == 'validate') {
-        if (substr($content, 0, 5) == 'data:' || substr($content, 0, 5) == 'file:'
-          || substr($content, 0, 11) == 'javascript:' || substr($content, 0, 4) == 'jar:')
-        {
-            return false;
-        }
-        return true;
-    }
-    return '<div class=\"bbcode align '.htmlspecialchars($align).'\">'.$text.'</div>';
-}
-
-/**
- * Fonctions de CallBack pour les \"float\"
- *
- * @param action
- * 
- * @param array attributes Attributes in the bbcode
- * 
- * @param string content Content inside the block
- * 
- * @param params
- * 
- * @param node_object
- *
- * @return string
- * @author gugus2000
- **/
-function do_bbcode_float($action, $attributes, $content, $params, $node_object)
-{
-	if (isset($attributes['float']))
-	{
-		$text=$content;
-		$float=$attributes['float'];
-		$float=str_replace('&quot;', '', $float);
-	}
-	else if (isset($attributes['default']))
-	{
-		$text=$content;
-		$float=$attributes['default'];
-		$float=str_replace('&quot;', '', $float);
-	}
-	else
-	{
-		$text=$content;
-		$float=\"left\";
-	}
-    if ($action == 'validate') {
-        if (substr($content, 0, 5) == 'data:' || substr($content, 0, 5) == 'file:'
-          || substr($content, 0, 11) == 'javascript:' || substr($content, 0, 4) == 'jar:')
-        {
-            return false;
-        }
-        return true;
-    }
-    return '<div class=\"bbcode float '.htmlspecialchars($float).'\">'.$text.'</div>';
-}
-
-/**
- * Ajoute un élément au BBCode
- * 
- * @param StringParser_BBCode bbcode BBCode object
- * 
- * @param array bbcode_element_list Array which contains all the bbcode elements
- * 
- * @return void
- * @author gugus2000
- **/
-function BBCodeAddElement(&$bbcode,$bbcode_elements_list)
-{
-	foreach ($bbcode_elements_list as $name => $element)
-	{
-		$bbcode->addCode($element['code'], $element['type'],$element['callback'], $element['params'], $element['content_type'], $element['allowed_in'], $element['not_allowed_in']);
-	}
-}
-
-/**
- * Crée un bbcode avec les éléments déjà définis
- *
- * @return StringParserBBCode
- * @author gugus2000
- **/
-function CreateBBcode()
-{
-	global $BBCodeElements;
-	require_once 'classe/lib/StringParser_BBCode.class.php';
-	$StringParser_BBcode=new \\StringParser_BBcode;
-	$StringParser_BBcode->addFilter(STRINGPARSER_FILTER_PRE, 'convertLineBreaks');
-	$StringParser_BBcode->addParser(array ('block', 'inline', 'link', 'listitem'), 'htmlspecialchars');
-	$StringParser_BBcode->addParser(array ('block', 'inline', 'link', 'listitem'), 'nl2br');
-	$StringParser_BBcode->addParser('list', 'BBCodeStripContents');
-	BBCodeAddElement($StringParser_BBcode, $BBCodeElements);
-	$StringParser_BBcode->setCodeFlag('link', 'paragraph_type', BBCODE_PARAGRAPH_ALLOW_INSIDE);
-	$StringParser_BBcode->setCodeFlag('list', 'paragraph_type', BBCODE_PARAGRAPH_BLOCK_ELEMENT);
-	$StringParser_BBcode->setCodeFlag('list', 'opentag.before.newline', BBCODE_NEWLINE_DROP);
-	$StringParser_BBcode->setCodeFlag('list', 'closetag.before.newline', BBCODE_NEWLINE_DROP);
-	$StringParser_BBcode->setRootParagraphHandling(false);
-	return $StringParser_BBcode;
-}
 
 ?>"
       associated_elems
+	class_ref 132226 // Carte
       end
     end
 
-    artifact 137730 "config"
+    artifact 132098 "Corps.class"
       stereotype "source"
       php_src "<?php
-$lang='FR';
 
-/**
- * Créé un lien vers la page à partir de son application et action
- *
- * @param string application Application de la page
- * 
- * @param string action Action de la page
- * 
- * @return string
- * @author gugus2000
- **/
-function createPageLink($application, $action)
-{
-	return '?application='.$application.'&action='.$action;
-}
+${namespace}
+${definition}
 
-$config=array(
-	/* Paramètre par défaut modifiable */
-		/* Page */
-			'default_application' => 'user',					// Application par défaut
-			'default_action'      => 'statut',					// Action par défaut
-			'default_lang'        => $lang,						// Langue de la page par défaut
-			'default_template'    => 'template/template.php',	// Template de la page par défaut
-			'default_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),	// Css de la page par défaut
-			'default_javascripts' => array(),					// javascripts de la page par défaut
-			'default_metas'       => array(
-				array(
-					'charset' => 'utf-8',
-					'lang'    => $lang,
-				),
-				array(
-					'http-equiv' => 'X-UA-Compatible',
-					'content'    => 'IE=edge',
-				),
-				array(
-					'name'    => 'viewport',
-					'content' => 'width=device-width, initial-scale=1',
-				),
-			),													// Métadonnées de la page par défaut
-			'default_contenu' => '',							// Contenu de la page par défaut
-		/* Post */
-			/* Fil post */
-				'default_post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
-				'default_post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
-	/* Paramètre non modifiable */
-		/* Général */
-			'nom_site'      => 'Babtouland',					// Nom du site
-			'chemin_avatar' => 'assets/img/avatar/',			// Chemin vers le dossier contenant les avatars
-			'size_avatar'   => 1000000,							// Taille de l'avatar maximum
-			'width_avatar'  => 1000,							// Longueur horizontale maximum de l'avatar
-			'height_avatar' => 1000,							// Longueur verticale maximum de l'avatar
-			'ext_avatar'    => array('jpg','gif','png','jpeg'),	// Extensions autorisé pour uploader un avatar
-			'mail_dev'      => 'gugus2000@protonmail.com',		// Mail du développeur
-			/* Message */
-				'message_css'     => 'assets/css/message.css',		// Css des messages
-				'message_js'      => 'assets/js/message.js',		// Js des messages
-				'message_template' => 'assets/html/message.html',	// Template des messages
-			/* Menu-up */
-				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos')),	// Liste des liens dans le menu_up (dans l'ordre)
-				'menu-up_icones'      => array('home', 'message', 'info'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
-				'menu-up_lien-statut' => createPageLink('user', 'statut'),														// Lien lors du clic sur l'avatar dans le menu_up
-				'menu-up_css'         => 'assets/css/menu-up.css',																// Css du menu-up
-				'menu-up_js'          => 'assets/js/menu-up.js',																// Js du menu-up
-				'menu-up_contenu'     => 'assets/php/menu-up.php',																// Contenu dynamique du menu-up
-				'menu-up_req'         => 'func/core/menu-up.func.php',															// Fonctions utilisé dans menu-up
-			/* Toast */
-				'toast_css'     => 'assets/css/toast.css',		// Css du toast
-				'toast_js'      => 'assets/js/toast.js',		// Js du toast
-				'toast_contenu' => 'assets/php/toast.php',		// Contenu dynamique du toast
-				'toast_req'     => 'func/core/toast.func.php',	// Fonctions utilisé dans toast
-			/* Session Guest */
-				'nom_guest' => 'guest',	// pseudo de l'utilisateur \"guest\"
-				'mdp_guest' => 'guest',	// mot de passe de l'utilisateur \"guest\"
-			/* Erreur */
-				'erreur_path' => 'erreur/page.php',	// Chemin vers la page d'erreur
-		/* user */
-			/* inscription */
-				'default_avatar'          => 'default.png',										// Avatar par défaut des nouveaux utilisateurs
-				'default_banni'           => False,												// Statut par défaut des nouveaux utilisateurs
-				'default_role'            => 'membre',											// Role par défaut des nouveaux utilisateurs
-				'post_inscription_action' => createPageLink('user', 'validation_inscription'),	// Lien redirigeant le formulaire d'inscription
-			/* connexion */
-				'post_connexion_action' => createPageLink('user', 'validation_connexion'),	// Lien redirigeant le formulaire de connexion
-			/* statut */
-				'user_statut_lien_connexion'   => createPageLink('user', 'connexion'),		// Lien pour se connecter affiché dans la page de statut
-				'user_statut_lien_inscription' => createPageLink('user', 'inscription'),	// Lien pour s'inscrire affiché dans la page de statut
-				'user_statut_lien_deconnexion' => createPageLink('user', 'deconnexion'),	// Lien pour se déconnecter affiché dans la page de statut
-				'user_statut_lien_edition' => createPageLink('user', 'edition'),			// Lien pour éditer son profil affiché dans la page de statut
-			/* validation_connexion */
-				'user_validation_connexion_retour'  => createPageLink('user', 'connexion'),	// Lien de la page à charger lorsque la connexion échoue
-				'user_validation_connexion_suivant' => '?',										// Lien de la page à charger lorsque la connexion réussie
-			/* validation_inscription */
-				'user_validation_inscription_retour'  => createPageLink('user', 'inscription'),	// Lien de la page à charger lorsque l'inscription échoue
-				'user_validation_inscription_suivant' => '?',										// lien de la page à charger lorsque l'inscription réussie
-			/* edition */
-				'user_edition_action'            => createPageLink('user', 'validation_edition'),	// Lien redirigeant le formulaire d'édition d'utilisateur
-				'user_edition_admin_application' => 'core',											// Application dont la permission est nécessaire pour éditer un aure utiliasateur
-				'user_edition_admin_action'      => 'edition_user',									// Action dont la permission est nécessaire pour éditer un aure utiliasateur
-			/* validation_edition */
-				'user_validation_edition_lien_erreur_formulaire'       => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'utilisateur échoue
-				'user_validation_edition_lien_succes'                  => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de son profil réussie
-				'user_validation_edition_lien_admin_succes'            => createPageLink('user', 'view'),		// Lien de la page à charger lorsque l'édition d'un autre utilisateur réussie
-				'user_validation_edition_avatar_lien_erreur_dossier'   => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de droit de dossier
-				'user_validation_edition_avatar_lien_erreur_upload'    => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'upload non fonctionnel
-				'user_validation_edition_avatar_lien_erreur_interne'   => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur interne
-				'user_validation_edition_avatar_lien_erreur_type'      => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur de type de fichier
-				'user_validation_edition_avatar_lien_erreur_extension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de mauvaise extension de fichier
-				'user_validation_edition_avatar_lien_erreur_dimension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar écgoue pour cause de mauvaise dimension
-		/* utile */
-			/* a_propos */
-				'utile_a_propos_formulaire_action' => createPageLink('utile', 'mail'),	// Lien redirigeant le formulaire d'envoi de mail
-			/* mail */
-				'utile_mail_lien_erreur_formulaire' => createPageLink('utile', 'a_propos'),	// Lien de la page à charger lorsque l'envoi du mail échoue
-				'utile_mail_lien_succes'            => createPageLink('utile', 'a_propos'),	// Lien de la page à charger lorsque l'envoi du mail réussi
-		/* post */
-			/* fil_post */
-				'post_fil_post_default_page'     => 1,											// Numéro de la page a afficher si non précisé
-				'post_fil_post_lien_detail'      => createPageLink('post', 'lecture'),			// Lien vers la page de lecture complète du post
-				'post_fil_post_lien_auteur'      => createPageLink('user', 'view'),			// Lien vers la page de présentation de l'auteur
-				'post_fil_post_lien_publication' => createPageLink('post', 'publication'),		// Lien vers la page de publication de post
-				'post_fil_post_tri'              => 'date_publication',							// Attribut fixant la position des posts
-			/* publication */
-				'post_publication_action' => createPageLink('post', 'validation_publication'),	// Lien redirigeant le formulaire de publication de post
-			/* validation_publication */
-				'post_validation_publication_suivant' => createPageLink('post', 'fil_post'),			// Lien de la page à charger lorque la publication du post échoue
-				'post_validation_publication_retour'  => createPageLink('post', 'publication'),		// Lien de la page à charger lorque la publication du post réussie
-			/* lecture */
-				'post_lecture_lien_auteur'                  => createPageLink('user', 'view'),						// Lien vers la page de présentation de l'auteur
-				'post_lecture_lien_mise_a_jour'             => createPageLink('post', 'edition'),					// Lien vers la page de la mise à jour dudit post
-				'post_lecture_lien_suppression'             => createPageLink('post', 'suppression'),				// Lien vers la page de la suppression dudit post
-				'post_lecture_publication_commentaire'      => createPageLink('post', 'commentaire_publication'),	// Lien redirigeant le formulaire de publication de commentaire
-				'post_lecture_lien_commentaire_suppression' => createPageLink('post', 'commentaire_suppression'),	// Lien vers la page de la suppression dudit commentaire
-				'post_lecture_lien_commentaire_edition'     => createPageLink('post', 'commentaire_edition'),		// Lien vers la page d'édition dudit commentaire
-			/* commentaire_publication */
-				'post_commentaire_publication_suivant' => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a échoué
-				'post_commentaire_publication_retour'  => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a réussie
-			/* suppression */
-				'post_suppression_retour'            => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque la suppression d'un post échoue faute d'id
-				'post_suppression_permission'        => createPageLink('post', 'lecture'),		// Lien de la page à charger lorsque la suppression d'un post échoue faute de permission
-				'post_suppression_suivant'           => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque la suppression d'un post réussie
-				'post_suppression_admin_application' => 'core',									// Application dont la permission est nécessaire pour supprimer les posts des autres
-				'post_suppression_admin_action'      => 'suppression_post',						// Action dont la permission est nécessaire pour supprimer les posts des autres
-			/* commentaire_suppression */
-				'post_commentaire_suppression_retour'            => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute d'id
-				'post_commentaire_suppression_permission'        => createPageLink('post', 'lecture'),		// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute de permission
-				'post_commentaire_suppression_suivant'           => createPageLink('post', 'lecture'),		// Lien de la page à charger lorsque la suppression d'un commentaire réussie
-				'post_commentaire_suppression_admin_application' => 'core',									// Application dont la permission est nécessaire pour supprimer les posts des autres
-				'post_commentaire_suppression_admin_action'      => 'suppression_commentaire',				// Action dont la permission est nécessaire pour supprimer les posts des autres
-			/* edition */
-				'post_edition_lien_erreur_id'           => createPageLink('post', 'fil_post'),				// Lien de la page à charger lorsqu'il n'y a pas l'id du post à éditer précisé
-				'post_edition_lien_erreur_autorisation' => createPageLink('post', 'lecture'),				// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le post
-				'post_edition_lien_erreur_existe'       => createPageLink('post', 'fil_post'),				// Lien de la page à charger lorsque le post à éditer n'existe pas
-				'post_edition_formulaire_action'        => createPageLink('post', 'validation_edition'),	// Lien redirigeant le formulaire d'édition de post
-				'post_edition_admin_application'        => 'core',											// Application dont la permission est nécessaire pour éditer les posts des autres
-				'post_edition_admin_action'             => 'edition_post',									// Action dont la permission est nécessaire pour éditer les posts des autres
-			/* validation_edition */
-				'post_validation_edition_lien_formulaire' => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du post échoue faute d'arguments
-				'post_validation_edition_lien_id'         => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du post échoue faut d'id valide
-				'post_validation_edition_lien_succes'     => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque l'édition du post réussie
-			/* commentaire_edition */
-				'post_commentaire_edition_lien_erreur_id'           => createPageLink('post', 'fil_post'),							// Lien de la page à charger lorsqu'il n'y a pas l'id du commentaire à éditer précisé
-				'post_commentaire_edition_lien_erreur_autorisation' => createPageLink('post', 'lecture'),							// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le commentaire
-				'post_commentaire_edition_lien_erreur_existe'       => createPageLink('post', 'fil_post'),							// Lien de la page à charger lorsque le commentaire à éditer n'existe pas
-				'post_commentaire_edition_formulaire_action'        => createPageLink('post', 'commentaire_validation_edition'),	// Lien redirigeant le formulaire d'édition de commentaire
-				'post_commentaire_edition_admin_application'        => 'core',														// Application dont la permission est nécessaire pour éditer les commentaires des autres
-				'post_commentaire_edition_admin_action'             => 'edition_commentaire',										// Action dont la permission est nécessaire pour éditer les commentaires des autres
-			/* commentaire_validation_edition */
-				'post_commentaire_validation_edition_lien_formulaire' => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faute d'arguments
-				'post_commentaire_validation_edition_lien_id'         => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faut d'id valide
-				'post_commentaire_validation_edition_lien_succes'     => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque l'édition du commentaire réussie
-);
+
 
 ?>"
       associated_elems
+	class_ref 132354 // Corps
+      end
+    end
+
+    artifact 132226 "Dropdown.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 132482 // Dropdown
+      end
+    end
+
+    artifact 132354 "Formulaire.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 132610 // Formulaire
+      end
+    end
+
+    artifact 132482 "MenuUp.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 132738 // MenuUp
+      end
+    end
+
+    artifact 132610 "Notification.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 132866 // Notification
+      end
+    end
+
+    artifact 132738 "Page.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 132994 // Page
+      end
+    end
+
+    artifact 132866 "Tete.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 133122 // Tete
+      end
+    end
+
+    artifact 132994 "Toast.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 133250 // Toast
+      end
+    end
+  end
+
+  classview 128642 "page"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 132226 "Carte"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Carte classique
+"
+      classrelation 131074 // <generalisation>
+	relation 131074 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131074 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 175106 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "PageElement"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Carte
+
+@param ${t0} contenu Contenu dans le formulaire
+
+@return ${type}
+"
+      end
+    end
+
+    class 132354 "Corps"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Corps classique
+"
+      classrelation 131202 // <generalisation>
+	relation 131202 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131202 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 175234 "__construct"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "haut" explicit_type "mixed"
+	  param in name "centre" explicit_type "mixed"
+	  param in name "bas" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Corps
+
+@param ${t0} haut Haut du contenu dans le corps
+
+@param ${t1} centre Centre du contenu dans le corps
+
+@param ${t2} bas Bas du contenu dans le corps
+
+@return ${type}
+"
+      end
+    end
+
+    class 132482 "Dropdown"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Dropdown classique
+"
+      classrelation 131330 // <generalisation>
+	relation 131330 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131330 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 175362 "__construct"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "dropdown_select" explicit_type "string"
+	  param in name "dropdown_others" explicit_type "array"
+	  param in name "Tete" explicit_type "PageElement"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Dropdown
+
+@param ${t0} dropdown_select Texte affiché dès le départ dans le dropdown
+
+@param ${t1} dropdown_others Autres textes à afficher
+
+@param ${t2} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 132610 "Formulaire"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Formulaire classique
+"
+      classrelation 131458 // <generalisation>
+	relation 131458 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131458 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 175490 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "contenu" explicit_type "PageElement"
+	  param in name "Tete" explicit_type "PageElement"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Formulaire
+
+@param ${t0} contenu Contenu dans le formulaire
+
+@param ${t1} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 132738 "MenuUp"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Menu-up classique
+"
+      classrelation 131586 // <generalisation>
+	relation 131586 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131586 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 175618 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "Tete" explicit_type "PageElement"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Menu-up
+
+@param ${t0} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 132866 "Notification"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Notification de page classique
+"
+      classrelation 131714 // <generalisation>
+	relation 131714 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131714 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      attribute 144130 "TYPE_SUCCES"
+	const_attribute package explicit_type "string"
+	init_value "'succes'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Type de message: succès
+
+@var ${type}
+"
+      end
+
+      attribute 144258 "TYPE_ATTENTION"
+	const_attribute package explicit_type "string"
+	init_value "'attention'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Type de message: attention
+
+@var ${type}
+"
+      end
+
+      attribute 144386 "TYPE_ERREUR"
+	const_attribute package explicit_type "string"
+	init_value "'erreur'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Type de message: erreur
+
+@var ${type}
+"
+      end
+
+      operation 175746 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "elements" explicit_type "array"
+	  param in name "Page" explicit_type "user\\page\\Page"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Notification
+
+@param ${t0} elements Éléments à insérer sous la forme d'une array
+
+@param ${t1} Page Page
+
+@return ${type}
+"
+      end
+
+      operation 175874 "ajouterTete"
+	class_operation public explicit_return_type "void"
+	nparams 1
+	  param in name "Tete" explicit_type "\\user\\page\\Tete"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Mets les css et les javascripts dans la tete
+
+@param ${t0} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 132994 "Page"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Page classique
+"
+      classrelation 131842 // <generalisation>
+	relation 131842 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131842 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 176002 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Page
+
+@return ${type}
+"
+      end
+    end
+
+    class 133122 "Tete"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Tête de page classique
+"
+      classrelation 131970 // <generalisation>
+	relation 131970 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 131970 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 176130 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Tete
+
+@return ${type}
+"
+      end
+    end
+
+    class 133250 "Toast"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Toast classique
+"
+      classrelation 132098 // <generalisation>
+	relation 132098 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 132098 // <generalisation>
+	  b parent class_ref 131074 // PageElement
+      end
+
+      operation 176258 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "elements" explicit_type "array"
+	  param in name "Tete" explicit_type "PageElement"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Toast
+
+@param ${t0} elements Éléments contenu dans le toast
+
+@param ${t1} Tete Tête de la page
+
+@return ${type}
+"
       end
     end
   end

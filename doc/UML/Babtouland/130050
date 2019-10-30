@@ -1,10 +1,12 @@
-format 218
-"commentaire_edition" // Babtouland::view::post::commentaire_edition
+format 222
+"validation_editer_message" // Babtouland::config::chat::validation_editer_message
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,96 +30,77 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/post/commentaire_edition/"
-  deploymentview 135810 "commentaire_edition"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/chat/validation_editer_message/"
+  deploymentview 129538 "validation_editer_message"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 138754 "contenu"
-      stereotype "source"
-      php_src "<?php
-$Commentaire=new \\post\\Commentaire(array(
-	'id' => $id,
-));
-$Commentaire->recuperer();
-?>
-<?php ob_start(); ?>
-	<div id=\"conteneur\">
-		<section class=\"ligne\">
-			<section class=\"ligne\">
-				<section class=\"carte\">
-					<section class=\"contenu\">
-						<div class=\"formulaire\">
-							<form action=\"<?= $config['post_commentaire_edition_formulaire_action'] ?>&id=<?= $Commentaire->afficherId() ?>\" method=\"POST\" accept-charset=\"utf-8\">
-								<fieldset>
-									<legend><?= $lang['post_commentaire_edition_formulaire_legend'] ?></legend>
-									<label for=\"edition_commentaire_contenu\"><?= $lang['post_commentaire_edition_formulaire_contenu'] ?></label>
-									<textarea name=\"edition_commentaire_contenu\"><?= $Commentaire->afficherContenu() ?></textarea><br />
-									<input type=\"submit\" value=\"<?= $lang['post_commentaire_edition_formulaire_submit'] ?>\">
-								</fieldset>
-							</form>
-						</div>
-					</section>
-				</section>
-			</section>
-		</section>
-	</div>
-<?php $contenu=ob_get_clean(); ?>"
-      associated_elems
-      end
-    end
-
-    artifact 138882 "page"
+    artifact 133634 "config"
       stereotype "source"
       php_src "<?php
 
-if(!isset($_GET['id']))
+if (isset($_GET['id']))
 {
-	$_SESSION['message']=$lang['post_commentaire_edition_message_erreur_id'];
-	header('location: index.php'.$config['post_commentaire_edition_lien_erreur_id']);
-	exit();
+	$ChatMessage=new \\chat\\Message(array(
+		'id' => $_GET['id'],
+	));
+	$ChatMessage->recuperer();
+	$Conversation=new \\chat\\Conversation(array(
+		'id' => $ChatMessage->getId_conversation(),
+	));
+	$date_maintenant=new \\DateTime(date('Y-m-d H:i:s'));
+	$Conversation->recuperer($date_maintenant->format('Y-m-d H:i:s'));
+	$Id_utilisateurs=$Conversation->getId_utilisateurs();
+	$index=0;
+	while (isset($Id_utilisateurs[$index]) & $Id_utilisateurs[$index]==$Visiteur->getId())		// Évite de parcourir toute la liste
+	{
+		$index++;
+	}
+	if ($Id_utilisateurs[$index])	// Accès à la conversation
+	{
+		if(autorisationModification($ChatMessage, $application, 'editer_message'))	// On peut le modifier
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+				'contenu' => $lang['chat_validation_editer_message_succes'],
+			));
+			$get=$config['chat_validation_editer_message_succes'].'&id='.$Conversation->afficherId();
+			$ChatMessage=new \\chat\\Message(array(
+				'id' => $ChatMessage->getId(),
+				'contenu' => $_POST['chat_message'],
+				'date_mise_a_jour' => date('Y-m-d H:i:s'),
+			));
+			$ChatMessage->modifier();
+		}
+		else
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+				'contenu' => $lang['chat_editer_message_erreur_message_autorisation'],
+			));
+			$get=$config['chat_editer_message_erreur_message_autorisation'];
+		}
+	}
+	else
+	{
+		$Notification=new \\user\\page\\Notification(array(
+			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+			'contenu' => $lang['chat_editer_message_erreur_conversation_autorisation'],
+		));
+		$get=$config['chat_editer_message_erreur_conversation_autorisation'];
+	}
 }
-$BDDFactory=new \\core\\BDDFactory;
-$CommentaireManager=new \\post\\CommentaireManager($BDDFactory->MysqlConnexion());
-if(!$CommentaireManager->existId((int)$_GET['id']))
+else
 {
-	$_SESSION['message']=$lang['post_commentaire_edition_message_erreur_existe'];
-	header('location: index.php'.$config['post_commentaire_edition_lien_erreur_existe']);
-	exit();
-}
-$id=$_GET['id'];
-
-$contenu=$config['default_contenu'];
-require 'contenu.php';
-
-if(!autorisationModification($Commentaire, $Visiteur->getPage()->getApplication(), $Visiteur->getPage()->getAction()))
-{
-	$_SESSION['message']=$lang['post_commentaire_edition_message_erreur_autorisation'];
-	header('location: index.php'.$config['post_commentaire_edition_lien_erreur_autorisation'].'&id='.$id);
-	exit();
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['chat_editer_message_erreur_id_message'],
+	));
+	$get=$config['chat_editer_message_erreur_id_message'];
 }
 
-$metas=$config['default_metas'];
-array_push($metas, array(
-	'name'    => 'description',
-	'content' => $lang['post_commentaire_edition_description'],
-));
-
-$css=$config['default_css'];
-array_push($css, 'assets/css/formulaire.css');
-
-$js=$config['default_javascripts'];
-
-ajouterMenuUp($css, $js, $contenu);
-
-$Visiteur->getPage()->set(array(
-	'template'    => file_get_contents($config['default_template']),
-	'contenu'     => $contenu,
-	'titre'       => $lang['post_commentaire_edition_titre'],
-	'metas'       => $metas,
-	'css'         => $css,
-	'javascripts' => $js,
-));
+$this->getPage()->envoyerNotificationsSession();
+header('location: index.php'.$get)
 
 ?>"
       associated_elems

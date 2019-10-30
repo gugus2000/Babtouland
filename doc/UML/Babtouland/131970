@@ -1,10 +1,12 @@
-format 218
-"inscription" // Babtouland::view::user::inscription
+format 222
+"commentaire_publication" // Babtouland::config::post::commentaire_publication
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,73 +30,44 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/user/inscription/"
-  deploymentview 137602 "inscription"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/commentaire_publication/"
+  deploymentview 131074 "commentaire_publication"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 141698 "contenu"
-      stereotype "source"
-      php_src "<?php ob_start(); ?>
-	<div id=\"conteneur\">
-		<section class=\"ligne\">
-			<section class=\"colonne\">
-				<section class=\"carte\">
-					<section class=\"contenu\">
-						<div class=\"formulaire\">
-							<form action=\"<?= $config['post_inscription_action'] ?>\" method=\"POST\" accept-charset=\"utf-8\">
-								<fieldset>
-									<legend><?= $lang['user_inscription_fieldset'] ?></legend>
-									<label for=\"inscription_pseudo\"><?= $lang['user_formulairepseudo'] ?></label>
-									<input type=\"text\" name=\"inscription_pseudo\"><br />
-									<label for=\"inscription_mdp\"><?= $lang['user_formulairemdp'] ?></label>
-									<input type=\"password\" name=\"inscription_mdp\"><br />
-									<label for=\"inscription_mail\"><?= $lang['user_formulairemail'] ?></label>
-									<input type=\"text\" name=\"inscription_mail\"><br />
-									<input type=\"submit\" value=\"<?= $lang['user_inscription_submit'] ?>\">
-								</fieldset>
-							</form>
-						</div>
-					</section>
-				</section>
-			</section>
-		</section>
-	</div>
-<?php $contenu.=ob_get_clean(); ?>"
-      associated_elems
-      end
-    end
-
-    artifact 141826 "page"
+    artifact 135170 "config"
       stereotype "source"
       php_src "<?php
 
-$contenu=$config['default_contenu'];
-require 'contenu.php';
+if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['commentaire_contenu']) & !empty($_GET['id']))
+{
+	$Commentaire=new \\post\\Commentaire(array(
+		'id_auteur'        => $Visiteur->getId(),
+		'id_post'          => $_GET['id'],
+		'contenu'          => $_POST['commentaire_contenu'],
+		'date_publication' => date('Y-m-d H:i:s'),
+		'date_mise_a_jour' => date('Y-m-d H:i:s'),
+	));
+	$Commentaire->publier();
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+		'contenu' => $lang['post_commentaire_publication_message_succes'],
+	));
+	$get=$config['post_commentaire_publication_suivant'].'&id='.htmlspecialchars($_GET['id']);
+}
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_commentaire_publication_message_formulaire'],
+	));
+	$get=$config['post_commentaire_publication_retour'];
+}
 
-$metas=$config['default_metas'];
-array_push($metas, array(
-	'name'    => 'description',
-	'content' => $lang['user_inscription_description'],
-));
+$this->getPage()->envoyerNotificationsSession();
+header('location: index.php'.$get);
 
-$css=$config['default_css'];
-array_push($css, 'assets/css/formulaire.css');
-
-$js=$config['default_javascripts'];
-
-ajouterMenuUp($css, $js, $contenu);
-
-$Visiteur->getPage()->set(array(
-	'template'    => file_get_contents($config['default_template']),
-	'contenu'     => $contenu,
-	'titre'       => $lang['user_inscription_titre'],
-	'metas'       => $metas,
-	'css'         => $css,
-	'javascripts' => $js,
-));
-
-?>"
+ ?>"
       associated_elems
       end
     end

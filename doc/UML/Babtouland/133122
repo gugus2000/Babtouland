@@ -1,10 +1,12 @@
-format 218
-"mail" // Babtouland::view::utile::mail
+format 222
+"validation_publication" // Babtouland::config::post::validation_publication
   revision 1
   modified_by 2 "gugus.demagny"
   // class settings
   
   classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
   
   usecasediagramsettings end
   
@@ -13,6 +15,8 @@ format 218
   collaborationdiagramsettings end
   
   objectdiagramsettings end
+  
+  objectcompositediagramsettings end
   
   componentdiagramsettings
    end
@@ -26,98 +30,41 @@ format 218
   activitydiagramsettings
    end
   
-  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/view/utile/mail/"
-  deploymentview 138626 "mail"
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/validation_publication/"
+  deploymentview 132226 "validation_publication"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 143618 "page"
+    artifact 136322 "config"
       stereotype "source"
       php_src "<?php
 
-$Message=new \\user\\Message(array(
-	'contenu'  => $lang['utile_mail_message_erreur_formulaire'],
-	'type'     => \\user\\Message::TYPE_ERREUR,
-	'css'      => $config['message_css'],
-	'js'       => $config['message_js'],
-	'template' => $config['message_template'],
-));
-$get=$config['utile_mail_lien_erreur_formulaire'];
-if(isset($_POST['a_propos_contenu']) & !empty($_POST['a_propos_contenu']))
+if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !empty($_POST['publication_titre']) & !empty($_POST['publication_contenu']))
 {
-	$Message=new \\user\\Message(array(
-		'contenu'  => $lang['utile_mail_message_succes'],
-		'type'     => \\user\\Message::TYPE_SUCCES,
-		'css'      => $config['message_css'],
-		'js'       => $config['message_js'],
-		'template' => $config['message_template'],
+	$Post=new \\post\\Post(array(
+		'id_auteur'        => $Visiteur->getId(),
+		'titre'            => $_POST['publication_titre'],
+		'contenu'          => $_POST['publication_contenu'],
+		'date_publication' => date('Y-m-d H:i:s'),
+		'date_mise_a_jour' => date('Y-m-d H:i:s'),
 	));
-	$get=$config['utile_mail_lien_succes'];
-
-	$objet=$config['nom_site'].' | Message de '.$Visiteur->afficherPseudo();
-	$message=$_POST['a_propos_contenu'];
-	$mail=$config['mail_dev'];
-	if(!preg_match(\"#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#\", $mail)) // On filtre les serveurs qui rencontrent des bogues.
-	{
-		$passage_ligne = \"\\r\\n\";
-	}
-	else
-	{
-		$passage_ligne = \"\\n\";
-	}
-	//=====Déclaration des messages au format texte et au format HTML.
-	$message_txt = $message;
-	$message_html = \"<html><head></head><body><h2>Message envoyé depuis \".$config['nom_site'].\" par \" . $Visiteur->afficherPseudo() . \" :</h2><br />\" . $message . \"</body></html>\";
-	//==========
-		
-	//=====Création de la boundary
-	$boundary = \"-----=\".md5(rand());
-	//==========
-	 
-	//=====Définition du sujet.
-	$sujet = $objet;
-	//=========
-	 
-	//=====Création du header de l'e-mail.
-	$header = \"From: \\\"\" . $Visiteur->afficherPseudo() . \"\\\"<\" . $Visiteur->afficherMail() . \">\".$passage_ligne;
-	$header.= \"Reply-to: \\\"\" . $Visiteur->afficherPseudo() . \"\\\" <\" . $Visiteur->afficherMail() . \">\".$passage_ligne;
-	$header.= \"MIME-Version: 1.0\".$passage_ligne;
-	$header.= \"Content-Type: multipart/alternative;\".$passage_ligne.\" boundary=\\\"$boundary\\\"\".$passage_ligne;
-	//==========
-		
-	//=====Création du message.
-	$message = $passage_ligne.\"--\".$boundary.$passage_ligne;
-	//=====Ajout du message au format texte.
-	$message.= \"Content-Type: text/plain; charset=\\\"UTF-8\\\"\".$passage_ligne;
-	$message.= \"Content-Transfer-Encoding: 8bit\".$passage_ligne;
-	$message.= $passage_ligne.$message_txt.$passage_ligne;
-	//==========
-	$message.= $passage_ligne.\"--\".$boundary.$passage_ligne;
-	//=====Ajout du message au format HTML
-	$message.= \"Content-Type: text/html; charset=\\\"UTF-8\\\"\".$passage_ligne;
-	$message.= \"Content-Transfer-Encoding: 8bit\".$passage_ligne;
-	$message.= $passage_ligne.$message_html.$passage_ligne;
-	//==========
-	$message.= $passage_ligne.\"--\".$boundary.\"--\".$passage_ligne;
-	$message.= $passage_ligne.\"--\".$boundary.\"--\".$passage_ligne;
-	//==========
-		
-	//=====Envoi de l'e-mail.
-	$succes=mail($mail,$sujet,$message,$header);
-	//==========
-	if (!$succes)
-	{
-    	$Message=new \\user\\Message(array(
-    		'contenu'  => error_get_last()['message'],
-			'type'     => \\user\\Message::TYPE_ATTENTION,
-			'css'      => $config['message_css'],
-			'js'       => $config['message_js'],
-			'template' => $config['message_template'],
-		));
-	}
+	$Post->publier();
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+		'contenu' => $lang['post_validation_publication_message_succes'],
+	));
+	$get=$config['post_validation_publication_suivant'];
+}
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_validation_publication_message_formulaire'],
+	));
+	$get=$config['post_validation_publication_retour'];
 }
 
-$_SESSION['message']=serialize($Message);
+$this->getPage()->envoyerNotificationsSession();
 header('location: index.php'.$get);
 
 ?>"
