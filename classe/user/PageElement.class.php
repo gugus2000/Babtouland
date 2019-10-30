@@ -212,9 +212,20 @@ class PageElement
 	*/
 	public function ajouterValeurElement($index, $valeur)
 	{
-		if (!in_array($valeur, $this->elements[$index]))		// La valeur n'existe pas déjà (évite de mettre plusieurs fois le même css par exemple)
+		if (is_array($this->getElement($index)))
 		{
-			$this->elements[$index][]=$valeur;
+			if (!in_array($valeur, $this->elements[$index]))		// La valeur n'existe pas déjà (évite de mettre plusieurs fois le même css par exemple)
+			{
+				$this->elements[$index][]=$valeur;
+			}
+		}
+		else if (is_string($this->getElement($index)))
+		{
+			$this->elements[$index].=(string)$valeur;
+		}
+		else
+		{
+			throw new Exception("On ne peut pas ajouter la valeur à l'élément s'il n'est pas un array ou une string");
 		}
 	}
 }

@@ -130,6 +130,11 @@ class Page
 	*/
 	public function afficher()
 	{
+		global $config;
+		if(null!=$this->getPageElement()->getElement($config['tete_nom'])->getElement('titre'))
+		{
+			$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('titre', $config['prefixe_titre']);
+		}
 		return $this->afficherPageElement();
 	}
 	/**

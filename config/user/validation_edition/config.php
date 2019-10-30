@@ -32,7 +32,7 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		));
 		$get=$config['user_validation_edition_lien_succes'];
 	}
-	if(isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar']))	// Avatar changé
+	if(isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar']) & isset($_FILES['edition_avatar']['name']) & !empty($_FILES['edition_avatar']['name']))	// Avatar changé
 	{
 		/************************************************************
 		 * Script realise par Emacs
@@ -88,85 +88,82 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		/************************************************************
 		 * Script d'upload
 		 *************************************************************/
-		if(!empty($_POST))
-		{
 
-		    // Recuperation de l'extension du fichier
-		    $extension  = pathinfo($_FILES[$fichier]['name'], PATHINFO_EXTENSION);
-		 
-		    // On verifie l'extension du fichier
-		    if(in_array(strtolower($extension),$tabExt))
-		    {
-		      // On recupere les dimensions du fichier
-		      $infosImg = getimagesize($_FILES[$fichier]['tmp_name']);
-		 
-		      // On verifie le type de l'image
-		      if($infosImg[2] >= 1 && $infosImg[2] <= 14)
-		      {
-		        // On verifie les dimensions et taille de l'image
-		        if(($infosImg[0] <= WIDTH_MAX) && ($infosImg[1] <= HEIGHT_MAX) && (filesize($_FILES[$fichier]['tmp_name']) <= MAX_SIZE))
-		        {
-		          // Parcours du tableau d'erreurs
-		          if(isset($_FILES[$fichier]['error']) 
-		            && UPLOAD_ERR_OK === $_FILES[$fichier]['error'])
-		          {
-		            // On renomme le fichier
-		            $nomImage = md5(uniqid()) .'.'. $extension;
-		 
-		            // Si c'est OK, on teste l'upload
-		            if(move_uploaded_file($_FILES[$fichier]['tmp_name'], TARGET.$nomImage))
-		            {
-		              $avatar=$nomImage;
-		            }
-		            else
-		            {
-					// Sinon on affiche une erreur systeme
-					$Notification=new \user\page\Notification(array(
-						'type'    => \user\page\Notification::TYPE_ERREUR,
-						'contenu' => $lang['user_validation_edition_avatar_message_erreur_upload'],
-					));
-					$get=$config['user_validation_edition_avatar_lien_erreur_upload'];
-		            }
-		          }
-		          else
-		          {
-		          	$Notification=new \user\page\Notification(array(
-						'type'    => \user\page\Notification::TYPE_ERREUR,
-						'contenu' => $lang['user_validation_edition_avatar_message_erreur_interne'],
-					));
-		          	$get=$config['user_validation_edition_avatar_lien_erreur_interne'];
-		          }
-		        }
-		        else
-		        {
-					// Sinon erreur sur les dimensions et taille de l'image
-		        	$Notification=new \user\page\Notification(array(
-						'type'    => \user\page\Notification::TYPE_ERREUR,
-						'contenu' => $lang['user_validation_edition_avatar_message_erreur_dimension'],
-					));
-					$get=$config['user_validation_edition_avatar_lien_erreur_dimension'];
-		        }
-		      }
-		      else
-		      {
-		        // Sinon erreur sur le type de l'image
-		      	$Notification=new \user\page\Notification(array(
+	    // Recuperation de l'extension du fichier
+	    $extension  = pathinfo($_FILES[$fichier]['name'], PATHINFO_EXTENSION);
+	 
+	    // On verifie l'extension du fichier
+	    if(in_array(strtolower($extension),$tabExt))
+	    {
+	      // On recupere les dimensions du fichier
+	      $infosImg = getimagesize($_FILES[$fichier]['tmp_name']);
+	 
+	      // On verifie le type de l'image
+	      if($infosImg[2] >= 1 && $infosImg[2] <= 14)
+	      {
+	        // On verifie les dimensions et taille de l'image
+	        if(($infosImg[0] <= WIDTH_MAX) && ($infosImg[1] <= HEIGHT_MAX) && (filesize($_FILES[$fichier]['tmp_name']) <= MAX_SIZE))
+	        {
+	          // Parcours du tableau d'erreurs
+	          if(isset($_FILES[$fichier]['error']) 
+	            && UPLOAD_ERR_OK === $_FILES[$fichier]['error'])
+	          {
+	            // On renomme le fichier
+	            $nomImage = md5(uniqid()) .'.'. $extension;
+	 
+	            // Si c'est OK, on teste l'upload
+	            if(move_uploaded_file($_FILES[$fichier]['tmp_name'], TARGET.$nomImage))
+	            {
+	              $avatar=$nomImage;
+	            }
+	            else
+	            {
+				// Sinon on affiche une erreur systeme
+				$Notification=new \user\page\Notification(array(
 					'type'    => \user\page\Notification::TYPE_ERREUR,
-					'contenu' => $lang['user_validation_edition_avatar_message_erreur_type'],
+					'contenu' => $lang['user_validation_edition_avatar_message_erreur_upload'],
 				));
-		        $get=$config['user_validation_edition_avatar_lien_erreur_type'];
-		      }
-		    }
-		    else
-		    {
-		     	// Sinon on affiche une erreur pour l'extension
-		    	$Notification=new \user\page\Notification(array(
+				$get=$config['user_validation_edition_avatar_lien_erreur_upload'];
+	            }
+	          }
+	          else
+	          {
+	          	$Notification=new \user\page\Notification(array(
 					'type'    => \user\page\Notification::TYPE_ERREUR,
-					'contenu' => $lang['user_validation_edition_avatar_message_erreur_extension'],
+					'contenu' => $lang['user_validation_edition_avatar_message_erreur_interne'],
 				));
-				$get=$config['user_validation_edition_avatar_lien_erreur_extension'];
-		    }
-		}
+	          	$get=$config['user_validation_edition_avatar_lien_erreur_interne'];
+	          }
+	        }
+	        else
+	        {
+				// Sinon erreur sur les dimensions et taille de l'image
+	        	$Notification=new \user\page\Notification(array(
+					'type'    => \user\page\Notification::TYPE_ERREUR,
+					'contenu' => $lang['user_validation_edition_avatar_message_erreur_dimension'],
+				));
+				$get=$config['user_validation_edition_avatar_lien_erreur_dimension'];
+	        }
+	      }
+	      else
+	      {
+	        // Sinon erreur sur le type de l'image
+	      	$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['user_validation_edition_avatar_message_erreur_type'],
+			));
+	        $get=$config['user_validation_edition_avatar_lien_erreur_type'];
+	      }
+	    }
+	    else
+	    {
+	     	// Sinon on affiche une erreur pour l'extension
+	    	$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['user_validation_edition_avatar_message_erreur_extension'],
+			));
+			$get=$config['user_validation_edition_avatar_lien_erreur_extension'];
+	    }
 
 		/*---------------------------------------------------------- FIN DU SCRIPT -----------------------------------------------------------------*/
 	}

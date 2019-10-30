@@ -48,6 +48,8 @@ $config=array(
 					'tete_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),							// Css de la page par défaut
 					'tete_javascripts' => array(),																																												// javascripts de la page par défaut
 					'tete_nom'         => 'tete',
+						/* Titre */
+							'prefixe_titre' => ' | Babtouland',
 				/* Corps */
 					'corps_path_template'  => 'core/page/corps.html',
 					'corps_path_fonctions' => 'core/page/corps.func.php',
