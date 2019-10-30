@@ -1,7 +1,7 @@
 <?php
 
 $id_auteur=0;
-$date_publication=new \DateTime($config['chat_voir_conversation_temps_0']);
+$date_publication=new \DateTime($config['chat_temps_0']);
 $date_comparaison=new \DateInterval($config['chat_voir_conversation_date_comparaison']);
 $date_custom=new \DateTime(date('Y-m-d H:i:s'));
 
@@ -17,7 +17,7 @@ if (isset($_GET['id']))
 		'id' => $id,
 	));
 	$Conversation->recuperer($date_chargement->format('Y-m-d H:i:s'));
-	$Utilisateurs=$Conversation->getUtilisateurs();
+	$Utilisateurs=$Conversation->recupererUtilisateurs();
 	$index=0;
 	while (isset($Utilisateurs[$index]) & $Utilisateurs[$index]->similaire($Visiteur))		// Évite de parcourir toute la liste
 	{
@@ -35,7 +35,7 @@ else
 
 
 $MessagesElements=[];
-foreach ($Conversation->getMessages() as $Message)
+foreach ($Conversation->recupererMessages() as $Message)
 {
 	$date_message=new \DateTime($Message->afficherDate_publicationFormat('Y-m-d H:i:s'));
 	if ($date_message>$date_chargement)	// Normalement c'est tout le temps vrai (opti de $Conversation->recuperer())
@@ -96,7 +96,7 @@ $Chat=new \user\PageElement(array(
 	),
 ));
 
-$Corps=new \user\page\Corps('', $Carte, '');
+$Corps=new \user\page\Corps('', $Chat, '');
 
 $Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 
