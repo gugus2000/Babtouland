@@ -92,6 +92,7 @@ $config=array(
 			'nom_site'           => 'Babtouland',					// Nom du site
 			'mail_dev'           => 'gugus2000@protonmail.com',		// Mail du développeur
 			'defaut_application' => 'user',
+			'lang_available'     => array('FR', 'EN'),
 			/* Utilisateur */
 				'chemin_avatar'       => 'assets/img/avatar/',				// Chemin vers le dossier contenant les avatars
 				'size_avatar'         => 1000000,							// Taille de l'avatar maximum
@@ -99,6 +100,7 @@ $config=array(
 				'height_avatar'       => 1000,								// Longueur verticale maximum de l'avatar
 				'ext_avatar'          => array('jpg','gif','png','jpeg'),	// Extensions autorisé pour uploader un avatar
 				'id_conversation_all' => 1, 								// Id de la conversation disponible à tous
+				'intervalle_connecte' => 'PT5M',
 			/* Path */
 				/* Assets */
 					'path_assets'   => 'assets/',
@@ -111,9 +113,9 @@ $config=array(
 					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
 			/* Menu-up */
-				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
-				'menu-up_icones'      => array('home', 'message', 'info', 'chat'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
-				'menu-up_lien-statut' => createPageLink('user', 'statut', 'chat'),														// Lien lors du clic sur l'avatar dans le menu_up
+				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'hub'), createPageLink('admin', 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
+				'menu-up_icones'      => array('home', 'message', 'info', 'chat', 'security'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
+				'menu-up_lien-statut' => createPageLink('user', 'statut'),														// Lien lors du clic sur l'avatar dans le menu_up
 			/* Menu-side */
 				'menu-side_css'      => 'assets/css/menu-side.css',
 				'menu-side_js'       => '',
@@ -124,6 +126,12 @@ $config=array(
 				'mdp_guest' => 'guest',	// mot de passe de l'utilisateur "guest"
 			/* Erreur */
 				'erreur_path' => 'erreur/page.php',	// Chemin vers la page d'erreur
+		/* admin */
+			'defaut_admin_action' => 'hub',
+			/* validation_publier_notification */
+				'admin_validation_publier_notification_succes'                         => createPageLink('admin', 'hub'),
+				'admin_validation_publier_notification_erreur_vide'                    => createPageLink('admin', 'publier_notification'),
+				'admin_validation_publier_notification_utilisateurs_erreur_formulaire' => createPageLink('admin', 'publier_notification'),
 		/* user */
 			'defaut_user_action' => 'statut',
 			/* inscription */

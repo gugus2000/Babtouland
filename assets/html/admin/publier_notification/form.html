@@ -1,0 +1,21 @@
+<form action="|action|" method="POST" accept-charset="utf-8">
+	<fieldset>
+		<legend>|legend|</legend>
+		<label for="notification_message">|label_notification_message|</label>
+		<textarea name="notification_message" type="text" autocomplete="off"></textarea><br />
+		<label for="notification_type">|label_notification_type|</label>
+		<select name="notification_type">
+			<option value="|type_succes|">|succes|</option>
+			<option value="|type_erreur|">|erreur|</option>}
+			<option value="|type_attention|">|attention|</option>}
+		</select><br />
+		<label for="notification_groupe">|label_notification_groupe|</label>
+		<select name="notification_groupe">
+			<option value="tous">|tous|</option>}
+			|options_groupe|
+		</select><br />
+		<label for="notification_utilisateurs">|label_notification_utilisateurs|</label>
+		<input type="text" name="notification_utilisateurs"><br />
+		<input type="submit" value="|submit|">
+	</fieldset>
+</form>

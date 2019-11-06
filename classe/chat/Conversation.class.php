@@ -190,7 +190,7 @@ class Conversation extends \core\Managed
 		return $affichage;
 	}
 	/**
-	* Afficheur de utilisateurs
+	* Afficheur de id_utilisateurs
 	*
 	* @return string
 	*/
@@ -234,9 +234,12 @@ class Conversation extends \core\Managed
 		)));
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
-		$LiaisonConversationUtilisateur->addBy(array(
-			'id_utilisateur' => $this->getId_utilisateurs,
-		), array(
+		$id_utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id_utilisateur)
+		{
+			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
+		}
+		$LiaisonConversationUtilisateur->addBy($id_utilisateurs, array(
 			'id_conversation' => $this->getId(),
 		));
 	}
@@ -254,7 +257,7 @@ class Conversation extends \core\Managed
 		), $this->getId());
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
-		$id_utilisateurs=$this->getId_utilisateurs;
+		$id_utilisateurs=$this->getId_utilisateurs();
 		$donnees_already_in=$LiaisonConversationUtilisateur->get(array(
 			'id_conversation' => $this->getId(),
 		), array(
@@ -271,18 +274,18 @@ class Conversation extends \core\Managed
 			$LiaisonConversationUtilisateur->deleteBy(array(
 				'id_conversation' => $this->getId(),
 			));
-			$LiaisonConversationUtilisateur->addBy(array(
+			$LiaisonConversationUtilisateur->addBy(array(array(
 				'id_utilisateur' => $id_utilisateurs,
-			), array(
+			)), array(
 				'id_conversation' => $this->getId(),
 			));
 		}
 		else
 		{
 			$id_utilisateurs_a_ajouter=array_diff($id_utilisateurs, $id_utilisateurs_non_modifies);
-			$LiaisonConversationUtilisateur->addBy(array(
+			$LiaisonConversationUtilisateur->addBy(array(array(
 				'id_utilisateur' => $id_utilisateurs_a_ajouter,
-			), array(
+			)), array(
 				'id_conversation' => $this->getId(),
 			));
 		}

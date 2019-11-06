@@ -16,9 +16,13 @@ class MenuUp extends \user\PageElement
 	* 
 	* @return void
 	*/
-	public function __construct($Tete)
+	public function __construct($Tete=null)
 	{
 		global $config, $lang, $Visiteur;
+		if (!$Tete)
+		{
+			$Tete=$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']);
+		}
 		$this->setTemplate($config['path_template'].$config['menuUp_path_template']);
 		$this->setFonctions($config['path_func'].$config['menuUp_path_fonctions']);
 		$Logo=new \user\PageElement(array(

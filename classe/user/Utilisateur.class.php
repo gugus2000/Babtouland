@@ -442,7 +442,7 @@ class Utilisateur extends \core\Managed
 		}
 	}
 	/**
-	* Récupère l'id des conversations dont l'utilisateur fait parti
+	* Récupère les conversations dont l'utilisateur fait parti
 	*
 	* @return array
 	*/
@@ -465,6 +465,31 @@ class Utilisateur extends \core\Managed
 			$conversations[]=$conversation;
 		}
 		return $conversations;
+	}
+	/**
+	* Récupère les notifications devant être vu par l'utilisateur
+	*
+	* @return array
+	*/
+	public function recupererNotifications()
+	{
+		$BDDFactory=new \core\BDDFactory;
+		$Liaison=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
+		$resultats=$Liaison->get(array(
+			'id_utilisateur' => $this->getId(),
+		), array(
+			'id_utilisateur' => '=',
+		));
+		$notifications=array();
+		foreach ($resultats as $key => $resultat)
+		{
+			$notification=new \user\Notification(array(
+				'id' => $resultat['id_notification'],
+			));
+			$notification->recuperer();
+			$notifications[]=$notification;
+		}
+		return $notifications;
 	}
 }
 

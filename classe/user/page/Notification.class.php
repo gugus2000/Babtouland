@@ -35,7 +35,7 @@ class Notification extends \user\PageElement
 	*
 	* @param array elements Éléments à insérer sous la forme d'une array
 	*
-	* @param user\page\Page Page Page
+	* @param \user\page\Page Page Page
 	* 
 	* @return void
 	*/

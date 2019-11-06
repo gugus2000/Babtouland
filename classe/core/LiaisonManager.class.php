@@ -99,6 +99,7 @@ class LiaisonManager
 		}
 		return $results;
 	}
+
 	/**
 	* Ajoute les éléments dans la table avec des paramètres variants et invariants
 	*
@@ -117,13 +118,12 @@ class LiaisonManager
 		$invariants=array_intersect_key($invariants, array_flip($this::ATTRIBUTES));
 		$attributs=array_merge(array_keys($variants[\array_key_first($variants)]),array_keys($invariants));
 		$donnees=array();
-		$nombre_elements=count($variants[\array_key_first($variants)]);	// Le nombre d'éléments à insérer est le nombre de valeur dans les premières valeurs variantes
-		for ($i=0; $i < $nombre_elements; $i++)
+		for ($i=0; $i < count($variants); $i++)
 		{ 
 			$donnee=array();
-			foreach ($variants[$i] as $attribut => $valeurs)
+			foreach ($variants[$i] as $attribut => $valeur)
 			{
-				$donnee[$attribut]=$valeurs;
+				$donnee[$attribut]=$valeur;
 			}
 			foreach ($invariants as $attribut => $valeur)
 			{

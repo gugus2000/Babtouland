@@ -158,7 +158,16 @@ class Page
 		$PageElement=new \user\page\Page();
 		$PageElement->ajouterElement($config['tete_nom'], new \user\page\Tete());
 		$PageElement->ajouterElement($config['notification_nom'], $config['notification_elements']);
-		if (isset($_SESSION['notifications']))		// Gestion des notifications
+		$Notifications=$Visiteur->recupererNotifications();
+		if ($Notifications)		// Gestion des notifications de la base de données
+		{
+			foreach ($Notifications as $Notification)
+			{
+				$Notification->envoyerNotification($PageElement);
+			}
+			\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
+		}
+		if (isset($_SESSION['notifications']))		// Gestion des notifications de sessions
 		{
 			foreach ($_SESSION['notifications'] as $notification_serialize)
 			{

@@ -20,7 +20,7 @@ class Corps extends \user\PageElement
 	* 
 	* @return void
 	*/
-	public function __construct($haut, $centre, $bas)
+	public function __construct($haut='', $centre='', $bas='')
 	{
 		global $config, $lang, $Visiteur;
 		$this->setTemplate($config['path_template'].$config['corps_path_template']);

@@ -18,9 +18,13 @@ class Toast extends \user\PageElement
 	* 
 	* @return void
 	*/
-	public function __construct($elements, $Tete)
+	public function __construct($elements, $Tete=null)
 	{
 		global $config, $lang, $Visiteur;
+		if (!$Tete)
+		{
+			$Tete=$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']);
+		}
 		$this->setTemplate($config['path_template'].$config['toast_path_template']);
 		$this->setFonctions($config['path_func'].$config['toast_path_fonctions']);
 		$this->setElements(array(

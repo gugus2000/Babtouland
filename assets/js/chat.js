@@ -39,8 +39,7 @@ function mettre_a_jour() {
 		}
 	}
 	xhr.open('GET', '?application=xhr&action=chat&id='+encodeURIComponent(id)+'&date_chargement='+encodeURIComponent(date_dernier_chargement));
-	xhr.responseType = "document";
-	xhr.overrideMimeType('text/xml');
+	xhr.responseType="document";
 	xhr.send(null);
 	setTimeout('mettre_a_jour()', 10000);
 }

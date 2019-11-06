@@ -14,11 +14,15 @@ if (isset($_GET['id']))
 	$Conversation->recuperer($date_publication->format('Y-m-d H:i:s'));
 	$Id_utilisateurs=$Conversation->getId_utilisateurs();
 	$index=0;
-	while (isset($Id_utilisateurs[$index]) & $Id_utilisateurs[$index]==$Visiteur->getId())		// Évite de parcourir toute la liste
+	while (isset($Id_utilisateurs[$index]))		// Évite de parcourir toute la liste
 	{
+		if (!$Id_utilisateurs[$index]==$Visiteur->getId())
+		{
+			break;
+		}
 		$index++;
 	}
-	if (!$Id_utilisateurs[$index])
+	if (!isset($Id_utilisateurs[$index-1]))
 	{
 		throw new \Exception($lang['chat_voir_conversation_erreur_pas_membre']);
 	}
@@ -117,6 +121,17 @@ foreach ($Conversation->recupererMessages() as $Message)
 			'detail_message'  => $Detail_message,
 			'contenu_message' => $Contenu_message,
 			'separation'      => $Separation,
+		),
+	));
+}
+if (!$Conversation->recupererMessages())
+{
+	$MessagesElements[]=new \user\PageElement(array(
+		'template' => $config['path_template'].$application.'/'.$action.'/message.html',
+		'elements' => array(
+			'detail_message'  => '',
+			'contenu_message' => $lang['chat_voir_conversation_conversation_vide'],
+			'separation'      => '',
 		),
 	));
 }

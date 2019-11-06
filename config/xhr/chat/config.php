@@ -1,9 +1,11 @@
 <?php
 
-$id_auteur=0;
+$id_auteur=null;
 $date_publication=new \DateTime($config['chat_temps_0']);
 $date_comparaison=new \DateInterval($config['chat_voir_conversation_date_comparaison']);
 $date_custom=new \DateTime(date('Y-m-d H:i:s'));
+
+$this->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', 'xhr');
 
 $date_chargement=$date_publication;
 if (isset($_GET['date_chargement']))
@@ -17,13 +19,17 @@ if (isset($_GET['id']))
 		'id' => $id,
 	));
 	$Conversation->recuperer($date_chargement->format('Y-m-d H:i:s'));
-	$Utilisateurs=$Conversation->recupererUtilisateurs();
+	$Id_utilisateurs=$Conversation->getId_utilisateurs();
 	$index=0;
-	while (isset($Utilisateurs[$index]) & $Utilisateurs[$index]->similaire($Visiteur))		// Évite de parcourir toute la liste
+	while (isset($Id_utilisateurs[$index]))		// Évite de parcourir toute la liste
 	{
+		if (!$Id_utilisateurs[$index]==$Visiteur->getId())
+		{
+			break;
+		}
 		$index++;
 	}
-	if (!$Utilisateurs[$index])
+	if (!isset($Id_utilisateurs[$index-1]))
 	{
 		throw new \Exception($lang['chat_voir_conversation_erreur_pas_membre']);
 	}
@@ -73,7 +79,8 @@ foreach ($Conversation->recupererMessages() as $Message)
 		$Contenu_message=new \user\PageElement(array(
 			'template' => $config['path_template'].'chat'.'/'.'voir_conversation'.'/contenu_message.html',
 			'elements' => array(
-				'contenu' => $Message->afficherContenu(),
+				'action_chat' => '',
+				'contenu'     => $Message->afficherContenu(),
 			),
 		));
 
@@ -87,6 +94,17 @@ foreach ($Conversation->recupererMessages() as $Message)
 		));
 	}
 }
+if (!$Conversation->recupererMessages())
+{
+	$MessagesElements[]=new \user\PageElement(array(
+		'template' => $config['path_template'].'chat'.'/'.'voir_conversation'.'/message.html',
+		'elements' => array(
+			'detail_message'  => '',
+			'contenu_message' => '',
+			'separation'      => '',
+		),
+	));
+}
 
 $Chat=new \user\PageElement(array(
 	'template' => $config['path_template'].'chat'.'/'.'voir_conversation'.'/chat.html',
@@ -99,5 +117,6 @@ $Chat=new \user\PageElement(array(
 $Corps=new \user\page\Corps('', $Chat, '');
 
 $Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
+$this->getPage()->envoyerNotificationsSession();
 
 ?>
