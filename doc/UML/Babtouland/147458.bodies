@@ -1,0 +1,107 @@
+class Commentaire
+!!!256130.php!!!	getId() : int
+
+		return $this->id;
+!!!256258.php!!!	getId_auteur() : int
+
+		return $this->id_auteur;
+!!!256386.php!!!	getId_post() : int
+
+		return $this->id_post;
+!!!256514.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!256642.php!!!	getDate_publication() : string
+
+		return $this->date_publication;
+!!!256770.php!!!	getDate_mise_a_jour() : string
+
+		return $this->date_mise_a_jour;
+!!!256898.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!257026.php!!!	setId_auteur(in id_auteur : int) : void
+
+		$this->id_auteur=(int)$id_auteur;
+!!!257154.php!!!	setId_post(in id_post : int) : void
+
+		$this->id_post=(int)$id_post;
+!!!257282.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=$contenu;
+!!!257410.php!!!	setDate_publication(in date_publication : string) : void
+
+		$this->date_publication=$date_publication;
+!!!257538.php!!!	setDate_mise_a_jour(in date_mise_a_jour : string) : void
+
+		$this->date_mise_a_jour=$date_mise_a_jour;
+!!!257666.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!257794.php!!!	afficherId_auteur() : string
+
+		return htmlspecialchars((string)$this->id_auteur);
+!!!257922.php!!!	afficherid_post() : string
+
+		return htmlspecialchars((string)$this->id_post);
+!!!258050.php!!!	afficherContenu() : string
+
+		return htmlspecialchars((string)$this->contenu);
+!!!258178.php!!!	afficherDate_publication() : string
+
+		return htmlspecialchars((string)$this->date_publication);
+!!!258306.php!!!	afficherDate_mise_a_jour() : string
+
+		return htmlspecialchars((string)$this->date_mise_a_jour);
+!!!258434.php!!!	afficherDate_publicationFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_publication));
+!!!258562.php!!!	afficherDate_mise_a_jourFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_mise_a_jour));
+!!!258690.php!!!	afficher() : string
+
+		return $this->afficherContenu();
+!!!258818.php!!!	publier() : void
+
+		$Manager=$this->Manager();
+		$Manager->add(array(
+			'id_auteur'        => $this->getId_auteur(),
+			'id_post'          => $this->getId_post(),
+			'contenu'          => $this->getContenu(),
+			'date_publication' => $this->getDate_publication(),
+			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+		));
+		$this->setId($Manager->getIdBy(array(
+			'id_auteur'        => $this->getId_auteur(),
+			'id_post'          => $this->getId_post(),
+			'contenu'          => $this->getContenu(),
+			'date_publication' => $this->getDate_publication(),
+			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+		)));
+!!!258946.php!!!	mettre_a_jour() : void
+
+		$Manager=$this->Manager();
+		$Manager->update(array(
+			'contenu'          => $this->getContenu(),
+			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+		), $this->getId());
+!!!259074.php!!!	supprimer() : void
+
+		$Manager=$this->Manager();
+		$Manager->delete($this->getId());
+!!!259202.php!!!	recupererAuteur() : Utilisateur
+
+		$Utilisateur=new \user\Utilisateur(array());
+		$Utilisateur->get($this->getId_auteur());
+		return $Utilisateur;
+!!!259330.php!!!	recupererPost() : Post
+
+		$Post=new \post\Post(array(
+			'id' => $this->getId_post(),
+		));
+		$Post->recuperer();
+		return $Post;
+!!!259458.php!!!	recuperer() : void
+
+		$this->get($this->getId());

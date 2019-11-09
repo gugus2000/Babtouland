@@ -1,143 +1,20 @@
-class Utilisateur
-!!!217090.php!!!	getId() : int
-
-		return $this->id;
-!!!217218.php!!!	getPseudo() : string
-
-		return $this->pseudo;
-!!!217346.php!!!	getMotdepasse() : Motdepasse
-
-		return $this->motdepasse;
-!!!217474.php!!!	getAvatar() : string
-
-		return $this->avatar;
-!!!217602.php!!!	getDate_inscription() : string
-
-		return $this->date_inscription;
-!!!217730.php!!!	getDate_connexion() : string
-
-		return $this->date_connexion;
-!!!217858.php!!!	getBanni() : bool
-
-		return $this->banni;
-!!!217986.php!!!	getRole() : Role
-
-		return $this->role;
-!!!218114.php!!!	getMail() : string
-
-		return $this->mail;
-!!!218242.php!!!	setId(in id : int) : void
-
-		$this->id=(int)$id;
-!!!218370.php!!!	setPseudo(in pseudo : string) : void
-
-		$this->pseudo=$pseudo;
-!!!218498.php!!!	setMotdepasse(in motdepasse : Motdepasse) : void
-
-		$this->motdepasse=$motdepasse;
-!!!218626.php!!!	setAvatar(in avatar : string) : void
-
-		$this->avatar=$avatar;
-!!!218754.php!!!	setDate_inscription(in date_inscription : string) : void
-
-		$this->date_inscription=(string)$date_inscription;
-!!!218882.php!!!	setDate_connexion(in date_connexion : string) : void
-
-		$this->date_connexion=(string)$date_connexion;
-!!!219010.php!!!	setBanni(in banni : bool) : void
-
-		$this->banni=(bool)$banni;
-!!!219138.php!!!	setRole(in role : Role) : void
-
-		$this->role=$role;
-!!!219266.php!!!	setMail(in mail : string) : void
-
-		$this->mail=$mail;
-!!!219394.php!!!	afficherId() : string
-
-		return htmlspecialchars((string)$this->id);
-!!!219522.php!!!	afficherPseudo() : string
-
-		return htmlspecialchars((string)$this->pseudo);
-!!!219650.php!!!	afficherMotdepasse() : string
-
-		return htmlspecialchars((string)$this->motdepasse->afficher());
-!!!219778.php!!!	afficherAvatar() : string
-
-		return htmlspecialchars((string)$this->avatar);
-!!!219906.php!!!	afficherDate_inscription() : string
-
-		return htmlspecialchars((string)$this->date_inscription);
-!!!220034.php!!!	afficherDate_connexion() : string
-
-		return htmlspecialchars((string)$this->date_connexion);
-!!!220162.php!!!	afficherBanni() : string
-
-		return htmlspecialchars((string)$this->banni);
-!!!220290.php!!!	afficherRole() : string
-
-		return htmlspecialchars((string)$this->role->afficher());
-!!!220418.php!!!	afficherMail() : string
-
-		return htmlspecialchars((string)$this->mail);
-!!!220546.php!!!	afficherDate_inscriptionFormat(in format : string) : string
-
-		return date($format, strtotime($this->date_inscription));
-!!!220674.php!!!	afficherDate_connexionFormat(in format : string) : string
-
-		return date($format, strtotime($this->date_connexion));
-!!!220802.php!!!	afficher() : string
-
-		return $this->afficherPseudo();
-!!!220930.php!!!	estConnecte(in intervalle : string = 'PT5M') : bool
-
-		$Manager=$this->Manager();
-		$date=new \DateTime(date('Y-m-d H:i:s'));
-		$date->sub(new \DateInterval($intervalle));
-		$donnees=$Manager->getBy(array(
-			'date_connexion' => $date->format('Y-m-d H:i:s'),
-			'id'             => $this->getId(),
-		), array(
-			'date_connexion' => '>=',
-			'id'             => '=',
-		));
-		return (bool)$donnees;
-!!!221058.php!!!	recuperer_motdepasse() : void
-
-		if ($this->getId())
-		{
-			$BDDFactory=new \core\BDDFactory;
-			$MotdepasseManager=new \user\MotdepasseManager($BDDFactory->MysqlConnexion());
-			$motdepasse=$MotdepasseManager->get($this->getId());
-			$Motdepasse=new \user\Motdepasse($motdepasse);
-			$this->setMotdepasse($Motdepasse);
+class StringParser_Node_Text
+!!!304386.php!!!	__construct(in content : string, in occurredAt : int = -1)
+		parent::__construct ($occurredAt);
+		$this->content = $content;
+!!!304514.php!!!	appendText(in text : string)
+		$this->content .= $text;
+!!!304642.php!!!	setFlag(in name : string, in value : mixed)
+		$this->_flags[$name] = $value;
+		return true;
+!!!304770.php!!!	getFlag(in flag : string, in type : string = 'mixed', in default : mixed = null)
+		if (!isset ($this->_flags[$flag])) {
+			return $default;
 		}
-!!!221186.php!!!	recuperer_role() : void
-
-		if ($this->getId())
-		{
-			$Role=new \user\Role(array(
-				'id' => $this->getId(),
-			));
-			$Role->recuperer();
-			$this->setRole($Role);
+		$return = $this->_flags[$flag];
+		if ($type != 'mixed') {
+			settype ($return, $type);
 		}
-!!!221314.php!!!	recuperer() : void
-
-		if ($this->getId())
-		{
-			$UtilisateurManager=$this->Manager();
-			$this->get($this->getId());
-			$this->recuperer_role();
-			$this->recuperer_motdepasse();
-		}
-		else if ($this->getpseudo())
-		{
-			$UtilisateurManager=$this->Manager();
-			$this->setId($UtilisateurManager->getIdBy(array(
-				'pseudo' => $this->getPseudo(),
-			)));
-			$this->get($this->getId());
-			$this->recuperer_role();
-			$this->recuperer_motdepasse();
-		}
+		return $return;
+!!!304898.php!!!	_dumpToString()
+		return "text \"".substr (preg_replace ('/\s+/', ' ', $this->content), 0, 40)."\" [f:".preg_replace ('/\s+/', ' ', join(':', array_keys ($this->_flags)))."]";

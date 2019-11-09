@@ -1,0 +1,65 @@
+format 222
+"publier_notification" // Babtouland::func::admin::publier_notification
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/func/admin/publier_notification/"
+  deploymentview 168322 "publier_notification"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 186242 "func"
+      stereotype "source"
+      php_src "<?php
+
+/**
+ * Permet l'affichage des composants d'un select dans le formulaire de admin\\publier_notification
+ *
+ * @param array options Options à afficher
+ *
+ * @return string
+ * @author gugus2000
+ **/
+function options_groupeAfficher($options)
+{
+	$affichage='';
+	foreach ($options as $option)
+	{
+		$affichage.=$option->afficher();
+	}
+	return $affichage;
+}
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

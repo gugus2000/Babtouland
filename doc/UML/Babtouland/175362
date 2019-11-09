@@ -1,0 +1,43 @@
+format 222
+"func" // Babtouland::func
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/func/"
+  package_ref 175490 // admin
+
+  package_ref 175746 // chat
+
+  package_ref 176130 // core
+
+  package_ref 176642 // post
+
+  package_ref 177026 // utile
+end

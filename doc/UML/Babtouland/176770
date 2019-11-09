@@ -1,0 +1,83 @@
+format 222
+"fil_post" // Babtouland::func::post::fil_post
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/func/post/fil_post/"
+  deploymentview 169218 "fil_post"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 187522 "func"
+      stereotype "source"
+      php_src "<?php
+
+/**
+ * Affichage de la liste des strings composants la navigation pour le fil des posts
+ *
+ * @param array liste_navigation Liste des strings de la navigation
+ *
+ * @return string
+ * @author gugus2000
+ **/
+function liste_navigationAfficher($liste_navigation)
+{
+	$affichage='';
+	foreach ($liste_navigation as $element)
+	{
+		$affichage.=$element;
+	}
+	return $affichage;
+}
+
+/**
+ * Affichage de la liste des pageElements représentant des posts
+ *
+ * @param array liste_post Liste des posts à insérer
+ *
+ * @return string
+ * @author gugus2000
+ **/
+function liste_postAfficher($liste_post)
+{
+	$affichage='';
+	foreach ($liste_post as $post)
+	{
+		$affichage.=$post->afficher();
+	}
+	return $affichage;
+}
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

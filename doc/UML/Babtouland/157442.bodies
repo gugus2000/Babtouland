@@ -1,107 +1,193 @@
-class Commentaire
-!!!198402.php!!!	getId() : int
+class Conversation
+!!!289282.php!!!	getId() : int
 
 		return $this->id;
-!!!198530.php!!!	getId_auteur() : int
+!!!289410.php!!!	getNom() : string
 
-		return $this->id_auteur;
-!!!198658.php!!!	getId_post() : int
+		return $this->nom;
+!!!289538.php!!!	getDescription() : string
 
-		return $this->id_post;
-!!!198786.php!!!	getContenu() : string
+		return $this->description;
+!!!289666.php!!!	getId_messages() : array
 
-		return $this->contenu;
-!!!198914.php!!!	getDate_publication() : string
+		return $this->messages;
+!!!289794.php!!!	getId_utilisateurs() : array
 
-		return $this->date_publication;
-!!!199042.php!!!	getDate_mise_a_jour() : string
-
-		return $this->date_mise_a_jour;
-!!!199170.php!!!	setId(in id : int) : void
+		return $this->utilisateurs;
+!!!289922.php!!!	setId(in id : int) : void
 
 		$this->id=(int)$id;
-!!!199298.php!!!	setId_auteur(in id_auteur : int) : void
+!!!290050.php!!!	setNom(in nom : string) : void
 
-		$this->id_auteur=(int)$id_auteur;
-!!!199426.php!!!	setId_post(in id_post : int) : void
+		$this->nom=$nom;
+!!!290178.php!!!	setDescription(in description : string) : void
 
-		$this->id_post=(int)$id_post;
-!!!199554.php!!!	setContenu(in contenu : string) : void
+		$this->description=$description;
+!!!290306.php!!!	setId_messages(in messages : array) : void
 
-		$this->contenu=$contenu;
-!!!199682.php!!!	setDate_publication(in date_publication : string) : void
+		$this->messages=$messages;
+!!!290434.php!!!	setId_utilisateurs(in utilisateurs : array) : void
 
-		$this->date_publication=$date_publication;
-!!!199810.php!!!	setDate_mise_a_jour(in date_mise_a_jour : string) : void
-
-		$this->date_mise_a_jour=$date_mise_a_jour;
-!!!199938.php!!!	afficherId() : string
+		$this->utilisateurs=$utilisateurs;
+!!!290562.php!!!	afficherId() : string
 
 		return htmlspecialchars((string)$this->id);
-!!!200066.php!!!	afficherId_auteur() : string
+!!!290690.php!!!	afficherNom() : string
 
-		return htmlspecialchars((string)$this->id_auteur);
-!!!200194.php!!!	afficherid_post() : string
+		return htmlspecialchars((string)$this->nom);
+!!!290818.php!!!	afficherDescription() : string
 
-		return htmlspecialchars((string)$this->id_post);
-!!!200322.php!!!	afficherContenu() : string
+		return htmlspecialchars((string)$this->description);
+!!!290946.php!!!	afficherId_messages() : string
 
-		return htmlspecialchars((string)$this->contenu);
-!!!200450.php!!!	afficherDate_publication() : string
+		$affichage='';
+		foreach ($this->id_messages as $id_message)
+		{
+			$affichage.=htmlspecialchars($id_message).'\n';
+		}
+		return $affichage;
+!!!291074.php!!!	afficheId_utilisateurs() : string
 
-		return htmlspecialchars((string)$this->date_publication);
-!!!200578.php!!!	afficherDate_mise_a_jour() : string
+		$affichage='';
+		foreach ($this->id_utilisateurs as $id_utilisateur)
+		{
+			$affichage.=htmlspecialchars($id_utilisateur);
+		}
+		return $affichage;
+!!!291202.php!!!	recuperer(in date_historique : mixed = null) : void
 
-		return htmlspecialchars((string)$this->date_mise_a_jour);
-!!!200706.php!!!	afficherDate_publicationFormat(in format : string) : string
-
-		return date($format, strtotime($this->date_publication));
-!!!200834.php!!!	afficherDate_mise_a_jourFormat(in format : string) : string
-
-		return date($format, strtotime($this->date_mise_a_jour));
-!!!200962.php!!!	afficher() : string
-
-		return $this->afficherContenu();
-!!!201090.php!!!	publier() : void
+		$this->get($this->getId());
+		$this->recupererId_messages($date_historique);
+		$this->recupererId_utilisateurs();
+!!!291330.php!!!	creer() : void
 
 		$Manager=$this->Manager();
 		$Manager->add(array(
-			'id_auteur'        => $this->getId_auteur(),
-			'id_post'          => $this->getId_post(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+			'nom'         => $this->getNom(),
+			'description' => $this->getDescription(),
 		));
 		$this->setId($Manager->getIdBy(array(
-			'id_auteur'        => $this->getId_auteur(),
-			'id_post'          => $this->getId_post(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+			'nom'         => $this->getNom(),
+			'description' => $this->getDescription(),
 		)));
-!!!201218.php!!!	mettre_a_jour() : void
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$id_utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id_utilisateur)
+		{
+			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
+		}
+		$LiaisonConversationUtilisateur->addBy($id_utilisateurs, array(
+			'id_conversation' => $this->getId(),
+		));
+!!!291458.php!!!	modifier() : void
 
 		$Manager=$this->Manager();
 		$Manager->update(array(
-			'contenu'          => $this->getContenu(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
+			'nom'         => $this->getNom(),
+			'description' => $this->getDescription(),
 		), $this->getId());
-!!!201346.php!!!	supprimer() : void
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$id_utilisateurs=$this->getId_utilisateurs();
+		$donnees_already_in=$LiaisonConversationUtilisateur->get(array(
+			'id_conversation' => $this->getId(),
+		), array(
+			'id_conversation' => '=',
+		));
+		$id_utilisateurs_already_in=array();
+		foreach ($donnees_already_in as $donnee)
+		{
+			$id_utilisateurs_already_in[]=$donnee['id_utilisateur'];
+		}
+		$id_utilisateurs_non_modifies=array_intersect($id_utilisateurs_already_in, $id_utilisateurs);
+		if(array_diff($id_utilisateurs_non_modifies, $id_utilisateurs_already_in))	// Il y a des utilisateurs qui ne sont plus dans la discussion
+		{
+			$LiaisonConversationUtilisateur->deleteBy(array(
+				'id_conversation' => $this->getId(),
+			));
+			$LiaisonConversationUtilisateur->addBy(array(array(
+				'id_utilisateur' => $id_utilisateurs,
+			)), array(
+				'id_conversation' => $this->getId(),
+			));
+		}
+		else
+		{
+			$id_utilisateurs_a_ajouter=array_diff($id_utilisateurs, $id_utilisateurs_non_modifies);
+			$LiaisonConversationUtilisateur->addBy(array(array(
+				'id_utilisateur' => $id_utilisateurs_a_ajouter,
+			)), array(
+				'id_conversation' => $this->getId(),
+			));
+		}
+!!!291586.php!!!	supprimer() : void
 
 		$Manager=$this->Manager();
 		$Manager->delete($this->getId());
-!!!201474.php!!!	recupererAuteur() : Utilisateur
-
-		$Utilisateur=new \user\Utilisateur(array());
-		$Utilisateur->get($this->getId_auteur());
-		return $Utilisateur;
-!!!201602.php!!!	recupererPost() : Post
-
-		$Post=new \post\Post(array(
-			'id' => $this->getId_post(),
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$LiaisonConversationUtilisateur->deleteBy(array(
+			'id_conversation' => $this->getId(),
 		));
-		$Post->recuperer();
-		return $Post;
-!!!201730.php!!!	recuperer() : void
+!!!291714.php!!!	recupererId_utilisateurs() : void
 
-		$this->get($this->getId());
+		$BDDFactory=new \core\BDDFactory;
+		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$resultats=$Liaison->get(array(
+			'id_conversation' => $this->getId(),
+		), array(
+			'id_conversation' => '=',
+		));
+		$id=array();
+		foreach ($resultats as $resultat)
+		{
+			$id[]=$resultat['id_utilisateur'];
+		}
+		$this->setId_utilisateurs($id);
+!!!291842.php!!!	recupererUtilisateurs() : array
+
+		$utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id)
+		{
+			$utilisateur=new \user\Utilisateur(array(
+				'id' => $id,
+			));
+			$utilisateur->recuperer();
+			$utilisateurs[]=$utilisateur;
+		}
+		return $utilisateurs;
+!!!291970.php!!!	recupererId_messages(in date_historique : mixed = null) : void
+
+		$BDDFactory=new \core\BDDFactory;
+		$MessageManager=new \chat\MessageManager($BDDFactory->MysqlConnexion());
+		$getByArray=array(
+			'id_conversation' => $this->getId(),
+		);
+		$getByOperateur=array(
+			'id_conversation' => '=',
+		);
+		if ($date_historique)
+		{
+			$getByArray['date_publication']=$date_historique;
+			$getByOperateur['date_publication']='>';
+		}
+		$resultats=$MessageManager->getBy($getByArray, $getByOperateur);
+		$id=array();
+		foreach ($resultats as $resultat)
+		{
+			$id[]=$resultat['id'];
+		}
+		$this->setId_messages($id);
+!!!292098.php!!!	recupererMessages() : array
+
+		$Messages=array();
+		foreach ($this->getId_messages() as $id)
+		{
+			$Message=new \chat\Message(array(
+				'id' => $id,
+			));
+			$Message->recuperer();
+			$Messages[]=$Message;
+		}
+		return $Messages;

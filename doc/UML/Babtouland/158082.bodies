@@ -1,60 +1,162 @@
-class Motdepasse
-!!!207618.php!!!	getId() : int
+class LiaisonManager
+!!!295682.php!!!	__construct(in bdd : PDO) : void
 
-		return $this->id;
-!!!207746.php!!!	getMdp_clair() : string
+		$this->setBdd($bdd);
+!!!295810.php!!!	getBdd() : PDO
 
-		return $this->mdp_clair;
-!!!207874.php!!!	getMot_de_passe() : string
+		return $this->bdd;
+!!!295938.php!!!	setBdd(in bdd : PDO) : void
 
-		return $this->mot_de_passe;
-!!!208002.php!!!	setId(in id : int) : void
+		$this->bdd=$bdd;
+!!!296066.php!!!	get(in attributs : array, in operations : array) : array
 
-		$this->id=$id;
-!!!208130.php!!!	setMdp_clair(in mdp_clair : string) : void
-
-		$this->mdp_clair=$mdp_clair;
-!!!208258.php!!!	setMot_de_passe(in mot_de_passe : string) : void
-
-		$this->mot_de_passe=$mot_de_passe;
-!!!208386.php!!!	afficherId() : string
-
-		return htmlspecialchars((string)$this->id);
-!!!208514.php!!!	afficherMdp_clair() : string
-
-		return htmlspecialchars((string)$this->mdp_clair);
-!!!208642.php!!!	afficherMdp_hash() : string
-
-		return htmlspecialchars((string)$this->mdp_hash);
-!!!208770.php!!!	hash() : void
-
-		if ($this->getMdp_clair())
+		$attributsWithOperators=array();
+		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		foreach ($attributs as $nom => $valeur)
 		{
-			$mdp_hash=password_hash($this->getMdp_clair(), PASSWORD_DEFAULT);
-			$this->setMot_de_passe($mdp_hash);
+			$attributsWithOperators[]=$nom.$operations[$nom].'?';
 		}
-!!!208898.php!!!	verif(in mot_de_passe : string) : bool
-
-		if ($this->getMot_de_passe())
+		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators).'');
+		$requete->execute(array_values($attributs));
+		$results=array();
+		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
 		{
-			$password=$mot_de_passe;
-			$hash=$this->getMot_de_passe();
-			$options=array(
-				'cost' => $this::HASH_COST,
-			);
-			if (password_verify($password, $hash))
+			array_push($results, $result);
+		}
+		return $results;
+!!!296194.php!!!	addBy(in variants : array, in invariants : array) : void
+
+		foreach ($variants as $variant)
+		{
+			$variant=array_intersect_key($variant, array_flip($this::ATTRIBUTES));
+		}
+		$invariants=array_intersect_key($invariants, array_flip($this::ATTRIBUTES));
+		$attributs=array_merge(array_keys($variants[\array_key_first($variants)]),array_keys($invariants));
+		$donnees=array();
+		for ($i=0; $i < count($variants); $i++)
+		{ 
+			$donnee=array();
+			foreach ($variants[$i] as $attribut => $valeur)
 			{
-			    if (password_needs_rehash($hash, PASSWORD_DEFAULT, $options))
-			    {
-			        $this->setMot_de_passe(password_hash($password, PASSWORD_DEFAULT, $options));
-			        $Mot_de_passeManager=$this->Manager();
-			        $Mot_de_passeManager->update(array(
-			        	'mot_de_passe' => $this->getMot_de_passe(),
-			        ), $this->getId());
-			    }
-			    $this->setMdp_clair($mot_de_passe);
-			    return True;
+				$donnee[$attribut]=$valeur;
 			}
+			foreach ($invariants as $attribut => $valeur)
+			{
+				$donnee[$attribut]=$valeur;
+			}
+			$donnees[]=$donnee;	// donnees est un tableau contenant les attributs et leur valeur pour chaque élément
+		}
+		foreach ($donnees as $donnee)
+		{
+			$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', $attributs).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
+			$requete->execute(array_values($donnee));
+		}
+!!!296322.php!!!	deleteBy(in attributs : array) : void
+
+		$attributsWithOperators=array();
+		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		foreach ($attributs as $nom => $valeur)
+		{
+			$attributsWithOperators[]=$nom.'=?';
+		}
+		$requete=$this->getBdd()->prepare('DELETE FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
+		$requete->execute(array_values($attributs));
+!!!296450.php!!!	exist(in conditions : array, in groupe : string) : bool
+
+		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
+		{
 			return False;
 		}
-		return False;
+		$donnees=array();
+		$attributs_egalite=array();
+		$valeurs_tous=array();
+		foreach ($conditions as $index => $condition)
+		{
+			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+			$attributs_egalite[$index]=array();
+			foreach ($condition as $attribut => $valeur)
+			{
+				$attributs_egalite[$index][]=$attribut.'=?';
+				if (!isset($donnees[$attribut]))
+				{
+					$donnees[$attribut]=array();
+				}
+				$donnees[$attribut][]=$valeur;
+				$valeurs_tous[]=$valeur;
+			}
+		}
+
+		$attributs_count=array();
+		foreach ($donnees as $attribut => $valeurs)
+		{
+			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+		}
+		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+		$selects_avec_nom_table=array();
+		$egalites_join_avec_nom_table=array();
+		$nbr_conditions=count($conditions);
+		for ($index=0; $index < $nbr_conditions; $index++)
+		{
+			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
+			if ($index+1<$nbr_conditions)
+			{
+				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+			}
+		}
+		$groupe_avec_nom_table='table_0.'.$groupe;
+		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
+		$requete=$this->getBdd()->prepare($select);
+		$requete->execute($valeurs_tous);
+		return (bool)$requete->fetch(\PDO::FETCH_ASSOC);
+!!!296578.php!!!	getBy(in conditions : array, in groupe : string) : array
+
+		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
+		{
+			return False;
+		}
+		$donnees=array();
+		$attributs_egalite=array();
+		$valeurs_tous=array();
+		foreach ($conditions as $index => $condition)
+		{
+			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+			$attributs_egalite[$index]=array();
+			foreach ($condition as $attribut => $valeur)
+			{
+				$attributs_egalite[$index][]=$attribut.'=?';
+				if (!isset($donnees[$attribut]))
+				{
+					$donnees[$attribut]=array();
+				}
+				$donnees[$attribut][]=$valeur;
+				$valeurs_tous[]=$valeur;
+			}
+		}
+
+		$attributs_count=array();
+		foreach ($donnees as $attribut => $valeurs)
+		{
+			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+		}
+		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+		$selects_avec_nom_table=array();
+		$egalites_join_avec_nom_table=array();
+		$nbr_conditions=count($conditions);
+		for ($index=0; $index < $nbr_conditions; $index++)
+		{
+			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
+			if ($index+1<$nbr_conditions)
+			{
+				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+			}
+		}
+		$groupe_avec_nom_table='table_0.'.$groupe;
+		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
+		$requete=$this->getBdd()->prepare($select);
+		$requete->execute($valeurs_tous);
+		$resultats=array();
+		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
+		{
+			$resultats[]=$result;
+		}
+		return $resultats;

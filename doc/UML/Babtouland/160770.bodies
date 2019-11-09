@@ -1,0 +1,85 @@
+class PageElement
+!!!326786.php!!!	getTemplate() : string
+
+		return $this->template;
+!!!326914.php!!!	getFonctions() : string
+
+		return $this->fonctions;
+!!!327042.php!!!	getElements() : array
+
+		return $this->elements;
+!!!327170.php!!!	setTemplate(in template : string) : void
+
+		$this->template=$template;
+!!!327298.php!!!	setFonctions(in fonctions : string) : void
+
+		$this->fonctions=$fonctions;
+!!!327426.php!!!	setElements(in elements : array) : void
+
+		$this->elements=$elements;
+!!!327554.php!!!	afficherTemplate() : string
+
+		return htmlspecialchars($this->template);
+!!!327682.php!!!	afficherFonctions() : string
+
+		return htmlspecialchars($this->fonctions);
+!!!327810.php!!!	afficherElements() : string
+
+		return htmlspecialchars(print_r($this->elements));
+!!!327938.php!!!	afficher() : string
+
+		$contenuElement=file_get_contents($this->getTemplate());
+		if ($this->getFonctions())
+		{
+			require $this->getFonctions();
+		}
+		foreach ($this->getElements() as $nom => $element)
+		{
+			if (is_object($element))
+			{
+				$valeur=$element->afficher();
+			}
+			else if (is_array($element))
+			{
+				$valeur=($nom.'Afficher')($element);
+			}
+			else
+			{
+				$valeur=$element;
+			}
+			$contenuElement=preg_replace('#'.$this::SEPARATEUR.$nom.$this::SEPARATEUR.'#', $valeur, $contenuElement);
+		}
+		return $contenuElement;
+!!!328066.php!!!	getElement(in index : mixed) : mixed
+
+		return $this->elements[$index];
+!!!328194.php!!!	__construct(in attributs : array) : void
+
+		foreach ($attributs as $key => $value)
+		{
+			$method='set'.ucfirst($key);
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
+!!!328322.php!!!	ajouterElement(in nom : string, in element : PageElement) : void
+
+		$this->elements[$nom]=$element;
+!!!328450.php!!!	ajouterValeurElement(in index : mixed, in valeur : mixed) : void
+
+		if (is_array($this->getElement($index)))
+		{
+			if (!in_array($valeur, $this->elements[$index]))		// La valeur n'existe pas déjà (évite de mettre plusieurs fois le même css par exemple)
+			{
+				$this->elements[$index][]=$valeur;
+			}
+		}
+		else if (is_string($this->getElement($index)))
+		{
+			$this->elements[$index].=(string)$valeur;
+		}
+		else
+		{
+			throw new Exception("On ne peut pas ajouter la valeur à l'élément s'il n'est pas un array ou une string");
+		}

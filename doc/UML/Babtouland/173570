@@ -1,0 +1,58 @@
+format 222
+"deconnexion" // Babtouland::config::user::deconnexion
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/user/deconnexion/"
+  deploymentview 166786 "deconnexion"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 184706 "config"
+      stereotype "source"
+      php_src "<?php
+
+session_destroy();
+session_start();
+
+$Notification=new \\user\\page\\Notification(array(
+	'type'     => \\user\\page\\Notification::TYPE_SUCCES,
+	'contenu'  => $lang['user_deconnexion_message'],
+), $this->getPage()->getPageElement());
+
+$Visiteur->getPage()->envoyerNotificationsSession();
+header('location: index.php')
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

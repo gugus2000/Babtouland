@@ -1,0 +1,75 @@
+format 222
+"commentaire_publication" // Babtouland::config::post::commentaire_publication
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/commentaire_publication/"
+  deploymentview 165378 "commentaire_publication"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 183298 "config"
+      stereotype "source"
+      php_src "<?php
+
+if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['commentaire_contenu']) & !empty($_GET['id']))
+{
+	$Commentaire=new \\post\\Commentaire(array(
+		'id_auteur'        => $Visiteur->getId(),
+		'id_post'          => $_GET['id'],
+		'contenu'          => $_POST['commentaire_contenu'],
+		'date_publication' => date('Y-m-d H:i:s'),
+		'date_mise_a_jour' => date('Y-m-d H:i:s'),
+	));
+	$Commentaire->publier();
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+		'contenu' => $lang['post_commentaire_publication_message_succes'],
+	));
+	$get=$config['post_commentaire_publication_suivant'].'&id='.htmlspecialchars($_GET['id']);
+}
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_commentaire_publication_message_formulaire'],
+	));
+	$get=$config['post_commentaire_publication_retour'];
+}
+
+$this->getPage()->envoyerNotificationsSession();
+header('location: index.php'.$get);
+
+ ?>"
+      associated_elems
+      end
+    end
+  end
+end

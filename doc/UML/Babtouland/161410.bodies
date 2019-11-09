@@ -1,0 +1,181 @@
+class Utilisateur
+!!!332418.php!!!	getId() : int
+
+		return $this->id;
+!!!332546.php!!!	getPseudo() : string
+
+		return $this->pseudo;
+!!!332674.php!!!	getMotdepasse() : Motdepasse
+
+		return $this->motdepasse;
+!!!332802.php!!!	getAvatar() : string
+
+		return $this->avatar;
+!!!332930.php!!!	getDate_inscription() : string
+
+		return $this->date_inscription;
+!!!333058.php!!!	getDate_connexion() : string
+
+		return $this->date_connexion;
+!!!333186.php!!!	getBanni() : bool
+
+		return $this->banni;
+!!!333314.php!!!	getRole() : Role
+
+		return $this->role;
+!!!333442.php!!!	getMail() : string
+
+		return $this->mail;
+!!!333570.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!333698.php!!!	setPseudo(in pseudo : string) : void
+
+		$this->pseudo=$pseudo;
+!!!333826.php!!!	setMotdepasse(in motdepasse : Motdepasse) : void
+
+		$this->motdepasse=$motdepasse;
+!!!333954.php!!!	setAvatar(in avatar : string) : void
+
+		$this->avatar=$avatar;
+!!!334082.php!!!	setDate_inscription(in date_inscription : string) : void
+
+		$this->date_inscription=(string)$date_inscription;
+!!!334210.php!!!	setDate_connexion(in date_connexion : string) : void
+
+		$this->date_connexion=(string)$date_connexion;
+!!!334338.php!!!	setBanni(in banni : bool) : void
+
+		$this->banni=(bool)$banni;
+!!!334466.php!!!	setRole(in role : Role) : void
+
+		$this->role=$role;
+!!!334594.php!!!	setMail(in mail : string) : void
+
+		$this->mail=$mail;
+!!!334722.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!334850.php!!!	afficherPseudo() : string
+
+		return htmlspecialchars((string)$this->pseudo);
+!!!334978.php!!!	afficherMotdepasse() : string
+
+		return htmlspecialchars((string)$this->motdepasse->afficher());
+!!!335106.php!!!	afficherAvatar() : string
+
+		return htmlspecialchars((string)$this->avatar);
+!!!335234.php!!!	afficherDate_inscription() : string
+
+		return htmlspecialchars((string)$this->date_inscription);
+!!!335362.php!!!	afficherDate_connexion() : string
+
+		return htmlspecialchars((string)$this->date_connexion);
+!!!335490.php!!!	afficherBanni() : string
+
+		return htmlspecialchars((string)$this->banni);
+!!!335618.php!!!	afficherRole() : string
+
+		return htmlspecialchars((string)$this->role->afficher());
+!!!335746.php!!!	afficherMail() : string
+
+		return htmlspecialchars((string)$this->mail);
+!!!335874.php!!!	afficherDate_inscriptionFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_inscription));
+!!!336002.php!!!	afficherDate_connexionFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_connexion));
+!!!336130.php!!!	afficher() : string
+
+		return $this->afficherPseudo();
+!!!336258.php!!!	estConnecte(in intervalle : string = 'PT5M') : bool
+
+		$Manager=$this->Manager();
+		$date=new \DateTime(date('Y-m-d H:i:s'));
+		$date->sub(new \DateInterval($intervalle));
+		$donnees=$Manager->getBy(array(
+			'date_connexion' => $date->format('Y-m-d H:i:s'),
+			'id'             => $this->getId(),
+		), array(
+			'date_connexion' => '>=',
+			'id'             => '=',
+		));
+		return (bool)$donnees;
+!!!336386.php!!!	recuperer_motdepasse() : void
+
+		if ($this->getId())
+		{
+			$BDDFactory=new \core\BDDFactory;
+			$MotdepasseManager=new \user\MotdepasseManager($BDDFactory->MysqlConnexion());
+			$motdepasse=$MotdepasseManager->get($this->getId());
+			$Motdepasse=new \user\Motdepasse($motdepasse);
+			$this->setMotdepasse($Motdepasse);
+		}
+!!!336514.php!!!	recuperer_role() : void
+
+		if ($this->getId())
+		{
+			$Role=new \user\Role(array(
+				'id' => $this->getId(),
+			));
+			$Role->recuperer();
+			$this->setRole($Role);
+		}
+!!!336642.php!!!	recuperer() : void
+
+		if ($this->getId())
+		{
+			$UtilisateurManager=$this->Manager();
+			$this->get($this->getId());
+			$this->recuperer_role();
+			$this->recuperer_motdepasse();
+		}
+		else if ($this->getpseudo())
+		{
+			$UtilisateurManager=$this->Manager();
+			$this->setId($UtilisateurManager->getIdBy(array(
+				'pseudo' => $this->getPseudo(),
+			)));
+			$this->get($this->getId());
+			$this->recuperer_role();
+			$this->recuperer_motdepasse();
+		}
+!!!336770.php!!!	recupererConversations() : array
+
+		$BDDFactory=new \core\BDDFactory;
+		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$resultats=$Liaison->get(array(
+			'id_utilisateur' => $this->getId(),
+		), array(
+			'id_utilisateur' => '=',
+		));
+		$conversations=array();
+		foreach ($resultats as $key => $resultat)
+		{
+			$conversation=new \chat\Conversation(array(
+				'id' => $resultat['id_conversation'],
+			));
+			$conversation->recuperer();
+			$conversations[]=$conversation;
+		}
+		return $conversations;
+!!!336898.php!!!	recupererNotifications() : array
+
+		$BDDFactory=new \core\BDDFactory;
+		$Liaison=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
+		$resultats=$Liaison->get(array(
+			'id_utilisateur' => $this->getId(),
+		), array(
+			'id_utilisateur' => '=',
+		));
+		$notifications=array();
+		foreach ($resultats as $key => $resultat)
+		{
+			$notification=new \user\Notification(array(
+				'id' => $resultat['id_notification'],
+			));
+			$notification->recuperer();
+			$notifications[]=$notification;
+		}
+		return $notifications;
