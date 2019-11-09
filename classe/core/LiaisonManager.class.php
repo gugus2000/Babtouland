@@ -155,6 +155,125 @@ class LiaisonManager
 		$requete=$this->getBdd()->prepare('DELETE FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
 		$requete->execute(array_values($attributs));
 	}
+	/**
+	* Vérifie l'existence d'un element lié à la base de données respectant certaines conditions (cf. chat/envoyer_mp)
+	*
+	* @param array conditions Conditions à respecter
+	*
+	* @param string groupe Lien avec l'élément à vérifier
+	* 
+	* @return bool
+	*/
+	public function exist($conditions, $groupe)
+	{
+		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
+		{
+			return False;
+		}
+		$donnees=array();
+		$attributs_egalite=array();
+		$valeurs_tous=array();
+		foreach ($conditions as $index => $condition)
+		{
+			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+			$attributs_egalite[$index]=array();
+			foreach ($condition as $attribut => $valeur)
+			{
+				$attributs_egalite[$index][]=$attribut.'=?';
+				if (!isset($donnees[$attribut]))
+				{
+					$donnees[$attribut]=array();
+				}
+				$donnees[$attribut][]=$valeur;
+				$valeurs_tous[]=$valeur;
+			}
+		}
+
+		$attributs_count=array();
+		foreach ($donnees as $attribut => $valeurs)
+		{
+			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+		}
+		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+		$selects_avec_nom_table=array();
+		$egalites_join_avec_nom_table=array();
+		$nbr_conditions=count($conditions);
+		for ($index=0; $index < $nbr_conditions; $index++)
+		{
+			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
+			if ($index+1<$nbr_conditions)
+			{
+				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+			}
+		}
+		$groupe_avec_nom_table='table_0.'.$groupe;
+		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
+		$requete=$this->getBdd()->prepare($select);
+		$requete->execute($valeurs_tous);
+		return (bool)$requete->fetch(\PDO::FETCH_ASSOC);
+	}
+	/**
+	* Selectionne les éléments respectant certaines conditions (cf. chat/envoyer_mp)
+	*
+	* @param array conditions Conditions à respecter
+	*
+	* @param string groupe Attribut de l'élément à vérifier
+	* 
+	* @return array
+	*/
+	public function getBy($conditions, $groupe)
+	{
+		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
+		{
+			return False;
+		}
+		$donnees=array();
+		$attributs_egalite=array();
+		$valeurs_tous=array();
+		foreach ($conditions as $index => $condition)
+		{
+			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+			$attributs_egalite[$index]=array();
+			foreach ($condition as $attribut => $valeur)
+			{
+				$attributs_egalite[$index][]=$attribut.'=?';
+				if (!isset($donnees[$attribut]))
+				{
+					$donnees[$attribut]=array();
+				}
+				$donnees[$attribut][]=$valeur;
+				$valeurs_tous[]=$valeur;
+			}
+		}
+
+		$attributs_count=array();
+		foreach ($donnees as $attribut => $valeurs)
+		{
+			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+		}
+		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+		$selects_avec_nom_table=array();
+		$egalites_join_avec_nom_table=array();
+		$nbr_conditions=count($conditions);
+		for ($index=0; $index < $nbr_conditions; $index++)
+		{
+			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
+			if ($index+1<$nbr_conditions)
+			{
+				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+			}
+		}
+		$groupe_avec_nom_table='table_0.'.$groupe;
+		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
+		$requete=$this->getBdd()->prepare($select);
+		$requete->execute($valeurs_tous);
+		$resultats=array();
+		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
+		{
+			$resultats[]=$result;
+		}
+		return $resultats;
+	}
 }
 
 ?>

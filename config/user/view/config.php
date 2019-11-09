@@ -16,15 +16,47 @@ $Utilisateur=new \user\Utilisateur(array(
 ));
 $Utilisateur->recuperer();
 
+if ($Utilisateur->similaire($this))
+{
+	$Action=new \user\PageElement(array(
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action.html',
+		'elements' => array(
+			'href'  => createPageLink('user', 'statut'),
+			'title' => $lang['user_view_action_statut_editer_title'],
+			'text'  => $lang['user_view_action_statut_editer'],
+		),
+	));
+}
+else
+{
+	if ($this->getPseudo()==$config['nom_guest'])
+	{
+		$text='';
+	}
+	else
+	{
+		$text=$lang['user_view_action_envoyer_mp'];
+	}
+	$Action=new \user\PageElement(array(
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action.html',
+		'elements' => array(
+			'href'  => createPageLink('chat', 'envoyer_mp').'&id='.$Utilisateur->afficherId(),
+			'title' => $lang['user_view_action_envoyer_mp_title'],
+			'text'  => $text,
+		),
+	));
+}
+
 $contenu=new \user\PageElement(array(
 	'template' => $config['path_template'].$application.'/'.$action.'/contenu.html',
 	'elements' => array(
-		'pseudo' => $lang['user_view_pseudo'].$Utilisateur->afficherPseudo(),
-		'avatar_texte' => $lang['user_view_avatar'],
-		'avatar_src' => $config['chemin_avatar'].$Utilisateur->afficherAvatar(),
-		'avatar_alt' => $lang['user_view_avatar_alt'].$Utilisateur->afficherPseudo(),
-		'date_connexion' => $lang['user_view_derndateco'].$Utilisateur->afficherDate_connexion(),
+		'pseudo'           => $lang['user_view_pseudo'].$Utilisateur->afficherPseudo(),
+		'avatar_texte'     => $lang['user_view_avatar'],
+		'avatar_src'       => $config['chemin_avatar'].$Utilisateur->afficherAvatar(),
+		'avatar_alt'       => $lang['user_view_avatar_alt'].$Utilisateur->afficherPseudo(),
+		'date_connexion'   => $lang['user_view_derndateco'].$Utilisateur->afficherDate_connexion(),
 		'date_inscription' => $lang['user_view_premdatein'].$Utilisateur->afficherDate_inscription(),
+		'action'           => $Action,
 	),
 ));
 

@@ -119,13 +119,17 @@ $lang=array(
 			'user_validation_edition_avatar_message_erreur_extension' => 'L\'extension de l\'avatar est invalide',
 			'user_validation_edition_avatar_message_erreur_dimension' => 'Erreur dans les dimensions de l\'avatar',
 		/* view */
-			'user_view_titre'       => 'Voir l\'utilisateur',
-			'user_view_description' => 'Page permettant de voir le profil d\'un autre utilisateur',
-			'user_view_pseudo'      => 'Pseudo: ',
-			'user_view_avatar'      => 'Avatar: ',
-			'user_view_derndateco'  => 'Dernière connexion: ',
-			'user_view_premdatein'  => 'Inscription: ',
-			'user_view_avatar_alt'  => 'Avatar de ',
+			'user_view_titre'                      => 'Voir l\'utilisateur',
+			'user_view_description'                => 'Page permettant de voir le profil d\'un autre utilisateur',
+			'user_view_pseudo'                     => 'Pseudo: ',
+			'user_view_avatar'                     => 'Avatar: ',
+			'user_view_derndateco'                 => 'Dernière connexion: ',
+			'user_view_premdatein'                 => 'Inscription: ',
+			'user_view_avatar_alt'                 => 'Avatar de ',
+			'user_view_action_statut_editer_title' => 'Éditer son compte',
+			'user_view_action_statut_editer'       => 'Éditer',
+			'user_view_action_envoyer_mp_title'    => 'Envoyer un Message Privé',
+			'user_view_action_envoyer_mp'          => 'Envoyer un MP',
 	/* utile */
 		/* a_propos */
 			'utile_a_propos_titre'             => 'À propos',
@@ -254,6 +258,12 @@ $lang=array(
 			'erreur_erreur_titre'       => 'Erreur',
 			'erreur_erreur_description' => 'Page d\'erreur',
 	/* chat */
+		'chat_mp_nom_conversation_debut'          => 'MP entre ',
+		'chat_mp_nom_conversation_milieu'         => ' et ',
+		'chat_mp_nom_conversation_fin'            => '',
+		'chat_mp_description_conversation_debut'  => 'Messages privés entre ',
+		'chat_mp_description_conversation_milieu' => ' et ',
+		'chat_mp_description_conversation_fin'    => '',
 		/* hub */
 			'chat_hub_titre'                        => 'Hub',
 			'chat_hub_description'                  => 'Centre de contrôle du chat',
@@ -262,7 +272,7 @@ $lang=array(
 			'chat_hub_lien_voir_conversation'       => 'Voir',
 			'chat_hub_lien_ajouter_conversation'    => 'Ajouter une nouvelle conversation',
 		/* voir_conversation */
-			'chat_voir_conversation_titre'              => 'Conversation ',
+			'chat_voir_conversation_titre'              => 'Conversation - ',
 			'chat_voir_conversation_description'        => 'Page de consultation d\'une conversation',
 			'chat_voir_conversation_erreur_no_id'       => 'Il faut l\'id de la conversation pour la lire',
 			'chat_voir_conversation_erreur_pas_membre'  => 'Vous n\'êtes pas membre de la conversation',
@@ -293,6 +303,23 @@ $lang=array(
 			'chat_supprimer_message_succes'                           => 'Vous avez bien supprimé le message',
 		/* validation_editer_message */
 			'chat_validation_editer_message_succes' => 'Vous avez bien édité le message',
+		/* envoyer_mp */
+			'chat_envoyer_mp_titre'                        => 'Envoyer un mp',
+			'chat_envoyer_mp_description'                  => 'Page permettant à l\'utilisateur d\'envoyer un message privé à un autre utilisateur',
+			'chat_envoyer_mp_notification_erreur_soi_meme' => 'Vous ne pouvez pas vous envoyer des messages',
+			'chat_envoyer_mp_notification_erreur_guest'    => 'Guest n\'est pas un utilisateur précis',
+			'chat_envoyer_mp_notification_erreur_no_id'    => 'L\'id de l\'utilisateur est nécessaire',
+			'chat_envoyer_mp_form_legend'                  => 'Envoyer un message privé',
+			'chat_envoyer_mp_form_label_message'           => 'Message',
+			'chat_envoyer_mp_form_submit'                  => 'ENVOYER',
+		/* validation_envoyer_mp */
+			'chat_validation_envoyer_mp_notification_succes'              => 'Le message a bien été envoyé',
+			'chat_validation_envoyer_mp_notification_erreur_message_vide' => 'Le message est vide',
+			'chat_validation_envoyer_mp_notification_erreur_formulaire'   => 'Le formulaire n\'a pas été remplit',
+			'chat_validation_envoyer_mp_notification_erreur_plusieurs_mp' => 'Problème dans la base de donnée: vous avez plusieurs conversations de mp avec une même personne ! CONTACTEZ UN ADMINISTRATEUR !',
+			'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => 'Vous ne pouvez pas vous envoyer des messages',
+			'chat_validation_envoyer_mp_notification_erreur_guest'        => 'Guest n\'est pas un utilisateur précis',
+			'chat_validation_envoyer_mp_notification_erreur_no_id'        => 'L\'id de l\'utilisateur est nécessaire',
 );
 
 ?>

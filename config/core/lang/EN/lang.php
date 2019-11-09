@@ -119,13 +119,17 @@ $lang=array(
 			'user_validation_edition_avatar_message_erreur_extension' => 'The avatar extension is invalid',
 			'user_validation_edition_avatar_message_erreur_dimension' => 'Error in the avatar dimensions',
 		/* view */
-			'user_view_titre'       => 'See profile',
-			'user_view_description' => 'Page to view another user\'s profile',
-			'user_view_pseudo'      => 'Pseudo: ',
-			'user_view_avatar'      => 'Avatar: ',
-			'user_view_derndateco'  => 'Last Login: ',
-			'user_view_premdatein'  => 'Registration: ',
-			'user_view_avatar_alt'  => 'Avatar of ',
+			'user_view_titre'                      => 'See profile',
+			'user_view_description'                => 'Page to view another user\'s profile',
+			'user_view_pseudo'                     => 'Pseudo: ',
+			'user_view_avatar'                     => 'Avatar: ',
+			'user_view_derndateco'                 => 'Last Login: ',
+			'user_view_premdatein'                 => 'Registration: ',
+			'user_view_avatar_alt'                 => 'Avatar of ',
+			'user_view_action_statut_editer_title' => 'Edit your account',
+			'user_view_action_statut_editer'       => 'Edit',
+			'user_view_action_envoyer_mp_title'    => 'Send a Private Message',
+			'user_view_action_envoyer_mp'          => 'Send PM',
 	/* utile */
 		/* a_propos */
 			'utile_a_propos_titre'             => 'About',
@@ -254,6 +258,12 @@ $lang=array(
 			'erreur_erreur_titre'       => 'Error',
 			'erreur_erreur_description' => 'Error page',
 	/* chat */
+		'chat_mp_nom_conversation_debut'          => 'PM between ',
+		'chat_mp_nom_conversation_milieu'         => ' and ',
+		'chat_mp_nom_conversation_fin'            => '',
+		'chat_mp_description_conversation_debut'  => 'Private Message between ',
+		'chat_mp_description_conversation_milieu' => ' and ',
+		'chat_mp_description_conversation_fin'    => '',
 		/* hub */
 			'chat_hub_titre'                        => 'Hub',
 			'chat_hub_description'                  => 'Control panel for chat',
@@ -262,7 +272,7 @@ $lang=array(
 			'chat_hub_lien_voir_conversation'       => 'View',
 			'chat_hub_lien_ajouter_conversation'    => 'Add a new conversation',
 		/* voir_conversation */
-			'chat_voir_conversation_titre'              => 'Conversation ',
+			'chat_voir_conversation_titre'              => 'Conversation - ',
 			'chat_voir_conversation_description'        => 'View a conversation',
 			'chat_voir_conversation_erreur_no_id'       => 'Id of the conversation needed to read it',
 			'chat_voir_conversation_erreur_pas_membre'  => 'You are not a member of this conversation',
@@ -293,6 +303,23 @@ $lang=array(
 			'chat_supprimer_message_succes'                           => 'Message well deleted',
 		/* validation_editer_message */
 			'chat_validation_editer_message_succes' => 'Message well edited',
+		/* envoyer_mp */
+			'chat_envoyer_mp_titre'                        => 'Send a mp',
+			'chat_envoyer_mp_description'                  => 'Allows a user to send a private message to another user',
+			'chat_envoyer_mp_notification_erreur_soi_meme' => 'You cannot send a message to yourself',
+			'chat_envoyer_mp_notification_erreur_guest'    => 'Guest is not a user',
+			'chat_envoyer_mp_notification_erreur_no_id'    => 'Id of the user needed',
+			'chat_envoyer_mp_form_legend'                  => 'Send a private message',
+			'chat_envoyer_mp_form_label_message'           => 'Message',
+			'chat_envoyer_mp_form_submit'                  => 'SEND',
+		/* validation_envoyer_mp */
+			'chat_validation_envoyer_mp_notification_succes'              => 'Message well sent',
+			'chat_validation_envoyer_mp_notification_erreur_message_vide' => 'The message is empty',
+			'chat_validation_envoyer_mp_notification_erreur_formulaire'   => 'Form not completed',
+			'chat_validation_envoyer_mp_notification_erreur_plusieurs_mp' => 'Problem in the database: you have more than one conversation of mp with the same user ! CONTACT AN ADMINISTRATOR !',
+			'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => 'You cannot send a message to yourself',
+			'chat_validation_envoyer_mp_notification_erreur_guest'        => 'Guest is not a user',
+			'chat_validation_envoyer_mp_notification_erreur_no_id'        => 'Id of the user needed',
 );
 
 ?>

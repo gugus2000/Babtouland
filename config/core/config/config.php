@@ -265,6 +265,19 @@ $config=array(
 				'chat_supprimer_message_succes'                           => createPageLink('chat', 'voir_conversation'),
 			/* validation_editer_message */
 				'chat_validation_editer_message_succes' => createPageLink('chat', 'voir_conversation'),
+			/* envoyer_mp */
+				'chat_envoyer_mp_notification_erreur_soi_meme' => createPageLink('user', 'statut'),
+				'chat_envoyer_mp_notification_erreur_guest'    => createPageLink('user', 'statut'),
+				'chat_envoyer_mp_notification_erreur_no_id'    => createPageLink('user', 'statut'),
+				'chat_envoyer_mp_form_action'                  => createPageLink('chat', 'validation_envoyer_mp'),
+			/* validation_envoyer_mp */
+				'chat_validation_envoyer_mp_notification_succes'              => createPageLink('chat', 'voir_conversation'),
+				'chat_validation_envoyer_mp_notification_erreur_message_vide' => createPageLink('chat', 'envoyer_mp'),
+				'chat_validation_envoyer_mp_notification_erreur_formulaire'   => createPageLink('chat', 'envoyer_mp'),
+				'chat_validation_envoyer_mp_notification_erreur_plusieurs_mp' => createPageLink('user', 'view'),
+				'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => createPageLink('user', 'statut'),
+				'chat_validation_envoyer_mp_notification_erreur_guest'        => createPageLink('user', 'statut'),
+				'chat_validation_envoyer_mp_notification_erreur_no_id'        => createPageLink('user', 'statut'),
 		/* xhr */
 			'defaut_xhr_action' => 'chat',
 			/* chat */
