@@ -54,6 +54,7 @@ if (isset($_GET['id']))
 			$Corps=new \user\page\Corps($MenuUp, $Carte, '');
 
 			$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
+			$Visiteur->getPage()->getPageElement()->ajouterElement($config['temps_nom'], new \user\page\Temps((string)(microtime(true)-$GLOBALS['time_start'])));
 		}
 		else
 		{

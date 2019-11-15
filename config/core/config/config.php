@@ -48,12 +48,16 @@ $config=array(
 					'tete_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),							// Css de la page par défaut
 					'tete_javascripts' => array(),																																												// javascripts de la page par défaut
 					'tete_nom'         => 'tete',
-						/* Titre */
-							'prefixe_titre' => ' | Babtouland',
+				/* Titre */
+					'prefixe_titre' => ' | Babtouland',
 				/* Corps */
 					'corps_path_template'  => 'core/page/corps.html',
 					'corps_path_fonctions' => 'core/page/corps.func.php',
 					'corps_nom'            => 'corps',
+				/* Temps */
+					'temps_nom'           => 'temps',
+					'temps_path_template' => 'core/page/temps.html',
+					'temps_path_css'      => 'css/temps.css',
 				/* MenuUp */
 					'menuUp_path_template'   => 'core/menu-up/menu-up.html',
 					'menuUp_path_fonctions'  => 'core/menu-up/menu-up.func.php',
@@ -114,7 +118,7 @@ $config=array(
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
 			/* Menu-up */
 				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'hub'), createPageLink('admin', 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
-				'menu-up_icones'      => array('home', 'message', 'info', 'chat', 'security'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
+				'menu-up_icones'      => array('home', 'view_list', 'info', 'chat', 'security'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
 				'menu-up_lien-statut' => createPageLink('user', 'statut'),														// Lien lors du clic sur l'avatar dans le menu_up
 			/* Menu-side */
 				'menu-side_css'      => 'assets/css/menu-side.css',
@@ -240,10 +244,12 @@ $config=array(
 				'chat_hub_lien_voir_conversation'    => createPageLink('chat', 'voir_conversation'),
 				'chat_hub_lien_ajouter_conversation' => createPageLink('chat', 'ajouter_conversation'),
 			/* voir_conversation */
-				'chat_voir_conversation_form_action'         => createPageLink('chat', 'envoyer_message'),
-				'chat_voir_conversation_date_comparaison'    => 'PT10M',
-				'chat_voir_conversation_message_edition'     => createPageLink('chat', 'editer_message'),
-				'chat_voir_conversation_message_suppression' => createPageLink('chat', 'supprimer_message'),
+				'chat_voir_conversation_form_action'                  => createPageLink('chat', 'envoyer_message'),
+				'chat_voir_conversation_date_comparaison'             => 'PT10M',
+				'chat_voir_conversation_message_edition'              => createPageLink('chat', 'editer_message'),
+				'chat_voir_conversation_message_suppression'          => createPageLink('chat', 'supprimer_message'),
+				'chat_voir_conversation_toast_editer_conversation'    => createPageLink('chat', 'editer_conversation'),
+				'chat_voir_conversation_toast_supprimer_conversation' => createPageLink('chat', 'supprimer_conversation'),
 			/* envoyer_message */
 				'chat_envoyer_message_erreur_id_conversation' => createPageLink('chat', 'hub'),
 				'chat_envoyer_message_erreur_permission'      => createPageLink('chat', 'voir_conversation'),
@@ -278,6 +284,28 @@ $config=array(
 				'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => createPageLink('user', 'statut'),
 				'chat_validation_envoyer_mp_notification_erreur_guest'        => createPageLink('user', 'statut'),
 				'chat_validation_envoyer_mp_notification_erreur_no_id'        => createPageLink('user', 'statut'),
+			/* validation_ajouter_conversation */
+				'chat_validation_ajouter_conversation_notification_succes'                  => createPageLink('chat', 'voir_conversation'),
+				'chat_validation_ajouter_conversation_notification_erreur_pas_utilisateur'  => createPageLink('chat', 'ajouter_conversation'),
+				'chat_validation_ajouter_conversation_notification_erreur_formulaire_vide'  => createPageLink('chat', 'ajouter_conversation'),
+				'chat_validation_ajouter_conversation_notification_erreur_formulaire_envoi' => createPageLink('chat', 'ajouter_conversation'),
+			/* editer_conversation */
+				'chat_editer_conversation_notification_erreur_autorisation' => createPageLink('chat', 'hub'),
+				'chat_editer_conversation_notification_erreur_general'      => createPageLink('chat', 'voir_conversation'),
+				'chat_editer_conversation_notification_erreur_id'           => createPageLink('chat', 'hub'),
+			/* validation_editer_conversation */
+				'chat_validation_editer_conversation_notification_erreur_autorisation'     => createPageLink('chat', 'hub'),
+				'chat_validation_editer_conversation_notification_erreur_general'          => createPageLink('chat', 'voir_conversation'),
+				'chat_validation_editer_conversation_notification_erreur_id'               => createPageLink('chat', 'hub'),
+				'chat_validation_editer_conversation_notification_succes'                  => createPageLink('chat', 'voir_conversation'),
+				'chat_validation_editer_conversation_notification_erreur_pas_utilisateur'  => createPageLink('chat', 'ajouter_conversation'),
+				'chat_validation_editer_conversation_notification_erreur_formulaire_vide'  => createPageLink('chat', 'ajouter_conversation'),
+				'chat_validation_editer_conversation_notification_erreur_formulaire_envoi' => createPageLink('chat', 'ajouter_conversation'),
+			/* supprimer_conversation */
+				'chat_supprimer_conversation_notification_succes'              => createPageLink('chat', 'hub'),
+				'chat_supprimer_conversation_notification_erreur_autorisation' => createPageLink('chat', 'hub'),
+				'chat_supprimer_conversation_notification_erreur_general'      => createPageLink('chat', 'voir_conversation'),
+				'chat_supprimer_conversation_notification_erreur_id'           => createPageLink('chat', 'hub'),
 		/* xhr */
 			'defaut_xhr_action' => 'chat',
 			/* chat */

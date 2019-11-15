@@ -1,0 +1,43 @@
+#conteneur_utilisateur
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#conteneur_utilisateur .utilisateur
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+#conteneur_utilisateur .utilisateur .gauche input
+{
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+#conteneur_utilisateur .utilisateur .gauche .autocomplete div
+{
+	border-color: #000;
+	border-width: 1px;
+	border-style: solid;
+	border-collapse: collapse;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#conteneur_utilisateur .utilisateur .gauche .autocomplete div:hover
+{
+	cursor: pointer;
+	background-color: grey;
+}
+
+#conteneur_utilisateur .utilisateur .droite
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}

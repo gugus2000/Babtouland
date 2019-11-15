@@ -165,10 +165,27 @@ $Contenu=new \user\PageElement(array(
 	),
 ));
 
+$toast_liens=array(
+	'lien'        => array($config['chat_voir_conversation_toast_editer_conversation'].'&id='.$Conversation->afficherId(), $config['chat_voir_conversation_toast_supprimer_conversation'].'&id='.$Conversation->afficherId()),
+	'description' => array($lang['chat_voir_conversation_toast_editer_conversation'], $lang['chat_voir_conversation_toast_supprimer_conversation']),
+	'icone'       => array('edit', 'delete'),
+);
+
+
+if(verifLiens($Visiteur, $toast_liens['lien']) & $Conversation->getId()!=$config['id_conversation_all'])
+{
+	$Toast=new \user\page\Toast($toast_liens);
+}
+else
+{
+	$Toast='';
+}
+
 $Carte=new \user\page\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 $MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
-$Corps=new \user\page\Corps($MenuUp, $Carte, '');
+$Corps=new \user\page\Corps($MenuUp, $Carte, $Toast);
 
 $Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['temps_nom'], new \user\page\Temps((string)(microtime(true)-$GLOBALS['time_start'])));
 
 ?>

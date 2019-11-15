@@ -168,7 +168,11 @@ class PageElement
 	*/
 	public function getElement($index)
 	{
-		return $this->elements[$index];
+		if (isset($this->elements[$index]))
+		{
+			return $this->elements[$index];
+		}
+		return False;
 	}
 	/**
 	* Construction de l'objet PageElement

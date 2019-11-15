@@ -5,6 +5,7 @@ session_start();
 error_reporting(E_ALL);	// En prod
 
 date_default_timezone_set('UTC');	// On travaillera toujours en UTC (on peut changer pour chaque affichage après plus facilement) ! pas changer (Javascripts)
+$GLOBALS['time_start']=microtime(true);
 
 function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd/
 {

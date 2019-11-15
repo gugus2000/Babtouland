@@ -30,6 +30,9 @@ $lang=array(
 		'menu-up_affichages' => array('Home', 'Post', 'About', 'Chat', 'Admin'),
 	/* tete */
 		'tete_titre' => 'untitled',
+	/* temps */
+		'temps_debut' => 'Time to generate the webpage: ',
+		'temps_fin'   => ' seconds',
 	/* admin */
 		/* hub */
 			'admin_hub_titre'                            => 'Admin Control Panel',
@@ -272,16 +275,18 @@ $lang=array(
 			'chat_hub_lien_voir_conversation'       => 'View',
 			'chat_hub_lien_ajouter_conversation'    => 'Add a new conversation',
 		/* voir_conversation */
-			'chat_voir_conversation_titre'              => 'Conversation - ',
-			'chat_voir_conversation_description'        => 'View a conversation',
-			'chat_voir_conversation_erreur_no_id'       => 'Id of the conversation needed to read it',
-			'chat_voir_conversation_erreur_pas_membre'  => 'You are not a member of this conversation',
-			'chat_voir_conversation_conversation_vide'  => 'Beginning of the conversation: no messages yet',
-			'chat_voir_conversation_auteur'             => 'By ',
-			'chat_voir_conversation_date'               => 'at ',
-			'chat_voir_conversation_form_legend'        => 'Send a message',
-			'chat_voir_conversation_form_label_message' => 'Message',
-			'chat_voir_conversation_form_submit'        => 'SEND',
+			'chat_voir_conversation_titre'                        => 'Conversation - ',
+			'chat_voir_conversation_description'                  => 'View a conversation',
+			'chat_voir_conversation_erreur_no_id'                 => 'Id of the conversation needed to read it',
+			'chat_voir_conversation_erreur_pas_membre'            => 'You are not a member of this conversation',
+			'chat_voir_conversation_conversation_vide'            => 'Beginning of the conversation: no messages yet',
+			'chat_voir_conversation_auteur'                       => 'By ',
+			'chat_voir_conversation_date'                         => 'at ',
+			'chat_voir_conversation_form_legend'                  => 'Send a message',
+			'chat_voir_conversation_form_label_message'           => 'Message',
+			'chat_voir_conversation_form_submit'                  => 'SEND',
+			'chat_voir_conversation_toast_editer_conversation'    => 'Edit the conversation',
+			'chat_voir_conversation_toast_supprimer_conversation' => 'Delete the conversation',
 		/* envoyer_message */
 			'chat_envoyer_message_erreur_id_conversation' => 'Id of the conversation needed to write a message in it',
 			'chat_envoyer_message_erreur_permission'      => 'You haven\'t the right to write a message in this conversation',
@@ -320,6 +325,45 @@ $lang=array(
 			'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => 'You cannot send a message to yourself',
 			'chat_validation_envoyer_mp_notification_erreur_guest'        => 'Guest is not a user',
 			'chat_validation_envoyer_mp_notification_erreur_no_id'        => 'Id of the user needed',
+		/* ajouter_conversation */
+			'chat_ajouter_conversation_titre'                          => 'Crate a conversation',
+			'chat_ajouter_conversation_description'                    => 'Creare a group of conversation',
+			'chat_ajouter_conversation_formulaire_legend'              => 'Create a new conversation',
+			'chat_ajouter_conversation_formulaire_label_nom'           => 'Name: ',
+			'chat_ajouter_conversation_formulaire_label_description'   => 'Description: ',
+			'chat_ajouter_conversation_formulaire_utilisateurs_legend' => 'Add users',
+			'chat_ajouter_conversation_formulaire_submit'              => 'CREATE',
+		/* validation_ajouter_conversation */
+			'chat_validation_ajouter_conversation_notification_attention_self'          => 'You don\'t have to be in the user list, this will be done automatically',
+			'chat_validation_ajouter_conversation_notification_succes'                  => 'Conversation well added',
+			'chat_validation_ajouter_conversation_notification_erreur_pas_utilisateur'  => 'The conversation doesn\' have any members',
+			'chat_validation_ajouter_conversation_notification_erreur_formulaire_vide'  => 'Form empty',
+			'chat_validation_ajouter_conversation_notification_erreur_formulaire_envoi' => 'Form not completed',
+		/* editer_conversation */
+			'chat_editer_conversation_titre'                            => 'Edit a conversation',
+			'chat_editer_conversation_description'                      => 'Edit a group of conversation',
+			'chat_editer_conversation_formulaire_legend'                => 'Edit a conversation',
+			'chat_editer_conversation_formulaire_label_nom'             => 'Name: ',
+			'chat_editer_conversation_formulaire_label_description'     => 'Description: ',
+			'chat_editer_conversation_formulaire_utilisateurs_legend'   => 'Add users',
+			'chat_editer_conversation_formulaire_submit'                => 'EDIT',
+			'chat_editer_conversation_notification_erreur_autorisation' => 'You don\'t have access to this conversation',
+			'chat_editer_conversation_notification_erreur_general'      => 'This conversation isn\'t editable',
+			'chat_editer_conversation_notification_erreur_id'           => 'Id of the conversation is needed',
+		/* validation_editer_conversation */
+			'chat_validation_editer_conversation_notification_erreur_autorisation'     => 'You don\'t have access to this conversation',
+			'chat_validation_editer_conversation_notification_erreur_general'          => 'This conversation isn\'t editable',
+			'chat_validation_editer_conversation_notification_erreur_id'               => 'Id of the conversation is needed',
+			'chat_validation_editer_conversation_notification_attention_self'          => 'You don\'t have to be in the user list, this will be done automatically',
+			'chat_validation_editer_conversation_notification_succes'                  => 'Conversation well edited',
+			'chat_validation_editer_conversation_notification_erreur_pas_utilisateur'  => 'The conversation doesn\' have any members',
+			'chat_validation_editer_conversation_notification_erreur_formulaire_vide'  => 'Form empty',
+			'chat_validation_editer_conversation_notification_erreur_formulaire_envoi' => 'Form not completed',
+		/* supprimer_conversation */
+			'chat_supprimer_conversation_notification_succes'              => 'Conversation well deleted',
+			'chat_supprimer_conversation_notification_erreur_autorisation' => 'You don\'t have access to this conversation',
+			'chat_supprimer_conversation_notification_erreur_general'      => 'You cannot delete this conversation',
+			'chat_supprimer_conversation_notification_erreur_id'           => 'Id of the conversation is needed',
 );
 
 ?>

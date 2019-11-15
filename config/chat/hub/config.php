@@ -21,7 +21,7 @@ foreach ($Conversations as $Conversation)
 		}
 	}
 	$Cartes[]=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/cartes.html',
+		'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$action.'/cartes.html',
 		'elements' => array(
 			'nom_conversation'        => $Conversation->afficherNom(),
 			'description'             => $Conversation->afficherDescription(),
@@ -34,8 +34,8 @@ foreach ($Conversations as $Conversation)
 }
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'cartes'         => $Cartes,
 	),
@@ -61,5 +61,6 @@ $MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getpageElement()->getElement
 $Corps=new \user\page\Corps($MenuUp, $Contenu, $Toast);
 
 $Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['temps_nom'], new \user\page\Temps((string)(microtime(true)-$GLOBALS['time_start'])));
 
 ?>
