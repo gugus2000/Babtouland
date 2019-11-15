@@ -1,0 +1,15 @@
+/* TEAM */
+	Web developer: gugus2000
+    Site: https://name.com
+    Contact: gugus2000[@]protonmail.com
+    Mastodont: @gugus2000@framapiaf.org
+    Discord: gugus2000#5074
+    From: Paris, France
+
+/* SITE */
+	Last update:  2019/11/10
+	Standards: HTML5, CSS3
+	Components: StringParser
+	Software: XAMPP, Sublime Text 3, Inkscape, Gimp
+	DOCTYPE: HTML5
+	Lang: FR
