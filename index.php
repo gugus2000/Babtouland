@@ -7,13 +7,6 @@ error_reporting(E_ALL);	// En prod
 date_default_timezone_set('UTC');	// On travaillera toujours en UTC (on peut changer pour chaque affichage après plus facilement) ! pas changer (Javascripts)
 $GLOBALS['time_start']=microtime(true);
 
-function initOutputFilter()		// Voir https://lehollandaisvolant.net/tuto/pagespd/
-{
-   ob_start('ob_gzhandler');
-   register_shutdown_function('ob_end_flush');
-}
-initOutputFilter();
-
 require_once 'config/core/config/config.php';	// Chargement de la configuration par défaut
 
 if(isset($_GET['lang']))
@@ -28,6 +21,7 @@ if(isset($_SESSION['lang']))
 require_once 'config/core/lang/'.$config['lang'].'/lang.php';	// Chargement de la traduction
 
 require_once 'func/core/utils.func.php';
+initOutputFilter();
 spl_autoload_register('loadClass');
 
 $application=$config['defaut_application'];

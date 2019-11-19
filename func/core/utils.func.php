@@ -131,4 +131,16 @@ if (!function_exists('array_key_first')) {
     }
 }
 
+/**
+ * Voir https://lehollandaisvolant.net/tuto/pagespd/
+ *
+ * @return void
+ * @author LeHollandaisVolant
+ **/
+function initOutputFilter()
+{
+   ob_start('ob_gzhandler');
+   register_shutdown_function('ob_end_flush');
+}
+
 ?>

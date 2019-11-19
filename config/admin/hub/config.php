@@ -1,13 +1,15 @@
 <?php
 
 $UtilisateurManager=new \user\UtilisateurManager(\core\BDDFactory::Mysqlconnexion());
-$nombre_utilisateurs=$UtilisateurManager->count();
+$nombre_utilisateurs=$UtilisateurManager->count()-1;		// Guest pas pris en compte
 $date=new \DateTime(date('Y-m-d H:i:s'));
 $date->sub(new \DateInterval($config['intervalle_connecte']));
 $connectes=$UtilisateurManager->getBy(array(
 	'date_connexion' => $date->format('Y-m-d H:i:s'),
+	'pseudo'         => $config['nom_guest'],
 ), array(
 	'date_connexion' => '>=',
+	'pseudo'         => '!=',
 ));
 $nombre_connectes=count($connectes);
 $this->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$this->getPage()->getApplication().'_'.$this->getPage()->getAction().'_titre']);
