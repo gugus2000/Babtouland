@@ -5,12 +5,12 @@ if (isset($_POST['notification_message']) & isset($_POST['notification_type']) &
 	if (!empty($_POST['notification_message']) & !empty($_POST['notification_type']))
 	{
 		$UtilisateurManager=new \user\UtilisateurManager(\core\BDDFactory::MysqlConnexion());
-		if (empty($_POST['notification_groupe']) | $_POST['notification_groupe']=='tous')	// Tous
+		if (empty($_POST['notification_groupe']) | $_POST['notification_groupe']=='tous' | $_POST['notification_groupe']=='all')	// Tous
 		{
 			$resultats=$UtilisateurManager->getBy(array(
-				'id' => 0,
+				'id' => $config['id_guest'],
 			), array(
-				'id' => '>',
+				'id' => '!=',
 			));
 		}
 		else 	// Un groupe particulier
@@ -18,8 +18,10 @@ if (isset($_POST['notification_message']) & isset($_POST['notification_type']) &
 			$RoleManager=new \user\RoleManager(\core\BDDFactory::MysqlConnexion());
 			$resultats=$RoleManager->getBy(array(
 				'nom_role' => $_POST['notification_groupe'],
+				'id'       => $config['id_guest'],
 			), array(
 				'nom_role' => '=',
+				'id'       => '!=',
 			));
 		}
 		$ids=array();
@@ -35,13 +37,19 @@ if (isset($_POST['notification_message']) & isset($_POST['notification_type']) &
 			{
 				if (is_int($utilisateur))	// id
 				{
-					$id=$utilisateur;
+					if ($utilisateur!=$config['id_guest'])
+					{
+						$id=$utilisateur;
+					}
 				}
 				else 	// pseudo
 				{
-					$id=$UtilisateurManager->getIdBy(array(
-						'pseudo' => $utilisateur,
-					));
+					if ($utilisateur!=$config['nom_guest'])
+					{
+						$id=$UtilisateurManager->getIdBy(array(
+							'pseudo' => $utilisateur,
+						));
+					}
 				}
 				if (in_array($id, $ids))
 				{

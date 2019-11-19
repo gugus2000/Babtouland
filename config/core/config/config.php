@@ -128,6 +128,7 @@ $config=array(
 			/* Session Guest */
 				'nom_guest' => 'guest',	// pseudo de l'utilisateur "guest"
 				'mdp_guest' => 'guest',	// mot de passe de l'utilisateur "guest"
+				'id_guest'  => 12,		// A CHANGER POUR CHAQUE BDD
 			/* Erreur */
 				'erreur_path' => 'erreur/page.php',	// Chemin vers la page d'erreur
 		/* admin */
