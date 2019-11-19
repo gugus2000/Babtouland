@@ -1,0 +1,201 @@
+class Conversation
+!!!345986.php!!!	getId() : int
+
+		return $this->id;
+!!!346114.php!!!	getNom() : string
+
+		return $this->nom;
+!!!346242.php!!!	getDescription() : string
+
+		return $this->description;
+!!!346370.php!!!	getId_messages() : array
+
+		return $this->id_messages;
+!!!346498.php!!!	getId_utilisateurs() : array
+
+		return $this->id_utilisateurs;
+!!!346626.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!346754.php!!!	setNom(in nom : string) : void
+
+		$this->nom=$nom;
+!!!346882.php!!!	setDescription(in description : string) : void
+
+		$this->description=$description;
+!!!347010.php!!!	setId_messages(in id_messages : array) : void
+
+		$this->id_messages=$id_messages;
+!!!347138.php!!!	setId_utilisateurs(in id_utilisateurs : array) : void
+
+		$this->id_utilisateurs=$id_utilisateurs;
+!!!347266.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!347394.php!!!	afficherNom() : string
+
+		return htmlspecialchars((string)$this->nom);
+!!!347522.php!!!	afficherDescription() : string
+
+		return htmlspecialchars((string)$this->description);
+!!!347650.php!!!	afficherId_messages() : string
+
+		$affichage='';
+		foreach ($this->id_messages as $id_message)
+		{
+			$affichage.=htmlspecialchars($id_message).'\n';
+		}
+		return $affichage;
+!!!347778.php!!!	afficheId_utilisateurs() : string
+
+		$affichage='';
+		foreach ($this->id_utilisateurs as $id_utilisateur)
+		{
+			$affichage.=htmlspecialchars($id_utilisateur);
+		}
+		return $affichage;
+!!!347906.php!!!	recuperer(in date_historique : mixed = null) : void
+
+		$this->get($this->getId());
+		$this->recupererId_messages($date_historique);
+		$this->recupererId_utilisateurs();
+!!!348034.php!!!	creer() : void
+
+		$Manager=$this->Manager();
+		$Manager->add(array(
+			'nom'         => $this->getNom(),
+			'description' => $this->getDescription(),
+		));
+		$this->setId($Manager->getIdBy(array(
+			'nom'         => $this->getNom(),
+			'description' => $this->getDescription(),
+		)));
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$id_utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id_utilisateur)
+		{
+			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
+		}
+		$LiaisonConversationUtilisateur->addBy($id_utilisateurs, array(
+			'id_conversation' => $this->getId(),
+		));
+!!!348162.php!!!	modifier() : void
+
+		$Manager=$this->Manager();
+		$Manager->update(array(
+			'nom'         => $this->getNom(),
+			'description' => $this->getDescription(),
+		), $this->getId());
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$id_utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id_utilisateur)
+		{
+			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
+		}
+		$donnees_already_in=$LiaisonConversationUtilisateur->get(array(
+			'id_conversation' => $this->getId(),
+		), array(
+			'id_conversation' => '=',
+		));
+		$id_utilisateurs_already_in=array();
+		foreach ($donnees_already_in as $donnee)
+		{
+			$id_utilisateurs_already_in[]=$donnee['id_utilisateur'];
+		}
+		$id_utilisateurs_non_modifies=array_intersect($id_utilisateurs_already_in, $this->getId_utilisateurs());
+		if(count(array_diff($id_utilisateurs_already_in, $id_utilisateurs_non_modifies))!=0)	// Il y a des utilisateurs qui ne sont plus dans la discussion
+		{
+			$LiaisonConversationUtilisateur->deleteBy(array(
+				'id_conversation' => $this->getId(),
+			));
+			$LiaisonConversationUtilisateur->addBy($id_utilisateurs, array(
+				'id_conversation' => $this->getId(),
+			));
+		}
+		else
+		{
+			$id_utilisateurs_a_ajouter=array_diff($this->getId_utilisateurs(), $id_utilisateurs_non_modifies);
+			$id_utilisateurs_utile=array();
+			foreach ($id_utilisateurs_a_ajouter as $id_utilisateur_a_ajouter)
+			{
+				$id_utilisateurs_utile[]=array('id_utilisateur' => $id_utilisateur_a_ajouter);
+			}
+			if (count($id_utilisateurs_utile)!=0)
+			{
+				$LiaisonConversationUtilisateur->addBy($id_utilisateurs_utile, array(
+					'id_conversation' => $this->getId(),
+				));
+			}
+		}
+!!!348290.php!!!	supprimer() : void
+
+		$Manager=$this->Manager();
+		$Manager->delete($this->getId());
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$LiaisonConversationUtilisateur->deleteBy(array(
+			'id_conversation' => $this->getId(),
+		));
+!!!348418.php!!!	recupererId_utilisateurs() : void
+
+		$BDDFactory=new \core\BDDFactory;
+		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		$resultats=$Liaison->get(array(
+			'id_conversation' => $this->getId(),
+		), array(
+			'id_conversation' => '=',
+		));
+		$id=array();
+		foreach ($resultats as $resultat)
+		{
+			$id[]=$resultat['id_utilisateur'];
+		}
+		$this->setId_utilisateurs($id);
+!!!348546.php!!!	recupererUtilisateurs() : array
+
+		$utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id)
+		{
+			$utilisateur=new \user\Utilisateur(array(
+				'id' => $id,
+			));
+			$utilisateur->recuperer();
+			$utilisateurs[]=$utilisateur;
+		}
+		return $utilisateurs;
+!!!348674.php!!!	recupererId_messages(in date_historique : mixed = null) : void
+
+		$BDDFactory=new \core\BDDFactory;
+		$MessageManager=new \chat\MessageManager($BDDFactory->MysqlConnexion());
+		$getByArray=array(
+			'id_conversation' => $this->getId(),
+		);
+		$getByOperateur=array(
+			'id_conversation' => '=',
+		);
+		if ($date_historique)
+		{
+			$getByArray['date_publication']=$date_historique;
+			$getByOperateur['date_publication']='>';
+		}
+		$resultats=$MessageManager->getBy($getByArray, $getByOperateur);
+		$id=array();
+		foreach ($resultats as $resultat)
+		{
+			$id[]=$resultat['id'];
+		}
+		$this->setId_messages($id);
+!!!348802.php!!!	recupererMessages() : array
+
+		$Messages=array();
+		foreach ($this->getId_messages() as $id)
+		{
+			$Message=new \chat\Message(array(
+				'id' => $id,
+			));
+			$Message->recuperer();
+			$Messages[]=$Message;
+		}
+		return $Messages;

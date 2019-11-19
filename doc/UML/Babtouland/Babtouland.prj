@@ -1,6 +1,6 @@
 format 222
 "Babtouland"
-  revision 11
+  revision 12
   modified_by 2 "gugus.demagny"
   php_root_dir "C:\\xampp\\htdocs\\moi\\Babtouland\\doc\\UML\\Babtouland\\PHP\\"
 
@@ -47,5 +47,5 @@ format 222
   
   ncouples 1
   key "html dir" value "C:\\xampp\\htdocs\\moi\\Babtouland\\doc\\HTML/"
-  package_ref 168066 // Babtouland
+  package_ref 183810 // Babtouland
 end

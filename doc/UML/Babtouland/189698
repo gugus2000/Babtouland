@@ -1,0 +1,51 @@
+format 222
+"user" // Babtouland::config::user
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/user/"
+  package_ref 189826 // connexion
+
+  package_ref 189954 // deconnexion
+
+  package_ref 190082 // edition
+
+  package_ref 190210 // inscription
+
+  package_ref 190338 // statut
+
+  package_ref 190466 // validation_connexion
+
+  package_ref 190594 // validation_edition
+
+  package_ref 190722 // validation_inscription
+
+  package_ref 190850 // view
+end

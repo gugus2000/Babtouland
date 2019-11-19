@@ -1,0 +1,13 @@
+class Temps
+!!!396034.php!!!	__construct(in temps : string, in Tete :  = null) : void
+
+		global $config, $lang, $Visiteur;
+		if (!$Tete)
+		{
+			$Tete=$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']);
+		}
+		$this->setTemplate($config['path_template'].$config['temps_path_template']);
+		$this->setElements(array(
+			'temps'       => $lang['temps_debut'].$temps.$lang['temps_fin'],
+		));
+		$Tete->ajouterValeurElement('css', $config['path_assets'].$config['temps_path_css']);

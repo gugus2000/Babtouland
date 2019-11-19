@@ -1,0 +1,49 @@
+format 222
+"config" // Babtouland::config
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/"
+  package_ref 184962 // admin
+
+  package_ref 185474 // chat
+
+  package_ref 187266 // core
+
+  package_ref 187906 // erreur
+
+  package_ref 188162 // post
+
+  package_ref 189698 // user
+
+  package_ref 190978 // utile
+
+  package_ref 191490 // xhr
+end

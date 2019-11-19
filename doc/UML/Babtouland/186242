@@ -1,0 +1,110 @@
+format 222
+"hub" // Babtouland::config::chat::hub
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/chat/hub/"
+  deploymentview 178050 "hub"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 200706 "config"
+      stereotype "source"
+      php_src "<?php
+
+$Conversations=$Visiteur->recupererConversations();
+
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+	'name'    => 'description',
+	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+));
+
+$Cartes=array();
+
+foreach ($Conversations as $Conversation)
+{
+	$connecte=[];
+	foreach ($Conversation->recupererUtilisateurs() as $Utilisateur)
+	{
+		if ($Utilisateur->estConnecte())
+		{
+			$connecte[]=$Utilisateur;
+		}
+	}
+	$Cartes[]=new \\user\\PageElement(array(
+		'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$action.'/cartes.html',
+		'elements' => array(
+			'nom_conversation'        => $Conversation->afficherNom(),
+			'description'             => $Conversation->afficherDescription(),
+			'nombre_utilisateur'      => $lang['chat_hub_nombre_utilisateur'].count($Conversation->getId_utilisateurs()).'/'.count($connecte),
+			'lien_href_conversation'  => $config['chat_hub_lien_voir_conversation'].'&id='.$Conversation->afficherId(),
+			'lien_title_conversation' => $lang['chat_hub_lien_titre_voir_conversation'],
+			'lien_conversation'       => $lang['chat_hub_lien_voir_conversation'],
+		),
+	));
+}
+
+$Contenu=new \\user\\PageElement(array(
+	'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
+	'elements'  => array(
+		'cartes'         => $Cartes,
+	),
+));
+
+$toast_liens=array(
+	'lien'        => array($config['chat_hub_lien_ajouter_conversation']),
+	'description' => array($lang['chat_hub_lien_ajouter_conversation']),
+	'icone'       => array('add'),
+);
+
+
+if(verifLiens($Visiteur, $toast_liens['lien']))
+{
+	$Toast=new \\user\\page\\Toast($toast_liens, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
+}
+else
+{
+	$Toast='';
+}
+
+$MenuUp=new \\user\\page\\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
+$Corps=new \\user\\page\\Corps($MenuUp, $Contenu, $Toast);
+
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['temps_nom'], new \\user\\page\\Temps((string)(microtime(true)-$GLOBALS['time_start'])));
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

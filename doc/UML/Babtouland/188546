@@ -1,0 +1,96 @@
+format 222
+"commentaire_suppression" // Babtouland::config::post::commentaire_suppression
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/commentaire_suppression/"
+  deploymentview 179970 "commentaire_suppression"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 202626 "config"
+      stereotype "source"
+      php_src "<?php
+
+if(isset($_GET['id']))
+{
+	$BDDFactory=new \\core\\BDDFactory;
+	$CommentaireManager=new \\post\\CommentaireManager($BDDFactory->MysqlConnexion());
+	if($CommentaireManager->existId((int)$_GET['id']))
+	{
+		$Commentaire=new \\post\\Commentaire(array(
+			'id' => $_GET['id'],
+		));
+		$Commentaire->recuperer();
+		if(autorisationModification($Commentaire, $application, $action))
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+				'contenu' => $lang['post_commentaire_suppression_message_succes'],
+			));
+			$get=$config['post_commentaire_suppression_suivant'].'&id='.$Commentaire->recupererPost()->afficherId();
+			$Commentaire->supprimer();
+		}
+		else
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+				'contenu' => $lang['post_commentaire_suppression_message_permission'],
+			));
+			$get=$config['post_commentaire_suppression_permission'].'&id='.$Commentaire->recupererPost()->afficherId();
+		}
+	}
+	else
+	{
+		$Notification=new \\user\\page\\Notification(array(
+			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+			'contenu' => $lang['post_commentaire_suppression_message_inexistant'],
+		));
+		$get=$config['post_commentaire_suppression_retour'];
+	}
+}
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_commentaire_suppression_message_argument'],
+	));
+	$get=$config['post_commentaire_suppression_retour'];
+}
+
+$this->getPage()->envoyerNotificationsSession();
+header('location: index.php'.$get);
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end
