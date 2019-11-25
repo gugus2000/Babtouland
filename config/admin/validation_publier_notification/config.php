@@ -5,7 +5,7 @@ if (isset($_POST['notification_message']) & isset($_POST['notification_type']) &
 	if (!empty($_POST['notification_message']) & !empty($_POST['notification_type']))
 	{
 		$UtilisateurManager=new \user\UtilisateurManager(\core\BDDFactory::MysqlConnexion());
-		if (empty($_POST['notification_groupe']) | $_POST['notification_groupe']=='tous' | $_POST['notification_groupe']=='all')	// Tous
+		if (empty($_POST['notification_groupe']) | $_POST['notification_groupe']=='tous')	// Tous
 		{
 			$resultats=$UtilisateurManager->getBy(array(
 				'id' => $config['id_guest'],

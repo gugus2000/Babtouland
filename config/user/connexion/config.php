@@ -7,7 +7,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 ));
 
 $Contenu=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'template' =>$config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 	'elements' => array(
 		'action'       => $config['user_connexion_action'],
 		'legend'       => $lang['user_connexion_fieldset'],
@@ -20,8 +20,8 @@ $Contenu=new \user\PageElement(array(
 $Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'formulaire' => $Formulaire,
 	),

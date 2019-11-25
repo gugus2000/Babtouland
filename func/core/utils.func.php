@@ -1,6 +1,36 @@
 <?php
 
 /**
+ * Créé un lien vers la page à partir de son application et action
+ *
+ * @param string application Application de la page
+ * 
+ * @param string action Action de la page
+ * 
+ * @return string
+ * @author gugus2000
+ **/
+function createPageLink($application, $action)
+{
+	return '?application='.$application.'&action='.$action;
+}
+
+/**
+ * Créé un lien vers la page à partir de son application et action
+ *
+ * @param string application Application de la page
+ * 
+ * @param string action Action de la page
+ * 
+ * @return string
+ * @author gugus2000
+ **/
+function createPageLinkRoute($application, $action)
+{
+	return 'http://babtouland.com/'.$application.'/'.$action;
+}
+
+/**
  * Retourne le nom de la classe sans son namespace
  *
  * @param string className Nom de la classe
@@ -141,6 +171,31 @@ function initOutputFilter()
 {
    ob_start('ob_gzhandler');
    register_shutdown_function('ob_end_flush');
+}
+
+/**
+ * Retourne l'application et l'action voulu sous la forme d'une array
+ *
+ * @param array path Chemin demandé
+ * 
+ * @return array
+ * @author gugus2000
+ **/
+function routeRecuperationApplicationActionLien($path)
+{
+	global $config;
+	preg_match('#\/([\w]+)\/([\w]+)#', $path, $matches);
+	if($matches)
+	{
+		$array['application']=$matches[1];
+		$array['action']=$matches[2];
+	}
+	else
+	{
+		$array['application']=$config['defaut_application'];
+		$array['action']=$config['defaut_'.$array['application'].'_action'];
+	}
+	return $array;
 }
 
 ?>

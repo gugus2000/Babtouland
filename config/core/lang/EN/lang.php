@@ -112,9 +112,9 @@ $lang=array(
 			'user_edition_submit'       => 'EDIT',
 			'user_edition_label_banni'  => 'Banned: ',
 		/* validation_edition */
-			'user_validation_edition_message_formulaire'   => 'Form not or incorrectly completed',
-			'user_validation_edition_message_succes'       => 'Your profile has been modified',
-			'user_validation_edition_message_admin_succes' => 'The user\'s profile has been modified',
+			'user_validation_edition_message_formulaire'              => 'Form not or incorrectly completed',
+			'user_validation_edition_message_succes'                  => 'Your profile has been modified',
+			'user_validation_edition_message_admin_succes'            => 'The user\'s profile has been modified',
 			'user_validation_edition_avatar_message_erreur_dossier'   => 'Unable to create the folder for avatars',
 			'user_validation_edition_avatar_message_erreur_upload'    => 'Problem when uploading the avatar',
 			'user_validation_edition_avatar_message_erreur_interne'   => 'An internal error prevented the upload of the avatar',
@@ -133,6 +133,20 @@ $lang=array(
 			'user_view_action_statut_editer'       => 'Edit',
 			'user_view_action_envoyer_mp_title'    => 'Send a Private Message',
 			'user_view_action_envoyer_mp'          => 'Send PM',
+		/* configurations */
+			'user_configurations_titre'                                       => 'Configurations',
+			'user_configurations_description'                                 => 'Set up your use of the site',
+			'user_configurations_formulaire_legend'                           => 'Configurations',
+			'user_configurations_formulaire_label_lang'                       => 'Language',
+			'user_configurations_formulaire_label_post_fil_post_nombre_posts' => 'Number of posts per page in the posts thread',
+			'user_configurations_formulaire_submit'                           => 'VALIDATE',
+		/* validation_configurations */
+			'user_validation_configurations_erreur_formulaire_mal_remplit'                      => 'Form not or incorrectly completed',
+			'user_validation_configurations_erreur_formulaire_vide'                             => 'Some needed input are empty',
+			'user_validation_configurations_attention_lang_pas_valide'                          => 'The asked language dosn\'t exist (or is not available)',
+			'user_validation_configurations_attention_post_fil_post_nombre_posts_pas_numerique' => 'The number of post in the post thread must be a number',
+			'user_validation_configurations_attention_post_fil_post_nombre_posts_pas_valide'    => 'The number of post in the post thread is invalid',
+			'user_validation_configurations_succes'                                             => 'Configuration correctly applied',
 	/* utile */
 		/* a_propos */
 			'utile_a_propos_titre'             => 'About',
@@ -183,7 +197,7 @@ $lang=array(
 		/* fil_post */
 			'post_fil_post_detail'              => 'See more',
 			'post_fil_post_titre'               => 'Page ',
-			'post_fil_post_nav_description'     => 'Post thread',
+			'post_fil_post_nav_description'     => 'Go to page ',
 			'post_fil_post_lien_detail_titre'   => 'Read the post with his comments',
 			'post_fil_post_auteur_presentation' => 'By ',
 			'post_fil_post_lien_auteur_titre'   => 'See the author\'s profile',

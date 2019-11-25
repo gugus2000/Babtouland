@@ -1,24 +1,16 @@
 <?php
 
-/**
- * Créé un lien vers la page à partir de son application et action
- *
- * @param string application Application de la page
- * 
- * @param string action Action de la page
- * 
- * @return string
- * @author gugus2000
- **/
-function createPageLink($application, $action)
-{
-	return '?application='.$application.'&action='.$action;
-}
-
 $config=array(
 	/* Paramètre par défaut modifiable */
-		/* Général */
-			'lang'        => 'FR',	// Langue par défaut
+		'config_utilisateur' => array(
+			/* Général */
+				'lang' => 'FR',
+			/* Post */
+				/* Fil post */
+					'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
+
+		),
+	/* Paramètre non modifiable */
 		/* Page */
 			/* PageElement */
 				/* Page */
@@ -87,11 +79,9 @@ $config=array(
 					'notification_nom'          => 'notifications',
 		/* Post */
 			/* Fil post */
-				'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
 				'post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
 		/* BBcode */
 			'bbcode_config' => 'config/core/bbcode.php',
-	/* Paramètre non modifiable */
 		/* Général */
 			'nom_site'           => 'Babtouland',					// Nom du site
 			'mail_dev'           => 'gugus2000@protonmail.com',		// Mail du développeur
@@ -106,7 +96,7 @@ $config=array(
 				'id_conversation_all' => 1, 								// Id de la conversation disponible à tous
 				'intervalle_connecte' => 'PT5M',
 			/* Path */
-				/* Assets */
+				/*'assets */
 					'path_assets'   => 'assets/',
 					'path_template' => 'assets/html/',
 				/* Config */
@@ -171,6 +161,12 @@ $config=array(
 				'user_validation_edition_avatar_lien_erreur_type'      => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur de type de fichier
 				'user_validation_edition_avatar_lien_erreur_extension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de mauvaise extension de fichier
 				'user_validation_edition_avatar_lien_erreur_dimension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar écgoue pour cause de mauvaise dimension
+			/* configurations */
+				'user_configurations_formulaire_action' => createPageLink('user', 'validation_configurations'),
+			/* validation_configurations */
+				'user_validation_configurations_erreur_formulaire_mal_remplit' => createPageLink('user', 'configurations'),
+				'user_validation_configurations_erreur_formulaire_vide'        => createPageLink('user', 'configurations'),
+				'user_validation_configurations_succes'                        => '?',
 		/* utile */
 			'defaut_utile_action' => 'a_propos',
 			/* a_propos */
@@ -309,7 +305,6 @@ $config=array(
 				'chat_supprimer_conversation_notification_erreur_id'           => createPageLink('chat', 'hub'),
 		/* xhr */
 			'defaut_xhr_action' => 'chat',
-			/* chat */
 
 );
 

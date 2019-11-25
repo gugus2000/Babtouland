@@ -15,6 +15,12 @@ class Visiteur extends Utilisateur
 	* @var Page
 	*/
 	protected $page;
+	/**
+	* Configurations de l'utilisateur
+	* 
+	* @var array
+	*/
+	protected $configurations;
 
 	/* Accesseurs */
 	
@@ -26,6 +32,15 @@ class Visiteur extends Utilisateur
 	public function getPage()
 	{
 		return $this->page;
+	}
+	/**
+	* Accesseur de configurations
+	* 
+	* @return array
+	*/
+	public function getConfigurations()
+	{
+		return $this->configurations;
 	}
 
 	/* Définisseurs */
@@ -41,8 +56,19 @@ class Visiteur extends Utilisateur
 	{
 		$this->page=$page;
 	}
+	/**
+	* Définisseur de configurations
+	*
+	* @param array configurations Configurations de l'utilisateur
+	* 
+	* @return void
+	*/
+	protected function setConfigurations($configurations)
+	{
+		$this->configurations=$configurations;
+	}
 
-	/* Autres méthodes */
+	/* Afficheur */
 
 	/**
 	* Afficheur de page
@@ -52,6 +78,47 @@ class Visiteur extends Utilisateur
 	public function afficherPage()
 	{
 		return htmlspecialchars((string)$this->page->afficher());
+	}
+	/**
+	* Afficheur de configurations
+	* 
+	* @return string
+	*/
+	public function afficherConfigurations()
+	{
+		$affichage='';
+		foreach ($this->configurations as $Configuration)
+		{
+			$affichage.=$Configuration->afficher().'<br />';
+		}
+		return $affichage;
+	}
+
+	/* Autres méthodes */
+
+	/**
+	* Ajout d'un élément dans l'array configurations
+	*
+	* @param string index Index à insérer
+	*
+	* @param mixed valeur Valeur à insérer
+	* 
+	* @return void
+	*/
+	public function setConfiguration($index, $valeur)
+	{
+		$this->configurations[$index]=$valeur;
+	}
+	/**
+	* Accesseur d'une valeur de configurations associé à un index
+	*
+	* @param string index Index de la valeur
+	* 
+	* @return mixed
+	*/
+	public function getConfiguration($index)
+	{
+		return $this->configurations[$index];
 	}
 	/**
 	* vérifie que l'utilisateur a la permission de voir la page
@@ -73,6 +140,58 @@ class Visiteur extends Utilisateur
 	{
 		if ($this->getMotdepasse()->verif($motdepasse))
 		{
+			global $config;
+			$this->setConfigurations($config['config_utilisateur']);
+			$ConfigurationManager=new \user\ConfigurationManager(\core\BDDFactory::MysqlConnexion());
+			if (isset($_GET['lang']))
+			{
+				if ($this->getPseudo()==$config['nom_guest'])	// On définit le guest comme ayant un langage différent
+				{
+					$_SESSION['lang']=$_GET['lang'];
+				}
+				else
+				{
+					if ($ConfigurationManager->exist(array(	// La langue a déjà été définie une fois
+						'id_utilisateur' => $this->getId(),
+						'nom'            => 'lang',
+					)))
+					{
+						$id=$ConfigurationManager->getIdBy(array(
+							'id_utilisateur' => $this->getId(),
+							'nom'            => 'lang',
+						));
+						$ConfigurationManager->update(array(
+							'valeur' => $_GET['lang'],
+						), $id);
+					}
+					else 	// Première fois que la langue a été définie
+					{
+						$ConfigurationManager->add(array(
+							'id_utilisateur' => $this->getId(),
+							'nom'            => 'lang',
+							'valeur'         => $_GET['fr'],
+						));
+					}
+				}
+			}
+			if (isset($_SESSION['lang']) & $this->getId()==$config['id_guest'])	// L'utilisateur est un guest avec un langage différent
+			{
+				$this->setConfiguration('lang', $_SESSION['lang']);
+			}
+			if (isset($_SESSION['post_fil_post_nombre_posts']) & $this->getId()==$config['id_guest'])
+			{
+				$this->setConfiguration('post_fil_post_nombre_posts', $_SESSION['post_fil_post_nombre_posts']);
+			}
+			$configurations=$ConfigurationManager->getBy(array(
+				'id_utilisateur' => $this->getId(),
+			), array(
+				'id_utilisateur' => '=',
+			));
+			foreach ($configurations as $configuration)
+			{
+				$Configuration=new \user\Configuration($configuration);
+				$this->setConfiguration($Configuration->getNom(), $Configuration->getValeur());
+			}
 			$utilisateurManager=$this->Manager();
 			$date=date('Y-m-d H:i:s');
 			$utilisateurManager->update(array(

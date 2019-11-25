@@ -23,7 +23,7 @@ $PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 $nbr_post=$PostManager->count();
 
 $liste_navigation=[];
-for ($numero_page=1; $numero_page <= $nbr_post/$config['post_fil_post_nombre_posts']; $numero_page++)
+for ($numero_page=1; $numero_page <= $nbr_post/$Visiteur->getConfiguration('post_fil_post_nombre_posts'); $numero_page++)
 { 
 	if ($numero_page==$page)
 	{
@@ -31,7 +31,7 @@ for ($numero_page=1; $numero_page <= $nbr_post/$config['post_fil_post_nombre_pos
 	}
 	else
 	{
-		$liste_navigation[]='<a href="?application='.$application.'&action='.$action.'&page='.$numero_page.'title="'.$lang['post_filPost_nav_description'].$numero_page.'"><li>'.$numero_page.'</li></a>';
+		$liste_navigation[]='<a href="?application='.$application.'&action='.$action.'&page='.$numero_page.'" title="'.$lang['post_fil_post_nav_description'].$numero_page.'"><li>'.$numero_page.'</li></a>';
 	}
 }
 
@@ -43,9 +43,9 @@ $Pagination=new \user\PageElement(array(
 ));
 
 $liste_post=[];
-for ($position_post=$config['post_fil_post_position_debut']; $position_post < $config['post_fil_post_nombre_posts']; $position_post++)
+for ($position_post=$config['post_fil_post_position_debut']; $position_post < $Visiteur->getConfiguration('post_fil_post_nombre_posts'); $position_post++)
 {
-	$position_vraie=$page*$config['post_fil_post_nombre_posts']-($config['post_fil_post_nombre_posts']-$position_post);	// Calcul de la position du Post
+	$position_vraie=$page*$Visiteur->getConfiguration('post_fil_post_nombre_posts')-($Visiteur->getConfiguration('post_fil_post_nombre_posts')-$position_post);	// Calcul de la position du Post
 	$Post=new \post\Post(array(
 		'id' => $PostManager->getIdByPos($position_vraie, $config['post_fil_post_tri']),
 	));

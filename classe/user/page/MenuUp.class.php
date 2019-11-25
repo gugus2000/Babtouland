@@ -30,7 +30,7 @@ class MenuUp extends \user\PageElement
 			'fonctions' => $config['path_func'].'core/menu-up/logo.func.php',
 			'elements'  => array(
 				'titre_lien_accueil' => $lang['menu-up_accueil'],
-				'src_logo'           => 'assets/img/icone/icone-transparent.png',
+				'src_logo'           => $config['path_assets'].'img/icone/icone-transparent.png',
 				'alt_logo'           => $lang['menu-up_altlogo'].$config['nom_site'],
 				'titre_texte'        => $config['nom_site'],
 			),
@@ -42,7 +42,7 @@ class MenuUp extends \user\PageElement
 			'elements'  => array(
 				'lien_avatar' => $config['menu-up_lien-statut'],
 				'lien_titre'  => $Visiteur->afficherPseudo(),
-				'src_avatar'  => 'assets/img/avatar/'.$Visiteur->afficherAvatar(),
+				'src_avatar'  => $config['path_assets'].'img/avatar/'.$Visiteur->afficherAvatar(),
 				'alt_avatar'  => $lang['menu-up_avatar'],
 			),
 		));

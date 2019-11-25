@@ -133,6 +133,21 @@ $lang=array(
 			'user_view_action_statut_editer'       => 'Éditer',
 			'user_view_action_envoyer_mp_title'    => 'Envoyer un Message Privé',
 			'user_view_action_envoyer_mp'          => 'Envoyer un MP',
+		/* configurations */
+			'user_configurations_titre'                                       => 'Configurations',
+			'user_configurations_description'                                 => 'Paramétrer son utilisation du site',
+			'user_configurations_formulaire_legend'                           => 'Configurations',
+			'user_configurations_formulaire_label_lang'                       => 'Langue',
+			'user_configurations_formulaire_label_post_fil_post_nombre_posts' => 'Nombre de posts par page dans la fil des posts',
+			'user_configurations_formulaire_submit'                           => 'VALIDER',
+		/* validation_configurations */
+			'user_validation_configurations_erreur_formulaire_mal_remplit'                      => 'Formulaire mal remplit',
+			'user_validation_configurations_erreur_formulaire_vide'                             => 'Certains champs obligatoires du formulaire ont été laissé vide',
+			'user_validation_configurations_attention_lang_pas_valide'                          => 'La langue demandé n\'existe pas (ou n\'est pas disponible)',
+			'user_validation_configurations_attention_post_fil_post_nombre_posts_pas_numerique' => 'Le nombre de post dans le fil de post doit être un nombre',
+			'user_validation_configurations_attention_post_fil_post_nombre_posts_pas_valide'    => 'Le nombre de post dans le fil de post n\'est pas valide',
+			'user_validation_configurations_succes'                                             => 'La configuration a été appliqué',
+
 	/* utile */
 		/* a_propos */
 			'utile_a_propos_titre'             => 'À propos',
@@ -183,7 +198,7 @@ $lang=array(
 		/* fil_post */
 			'post_fil_post_detail'              => 'Voir plus',
 			'post_fil_post_titre'               => 'Page ',
-			'post_fil_post_nav_description'     => 'Liste des posts',
+			'post_fil_post_nav_description'     => 'Aller à la page ',
 			'post_fil_post_lien_detail_titre'   => 'Lire le post avec ses commentaires',
 			'post_fil_post_auteur_presentation' => 'Par ',
 			'post_fil_post_lien_auteur_titre'   => 'Voir le profil de l\'auteur',
