@@ -1,0 +1,162 @@
+class LiaisonManager
+!!!409218.php!!!	__construct(in bdd : PDO) : void
+
+		$this->setBdd($bdd);
+!!!409346.php!!!	getBdd() : PDO
+
+		return $this->bdd;
+!!!409474.php!!!	setBdd(in bdd : PDO) : void
+
+		$this->bdd=$bdd;
+!!!409602.php!!!	get(in attributs : array, in operations : array) : array
+
+		$attributsWithOperators=array();
+		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		foreach ($attributs as $nom => $valeur)
+		{
+			$attributsWithOperators[]=$nom.$operations[$nom].'?';
+		}
+		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators).'');
+		$requete->execute(array_values($attributs));
+		$results=array();
+		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
+		{
+			array_push($results, $result);
+		}
+		return $results;
+!!!409730.php!!!	addBy(in variants : array, in invariants : array) : void
+
+		foreach ($variants as $variant)
+		{
+			$variant=array_intersect_key($variant, array_flip($this::ATTRIBUTES));
+		}
+		$invariants=array_intersect_key($invariants, array_flip($this::ATTRIBUTES));
+		$attributs=array_merge(array_keys($variants[\array_key_first($variants)]),array_keys($invariants));
+		$donnees=array();
+		for ($i=0; $i < count($variants); $i++)
+		{ 
+			$donnee=array();
+			foreach ($variants[$i] as $attribut => $valeur)
+			{
+				$donnee[$attribut]=$valeur;
+			}
+			foreach ($invariants as $attribut => $valeur)
+			{
+				$donnee[$attribut]=$valeur;
+			}
+			$donnees[]=$donnee;	// donnees est un tableau contenant les attributs et leur valeur pour chaque élément
+		}
+		foreach ($donnees as $donnee)
+		{
+			$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', $attributs).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
+			$requete->execute(array_values($donnee));
+		}
+!!!409858.php!!!	deleteBy(in attributs : array) : void
+
+		$attributsWithOperators=array();
+		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		foreach ($attributs as $nom => $valeur)
+		{
+			$attributsWithOperators[]=$nom.'=?';
+		}
+		$requete=$this->getBdd()->prepare('DELETE FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
+		$requete->execute(array_values($attributs));
+!!!409986.php!!!	exist(in conditions : array, in groupe : string) : bool
+
+		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
+		{
+			return False;
+		}
+		$donnees=array();
+		$attributs_egalite=array();
+		$valeurs_tous=array();
+		foreach ($conditions as $index => $condition)
+		{
+			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+			$attributs_egalite[$index]=array();
+			foreach ($condition as $attribut => $valeur)
+			{
+				$attributs_egalite[$index][]=$attribut.'=?';
+				if (!isset($donnees[$attribut]))
+				{
+					$donnees[$attribut]=array();
+				}
+				$donnees[$attribut][]=$valeur;
+				$valeurs_tous[]=$valeur;
+			}
+		}
+
+		$attributs_count=array();
+		foreach ($donnees as $attribut => $valeurs)
+		{
+			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+		}
+		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+		$selects_avec_nom_table=array();
+		$egalites_join_avec_nom_table=array();
+		$nbr_conditions=count($conditions);
+		for ($index=0; $index < $nbr_conditions; $index++)
+		{
+			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
+			if ($index+1<$nbr_conditions)
+			{
+				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+			}
+		}
+		$groupe_avec_nom_table='table_0.'.$groupe;
+		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
+		$requete=$this->getBdd()->prepare($select);
+		$requete->execute($valeurs_tous);
+		return (bool)$requete->fetch(\PDO::FETCH_ASSOC);
+!!!410114.php!!!	getBy(in conditions : array, in groupe : string) : array
+
+		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
+		{
+			return False;
+		}
+		$donnees=array();
+		$attributs_egalite=array();
+		$valeurs_tous=array();
+		foreach ($conditions as $index => $condition)
+		{
+			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+			$attributs_egalite[$index]=array();
+			foreach ($condition as $attribut => $valeur)
+			{
+				$attributs_egalite[$index][]=$attribut.'=?';
+				if (!isset($donnees[$attribut]))
+				{
+					$donnees[$attribut]=array();
+				}
+				$donnees[$attribut][]=$valeur;
+				$valeurs_tous[]=$valeur;
+			}
+		}
+
+		$attributs_count=array();
+		foreach ($donnees as $attribut => $valeurs)
+		{
+			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+		}
+		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+		$selects_avec_nom_table=array();
+		$egalites_join_avec_nom_table=array();
+		$nbr_conditions=count($conditions);
+		for ($index=0; $index < $nbr_conditions; $index++)
+		{
+			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
+			if ($index+1<$nbr_conditions)
+			{
+				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+			}
+		}
+		$groupe_avec_nom_table='table_0.'.$groupe;
+		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
+		$requete=$this->getBdd()->prepare($select);
+		$requete->execute($valeurs_tous);
+		$resultats=array();
+		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
+		{
+			$resultats[]=$result;
+		}
+		return $resultats;

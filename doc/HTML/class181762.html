@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Managed</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Managed</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_181762"></a>
+<p>Objet managé par un Manager<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Managed </li></ul><p>Directly inherited by : <a href="class183682.html#ref4_183682"><b>Commentaire</b></a> <a href="class184194.html#ref4_184194"><b>Configuration</b></a> <a href="class181634.html#ref4_181634"><b>Conversation</b></a> <a href="class182402.html#ref4_182402"><b>Message</b></a> <a href="class184578.html#ref4_184578"><b>Motdepasse</b></a> <a href="class184834.html#ref4_184834"><b>Notification</b></a> <a href="class185346.html#ref4_185346"><b>Permission</b></a> <a href="class183938.html#ref4_183938"><b>Post</b></a> <a href="class185602.html#ref4_185602"><b>Role</b></a> <a href="class185858.html#ref4_185858"><b>Utilisateur</b></a> </p>
+<p>Artifact : <a href="index.html#ref8_214914"><b>Managed.class</b></a></p>
+<div class="sub">
+<a name="ref1_240258"></a>
+<table><tr><td><div class="element">Attribute <b>CRITERES_SIMILAIRE</b></div></td></tr></table>
+<p>Constantes <br /><br />Critères (attributs) permettant de vérifier une similarité<br /><br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ CRITERES_SIMILAIRE : array = array('id'), read only</li><li>Php :  const CRITERES_SIMILAIRE</li></ul><a name="ref2_410242"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Autres méthodes <br /><br />Construction de l'objet<br /><br />@param array attributs Attributs de l'objet<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in attributs : array = array()) : void</li><li>Php : public function __construct($attributs = array()): void </li></ul><a name="ref2_410370"></a>
+<table><tr><td><div class="element">Operation <b>hydrater</b></div></td></tr></table><p>Hydrate l'objet<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut de l'objet<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + hydrater(in attributs : array) : void</li><li>Php : public function hydrater($attributs): void </li></ul><a name="ref2_410498"></a>
+<table><tr><td><div class="element">Operation <b>Manager</b></div></td></tr></table><p>Crée une instance de la clase du manager de l'objet managé<br /><br />@return Manager<br /><br /></p><p>Declaration :</p><ul><li>Uml : + Manager() : Manager</li><li>Php : public function Manager(): Manager </li></ul><a name="ref2_410626"></a>
+<table><tr><td><div class="element">Operation <b>get</b></div></td></tr></table><p>Remplir l'objet managé<br /><br />@param mixed index Index de l'objet managé<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + get(in index : mixed) : void</li><li>Php : public function get($index): void </li></ul><a name="ref2_410754"></a>
+<table><tr><td><div class="element">Operation <b>similaire</b></div></td></tr></table><p>Vérifie si deux objets managé sont identiques<br /><br />@param Managed objet L'objet qui vérifie la similarité<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + similaire(in objet : Managed) : bool</li><li>Php : public function similaire($objet): bool </li></ul></div>
+<p>All public operations : <a href="class181762.html#ref2_410242"><b>__construct</b></a> , <a href="class181762.html#ref2_410626"><b>get</b></a> , <a href="class181762.html#ref2_410370"><b>hydrater</b></a> , <a href="class181762.html#ref2_410498"><b>Manager</b></a> , <a href="class181762.html#ref2_410754"><b>similaire</b></a> </p>
+</body>
+</html>
