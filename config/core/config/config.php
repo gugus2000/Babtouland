@@ -107,9 +107,9 @@ $config=array(
 					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
 			/* Menu-up */
-				'menu-up_liens'       => array('?', createPageLink('post', 'fil_post'), createPageLink('utile', 'a_propos'), createPageLink('chat', 'hub'), createPageLink('admin', 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
+				'menu-up_liens'       => array('?', $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')), $Routeur->creerLien(array('application' => 'utile', 'action' => 'a_propos')), $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')), $Routeur->creerLien(array('application' => 'admin', 'action' => 'hub'))),	// Liste des liens dans le menu_up (dans l'ordre)
 				'menu-up_icones'      => array('home', 'view_list', 'info', 'chat', 'security'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
-				'menu-up_lien-statut' => createPageLink('user', 'statut'),														// Lien lors du clic sur l'avatar dans le menu_up
+				'menu-up_lien-statut' => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),														// Lien lors du clic sur l'avatar dans le menu_up
 			/* Menu-side */
 				'menu-side_css'      => 'assets/css/menu-side.css',
 				'menu-side_js'       => '',
@@ -123,186 +123,198 @@ $config=array(
 				'erreur_path' => 'erreur/page.php',	// Chemin vers la page d'erreur
 		/* admin */
 			'defaut_admin_action' => 'hub',
+			/* hub */
+				'admin_hub_lien_liste_utilisateur'    => $Routeur->creerLien(array('application' => 'utile', 'action' => 'liste_user')),
+				'admin_hub_publier_notification_lien' => $Routeur->creerLien(array('application' => 'admin', 'action' => 'publier_notification')),
+			/* publier_notification */
+				'admin_publier_notification_formulaire_action' => $Routeur->creerLien(array('application' => 'admin', 'action' => 'validation_publier_notification')),
 			/* validation_publier_notification */
-				'admin_validation_publier_notification_succes'                         => createPageLink('admin', 'hub'),
-				'admin_validation_publier_notification_erreur_vide'                    => createPageLink('admin', 'publier_notification'),
-				'admin_validation_publier_notification_utilisateurs_erreur_formulaire' => createPageLink('admin', 'publier_notification'),
+				'admin_validation_publier_notification_succes'                         => $Routeur->creerLien(array('application' => 'admin', 'action' => 'hub')),
+				'admin_validation_publier_notification_erreur_vide'                    => $Routeur->creerLien(array('application' => 'admin', 'action' => 'publier_notification')),
+				'admin_validation_publier_notification_utilisateurs_erreur_formulaire' => $Routeur->creerLien(array('application' => 'admin', 'action' => 'publier_notification')),
 		/* user */
 			'defaut_user_action' => 'statut',
 			/* inscription */
 				'default_avatar'          => 'default.png',										// Avatar par défaut des nouveaux utilisateurs
 				'default_banni'           => False,												// Statut par défaut des nouveaux utilisateurs
 				'default_role'            => 'membre',											// Role par défaut des nouveaux utilisateurs
-				'user_inscription_action' => createPageLink('user', 'validation_inscription'),	// Lien redirigeant le formulaire d'inscription
+				'user_inscription_action' => $Routeur->creerLien(array('application' => 'user', 'action' => 'validation_inscription')),	// Lien redirigeant le formulaire d'inscription
 			/* connexion */
-				'user_connexion_action' => createPageLink('user', 'validation_connexion'),	// Lien redirigeant le formulaire de connexion
+				'user_connexion_action' => $Routeur->creerLien(array('application' => 'user', 'action' => 'validation_connexion')),	// Lien redirigeant le formulaire de connexion
 			/* statut */
-				'user_statut_lien_connexion'   => createPageLink('user', 'connexion'),		// Lien pour se connecter affiché dans la page de statut
-				'user_statut_lien_inscription' => createPageLink('user', 'inscription'),	// Lien pour s'inscrire affiché dans la page de statut
-				'user_statut_lien_deconnexion' => createPageLink('user', 'deconnexion'),	// Lien pour se déconnecter affiché dans la page de statut
-				'user_statut_lien_edition' => createPageLink('user', 'edition'),			// Lien pour éditer son profil affiché dans la page de statut
+				'user_statut_lien_connexion'   => $Routeur->creerLien(array('application' => 'user', 'action' => 'connexion')),		// Lien pour se connecter affiché dans la page de statut
+				'user_statut_lien_inscription' => $Routeur->creerLien(array('application' => 'user', 'action' => 'inscription')),	// Lien pour s'inscrire affiché dans la page de statut
+				'user_statut_lien_deconnexion' => $Routeur->creerLien(array('application' => 'user', 'action' => 'deconnexion')),	// Lien pour se déconnecter affiché dans la page de statut
+				'user_statut_lien_edition' => $Routeur->creerLien(array('application' => 'user', 'action' => 'edition')),			// Lien pour éditer son profil affiché dans la page de statut
 			/* validation_connexion */
-				'user_validation_connexion_retour'  => createPageLink('user', 'connexion'),	// Lien de la page à charger lorsque la connexion échoue
-				'user_validation_connexion_suivant' => '?',										// Lien de la page à charger lorsque la connexion réussie
+				'user_validation_connexion_retour'  => $Routeur->creerLien(array('application' => 'user', 'action' => 'connexion')),	// Lien de la page à charger lorsque la connexion échoue
+				'user_validation_connexion_suivant' => $Routeur->creerLien(array()),					// Lien de la page à charger lorsque la connexion réussie
 			/* validation_inscription */
-				'user_validation_inscription_retour'  => createPageLink('user', 'inscription'),	// Lien de la page à charger lorsque l'inscription échoue
-				'user_validation_inscription_suivant' => '?',										// lien de la page à charger lorsque l'inscription réussie
+				'user_validation_inscription_retour'  => $Routeur->creerLien(array('application' => 'user', 'action' => 'inscription')),	// Lien de la page à charger lorsque l'inscription échoue
+				'user_validation_inscription_suivant' => $Routeur->creerLien(array()),						// lien de la page à charger lorsque l'inscription réussie
 			/* edition */
-				'user_edition_action'            => createPageLink('user', 'validation_edition'),	// Lien redirigeant le formulaire d'édition d'utilisateur
+				'user_edition_action'            => $Routeur->creerLien(array('application' => 'user', 'action' => 'validation_edition')),	// Lien redirigeant le formulaire d'édition d'utilisateur
 				'user_edition_admin_application' => 'core',											// Application dont la permission est nécessaire pour éditer un aure utiliasateur
 				'user_edition_admin_action'      => 'edition_user',									// Action dont la permission est nécessaire pour éditer un aure utiliasateur
 			/* validation_edition */
-				'user_validation_edition_lien_erreur_formulaire'       => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'utilisateur échoue
-				'user_validation_edition_lien_succes'                  => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de son profil réussie
-				'user_validation_edition_lien_admin_succes'            => createPageLink('user', 'view'),		// Lien de la page à charger lorsque l'édition d'un autre utilisateur réussie
-				'user_validation_edition_avatar_lien_erreur_dossier'   => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de droit de dossier
-				'user_validation_edition_avatar_lien_erreur_upload'    => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'upload non fonctionnel
-				'user_validation_edition_avatar_lien_erreur_interne'   => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur interne
-				'user_validation_edition_avatar_lien_erreur_type'      => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur de type de fichier
-				'user_validation_edition_avatar_lien_erreur_extension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de mauvaise extension de fichier
-				'user_validation_edition_avatar_lien_erreur_dimension' => createPageLink('user', 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar écgoue pour cause de mauvaise dimension
+				'user_validation_edition_lien_erreur_formulaire'       => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de l'utilisateur échoue
+				'user_validation_edition_lien_succes'                  => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de son profil réussie
+				'user_validation_edition_lien_admin_succes'            => $Routeur->creerLien(array('application' => 'user', 'action' => 'view')),		// Lien de la page à charger lorsque l'édition d'un autre utilisateur réussie
+				'user_validation_edition_avatar_lien_erreur_dossier'   => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de droit de dossier
+				'user_validation_edition_avatar_lien_erreur_upload'    => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'upload non fonctionnel
+				'user_validation_edition_avatar_lien_erreur_interne'   => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur interne
+				'user_validation_edition_avatar_lien_erreur_type'      => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur de type de fichier
+				'user_validation_edition_avatar_lien_erreur_extension' => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de mauvaise extension de fichier
+				'user_validation_edition_avatar_lien_erreur_dimension' => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),	// Lien de la page à charger lorsque l'édition de l'avatar écgoue pour cause de mauvaise dimension
 			/* configurations */
-				'user_configurations_formulaire_action' => createPageLink('user', 'validation_configurations'),
+				'user_configurations_formulaire_action' => $Routeur->creerLien(array('application' => 'user', 'action' => 'validation_configurations')),
 			/* validation_configurations */
-				'user_validation_configurations_erreur_formulaire_mal_remplit' => createPageLink('user', 'configurations'),
-				'user_validation_configurations_erreur_formulaire_vide'        => createPageLink('user', 'configurations'),
-				'user_validation_configurations_succes'                        => '?',
+				'user_validation_configurations_erreur_formulaire_mal_remplit' => $Routeur->creerLien(array('application' => 'user', 'action' => 'configurations')),
+				'user_validation_configurations_erreur_formulaire_vide'        => $Routeur->creerLien(array('application' => 'user', 'action' => 'configurations')),
+				'user_validation_configurations_succes'                        => $Routeur->creerLien(array()),
+			/* view */
+				'user_view_action_statut_editer_lien' => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),
+				'user_view_action_envoyer_mp_lien'    => $Routeur->creerLien(array('application' => 'chat', 'action' => 'envoyer_mp')),
 		/* utile */
 			'defaut_utile_action' => 'a_propos',
 			/* a_propos */
-				'utile_a_propos_formulaire_action' => createPageLink('utile', 'mail'),	// Lien redirigeant le formulaire d'envoi de mail
+				'utile_a_propos_formulaire_action' => $Routeur->creerLien(array('application' => 'utile', 'action' => 'mail')),	// Lien redirigeant le formulaire d'envoi de mail
 			/* mail */
-				'utile_mail_lien_erreur_formulaire' => createPageLink('utile', 'a_propos'),	// Lien de la page à charger lorsque l'envoi du mail échoue
-				'utile_mail_lien_succes'            => createPageLink('utile', 'a_propos'),	// Lien de la page à charger lorsque l'envoi du mail réussi
+				'utile_mail_lien_erreur_formulaire' => $Routeur->creerLien(array('application' => 'utile', 'action' => 'a_propos')),	// Lien de la page à charger lorsque l'envoi du mail échoue
+				'utile_mail_lien_succes'            => $Routeur->creerLien(array('application' => 'utile', 'action' => 'a_propos')),	// Lien de la page à charger lorsque l'envoi du mail réussi
 		/* post */
 			'defaut_post_action' => 'fil_post',
 			/* fil_post */
-				'post_fil_post_default_page'     => 1,											// Numéro de la page a afficher si non précisé
-				'post_fil_post_lien_detail'      => createPageLink('post', 'lecture'),			// Lien vers la page de lecture complète du post
-				'post_fil_post_lien_auteur'      => createPageLink('user', 'view'),			// Lien vers la page de présentation de l'auteur
-				'post_fil_post_lien_publication' => createPageLink('post', 'publication'),		// Lien vers la page de publication de post
-				'post_fil_post_tri'              => 'date_publication',							// Attribut fixant la position des posts
+				'post_fil_post_default_page'     => 1,																						// Numéro de la page a afficher si non précisé
+				'post_fil_post_lien_detail'      => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),				// Lien vers la page de lecture complète du post
+				'post_fil_post_lien_auteur'      => $Routeur->creerLien(array('application' => 'user', 'action' => 'view')),				// Lien vers la page de présentation de l'auteur
+				'post_fil_post_lien_publication' => $Routeur->creerLien(array('application' => 'post', 'action' => 'publication')),			// Lien vers la page de publication de post
+				'post_fil_post_nav_page_lien'    => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),
+				'post_fil_post_tri'              => 'date_publication',																		// Attribut fixant la position des posts
 			/* publication */
-				'post_publication_action' => createPageLink('post', 'validation_publication'),	// Lien redirigeant le formulaire de publication de post
+				'post_publication_action' => $Routeur->creerLien(array('application' => 'post', 'action' => 'validation_publication')),	// Lien redirigeant le formulaire de publication de post
 			/* validation_publication */
-				'post_validation_publication_suivant' => createPageLink('post', 'fil_post'),			// Lien de la page à charger lorque la publication du post échoue
-				'post_validation_publication_retour'  => createPageLink('post', 'publication'),		// Lien de la page à charger lorque la publication du post réussie
+				'post_validation_publication_suivant' => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),			// Lien de la page à charger lorque la publication du post échoue
+				'post_validation_publication_retour'  => $Routeur->creerLien(array('application' => 'post', 'action' => 'publication')),			// Lien de la page à charger lorque la publication du post réussie
 			/* lecture */
-				'post_lecture_lien_auteur'                  => createPageLink('user', 'view'),						// Lien vers la page de présentation de l'auteur
-				'post_lecture_lien_mise_a_jour'             => createPageLink('post', 'edition'),					// Lien vers la page de la mise à jour dudit post
-				'post_lecture_lien_suppression'             => createPageLink('post', 'suppression'),				// Lien vers la page de la suppression dudit post
-				'post_lecture_publication_commentaire'      => createPageLink('post', 'commentaire_publication'),	// Lien redirigeant le formulaire de publication de commentaire
-				'post_lecture_lien_commentaire_suppression' => createPageLink('post', 'commentaire_suppression'),	// Lien vers la page de la suppression dudit commentaire
-				'post_lecture_lien_commentaire_edition'     => createPageLink('post', 'commentaire_edition'),		// Lien vers la page d'édition dudit commentaire
+				'post_lecture_lien_auteur'                  => $Routeur->creerLien(array('application' => 'user', 'action' => 'view')),						// Lien vers la page de présentation de l'auteur
+				'post_lecture_lien_mise_a_jour'             => $Routeur->creerLien(array('application' => 'post', 'action' => 'edition')),					// Lien vers la page de la mise à jour dudit post
+				'post_lecture_lien_suppression'             => $Routeur->creerLien(array('application' => 'post', 'action' => 'suppression')),				// Lien vers la page de la suppression dudit post
+				'post_lecture_publication_commentaire'      => $Routeur->creerLien(array('application' => 'post', 'action' => 'commentaire_publication')),	// Lien redirigeant le formulaire de publication de commentaire
+				'post_lecture_lien_commentaire_suppression' => $Routeur->creerLien(array('application' => 'post', 'action' => 'commentaire_suppression')),	// Lien vers la page de la suppression dudit commentaire
+				'post_lecture_lien_commentaire_edition'     => $Routeur->creerLien(array('application' => 'post', 'action' => 'commentaire_edition')),		// Lien vers la page d'édition dudit commentaire
 			/* commentaire_publication */
-				'post_commentaire_publication_suivant' => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a échoué
-				'post_commentaire_publication_retour'  => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a réussie
+				'post_commentaire_publication_suivant' => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),	// Lien de la page à charger lorsque la publication du commentaire a échoué
+				'post_commentaire_publication_retour'  => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),	// Lien de la page à charger lorsque la publication du commentaire a réussie
 			/* suppression */
-				'post_suppression_retour'            => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque la suppression d'un post échoue faute d'id
-				'post_suppression_permission'        => createPageLink('post', 'lecture'),		// Lien de la page à charger lorsque la suppression d'un post échoue faute de permission
-				'post_suppression_suivant'           => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque la suppression d'un post réussie
-				'post_suppression_admin_application' => 'core',									// Application dont la permission est nécessaire pour supprimer les posts des autres
-				'post_suppression_admin_action'      => 'suppression_post',						// Action dont la permission est nécessaire pour supprimer les posts des autres
+				'post_suppression_retour'            => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),		// Lien de la page à charger lorsque la suppression d'un post échoue faute d'id
+				'post_suppression_permission'        => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),		// Lien de la page à charger lorsque la suppression d'un post échoue faute de permission
+				'post_suppression_suivant'           => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),		// Lien de la page à charger lorsque la suppression d'un post réussie
+				'post_suppression_admin_application' => 'core',												// Application dont la permission est nécessaire pour supprimer les posts des autres
+				'post_suppression_admin_action'      => 'suppression_post',									// Action dont la permission est nécessaire pour supprimer les posts des autres
 			/* commentaire_suppression */
-				'post_commentaire_suppression_retour'            => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute d'id
-				'post_commentaire_suppression_permission'        => createPageLink('post', 'lecture'),		// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute de permission
-				'post_commentaire_suppression_suivant'           => createPageLink('post', 'lecture'),		// Lien de la page à charger lorsque la suppression d'un commentaire réussie
-				'post_commentaire_suppression_admin_application' => 'core',									// Application dont la permission est nécessaire pour supprimer les posts des autres
-				'post_commentaire_suppression_admin_action'      => 'suppression_commentaire',				// Action dont la permission est nécessaire pour supprimer les posts des autres
+				'post_commentaire_suppression_retour'            => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),	// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute d'id
+				'post_commentaire_suppression_permission'        => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),		// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute de permission
+				'post_commentaire_suppression_suivant'           => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),		// Lien de la page à charger lorsque la suppression d'un commentaire réussie
+				'post_commentaire_suppression_admin_application' => 'core',												// Application dont la permission est nécessaire pour supprimer les posts des autres
+				'post_commentaire_suppression_admin_action'      => 'suppression_commentaire',							// Action dont la permission est nécessaire pour supprimer les posts des autres
 			/* edition */
-				'post_edition_lien_erreur_id'           => createPageLink('post', 'fil_post'),				// Lien de la page à charger lorsqu'il n'y a pas l'id du post à éditer précisé
-				'post_edition_lien_erreur_autorisation' => createPageLink('post', 'lecture'),				// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le post
-				'post_edition_lien_erreur_existe'       => createPageLink('post', 'fil_post'),				// Lien de la page à charger lorsque le post à éditer n'existe pas
-				'post_edition_formulaire_action'        => createPageLink('post', 'validation_edition'),	// Lien redirigeant le formulaire d'édition de post
-				'post_edition_admin_application'        => 'core',											// Application dont la permission est nécessaire pour éditer les posts des autres
-				'post_edition_admin_action'             => 'edition_post',									// Action dont la permission est nécessaire pour éditer les posts des autres
+				'post_edition_lien_erreur_id'           => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),				// Lien de la page à charger lorsqu'il n'y a pas l'id du post à éditer précisé
+				'post_edition_lien_erreur_autorisation' => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),				// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le post
+				'post_edition_lien_erreur_existe'       => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),				// Lien de la page à charger lorsque le post à éditer n'existe pas
+				'post_edition_formulaire_action'        => $Routeur->creerLien(array('application' => 'post', 'action' => 'validation_edition')),	// Lien redirigeant le formulaire d'édition de post
+				'post_edition_admin_application'        => 'core',														// Application dont la permission est nécessaire pour éditer les posts des autres
+				'post_edition_admin_action'             => 'edition_post',												// Action dont la permission est nécessaire pour éditer les posts des autres
 			/* validation_edition */
-				'post_validation_edition_lien_formulaire' => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du post échoue faute d'arguments
-				'post_validation_edition_lien_id'         => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du post échoue faut d'id valide
-				'post_validation_edition_lien_succes'     => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque l'édition du post réussie
+				'post_validation_edition_lien_formulaire' => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),	// Lien de la page à charger lorsque l'édition du post échoue faute d'arguments
+				'post_validation_edition_lien_id'         => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),	// Lien de la page à charger lorsque l'édition du post échoue faut d'id valide
+				'post_validation_edition_lien_succes'     => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),		// Lien de la page à charger lorsque l'édition du post réussie
 			/* commentaire_edition */
-				'post_commentaire_edition_lien_erreur_id'           => createPageLink('post', 'fil_post'),							// Lien de la page à charger lorsqu'il n'y a pas l'id du commentaire à éditer précisé
-				'post_commentaire_edition_lien_erreur_autorisation' => createPageLink('post', 'lecture'),							// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le commentaire
-				'post_commentaire_edition_lien_erreur_existe'       => createPageLink('post', 'fil_post'),							// Lien de la page à charger lorsque le commentaire à éditer n'existe pas
-				'post_commentaire_edition_formulaire_action'        => createPageLink('post', 'commentaire_validation_edition'),	// Lien redirigeant le formulaire d'édition de commentaire
-				'post_commentaire_edition_admin_application'        => 'core',														// Application dont la permission est nécessaire pour éditer les commentaires des autres
-				'post_commentaire_edition_admin_action'             => 'edition_commentaire',										// Action dont la permission est nécessaire pour éditer les commentaires des autres
+				'post_commentaire_edition_lien_erreur_id'           => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),							// Lien de la page à charger lorsqu'il n'y a pas l'id du commentaire à éditer précisé
+				'post_commentaire_edition_lien_erreur_autorisation' => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),							// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le commentaire
+				'post_commentaire_edition_lien_erreur_existe'       => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),							// Lien de la page à charger lorsque le commentaire à éditer n'existe pas
+				'post_commentaire_edition_formulaire_action'        => $Routeur->creerLien(array('application' => 'post', 'action' => 'commentaire_validation_edition')),	// Lien redirigeant le formulaire d'édition de commentaire
+				'post_commentaire_edition_admin_application'        => 'core',																	// Application dont la permission est nécessaire pour éditer les commentaires des autres
+				'post_commentaire_edition_admin_action'             => 'edition_commentaire',													// Action dont la permission est nécessaire pour éditer les commentaires des autres
 			/* commentaire_validation_edition */
-				'post_commentaire_validation_edition_lien_formulaire'   => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faute d'arguments
-				'post_commentaire_validation_edition_lien_id'           => createPageLink('post', 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faut d'id valide
-				'post_commentaire_validation_edition_lien_permission'   => createPageLink('post', 'lecture'),
-				'post_commentaire_validation_edition_lien_succes'       => createPageLink('post', 'lecture'),	// Lien de la page à charger lorsque l'édition du commentaire réussie
+				'post_commentaire_validation_edition_lien_formulaire'   => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),	// Lien de la page à charger lorsque l'édition du commentaire échoue faute d'arguments
+				'post_commentaire_validation_edition_lien_id'           => $Routeur->creerLien(array('application' => 'post', 'action' => 'fil_post')),	// Lien de la page à charger lorsque l'édition du commentaire échoue faut d'id valide
+				'post_commentaire_validation_edition_lien_permission'   => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),
+				'post_commentaire_validation_edition_lien_succes'       => $Routeur->creerLien(array('application' => 'post', 'action' => 'lecture')),	// Lien de la page à charger lorsque l'édition du commentaire réussie
 		/* erreur */
 			'defaut_erreur_action' => 'erreur',
 		/* chat */
 			'defaut_chat_action' => 'hub',
 			'chat_temps_0'       => '2019-01-01 00:00:00',
 			/* hub */
-				'chat_hub_lien_voir_conversation'    => createPageLink('chat', 'voir_conversation'),
-				'chat_hub_lien_ajouter_conversation' => createPageLink('chat', 'ajouter_conversation'),
+				'chat_hub_lien_voir_conversation'    => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_hub_lien_ajouter_conversation' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'ajouter_conversation')),
 			/* voir_conversation */
-				'chat_voir_conversation_form_action'                  => createPageLink('chat', 'envoyer_message'),
+				'chat_voir_conversation_form_action'                  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'envoyer_message')),
 				'chat_voir_conversation_date_comparaison'             => 'PT10M',
-				'chat_voir_conversation_message_edition'              => createPageLink('chat', 'editer_message'),
-				'chat_voir_conversation_message_suppression'          => createPageLink('chat', 'supprimer_message'),
-				'chat_voir_conversation_toast_editer_conversation'    => createPageLink('chat', 'editer_conversation'),
-				'chat_voir_conversation_toast_supprimer_conversation' => createPageLink('chat', 'supprimer_conversation'),
+				'chat_voir_conversation_message_edition'              => $Routeur->creerLien(array('application' => 'chat', 'action' => 'editer_message')),
+				'chat_voir_conversation_message_suppression'          => $Routeur->creerLien(array('application' => 'chat', 'action' => 'supprimer_message')),
+				'chat_voir_conversation_toast_editer_conversation'    => $Routeur->creerLien(array('application' => 'chat', 'action' => 'editer_conversation')),
+				'chat_voir_conversation_toast_supprimer_conversation' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'supprimer_conversation')),
 			/* envoyer_message */
-				'chat_envoyer_message_erreur_id_conversation' => createPageLink('chat', 'hub'),
-				'chat_envoyer_message_erreur_permission'      => createPageLink('chat', 'voir_conversation'),
-				'chat_envoyer_message_erreur_contenu'         => createPageLink('chat', 'voir_conversation'),
-				'chat_envoyer_message_succes'                 => createPageLink('chat', 'voir_conversation'),
+				'chat_envoyer_message_erreur_id_conversation' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_envoyer_message_erreur_permission'      => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_envoyer_message_erreur_contenu'         => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_envoyer_message_succes'                 => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
 			/* editer_message */
 				'chat_editer_message_admin_application'   => 'core',
 				'chat_editer_message_admin_action'        => 'editer_message',
-				'chat_editer_message_erreur_id_message'                => createPageLink('chat', 'hub'),
-				'chat_editer_message_erreur_conversation_autorisation' => createPageLink('chat', 'hub'),
-				'chat_editer_message_erreur_message_autorisation'      => createPageLink('chat', 'voir_conversation'),
-				'chat_editer_message_form_action'                      => createPageLink('chat', 'validation_editer_message'),
+				'chat_editer_message_erreur_id_message'                => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_editer_message_erreur_conversation_autorisation' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_editer_message_erreur_message_autorisation'      => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_editer_message_form_action'                      => $Routeur->creerLien(array('application' => 'chat', 'action' => 'validation_editer_message')),
 			/* supprimer_message */
 				'chat_supprimer_message_admin_application'                => 'core',
 				'chat_supprimer_message_admin_action'                     => 'supprimer_message',
-				'chat_supprimer_message_erreur_id_message'                => createPageLink('chat', 'hub'),
-				'chat_supprimer_message_erreur_conversation_autorisation' => createPageLink('chat', 'hub'),
-				'chat_supprimer_message_erreur_message_autorisation'      => createPageLink('chat', 'voir_conversation'),
-				'chat_supprimer_message_succes'                           => createPageLink('chat', 'voir_conversation'),
+				'chat_supprimer_message_erreur_id_message'                => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_supprimer_message_erreur_conversation_autorisation' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_supprimer_message_erreur_message_autorisation'      => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_supprimer_message_succes'                           => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
 			/* validation_editer_message */
-				'chat_validation_editer_message_succes' => createPageLink('chat', 'voir_conversation'),
+				'chat_validation_editer_message_succes' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
 			/* envoyer_mp */
-				'chat_envoyer_mp_notification_erreur_soi_meme' => createPageLink('user', 'statut'),
-				'chat_envoyer_mp_notification_erreur_guest'    => createPageLink('user', 'statut'),
-				'chat_envoyer_mp_notification_erreur_no_id'    => createPageLink('user', 'statut'),
-				'chat_envoyer_mp_form_action'                  => createPageLink('chat', 'validation_envoyer_mp'),
+				'chat_envoyer_mp_notification_erreur_soi_meme' => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),
+				'chat_envoyer_mp_notification_erreur_guest'    => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),
+				'chat_envoyer_mp_notification_erreur_no_id'    => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),
+				'chat_envoyer_mp_form_action'                  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'validation_envoyer_mp')),
 			/* validation_envoyer_mp */
-				'chat_validation_envoyer_mp_notification_succes'              => createPageLink('chat', 'voir_conversation'),
-				'chat_validation_envoyer_mp_notification_erreur_message_vide' => createPageLink('chat', 'envoyer_mp'),
-				'chat_validation_envoyer_mp_notification_erreur_formulaire'   => createPageLink('chat', 'envoyer_mp'),
-				'chat_validation_envoyer_mp_notification_erreur_plusieurs_mp' => createPageLink('user', 'view'),
-				'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => createPageLink('user', 'statut'),
-				'chat_validation_envoyer_mp_notification_erreur_guest'        => createPageLink('user', 'statut'),
-				'chat_validation_envoyer_mp_notification_erreur_no_id'        => createPageLink('user', 'statut'),
+				'chat_validation_envoyer_mp_notification_succes'              => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_validation_envoyer_mp_notification_erreur_message_vide' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'envoyer_mp')),
+				'chat_validation_envoyer_mp_notification_erreur_formulaire'   => $Routeur->creerLien(array('application' => 'chat', 'action' => 'envoyer_mp')),
+				'chat_validation_envoyer_mp_notification_erreur_plusieurs_mp' => $Routeur->creerLien(array('application' => 'user', 'action' => 'view')),
+				'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),
+				'chat_validation_envoyer_mp_notification_erreur_guest'        => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),
+				'chat_validation_envoyer_mp_notification_erreur_no_id'        => $Routeur->creerLien(array('application' => 'user', 'action' => 'statut')),
+			/* ajouter_conversation */
+				'chat_ajouter_conversation_formulaire_action' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'validation_ajouter_conversation')),
 			/* validation_ajouter_conversation */
-				'chat_validation_ajouter_conversation_notification_succes'                  => createPageLink('chat', 'voir_conversation'),
-				'chat_validation_ajouter_conversation_notification_erreur_pas_utilisateur'  => createPageLink('chat', 'ajouter_conversation'),
-				'chat_validation_ajouter_conversation_notification_erreur_formulaire_vide'  => createPageLink('chat', 'ajouter_conversation'),
-				'chat_validation_ajouter_conversation_notification_erreur_formulaire_envoi' => createPageLink('chat', 'ajouter_conversation'),
+				'chat_validation_ajouter_conversation_notification_succes'                  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_validation_ajouter_conversation_notification_erreur_pas_utilisateur'  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'ajouter_conversation')),
+				'chat_validation_ajouter_conversation_notification_erreur_formulaire_vide'  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'ajouter_conversation')),
+				'chat_validation_ajouter_conversation_notification_erreur_formulaire_envoi' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'ajouter_conversation')),
 			/* editer_conversation */
-				'chat_editer_conversation_notification_erreur_autorisation' => createPageLink('chat', 'hub'),
-				'chat_editer_conversation_notification_erreur_general'      => createPageLink('chat', 'voir_conversation'),
-				'chat_editer_conversation_notification_erreur_id'           => createPageLink('chat', 'hub'),
+				'chat_editer_conversation_formulaire_action'                => $Routeur->creerLien(array('application' => 'chat', 'action' => 'validation_editer_conversation')),
+				'chat_editer_conversation_notification_erreur_autorisation' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_editer_conversation_notification_erreur_general'      => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_editer_conversation_notification_erreur_id'           => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
 			/* validation_editer_conversation */
-				'chat_validation_editer_conversation_notification_erreur_autorisation'     => createPageLink('chat', 'hub'),
-				'chat_validation_editer_conversation_notification_erreur_general'          => createPageLink('chat', 'voir_conversation'),
-				'chat_validation_editer_conversation_notification_erreur_id'               => createPageLink('chat', 'hub'),
-				'chat_validation_editer_conversation_notification_succes'                  => createPageLink('chat', 'voir_conversation'),
-				'chat_validation_editer_conversation_notification_erreur_pas_utilisateur'  => createPageLink('chat', 'ajouter_conversation'),
-				'chat_validation_editer_conversation_notification_erreur_formulaire_vide'  => createPageLink('chat', 'ajouter_conversation'),
-				'chat_validation_editer_conversation_notification_erreur_formulaire_envoi' => createPageLink('chat', 'ajouter_conversation'),
+				'chat_validation_editer_conversation_notification_erreur_autorisation'     => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_validation_editer_conversation_notification_erreur_general'          => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_validation_editer_conversation_notification_erreur_id'               => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_validation_editer_conversation_notification_succes'                  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_validation_editer_conversation_notification_erreur_pas_utilisateur'  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'ajouter_conversation')),
+				'chat_validation_editer_conversation_notification_erreur_formulaire_vide'  => $Routeur->creerLien(array('application' => 'chat', 'action' => 'ajouter_conversation')),
+				'chat_validation_editer_conversation_notification_erreur_formulaire_envoi' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'ajouter_conversation')),
 			/* supprimer_conversation */
-				'chat_supprimer_conversation_notification_succes'              => createPageLink('chat', 'hub'),
-				'chat_supprimer_conversation_notification_erreur_autorisation' => createPageLink('chat', 'hub'),
-				'chat_supprimer_conversation_notification_erreur_general'      => createPageLink('chat', 'voir_conversation'),
-				'chat_supprimer_conversation_notification_erreur_id'           => createPageLink('chat', 'hub'),
+				'chat_supprimer_conversation_notification_succes'              => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_supprimer_conversation_notification_erreur_autorisation' => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
+				'chat_supprimer_conversation_notification_erreur_general'      => $Routeur->creerLien(array('application' => 'chat', 'action' => 'voir_conversation')),
+				'chat_supprimer_conversation_notification_erreur_id'           => $Routeur->creerLien(array('application' => 'chat', 'action' => 'hub')),
 		/* xhr */
 			'defaut_xhr_action' => 'chat',
 

@@ -21,7 +21,7 @@ if ($Utilisateur->similaire($this))
 	$Action=new \user\PageElement(array(
 		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action.html',
 		'elements' => array(
-			'href'  => createPageLink('user', 'statut'),
+			'href'  => $config['user_view_action_statut_editer_lien'],
 			'title' => $lang['user_view_action_statut_editer_title'],
 			'text'  => $lang['user_view_action_statut_editer'],
 		),
@@ -40,7 +40,7 @@ else
 	$Action=new \user\PageElement(array(
 		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action.html',
 		'elements' => array(
-			'href'  => createPageLink('chat', 'envoyer_mp').'&id='.$Utilisateur->afficherId(),
+			'href'  => $config['user_view_action_envoyer_mp_lien'].'&id='.$Utilisateur->afficherId(),
 			'title' => $lang['user_view_action_envoyer_mp_title'],
 			'text'  => $text,
 		),
@@ -48,7 +48,7 @@ else
 }
 
 $contenu=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/contenu.html',
+	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/contenu.html',
 	'elements' => array(
 		'pseudo'           => $lang['user_view_pseudo'].$Utilisateur->afficherPseudo(),
 		'avatar_texte'     => $lang['user_view_avatar'],
@@ -61,8 +61,8 @@ $contenu=new \user\PageElement(array(
 ));
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'contenu' => $contenu,
 	),

@@ -31,12 +31,12 @@ for ($numero_page=1; $numero_page <= $nbr_post/$Visiteur->getConfiguration('post
 	}
 	else
 	{
-		$liste_navigation[]='<a href="?application='.$application.'&action='.$action.'&page='.$numero_page.'" title="'.$lang['post_fil_post_nav_description'].$numero_page.'"><li>'.$numero_page.'</li></a>';
+		$liste_navigation[]='<a href="'.$config['post_fil_post_nav_page_lien'].'&page='.$numero_page.'" title="'.$lang['post_fil_post_nav_description'].$numero_page.'"><li>'.$numero_page.'</li></a>';
 	}
 }
 
 $Pagination=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/navigation_nombre.html',
+	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/navigation_nombre.html',
 	'elements' => array(
 		'liste_navigation' => $liste_navigation,
 	),
@@ -53,7 +53,7 @@ for ($position_post=$config['post_fil_post_position_debut']; $position_post < $V
 	{
 		$Post->recuperer();
 		$PostElement=new \user\PageElement(array(
-			'template' => $config['path_template'].$application.'/'.$action.'/post.html',
+			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/post.html',
 			'elements' => array(
 				'titre'               => $Post->afficherTitre(),
 				'date_publication'    => $Post->afficherDate_publication(),
@@ -72,8 +72,8 @@ for ($position_post=$config['post_fil_post_position_debut']; $position_post < $V
 }
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'liste_post' => $liste_post,
 		'pagination' => $Pagination,

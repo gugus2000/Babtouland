@@ -19,7 +19,7 @@ if (isset($_GET['id']))
 	}
 	if ($Id_utilisateurs[$index])	// Accès à la conversation
 	{
-		if(autorisationModification($ChatMessage, $application, $action))	// On peut le modifier
+		if(autorisationModification($ChatMessage, $this->getPage()->getApplication(), $this->getPage()->getAction()))	// On peut le modifier
 		{
 
 			$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);

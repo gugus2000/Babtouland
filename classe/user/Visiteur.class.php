@@ -145,7 +145,7 @@ class Visiteur extends Utilisateur
 			$ConfigurationManager=new \user\ConfigurationManager(\core\BDDFactory::MysqlConnexion());
 			if (isset($_GET['lang']))
 			{
-				if ($this->getPseudo()==$config['nom_guest'])	// On définit le guest comme ayant un langage différent
+				if ($this->getId()==$config['id_guest'])	// On définit le guest comme ayant un langage différent
 				{
 					$_SESSION['lang']=$_GET['lang'];
 				}
@@ -174,13 +174,15 @@ class Visiteur extends Utilisateur
 					}
 				}
 			}
-			if (isset($_SESSION['lang']) & $this->getId()==$config['id_guest'])	// L'utilisateur est un guest avec un langage différent
+			if ($this->getId()==$config['id_guest'])
 			{
-				$this->setConfiguration('lang', $_SESSION['lang']);
-			}
-			if (isset($_SESSION['post_fil_post_nombre_posts']) & $this->getId()==$config['id_guest'])
-			{
-				$this->setConfiguration('post_fil_post_nombre_posts', $_SESSION['post_fil_post_nombre_posts']);
+				foreach (array_keys($this->getConfigurations()) as $nom_configuration)
+				{
+					if (isset($_SESSION[$nom_configuration]))
+					{
+						$this->setConfiguration($nom_configuration, $_SESSION[$nom_configuration]);
+					}
+				}
 			}
 			$configurations=$ConfigurationManager->getBy(array(
 				'id_utilisateur' => $this->getId(),
@@ -307,20 +309,18 @@ class Visiteur extends Utilisateur
 	/**
 	* Charge la page
 	*
-	* @param string application Application de la page
-	*
-	* @param  string action Action de la page
+	* @param array parametres Couple application et action demandé par le visiteur
 	* 
 	* @return string
 	*/
-	public function chargePage($application, $action)
+	public function chargePage($parametres)
 	{
 		global $config, $lang, $Visiteur;
-		if($this->getRole()->existPermission($application, $action))	// Permission accordée
+		if($this->getRole()->existPermission($parametres['application'], $parametres['action']))	// Permission accordée
 		{
 			$this->setPage(new \user\Page(array(
-				'application'   => $application,
-				'action'        => $action,
+				'application'   => $parametres['application'],
+				'action'        => $parametres['action'],
 			)));
 			if (include($this->getPage()->getPath()))
 			{

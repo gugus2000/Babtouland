@@ -13,7 +13,7 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 		));
 		$Commentaire->recuperer();
 		$Post=$Commentaire->recupererPost();
-		if(autorisationModification($Commentaire, $application, $action))
+		if(autorisationModification($Commentaire, $this->getPage()->getApplication(), $this->getPage()->getAction()))
 		{
 			$Notification=new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_SUCCES,

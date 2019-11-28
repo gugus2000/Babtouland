@@ -61,7 +61,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 		$date_publication=new \DateTime($Message->afficherDate_publicationFormat('Y-m-d H:i:s'));
 
 		$Detail_message=new \user\PageElement(array(
-			'template' => $config['path_template'].$application.'/'.$action.'/detail_message.html',
+			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/detail_message.html',
 			'elements' => array(
 				'auteur' => $lang['chat_voir_conversation_auteur'].$Auteur->afficherPseudo(),
 				'date'   => $lang['chat_voir_conversation_date'].$Message->afficherDate_publication(),
@@ -69,7 +69,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 		));
 
 		$Separation=new \user\PageElement(array(
-			'template' => $config['path_template'].$application.'/'.$action.'/separation.html',
+			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/separation.html',
 			'elements' => array(),
 		));
 	}
@@ -81,7 +81,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 	if (autorisationModification($Message, $lien_editer_array['application'], $lien_editer_array['action']))
 	{
 		$action_chat_editer=new \user\PageElement(array(
-			'template' => $config['path_template'].$application.'/'.$action.'/action_chat_editer.html',
+			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_editer.html',
 			'elements' => array(
 				'lien' => $lien_editer.'&id='.$Message->afficherId(),
 			),
@@ -92,7 +92,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 	if (autorisationModification($Message, $lien_supprimer_array['application'], $lien_supprimer_array['action']))
 	{
 		$action_chat_supprimer=new \user\PageElement(array(
-			'template' => $config['path_template'].$application.'/'.$action.'/action_chat_supprimer.html',
+			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_supprimer.html',
 			'elements' => array(
 				'lien' => $lien_supprimer.'&id='.$Message->afficherId(),
 			),
@@ -100,7 +100,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 	}
 
 	$action_chat=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/action_chat.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat.html',
 		'elements' => array(
 			'editer'    => $action_chat_editer,
 			'supprimer' => $action_chat_supprimer,
@@ -108,7 +108,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 	));
 
 	$Contenu_message=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/contenu_message.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/contenu_message.html',
 		'elements' => array(
 			'action_chat' => $action_chat,
 			'contenu'     => $Message->afficherContenu(),
@@ -116,7 +116,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 	));
 
 	$MessagesElements[]=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/message.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/message.html',
 		'elements' => array(
 			'detail_message'  => $Detail_message,
 			'contenu_message' => $Contenu_message,
@@ -127,7 +127,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 if (!$Conversation->recupererMessages())
 {
 	$MessagesElements[]=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/message.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/message.html',
 		'elements' => array(
 			'detail_message'  => '',
 			'contenu_message' => $lang['chat_voir_conversation_conversation_vide'],
@@ -137,15 +137,15 @@ if (!$Conversation->recupererMessages())
 }
 
 $Chat=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/chat.html',
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/chat.func.php',
+	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/chat.html',
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/chat.func.php',
 	'elements' => array(
 		'messages' => $MessagesElements,
 	),
 ));
 
 $Contenu=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements' => array(
 		'action'        => $config['chat_voir_conversation_form_action'].'&id='.$Conversation->afficherId(),
 		'legend'        => $lang['chat_voir_conversation_form_legend'],
@@ -157,8 +157,8 @@ $Contenu=new \user\PageElement(array(
 $Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements' => array(
 		'chat' => $Chat,
 		'form' => $Formulaire,

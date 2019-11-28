@@ -9,7 +9,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 if ($Visiteur->getPseudo()!=$config['nom_guest'])
 {
 	$statut=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/statut.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/statut.html',
 		'elements' => array(
 			'pseudo'           => $lang['user_statut_pseudo'].$Visiteur->afficherPseudo(),
 			'avatar_texte'     => $lang['user_statut_avatar'],
@@ -31,8 +31,8 @@ else
 }
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'statut'                      => $statut,
 		'lien_connexionEdition'       => $lien_connexionEdition,

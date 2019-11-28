@@ -12,7 +12,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 $Form=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements'  => array(
-		'action'                         => createPageLink('chat', 'validation_ajouter_conversation'),
+		'action'                         => $config['chat_ajouter_conversation_formulaire_action'],
 		'legend'                         => $lang['chat_ajouter_conversation_formulaire_legend'],
 		'label_conversation_nom'         => $lang['chat_ajouter_conversation_formulaire_label_nom'],
 		'label_conversation_description' => $lang['chat_ajouter_conversation_formulaire_label_description'],

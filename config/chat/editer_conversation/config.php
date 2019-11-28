@@ -34,7 +34,7 @@ if (isset($_GET['id']))
 			$Form=new \user\PageElement(array(
 				'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 				'elements'  => array(
-					'action'                         => createPageLink('chat', 'validation_editer_conversation').'&id='.$_GET['id'],
+					'action'                         => $config['chat_editer_conversation_formulaire_action'].'&id='.$_GET['id'],
 					'legend'                         => $lang['chat_editer_conversation_formulaire_legend'],
 					'label_conversation_nom'         => $lang['chat_editer_conversation_formulaire_label_nom'],
 					'value_conversation_nom'         => $Conversation->getNom(),

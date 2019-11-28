@@ -8,23 +8,11 @@ date_default_timezone_set('UTC');	// On travaillera toujours en UTC (on peut cha
 $GLOBALS['time_start']=microtime(true);
 
 require_once 'func/core/utils.func.php';
-require_once 'config/core/config/config.php';
 initOutputFilter();
 spl_autoload_register('loadClass');
+$Routeur=new \core\Routeur(\core\Routeur::MODE_ROUTE);
+require_once 'config/core/config/config.php';
 
-$path=parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-$arrayRoute=routeRecuperationApplicationActionLien($path);
-$application=$arrayRoute['application'];
-if(isset($_GET['application']))
-{
-	$application=$_GET['application'];
-}
-$action=$arrayRoute['action'];
-if(isset($_GET['action']))
-{
-	$action=$_GET['action'];
-}
 try
 {
 	if(isset($_SESSION['pseudo']) & isset($_SESSION['id']) & isset($_SESSION['mdp']) & !empty($_SESSION['pseudo']) & !empty($_SESSION['id']) & !empty($_SESSION['mdp']))	// Visiteur connecté
@@ -53,7 +41,7 @@ try
 		$Visiteur->connexion($config['mdp_guest']);
 		require 'config/core/lang/'.$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
 	}
-	echo $Visiteur->chargePage($application, $action);
+	echo $Visiteur->chargePage($Routeur->dechiffrerRoute($_SERVER['REQUEST_URI']));
 }
 catch (Exception $e)
 {

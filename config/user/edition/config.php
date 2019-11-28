@@ -23,7 +23,7 @@ if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edit
 		$checked=' checked=""';
 	}
 	$partie_admin=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/partie_admin.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/partie_admin.html',
 		'elements' => array(
 			'label_banni' => $lang['user_edition_label_banni'],
 			'checked'     => $checked,
@@ -32,7 +32,7 @@ if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edit
 }
 
 $Contenu=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements' => array(
 		'action'       => $config['user_edition_action'],
 		'legend'       => $lang['user_edition_legend'].$Utilisateur->afficherPseudo(),
@@ -48,8 +48,8 @@ $Contenu=new \user\PageElement(array(
 $Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'formulaire' => $Formulaire,
 	),

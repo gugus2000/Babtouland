@@ -10,7 +10,7 @@ if(isset($_GET['id']))
 			'id' => $_GET['id'],
 		));
 		$Post->recuperer();
-		if(autorisationModification($Post, $application, $action))
+		if(autorisationModification($Post, $this->getPage()->getApplication(), $this->getPage()->getAction()))
 		{
 			$Notification=new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_SUCCES,

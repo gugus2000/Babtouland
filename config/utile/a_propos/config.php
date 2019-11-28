@@ -7,7 +7,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 ));
 
 $Contenu=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/form.html',
+	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements' => array(
 		'action'        => $config['utile_a_propos_formulaire_action'],
 		'legend'        => $lang['utile_a_propos_formulaire_legend'],
@@ -22,7 +22,7 @@ $questions_reponses=[];
 for ($i=0, $lenght=count($lang['utile_a_propos_contenu_questions']); $i < $lenght; $i++)
 {
 	$questions_reponses[]=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/question_reponse.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/question_reponse.html',
 		'elements' => array(
 			'question' => $lang['utile_a_propos_contenu_questions'][$i],
 			'reponse'  => $lang['utile_a_propos_contenu_reponses'][$i],
@@ -31,8 +31,8 @@ for ($i=0, $lenght=count($lang['utile_a_propos_contenu_questions']); $i < $lengh
 }
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'titre'      => $lang['utile_a_propos_contenu_titre'],
 		'contenu'    => $questions_reponses,

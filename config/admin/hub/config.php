@@ -23,13 +23,13 @@ $Contenu=new \user\PageElement(array(
 		'nombre_utilisateurs' => $lang['admin_hub_nombre_utilisateurs'].$nombre_utilisateurs,
 		'nombre_connectes'    => $lang['admin_hub_nombre_connectes'].$nombre_connectes,
 		'ratio_connectes'     => $lang['admin_hub_ratio_connectes_debut'].substr((string)(($nombre_connectes/$nombre_utilisateurs)*100),0,5).$lang['admin_hub_ratio_connectes_fin'],
-		'liste_utilisateurs'  => '<a href="'.createPageLink('utile', 'liste_user').'">'.$lang['admin_hub_liste_utilisateurs'].'</a>',
+		'liste_utilisateurs'  => '<a href="'.$config['admin_hub_lien_liste_utilisateur'].'">'.$lang['admin_hub_liste_utilisateurs'].'</a>',
 	),
 ));
 $MenuUp=new \user\page\MenuUp();
 $Carte=new \user\page\Carte($Contenu);
 $liens_toast=array(
-	'lien'        => array(createPageLink('admin', 'publier_notification')),
+	'lien'        => array($config['admin_hub_publier_notification_lien']),
 	'description' => array($lang['admin_hub_publier_notification_description']),
 	'icone'       => array('add_alert'),
 );

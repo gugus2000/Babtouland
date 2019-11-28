@@ -28,7 +28,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 
 
 $post=new \user\PageElement(array(
-	'template' => $config['path_template'].$application.'/'.$action.'/post.html',
+	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/post.html',
 	'elements' => array(
 		'titre'               => $Post->afficherTitre(),
 		'date_publication'    => $Post->afficherDate_publication(),
@@ -48,7 +48,7 @@ foreach ($Commentaires as $index => $Commentaire)
 	if(autorisationModification($Commentaire, 'post', 'commentaire_suppression'))
 	{
 		$autorisation=new \user\PageElement(array(
-			'template' => $config['path_template'].$application.'/'.$action.'/autorisation_commentaire.html',
+			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/autorisation_commentaire.html',
 			'elements' => array(
 				'suppression_href'  => $config['post_lecture_lien_commentaire_suppression'].'&id='.$Commentaire->afficherId(),
 				'suppression_title' => $lang['post_lecture_lien_commentaire_suppression_titre'],
@@ -59,7 +59,7 @@ foreach ($Commentaires as $index => $Commentaire)
 	}
 	$Auteur=$Commentaire->recupererAuteur();
 	$commentaires[]=new \user\PageElement(array(
-		'template' => $config['path_template'].$application.'/'.$action.'/commentaire.html',
+		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/commentaire.html',
 		'elements' => array(
 			'autorisation'           => $autorisation,
 			'date_publication'       => $Commentaire->afficherDate_publication(),
@@ -92,8 +92,8 @@ if($Visiteur->getRole()->existPermission($array['application'], $array['action']
 }
 
 $Contenu=new \user\PageElement(array(
-	'template'  => $config['path_template'].$application.'/'.$action.'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$application.'/'.$action.'/'.$config['filename_contenu_fonctions'],
+	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
+	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'post'         => $post,
 		'commentaires' => $commentaires,
