@@ -25,7 +25,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_supprimer_message_succes'],
 			));
-			$get=$config['chat_supprimer_message_succes'].'&id='.$Conversation->afficherId();
+			$get=array_merge($config['chat_supprimer_message_succes'], array('id' => $Conversation->afficherId()));
 			$Message->supprimer();
 		}
 		else
@@ -34,7 +34,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_supprimer_message_erreur_message_autorisation'],
 			));
-			$get=$config['chat_supprimer_message_erreur_message_autorisation'].'&id='.$Conversation->afficherId();
+			$get=array_merge($config['chat_supprimer_message_erreur_message_autorisation'], array('id' => $Conversation->afficherId()));
 		}
 	}
 	else
@@ -56,6 +56,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

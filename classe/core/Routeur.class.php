@@ -182,12 +182,13 @@ class Routeur
 	*/
 	public function creerLienGet($parametres)
 	{
+		global $config;
 		$ajout='';
 		foreach ($parametres as $nom => $valeur)
 		{
 			if ($nom!='application' & $nom!='action')
 			{
-				$ajout.='&'.$nom.'='.$valeur;
+				$ajout.='&'.(string)$nom.'='.(string)$valeur;
 			}
 		}
 		if (isset($parametres['application']))
@@ -198,16 +199,12 @@ class Routeur
 			}
 			else
 			{
-				return '?application='.$parametres['application'].$ajout;
+				return '?application='.$parametres['application'].'&action='.$config['defaut_'.$parametres['application'].'_action'].$ajout;
 			}
 		}
 		else
 		{
-			if (strlen($ajout)>0)
-			{
-				$ajout=substr($ajout, 1);	// On enlève le "&"
-			}
-			return '?'.$ajout;
+			return '?application='.$config['defaut_application'].'&action='.$config['defaut_'.$config['defaut_application'].'_action'].$ajout;
 		}
 	}
 	/**
@@ -219,12 +216,13 @@ class Routeur
 	*/
 	public function creerLienRoute($parametres)
 	{
+		global $config;
 		$ajout='';
 		foreach ($parametres as $nom => $valeur)
 		{
 			if ($nom!='application' & $nom!='action')
 			{
-				$ajout.='&'.$nom.'='.$valeur;
+				$ajout.='&'.(string)$nom.'='.(string)$valeur;
 			}
 		}
 		if (strlen($ajout)>0)
@@ -240,13 +238,33 @@ class Routeur
 			}
 			else
 			{
-				return '/'.$parametres['application'].'/'.$ajout;
+				return '/'.$parametres['application'].'/'.$config['defaut_'.$parametres['application'].'_action'].'/'.$ajout;
 			}
 		}
 		else
 		{
-			return $ajout;
+			return '/'.$config['defaut_application'].'/'.$config['defaut_'.$config['defaut_application'].'_action'].'/'.$ajout;
 		}
+	}
+	/**
+	* Remplit les paramètres incomplets d'un lien si nécessaire
+	*
+	* @param array parametres Paramètres de l'URL déjà existant
+	* 
+	* @return array
+	*/
+	public function remplir($parametres)
+	{
+		global $config;
+		if (!isset($parametres['application']))
+		{
+			$parametres['application']=$config['defaut_application'];
+		}
+		if (!isset($parametres['action']))
+		{
+			$parametres['action']=$config['defaut_'.$parametres['application'].'_action'];
+		}
+		return $parametres;
 	}
 
 }

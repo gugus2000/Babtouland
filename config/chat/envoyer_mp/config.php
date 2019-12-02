@@ -19,15 +19,13 @@ if (isset($_GET['id']))
 			$Contenu=new \user\PageElement(array(
 				'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 				'elements' => array(
-					'action'         => $config['chat_envoyer_mp_form_action'].'&id='.$Utilisateur->afficherId(),
+					'action'         => $Routeur->creerLien(array_merge($config['chat_envoyer_mp_form_action'], array('id' => $Utilisateur->afficherId()))),
 					'legend'         => $lang['chat_envoyer_mp_form_legend'],
 					'label_message'  => $lang['chat_envoyer_mp_form_label_message'],
 					'submit'         => $lang['chat_envoyer_mp_form_submit'],
 				),
 			));
-
 			$Formulaire=new \user\page\Formulaire($Contenu);
-
 			$Contenu=new \user\PageElement(array(
 				'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_template'],
 				'elements' => array(
@@ -50,7 +48,8 @@ if (isset($_GET['id']))
 			));
 			$get=$config['chat_envoyer_mp_notification_erreur_soi_meme'];
 			$this->getPage()->envoyerNotificationsSession();
-			header('location: index.php'.$get);
+			header('location: '.$Routeur->creerLien($get));
+			exit();
 		}
 	}
 	else
@@ -61,7 +60,8 @@ if (isset($_GET['id']))
 		));
 		$get=$config['chat_envoyer_mp_notification_erreur_guest'];
 		$this->getPage()->envoyerNotificationsSession();
-		header('location: index.php'.$get);
+		header('location: '.$Routeur->creerLien($get));
+		exit();
 	}
 }
 else
@@ -72,7 +72,8 @@ else
 	));
 	$get=$config['chat_envoyer_mp_notification_erreur_no_id'];
 	$this->getPage()->envoyerNotificationsSession();
-	header('location: index.php'.$get);
+	header('location: '.$Routeur->creerLien($get));
+	exit();
 }
 
 ?>

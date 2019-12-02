@@ -127,7 +127,7 @@ class Visiteur extends Utilisateur
 	*/
 	public function verifPermission()
 	{
-		return $this->getRole()->existPermission($this->getPage()->getApplication(), $this->getPage()->getAction());
+		return $this->getRole()->existPermission(array('application' => $this->getPage()->getApplication(), 'action' => $this->getPage()->getAction()));
 	}
 	/**
 	* Connecte le visiteur
@@ -315,8 +315,8 @@ class Visiteur extends Utilisateur
 	*/
 	public function chargePage($parametres)
 	{
-		global $config, $lang, $Visiteur;
-		if($this->getRole()->existPermission($parametres['application'], $parametres['action']))	// Permission accordée
+		global $config, $lang, $Visiteur, $Routeur;
+		if($this->getRole()->existPermission($parametres))	// Permission accordée
 		{
 			$this->setPage(new \user\Page(array(
 				'application'   => $parametres['application'],

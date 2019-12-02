@@ -29,13 +29,13 @@ try
 		}
 		else
 		{
-			throw new Exception($lang['erreur_connexion_utilisateur']);
+			throw new Exception($Visiteur->getConfiguration('lang')['erreur_connexion_utilisateur']);
 		}
 	}
 	else
 	{
 		$Visiteur=new \user\Visiteur(array(
-			'pseudo' => $config['nom_guest'],
+			'id' => $config['id_guest'],
 		));	// Visiteur avec une "session invitée"
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
@@ -45,16 +45,16 @@ try
 }
 catch (Exception $e)
 {
-	if (!isset($Visiteur))
+	if (null===$Visiteur->getPage())
 	{
 		$Visiteur=new \user\Visiteur(array(
-			'pseudo' => $config['nom_guest'],
+			'id' => $config['id_guest'],
 		));	// Visiteur avec une "session invitée"
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
 		require 'config/core/lang/'.$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
 	}
-	echo $Visiteur->chargePage('erreur', 'erreur');
+	echo $Visiteur->chargePage(array('application' => 'erreur', 'action' => 'erreur'));
 }
 
 ?>

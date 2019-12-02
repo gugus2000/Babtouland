@@ -9,7 +9,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 $Contenu=new \user\PageElement(array(
 	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements' => array(
-		'action'        => $config['post_publication_action'],
+		'action'        => $Routeur->creerLien($config['post_publication_action']),
 		'legend'        => $lang['post_publication_legend'],
 		'label_titre'   => $lang['post_publication_titreForm'],
 		'label_contenu' => $lang['post_publication_contenu'],

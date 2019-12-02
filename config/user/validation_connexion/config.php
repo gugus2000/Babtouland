@@ -44,6 +44,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

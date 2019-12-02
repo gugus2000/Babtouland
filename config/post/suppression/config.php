@@ -25,7 +25,7 @@ if(isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_suppression_message_permission'],
 			));
-			$get=$config['post_suppression_permission'].'&id='.$_GET['id'];
+			$get=array_merge($config['post_suppression_permission'], array('id' => $_GET['id']));
 		}
 	}
 	else
@@ -47,6 +47,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

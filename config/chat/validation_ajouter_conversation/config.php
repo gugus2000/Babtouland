@@ -39,7 +39,7 @@ if (isset($_POST['conversation_nom']) & isset($_POST['conversation_description']
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_validation_ajouter_conversation_notification_succes'],
 			));
-			$get=$config['chat_validation_ajouter_conversation_notification_succes'].'&id='.$Conversation->getId();
+			$get=array_merge($config['chat_validation_ajouter_conversation_notification_succes'], array('id' => $Conversation->getId()));
 		}
 		else
 		{
@@ -69,6 +69,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get)
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

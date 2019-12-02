@@ -14,11 +14,11 @@ if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['co
 		'type'    => \user\page\Notification::TYPE_SUCCES,
 		'contenu' => $lang['post_commentaire_publication_message_succes'],
 	));
-	$get=$config['post_commentaire_publication_suivant'].'&id='.htmlspecialchars($_GET['id']);
+	$get=array_merge($config['post_commentaire_publication_suivant'], array('id' => $_GET['id']));
 }
 else
 {
-	$Notification=new \user\page\Notification(array(
+	new \user\page\Notification(array(
 		'type'    => \user\page\Notification::TYPE_ERREUR,
 		'contenu' => $lang['post_commentaire_publication_message_formulaire'],
 	));
@@ -26,6 +26,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
  ?>

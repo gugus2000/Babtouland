@@ -21,7 +21,7 @@ if ($Utilisateur->similaire($this))
 	$Action=new \user\PageElement(array(
 		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action.html',
 		'elements' => array(
-			'href'  => $config['user_view_action_statut_editer_lien'],
+			'href'  => $Routeur->creerLien($config['user_view_action_statut_editer_lien']),
 			'title' => $lang['user_view_action_statut_editer_title'],
 			'text'  => $lang['user_view_action_statut_editer'],
 		),
@@ -40,7 +40,7 @@ else
 	$Action=new \user\PageElement(array(
 		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action.html',
 		'elements' => array(
-			'href'  => $config['user_view_action_envoyer_mp_lien'].'&id='.$Utilisateur->afficherId(),
+			'href'  => $Routeur->creerLien(array_merge($config['user_view_action_envoyer_mp_lien'], array('id' => $Utilisateur->afficherId()))),
 			'title' => $lang['user_view_action_envoyer_mp_title'],
 			'text'  => $text,
 		),

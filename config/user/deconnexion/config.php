@@ -9,6 +9,7 @@ $Notification=new \user\page\Notification(array(
 ), $this->getPage()->getPageElement());
 
 $Visiteur->getPage()->envoyerNotificationsSession();
-header('location: index.php')
+header('location: '.$Routeur->creerLien($config['user_deconnexion_lien']));
+exit();
 
 ?>

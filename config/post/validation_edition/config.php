@@ -20,7 +20,7 @@ if(isset($_GET['id']) & isset($_POST['edition_titre']) & isset($_POST['edition_c
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['post_validation_edition_message_succes'],
 			));
-			$get=$config['post_validation_edition_lien_succes'].'&id='.$_GET['id'];
+			$get=array_merge($config['post_validation_edition_lien_succes'], array('id' => $_GET['id']));
 			$Post->mettre_a_jour();
 		}
 		else
@@ -29,7 +29,7 @@ if(isset($_GET['id']) & isset($_POST['edition_titre']) & isset($_POST['edition_c
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_validation_edition_message_permission'],
 			));
-			$get=$config['post_edition_lien_erreur_autorisation'].'&id='.$_GET['id'];
+			$get=array_merge($config['post_edition_lien_erreur_autorisation'], array('id' => $_GET['id']));
 		}
 	}
 	else
@@ -51,6 +51,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

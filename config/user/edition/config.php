@@ -9,14 +9,14 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 $admin=False;
 $partie_admin='';
 $Utilisateur=$Visiteur;
-if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))
+if(isset($_GET['id']) & $Visiteur->getRole()->existPermission(array('application' => $config['user_edition_admin_application'], 'action' => $config['user_edition_admin_action'])))
 {
 	$admin=True;
 	$Utilisateur=new \user\Utilisateur(array(
 		'id' => $_GET['id'],
 	));
 	$Utilisateur->recuperer();
-	$config['user_edition_action']=$config['user_edition_action'].'&id='.$_GET['id'];
+	$config['user_edition_action']=array_merge($config['user_edition_action'], array('id' => $_GET['id']));
 	$checked='';
 	if($Utilisateur->getBanni())
 	{
@@ -34,7 +34,7 @@ if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edit
 $Contenu=new \user\PageElement(array(
 	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements' => array(
-		'action'       => $config['user_edition_action'],
+		'action'       => $Routeur->creerLien($config['user_edition_action']),
 		'legend'       => $lang['user_edition_legend'].$Utilisateur->afficherPseudo(),
 		'label_avatar' => $lang['user_edition_label_avatar'],
 		'avatar'       => $Utilisateur->afficherAvatar(),

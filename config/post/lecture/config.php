@@ -33,7 +33,7 @@ $post=new \user\PageElement(array(
 		'titre'               => $Post->afficherTitre(),
 		'date_publication'    => $Post->afficherDate_publication(),
 		'presentation_auteur' => $lang['post_lecture_auteur_presentation'],
-		'lien_auteur_href'    => $config['post_lecture_lien_auteur'].'&id='.$Post->recupererAuteur()->afficherId(),
+		'lien_auteur_href'    => $Routeur->creerLien(array_merge($config['post_lecture_lien_auteur'], array('id' => $Post->recupererAuteur()->afficherId()))),
 		'lien_auteur_title'   => $lang['post_lecture_lien_auteur_titre'],
 		'auteur'              => $Post->recupererAuteur()->afficherPseudo(),
 		'contenu'             => $bbcode->parse($Post->afficherContenu()),
@@ -50,9 +50,9 @@ foreach ($Commentaires as $index => $Commentaire)
 		$autorisation=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/autorisation_commentaire.html',
 			'elements' => array(
-				'suppression_href'  => $config['post_lecture_lien_commentaire_suppression'].'&id='.$Commentaire->afficherId(),
+				'suppression_href'  => $Routeur->creerLien(array_merge($config['post_lecture_lien_commentaire_suppression'], array('id' => $Commentaire->afficherId()))),
 				'suppression_title' => $lang['post_lecture_lien_commentaire_suppression_titre'],
-				'edition_href'      => $config['post_lecture_lien_commentaire_edition'].'&id='.$Commentaire->afficherId(),
+				'edition_href'      => $Routeur->creerLien(array_merge($config['post_lecture_lien_commentaire_edition'], array('id' => $Commentaire->afficherId()))),
 				'edition_title'     => $lang['post_lecture_lien_commentaire_edition_titre'],
 			),
 		));
@@ -63,7 +63,7 @@ foreach ($Commentaires as $index => $Commentaire)
 		'elements' => array(
 			'autorisation'           => $autorisation,
 			'date_publication'       => $Commentaire->afficherDate_publication(),
-			'commentaire_lien_href'  => $config['post_lecture_lien_auteur'].'&id='.$Auteur->afficherId(),
+			'commentaire_lien_href'  => $Routeur->creerLien(array_merge($config['post_lecture_lien_auteur'], array('id' => $Auteur->afficherId()))),
 			'commentaire_lien_title' => $lang['post_lecture_commentaire_lien_avatar_titre'].$Auteur->afficherPseudo(),
 			'commentaire_avatar_src' => $config['chemin_avatar'].$Auteur->afficherAvatar(),
 			'commentaire_avatar_alt' => $lang['post_lecture_commentaire_avatar_description'].$Auteur->afficherPseudo(),
@@ -77,13 +77,12 @@ $Contenu='';
 $Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
 $formulaire='';
-$array=recuperationApplicationActionLien($config['post_lecture_publication_commentaire']);
-if($Visiteur->getRole()->existPermission($array['application'], $array['action']))		// L'utilisateur a la permission de publier un commentaire
+if($Visiteur->getRole()->existPermission($config['post_lecture_publication_commentaire']))		// L'utilisateur a la permission de publier un commentaire
 {
 	$formulaire=new \user\PageElement(array(
 		'template' => $config['path_template'].'post/lecture/formulaire.html',
 		'elements' => array(
-			'action'        => $config['post_lecture_publication_commentaire'].'&id='.$Post->afficherId(),
+			'action'        => $Routeur->creerLien(array_merge($config['post_lecture_publication_commentaire'], array('id' => $Post->afficherId()))),
 			'legend'        => $lang['post_lecture_legend'],
 			'label_contenu' => $lang['post_lecture_commentaire_contenu'],
 			'submit'        => $lang['post_lecture_commentaire_submit'],
@@ -102,7 +101,7 @@ $Contenu=new \user\PageElement(array(
 ));
 
 $toast_liens=array(
-	'lien'        => array($config['post_lecture_lien_mise_a_jour'].'&id='.$id, $config['post_lecture_lien_suppression'].'&id='.$id),
+	'lien'        => array(array_merge($config['post_lecture_lien_mise_a_jour'], array('id' => $id)), array_merge($config['post_lecture_lien_suppression'], array('id' => $id))),
 	'description' => array($lang['post_lecture_lien_mise_a_jour'], $lang['post_lecture_lien_suppression']),
 	'icone'       => array('edit', 'delete'),
 );

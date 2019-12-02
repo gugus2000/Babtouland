@@ -16,7 +16,7 @@ if(isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['post_commentaire_suppression_message_succes'],
 			));
-			$get=$config['post_commentaire_suppression_suivant'].'&id='.$Commentaire->recupererPost()->afficherId();
+			$get=array_merge($config['post_commentaire_suppression_suivant'], array('id' => $Commentaire->recupererPost()->afficherId()));
 			$Commentaire->supprimer();
 		}
 		else
@@ -25,7 +25,7 @@ if(isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_commentaire_suppression_message_permission'],
 			));
-			$get=$config['post_commentaire_suppression_permission'].'&id='.$Commentaire->recupererPost()->afficherId();
+			$get=array_merge($config['post_commentaire_suppression_permission'], array('id' => $Commentaire->recupererPost()->afficherId()));
 		}
 	}
 	else
@@ -47,6 +47,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

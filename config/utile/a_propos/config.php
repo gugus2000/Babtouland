@@ -9,7 +9,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 $Contenu=new \user\PageElement(array(
 	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements' => array(
-		'action'        => $config['utile_a_propos_formulaire_action'],
+		'action'        => $Routeur->creerLien($config['utile_a_propos_formulaire_action']),
 		'legend'        => $lang['utile_a_propos_formulaire_legend'],
 		'label_contenu' => $lang['utile_a_propos_formulaire_label'],
 		'submit'        => $lang['utile_a_propos_formulaire_submit'],

@@ -52,7 +52,7 @@ if (isset($_GET['id']))
 							'type'    => \user\page\Notification::TYPE_SUCCES,
 							'contenu' => $lang['chat_validation_envoyer_mp_notification_succes'],
 						));
-						$get=$config['chat_validation_envoyer_mp_notification_succes'].'&id='.$Conversation->getId();
+						$get=array_merge($config['chat_validation_envoyer_mp_notification_succes'], array('id' => $Conversation->getId()));
 					}
 					else
 					{
@@ -60,7 +60,7 @@ if (isset($_GET['id']))
 							'type'    => \user\page\Notification::TYPE_ERREUR,
 							'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_message_vide'],
 						));
-						$get=$config['chat_validation_envoyer_mp_notification_erreur_message_vide'].'&id='.$Utilisateur->getId();
+						$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_message_vide'], array('id' => $Utilisateur->getId()));
 					}
 				}
 				else
@@ -69,7 +69,7 @@ if (isset($_GET['id']))
 						'type'    => \user\page\Notification::TYPE_ERREUR,
 						'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_formulaire'],
 					));
-					$get=$config['chat_validation_envoyer_mp_notification_erreur_formulaire'].'&id='.$Utilisateur->getId();
+					$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_formulaire'], array('id' => $Utilisateur->getId()));
 				}
 			}
 			else
@@ -78,7 +78,7 @@ if (isset($_GET['id']))
 					'type'    => \user\page\Notification::TYPE_ERREUR,
 					'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_plusieurs_mp'],
 				));
-				$get=$config['chat_validation_envoyer_mp_notification_erreur_plusieurs_mp'].'&id='.$Utilisateur->getId();
+				$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_plusieurs_mp'], array('id' => $Utilisateur->getId()));
 			}
 		}
 		else
@@ -108,6 +108,7 @@ else
 	$get=$config['chat_validation_envoyer_mp_notification_erreur_no_id'];
 }
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

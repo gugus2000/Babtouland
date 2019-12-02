@@ -22,7 +22,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_envoyer_message_succes'],
 			));
-			$get=$config['chat_envoyer_message_succes'].'&id='.$_GET['id'];
+			$get=array_merge($config['chat_envoyer_message_succes'], array('id' => $_GET['id']));
 			$ChatMessage=new \chat\Message(array(
 				'id_conversation' => $id,
 				'id_auteur'       => $Visiteur->getId(),
@@ -38,7 +38,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_envoyer_message_erreur_contenu'],
 			));
-			$get=$config['chat_envoyer_message_erreur_contenu'].'&id='.$_GET['id'];
+			$get=array_merge($config['chat_envoyer_message_erreur_contenu'], array('id' => $_GET['id']));
 		}
 	}
 	else
@@ -47,7 +47,7 @@ if (isset($_GET['id']))
 			'type'    => \user\page\Notification::TYPE_ERREUR,
 			'contenu' => $lang['chat_envoyer_message_erreur_permission'],
 		));
-		$get=$config['chat_envoyer_message_erreur_permission'].'&id='.$_GET['id'];
+		$get=array_merge($config['chat_envoyer_message_erreur_permission'], array('id' => $_GET['id']));
 	}
 }
 else
@@ -60,6 +60,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

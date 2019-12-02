@@ -9,7 +9,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 $Contenu=new \user\PageElement(array(
 	'template' =>$config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 	'elements' => array(
-		'action'       => $config['user_connexion_action'],
+		'action'       => $Routeur->creerLien($config['user_connexion_action']),
 		'legend'       => $lang['user_connexion_fieldset'],
 		'label_pseudo' => $lang['user_formulairepseudo'],
 		'label_mdp'    => $lang['user_formulairemdp'],

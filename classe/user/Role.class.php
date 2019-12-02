@@ -200,20 +200,19 @@ class Role extends \core\Managed
 	/**
 	* Vérifie l'existence d'une permission pour le rôle
 	*
-	* @param string application Application de la permission
-	* 
-	* @param string action Action de la permission
+	* @param array lien Tableau contenant les différents paramètres de l'URL
 	* 
 	* @return bool
 	*/
-	public function existPermission($application, $action)
+	public function existPermission($lien)
 	{
-		$BDDFactory=new \core\BDDFactory;
-		$PermissionManager=new \user\PermissionManager($BDDFactory->MysqlConnexion());
+		global $Routeur;
+		$lien=$Routeur->remplir($lien);
+		$PermissionManager=new \user\PermissionManager(\core\BDDFactory::MysqlConnexion());
 		return $PermissionManager->getBy(array(
 			'nom_role'    => $this->getNom_role(),
-			'application' => $application,
-			'action'      => $action,
+			'application' => $lien['application'],
+			'action'      => $lien['action'],
 		), array(
 			'nom_role'    => '=',
 			'application' => '=',

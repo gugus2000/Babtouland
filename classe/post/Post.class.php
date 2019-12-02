@@ -312,8 +312,10 @@ class Post extends \core\Managed
 	*/
 	public function recupererAuteur()
 	{
-		$Utilisateur=new \user\Utilisateur(array());
-		$Utilisateur->get($this->getId_auteur());
+		$Utilisateur=new \user\Utilisateur(array(
+			'id' => $this->getId_auteur(),
+		));
+		$Utilisateur->recuperer();
 		return $Utilisateur;
 	}
 	/**

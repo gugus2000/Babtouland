@@ -34,7 +34,7 @@ if (isset($_GET['id']))
 			$Form=new \user\PageElement(array(
 				'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 				'elements'  => array(
-					'action'                         => $config['chat_editer_conversation_formulaire_action'].'&id='.$_GET['id'],
+					'action'                         => $Routeur->creerLien(array_merge($config['chat_editer_conversation_formulaire_action'],array('id' => $_GET['id']))),
 					'legend'                         => $lang['chat_editer_conversation_formulaire_legend'],
 					'label_conversation_nom'         => $lang['chat_editer_conversation_formulaire_label_nom'],
 					'value_conversation_nom'         => $Conversation->getNom(),
@@ -65,7 +65,8 @@ if (isset($_GET['id']))
 				'type' => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_editer_conversation_notification_erreur_autorisation'],
 			));
-			header('location: index.php'.$config['chat_editer_conversation_notification_erreur_autorisation'].'&id='.$_GET['id']);
+			header('location: '.$Routeur->creerLien(array_merge($config['chat_editer_conversation_notification_erreur_autorisation'], array('id' => $_GET['id']))));
+			exit();
 		}
 	}
 	else
@@ -74,7 +75,8 @@ if (isset($_GET['id']))
 			'type' => \user\page\Notification::TYPE_ERREUR,
 			'contenu' => $lang['chat_editer_conversation_notification_erreur_general'],
 		));
-		header('location: index.php'.$config['chat_editer_conversation_notification_erreur_general']);
+		header('location: '.$Routeur->creerLien(['chat_editer_conversation_notification_erreur_general']));
+		exit();
 	}
 }
 else
@@ -83,7 +85,8 @@ else
 		'type' => \user\page\Notification::TYPE_ERREUR,
 		'contenu' => $lang['chat_editer_conversation_notification_erreur_id'],
 	));
-	header('location: index.php'.$config['chat_editer_conversation_notification_erreur_id']);
+	header('location: '.$Routeur->creerLien($config['chat_editer_conversation_notification_erreur_id']));
+	exit();
 }
 
 ?>

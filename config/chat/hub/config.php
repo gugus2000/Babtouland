@@ -21,12 +21,12 @@ foreach ($Conversations as $Conversation)
 		}
 	}
 	$Cartes[]=new \user\PageElement(array(
-		'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$action.'/cartes.html',
+		'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/cartes.html',
 		'elements' => array(
 			'nom_conversation'        => $Conversation->afficherNom(),
 			'description'             => $Conversation->afficherDescription(),
 			'nombre_utilisateur'      => $lang['chat_hub_nombre_utilisateur'].count($Conversation->getId_utilisateurs()).'/'.count($connecte),
-			'lien_href_conversation'  => $config['chat_hub_lien_voir_conversation'].'&id='.$Conversation->afficherId(),
+			'lien_href_conversation'  => $Routeur->creerLien(array_merge($config['chat_hub_lien_voir_conversation'], array('id' => $Conversation->afficherId()))),
 			'lien_title_conversation' => $lang['chat_hub_lien_titre_voir_conversation'],
 			'lien_conversation'       => $lang['chat_hub_lien_voir_conversation'],
 		),

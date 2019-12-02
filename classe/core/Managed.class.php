@@ -38,6 +38,10 @@ class Managed
 	*/
 	public function hydrater($attributs)
 	{
+		if (!$attributs)
+		{
+			throw new \Exception();
+		}
 		foreach ($attributs as $key => $value)
 		{
 			$method='set'.ucfirst($key);

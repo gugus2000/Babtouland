@@ -31,7 +31,7 @@ if (isset($_GET['id']))
 			$Contenu=new \user\PageElement(array(
 				'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 				'elements' => array(
-					'action'         => $config['chat_editer_message_form_action'].'&id='.$ChatMessage->afficherId(),
+					'action'         => $Routeur->creerLien(array_merge($config['chat_editer_message_form_action'], array('id' => $ChatMessage->afficherId()))),
 					'legend'         => $lang['chat_editer_message_form_legend'],
 					'label_message'  => $lang['chat_editer_message_form_label_message'],
 					'ancien_message' => $ChatMessage->afficherContenu(),
@@ -63,7 +63,8 @@ if (isset($_GET['id']))
 				'contenu' => $lang['chat_editer_message_erreur_message_autorisation'],
 			));
 			$this->getPage()->envoyerNotificationsSession();
-			header('location: index.php'.$config['chat_editer_message_erreur_message_autorisation']);
+			header('location: '.$Routeur->creerLien($config['chat_editer_message_erreur_message_autorisation']));
+			exit();
 		}
 	}
 	else
@@ -73,7 +74,8 @@ if (isset($_GET['id']))
 			'contenu' => $lang['chat_editer_message_erreur_conversation_autorisation'],
 		));
 		$this->getPage()->envoyerNotificationsSession();
-		header('location: index.php'.$config['chat_editer_message_erreur_conversation_autorisation']);
+		header('location: '.$Routeur->creerLien($config['chat_editer_message_erreur_conversation_autorisation']));
+		exit();
 	}
 }
 else
@@ -83,7 +85,8 @@ else
 		'contenu' => $lang['chat_editer_message_erreur_id_message'],
 	));
 	$this->getPage()->envoyerNotificationsSession();
-	header('location: index.php'.$config['chat_editer_message_erreur_id_message']);
+	header('location: '.$Routeur->creerLien($config['chat_editer_message_erreur_id_message']));
+	exit();
 }
 
 ?>

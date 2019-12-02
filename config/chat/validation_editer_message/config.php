@@ -25,7 +25,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_validation_editer_message_succes'],
 			));
-			$get=$config['chat_validation_editer_message_succes'].'&id='.$Conversation->afficherId();
+			$get=array_merge($config['chat_validation_editer_message_succes'], array('id' => $Conversation->afficherId()));
 			$ChatMessage=new \chat\Message(array(
 				'id' => $ChatMessage->getId(),
 				'contenu' => $_POST['chat_message'],
@@ -61,6 +61,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get)
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

@@ -20,14 +20,14 @@ if ($Visiteur->getPseudo()!=$config['nom_guest'])
 			'mail'             => $lang['user_statut_mail'].$Visiteur->afficherMail(),
 		),
 	));
-	$lien_connexionEdition='<a href="'.$config['user_statut_lien_edition'].'" title="'.$lang['user_statut_titre_lien_edition'].'">'.$lang['user_statut_affichage_lien_edition'].'</a><br />';
-	$lien_inscriptionDeconnexion='<a href="'.$config['user_statut_lien_deconnexion'].'" title="'.$lang['user_statut_titre_lien_deconnexion'].'">'.$lang['user_statut_affichage_lien_deconnexion'].'</a>';
+	$lien_connexionEdition='<a href="'.$Routeur->creerLien($config['user_statut_lien_edition']).'" title="'.$lang['user_statut_titre_lien_edition'].'">'.$lang['user_statut_affichage_lien_edition'].'</a><br />';
+	$lien_inscriptionDeconnexion='<a href="'.$Routeur->creerLien($config['user_statut_lien_deconnexion']).'" title="'.$lang['user_statut_titre_lien_deconnexion'].'">'.$lang['user_statut_affichage_lien_deconnexion'].'</a>';
 }
 else
 {
 	$statut=$lang['user_statut_nologin'].'<br />';
-	$lien_connexionEdition='<a href="'.$config['user_statut_lien_connexion'].'" title="'.$lang['user_statut_titre_lien_connexion'].'">'.$lang['user_statut_affichage_lien_connexion'].'</a><br />';
-	$lien_inscriptionDeconnexion='<a href="'.$config['user_statut_lien_inscription'].'" title="'.$lang['user_statut_titre_lien_inscription'].'">'.$lang['user_statut_affichage_lien_inscription'].'</a>';
+	$lien_connexionEdition='<a href="'.$Routeur->creerLien($config['user_statut_lien_connexion']).'" title="'.$lang['user_statut_titre_lien_connexion'].'">'.$lang['user_statut_affichage_lien_connexion'].'</a><br />';
+	$lien_inscriptionDeconnexion='<a href="'.$Routeur->creerLien($config['user_statut_lien_inscription']).'" title="'.$lang['user_statut_titre_lien_inscription'].'">'.$lang['user_statut_affichage_lien_inscription'].'</a>';
 }
 
 $Contenu=new \user\PageElement(array(

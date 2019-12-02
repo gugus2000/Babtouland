@@ -11,16 +11,12 @@
  **/
 function dropdown_othersAfficher($lang_others)
 {
-	global $lang, $config;
+	global $lang, $config, $Visiteur, $Routeur;
 	$affichage='';
 	foreach ($lang_others as $language)
 	{
-		$link='&lang=';
-		if(!$_GET & !$_SERVER['REQUEST_URI'][strlen($_SERVER['REQUEST_URI'])-1]=='?')
-		{
-			$link='?lang=';
-		}
-		$affichage.='<a href="'.$_SERVER['REQUEST_URI'].$link. $language['abbr'].'">'.$language['full'].'</a>';
+		$link=$Routeur->creerLien(array('application' => $Visiteur->getPage()->getApplication(), 'action' => $Visiteur->getPage()->getAction(), 'lang' => $language['abbr']));
+		$affichage.='<a href="'.$link.'">'.$language['full'].'</a>';
 	}
 	return $affichage;
 }

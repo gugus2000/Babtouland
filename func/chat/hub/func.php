@@ -10,12 +10,12 @@
  **/
 function cartesAfficher($cartes)
 {
-	global $config, $application, $action;
+	global $config, $Visiteur;
 	$affichage='';
 	foreach ($cartes as $carte)
 	{
 		$affichage.=$carte->afficher();
-		$affichage.=file_get_contents($config['path_template'].$application.'/'.$action.'/espace_carte.html');
+		$affichage.=file_get_contents($config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/espace_carte.html');
 	}
 	return $affichage;
 }

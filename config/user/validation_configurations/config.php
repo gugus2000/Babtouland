@@ -125,6 +125,7 @@ else
 	$get=$config['user_validation_configurations_erreur_formulaire_mal_remplit'];
 }
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

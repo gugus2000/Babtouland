@@ -7,14 +7,13 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 	$avatar=$Visiteur->getAvatar();
 	if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))	// On change quelqu'un d'autre
 	{
-		$id=(int)$_GET['id'];
 		$Notification=new \user\page\Notification(array(
 			'type'    => \user\page\Notification::TYPE_SUCCES,
 			'contenu' => $lang['user_validation_edition_message_admin_succes'],
 		));
-		$get=$config['user_validation_edition_lien_admin_succes'].'&id='.$id;
+		$get=array_merge($config['user_validation_edition_lien_admin_succes'], array('id' => $_GET['id']));
 		$Utilisateur=new \user\Utilisateur(array(
-			'id' => $id,
+			'id' => $$_GET['id'],
 		));
 		$Utilisateur->recuperer();
 		$avatar=$Utilisateur->getAvatar();
@@ -168,7 +167,7 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		/*---------------------------------------------------------- FIN DU SCRIPT -----------------------------------------------------------------*/
 	}
 	$Utilisateur=new \user\Visiteur(array(
-		'id'     => $id,
+		'id'     => $_GET['id'],
 		'avatar' => $avatar,
 		'banni'  => $banni,
 		'mail'   => $_POST['edition_mail'],
@@ -185,6 +184,7 @@ else
 }
 
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get)
+header('location: '.$Routeur->creerLien($get));
+exit();
 
 ?>

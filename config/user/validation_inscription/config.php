@@ -16,11 +16,10 @@ if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isse
 		$newVisiteur->inscription($_POST['inscription_mdp'], $config['default_role']);
 		$newVisiteur->recuperer();
 		$newVisiteur->connexion($_POST['inscription_mdp']);
-		$Visiteur=$newVisiteur;
 		$Notification=new \user\page\Notification(array(
 			'type'    => \user\page\Notification::TYPE_SUCCES,
 			'contenu' => $lang['user_validation_inscription_succes'],
-		));
+		), $Visiteur->getPage()->getPageElement());
 		$get=$config['user_validation_inscription_suivant'];
 	}
 	else
@@ -40,8 +39,7 @@ else
 	));
 	$get=$config['user_validation_inscription_retour'];
 }
-
 $this->getPage()->envoyerNotificationsSession();
-header('location: index.php'.$get);
+header('location: '.$Routeur->creerLien($get));
 
 ?>

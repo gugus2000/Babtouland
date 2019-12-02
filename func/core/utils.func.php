@@ -120,7 +120,7 @@ function recuperationApplicationActionLien($lien)
 function autorisationModification($Objet, $application, $action)
 {
 	global $Visiteur, $config;
-	return ($Objet->recupererAuteur()->similaire($Visiteur) | $Visiteur->getRole()->existPermission($config[$application.'_'.$action.'_admin_application'], $config[$application.'_'.$action.'_admin_action']));
+	return ($Objet->recupererAuteur()->similaire($Visiteur) | $Visiteur->getRole()->existPermission(array('application' =>$config[$application.'_'.$action.'_admin_application'], 'action' => $config[$application.'_'.$action.'_admin_action'])));
 }
 
 /**
@@ -138,8 +138,7 @@ function verifLiens($Visiteur, $liens)
 	$compteur=0;
 	foreach ($liens as $index => $lien)
 	{
-		$page=recuperationApplicationActionLien($lien);
-		if ($Visiteur->getRole()->existPermission($page['application'], $page['action']))
+		if ($Visiteur->getRole()->existPermission($lien))
 		{
 			$compteur++;
 		}
