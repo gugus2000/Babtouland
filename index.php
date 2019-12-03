@@ -29,7 +29,8 @@ try
 		}
 		else
 		{
-			throw new Exception($Visiteur->getConfiguration('lang')['erreur_connexion_utilisateur']);
+			require 'config/core/lang/EN/lang.php';
+			throw new Exception($lang['erreur_connexion_utilisateur']);
 		}
 	}
 	else

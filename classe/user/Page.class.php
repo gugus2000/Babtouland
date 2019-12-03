@@ -182,8 +182,8 @@ class Page
 				$PageElement->ajouterValeurElement($config['notification_nom'], unserialize($notification_serialize));
 			}
 			\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
+			unset($_SESSION['notifications']);
 		}
-		unset($_SESSION['notifications']);
 		$this->setPageElement($PageElement);
 	}
 	/**

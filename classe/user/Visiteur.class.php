@@ -184,15 +184,18 @@ class Visiteur extends Utilisateur
 					}
 				}
 			}
-			$configurations=$ConfigurationManager->getBy(array(
-				'id_utilisateur' => $this->getId(),
-			), array(
-				'id_utilisateur' => '=',
-			));
-			foreach ($configurations as $configuration)
+			else
 			{
-				$Configuration=new \user\Configuration($configuration);
-				$this->setConfiguration($Configuration->getNom(), $Configuration->getValeur());
+				$configurations=$ConfigurationManager->getBy(array(
+					'id_utilisateur' => $this->getId(),
+				), array(
+					'id_utilisateur' => '=',
+				));
+				foreach ($configurations as $configuration)
+				{
+					$Configuration=new \user\Configuration($configuration);
+					$this->setConfiguration($Configuration->getNom(), $Configuration->getValeur());
+				}
 			}
 			$utilisateurManager=$this->Manager();
 			$date=date('Y-m-d H:i:s');
