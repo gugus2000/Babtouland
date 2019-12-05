@@ -46,7 +46,7 @@ try
 }
 catch (Exception $e)
 {
-	if (null===$Visiteur->getPage())
+	if (!isset($Visiteur))
 	{
 		$Visiteur=new \user\Visiteur(array(
 			'id' => $config['id_guest'],
@@ -57,5 +57,7 @@ catch (Exception $e)
 	}
 	echo $Visiteur->chargePage(array('application' => 'erreur', 'action' => 'erreur'));
 }
+
+exit();
 
 ?>

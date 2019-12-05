@@ -40,7 +40,7 @@ class Managed
 	{
 		if (!$attributs)
 		{
-			throw new \Exception();
+			throw new \Exception($attributs);
 		}
 		foreach ($attributs as $key => $value)
 		{
