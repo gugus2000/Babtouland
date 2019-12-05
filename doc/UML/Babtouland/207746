@@ -46,9 +46,9 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 ));
 
 $id=$Visiteur->getId();
-if(isset($_GET['id']))
+if(isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=$_GET['id'];
+	$id=$Visiteur->getPage()->getParametres()['id'];
 }
 $Utilisateur=new \\user\\Utilisateur(array(
 	'id' => $id,

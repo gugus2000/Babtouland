@@ -51,9 +51,9 @@ if (isset($_GET['date_chargement']))
 {
 	$date_chargement=new \\DateTime($_GET['date_chargement']);
 }
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=(int)$_GET['id'];
+	$id=(int)$Visiteur->getPage()->getParametres()['id'];
 	$Conversation=new \\chat\\Conversation(array(
 		'id' => $id,
 	));

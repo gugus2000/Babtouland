@@ -1,11 +1,11 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	if ($_GET['id']!=$config['id_conversation_all'])
+	if ($Visiteur->getPage()->getParametres()['id']!=$config['id_conversation_all'])
 	{
 		$Conversation=new \chat\Conversation(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Conversation->recupererId_utilisateurs();
 		$id_utilisateurs=$Conversation->getId_utilisateurs();

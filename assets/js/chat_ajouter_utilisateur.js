@@ -2,7 +2,7 @@
 	var trie=new Trie();
 	window.addEventListener('load', function(){
 		xhr=new XMLHttpRequest();
-		xhr.open('GET', '?application=xhr&action=liste_utilisateur');
+		xhr.open('GET', '?force_routage=0&application=xhr&action=liste_utilisateur');
 		xhr.responseType="document";
 		xhr.send(null);
 		xhr.onload=function() {

@@ -39,7 +39,7 @@ format 222
       stereotype "source"
       php_src "<?php
 
-if(!isset($_GET['id']))
+if(!isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$Notification=new \\user\\page\\Notification(array(
 		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
@@ -51,7 +51,7 @@ if(!isset($_GET['id']))
 }
 $BDDFactory=new \\core\\BDDFactory;
 $PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
-if(!$PostManager->existId((int)$_GET['id']))
+if(!$PostManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 {
 	$Notification=new \\user\\page\\Notification(array(
 		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
@@ -61,7 +61,7 @@ if(!$PostManager->existId((int)$_GET['id']))
 	header('location: index.php'.$config['post_edition_lien_erreur_existe']);
 	exit();
 }
-$id=$_GET['id'];
+$id=$Visiteur->getPage()->getParametres()['id'];
 
 $Post=new \\post\\Post(array(
 	'id' => $id,

@@ -8,13 +8,13 @@ $date_custom=new \DateTime(date('Y-m-d H:i:s'));
 $this->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', 'xhr');
 
 $date_chargement=$date_publication;
-if (isset($_GET['date_chargement']))
+if (isset($Visiteur->getPage()->getParametres()['date_chargement']))
 {
-	$date_chargement=new \DateTime($_GET['date_chargement']);
+	$date_chargement=new \DateTime($Visiteur->getPage()->getParametres()['date_chargement']);
 }
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=(int)$_GET['id'];
+	$id=(int)$Visiteur->getPage()->getParametres()['id'];
 	$Conversation=new \chat\Conversation(array(
 		'id' => $id,
 	));

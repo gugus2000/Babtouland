@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$ChatMessage=new \chat\Message(array(
-		'id' => $_GET['id'],
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$ChatMessage->recuperer();
 	$Conversation=new \chat\Conversation(array(
@@ -31,7 +31,7 @@ if (isset($_GET['id']))
 			$Contenu=new \user\PageElement(array(
 				'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 				'elements' => array(
-					'action'         => $Routeur->creerLien(array_merge($config['chat_editer_message_form_action'], array('id' => $ChatMessage->afficherId()))),
+					'action'         => $Routeur->creerLien(array_merge($config['chat_editer_message_form_action'], array($config['nom_parametres'] => array('id' => $ChatMessage->afficherId())))),
 					'legend'         => $lang['chat_editer_message_form_legend'],
 					'label_message'  => $lang['chat_editer_message_form_label_message'],
 					'ancien_message' => $ChatMessage->afficherContenu(),

@@ -1,11 +1,11 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	if ($_GET['id']!=$config['id_conversation_all'])
+	if ($Visiteur->getPage()->getParametres()['id']!=$config['id_conversation_all'])
 	{
 		$Conversation=new \chat\Conversation(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Conversation->recuperer();
 		$id_utilisateurs=$Conversation->getId_utilisateurs();
@@ -34,7 +34,7 @@ if (isset($_GET['id']))
 			$Form=new \user\PageElement(array(
 				'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 				'elements'  => array(
-					'action'                         => $Routeur->creerLien(array_merge($config['chat_editer_conversation_formulaire_action'],array('id' => $_GET['id']))),
+					'action'                         => $Routeur->creerLien(array_merge($config['chat_editer_conversation_formulaire_action'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])))),
 					'legend'                         => $lang['chat_editer_conversation_formulaire_legend'],
 					'label_conversation_nom'         => $lang['chat_editer_conversation_formulaire_label_nom'],
 					'value_conversation_nom'         => $Conversation->getNom(),
@@ -65,7 +65,7 @@ if (isset($_GET['id']))
 				'type' => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_editer_conversation_notification_erreur_autorisation'],
 			));
-			header('location: '.$Routeur->creerLien(array_merge($config['chat_editer_conversation_notification_erreur_autorisation'], array('id' => $_GET['id']))));
+			header('location: '.$Routeur->creerLien(array_merge($config['chat_editer_conversation_notification_erreur_autorisation'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])))));
 			exit();
 		}
 	}

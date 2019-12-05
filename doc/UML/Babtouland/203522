@@ -39,10 +39,10 @@ format 222
       stereotype "source"
       php_src "<?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$ChatMessage=new \\chat\\Message(array(
-		'id' => $_GET['id'],
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$ChatMessage->recuperer();
 	$Conversation=new \\chat\\Conversation(array(

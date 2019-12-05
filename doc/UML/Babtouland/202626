@@ -39,9 +39,9 @@ format 222
       stereotype "source"
       php_src "<?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=(int)$_GET['id'];
+	$id=(int)$Visiteur->getPage()->getParametres()['id'];
 	$Conversation=new \\chat\\Conversation(array(
 		'id' => $id,
 	));
@@ -61,7 +61,7 @@ if (isset($_GET['id']))
 				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_envoyer_message_succes'],
 			));
-			$get=$config['chat_envoyer_message_succes'].'&id='.$_GET['id'];
+			$get=$config['chat_envoyer_message_succes'].'&id='.$Visiteur->getPage()->getParametres()['id'];
 			$ChatMessage=new \\chat\\Message(array(
 				'id_conversation' => $id,
 				'id_auteur'       => $Visiteur->getId(),
@@ -77,7 +77,7 @@ if (isset($_GET['id']))
 				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_envoyer_message_erreur_contenu'],
 			));
-			$get=$config['chat_envoyer_message_erreur_contenu'].'&id='.$_GET['id'];
+			$get=$config['chat_envoyer_message_erreur_contenu'].'&id='.$Visiteur->getPage()->getParametres()['id'];
 		}
 	}
 	else
@@ -86,7 +86,7 @@ if (isset($_GET['id']))
 			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
 			'contenu' => $lang['chat_envoyer_message_erreur_permission'],
 		));
-		$get=$config['chat_envoyer_message_erreur_permission'].'&id='.$_GET['id'];
+		$get=$config['chat_envoyer_message_erreur_permission'].'&id='.$Visiteur->getPage()->getParametres()['id'];
 	}
 }
 else

@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$Message=new \chat\Message(array(
-		'id' => $_GET['id'],
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$Message->recuperer();
 	$Conversation=new \chat\Conversation(array(
@@ -25,7 +25,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_supprimer_message_succes'],
 			));
-			$get=array_merge($config['chat_supprimer_message_succes'], array('id' => $Conversation->afficherId()));
+			$get=array_merge($config['chat_supprimer_message_succes'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())));
 			$Message->supprimer();
 		}
 		else
@@ -34,7 +34,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_supprimer_message_erreur_message_autorisation'],
 			));
-			$get=array_merge($config['chat_supprimer_message_erreur_message_autorisation'], array('id' => $Conversation->afficherId()));
+			$get=array_merge($config['chat_supprimer_message_erreur_message_autorisation'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())));
 		}
 	}
 	else

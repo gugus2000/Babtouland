@@ -44,9 +44,9 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 	$id=$Visiteur->getId();
 	$banni=$Visiteur->getBanni();
 	$avatar=$Visiteur->getAvatar();
-	if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))	// On change quelqu'un d'autre
+	if(isset($Visiteur->getPage()->getParametres()['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))	// On change quelqu'un d'autre
 	{
-		$id=(int)$_GET['id'];
+		$id=(int)$Visiteur->getPage()->getParametres()['id'];
 		$Notification=new \\user\\page\\Notification(array(
 			'type'    => \\user\\page\\Notification::TYPE_SUCCES,
 			'contenu' => $lang['user_validation_edition_message_admin_succes'],

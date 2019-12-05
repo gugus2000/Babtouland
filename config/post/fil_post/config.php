@@ -3,9 +3,9 @@
 require $config['bbcode_config'];
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/navigation_nombre.css');
 $page=$config['post_fil_post_default_page'];
-if(isset($_GET['page']))
+if(isset($Visiteur->getPage()->getParametres()['page']))
 {
-	$page=(int)$_GET['page'];
+	$page=(int)$Visiteur->getPage()->getParametres()['page'];
 }
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre'].(string)$page);
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
@@ -25,7 +25,7 @@ for ($numero_page=1; $numero_page <= $nbr_post/$Visiteur->getConfiguration('post
 	}
 	else
 	{
-		$liste_navigation[]='<a href="'.$Routeur->creerLien(array_merge($config['post_fil_post_nav_page_lien'], array('page' => $numero_page))).'" title="'.$lang['post_fil_post_nav_description'].$numero_page.'"><li>'.$numero_page.'</li></a>';
+		$liste_navigation[]='<a href="'.$Routeur->creerLien(array_merge($config['post_fil_post_nav_page_lien'], array($config['nom_parametres'] => array('page' => $numero_page)))).'" title="'.$lang['post_fil_post_nav_description'].$numero_page.'"><li>'.$numero_page.'</li></a>';
 	}
 }
 $Pagination=new \user\PageElement(array(
@@ -50,11 +50,11 @@ for ($position_post=$config['post_fil_post_position_debut']; $position_post < $V
 				'titre'               => $Post->afficherTitre(),
 				'date_publication'    => $Post->afficherDate_publication(),
 				'presentation_auteur' => $lang['post_fil_post_auteur_presentation'],
-				'auteur_lien_href'    => $Routeur->creerLien(array_merge($config['post_fil_post_lien_auteur'], array('id' => $Post->recupererAuteur()->afficherId()))),
+				'auteur_lien_href'    => $Routeur->creerLien(array_merge($config['post_fil_post_lien_auteur'], array($config['nom_parametres'] => array('id' => $Post->recupererAuteur()->afficherId())))),
 				'auteur_lien_title'   => $lang['post_fil_post_lien_auteur_titre'],
 				'auteur'              => $Post->recupererAuteur()->afficherPseudo(),
 				'contenu'             => $bbcode->parse($Post->afficherContenu()),
-				'post_lien_href'      => $Routeur->creerLien(array_merge($config['post_fil_post_lien_detail'], array('id' => $Post->afficherId()))),
+				'post_lien_href'      => $Routeur->creerLien(array_merge($config['post_fil_post_lien_detail'], array($config['nom_parametres'] => array('id' => $Post->afficherId())))),
 				'post_lien_title'     => $lang['post_fil_post_lien_detail_titre'],
 				'post_lien'           => $lang['post_fil_post_detail'],
 			),

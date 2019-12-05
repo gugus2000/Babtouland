@@ -1,11 +1,11 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	if ($_GET['id']!=$config['id_conversation_all'])
+	if ($Visiteur->getPage()->getParametres()['id']!=$config['id_conversation_all'])
 	{
 		$Conversation=new \chat\Conversation(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Conversation->recuperer();
 		$id_utilisateurs=$Conversation->getId_utilisateurs();
@@ -21,14 +21,14 @@ if (isset($_GET['id']))
 		if (isset($id_utilisateurs[$index]))
 		{
 			$Conversation=new \chat\Conversation(array(
-				'id' => $_GET['id'],
+				'id' => $Visiteur->getPage()->getParametres()['id'],
 			));
 			$Conversation->supprimer();
 			new \user\page\Notification(array(
 				'type' => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_supprimer_conversation_notification_succes'],
 			));
-			$get=array_merge($config['chat_supprimer_conversation_notification_succes'], array('id' => $_GET['id']));
+			$get=array_merge($config['chat_supprimer_conversation_notification_succes'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 		}
 		else
 		{
@@ -36,7 +36,7 @@ if (isset($_GET['id']))
 				'type' => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_supprimer_conversation_notification_erreur_autorisation'],
 			));
-			$get=array_merge($config['chat_supprimer_conversation_notification_erreur_autorisation'], array('id' => $_GET['id']));
+			$get=array_merge($config['chat_supprimer_conversation_notification_erreur_autorisation'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 		}
 	}
 	else

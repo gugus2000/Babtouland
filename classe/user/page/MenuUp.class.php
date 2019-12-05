@@ -19,6 +19,7 @@ class MenuUp extends \user\PageElement
 	public function __construct($Tete=null)
 	{
 		global $config, $lang, $Visiteur, $Routeur;
+		require $config['path_lang'].$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
 		if (!$Tete)
 		{
 			$Tete=$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']);

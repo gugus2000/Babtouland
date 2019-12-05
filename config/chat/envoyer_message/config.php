@@ -1,8 +1,8 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=(int)$_GET['id'];
+	$id=(int)$Visiteur->getPage()->getParametres()['id'];
 	$Conversation=new \chat\Conversation(array(
 		'id' => $id,
 	));
@@ -22,7 +22,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_envoyer_message_succes'],
 			));
-			$get=array_merge($config['chat_envoyer_message_succes'], array('id' => $_GET['id']));
+			$get=array_merge($config['chat_envoyer_message_succes'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 			$ChatMessage=new \chat\Message(array(
 				'id_conversation' => $id,
 				'id_auteur'       => $Visiteur->getId(),
@@ -38,7 +38,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_envoyer_message_erreur_contenu'],
 			));
-			$get=array_merge($config['chat_envoyer_message_erreur_contenu'], array('id' => $_GET['id']));
+			$get=array_merge($config['chat_envoyer_message_erreur_contenu'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 		}
 	}
 	else
@@ -47,7 +47,7 @@ if (isset($_GET['id']))
 			'type'    => \user\page\Notification::TYPE_ERREUR,
 			'contenu' => $lang['chat_envoyer_message_erreur_permission'],
 		));
-		$get=array_merge($config['chat_envoyer_message_erreur_permission'], array('id' => $_GET['id']));
+		$get=array_merge($config['chat_envoyer_message_erreur_permission'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 	}
 }
 else

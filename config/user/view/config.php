@@ -7,9 +7,9 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 ));
 
 $id=$Visiteur->getId();
-if(isset($_GET['id']))
+if(isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=$_GET['id'];
+	$id=$Visiteur->getPage()->getParametres()['id'];
 }
 $Utilisateur=new \user\Utilisateur(array(
 	'id' => $id,
@@ -40,7 +40,7 @@ else
 	$Action=new \user\PageElement(array(
 		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action.html',
 		'elements' => array(
-			'href'  => $Routeur->creerLien(array_merge($config['user_view_action_envoyer_mp_lien'], array('id' => $Utilisateur->afficherId()))),
+			'href'  => $Routeur->creerLien(array_merge($config['user_view_action_envoyer_mp_lien'], array($config['nom_parametres'] => array('id' => $Utilisateur->afficherId())))),
 			'title' => $lang['user_view_action_envoyer_mp_title'],
 			'text'  => $text,
 		),

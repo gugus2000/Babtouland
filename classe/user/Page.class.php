@@ -22,6 +22,12 @@ class Page
 	*/
 	protected $action;
 	/**
+	* Paraamètres supplémentaires de la page
+	* 
+	* @var array
+	*/
+	protected $parametres;
+	/**
 	* Élément représentant la page
 	* 
 	* @var PageElement
@@ -47,6 +53,15 @@ class Page
 	public function getAction()
 	{
 		return $this->action;
+	}
+	/**
+	* Accesseur de parametres
+	* 
+	* @return array
+	*/
+	public function getParametres()
+	{
+		return $this->parametres;
 	}
 	/**
 	* Accesseur de pageElement
@@ -83,6 +98,17 @@ class Page
 		$this->action=$action;
 	}
 	/**
+	* Définisseur de parametres
+	*
+	* @param array parametres Paramètres supplémentaires de la page
+	* 
+	* @return void
+	*/
+	protected function setParametres($parametres)
+	{
+		$this->parametres=$parametres;
+	}
+	/**
 	* Définisseur de pageElement
 	*
 	* @param PageElement pageElement Élément représentant la page
@@ -113,6 +139,15 @@ class Page
 	public function afficherAction()
 	{
 		return htmlspecialchars((string)$this->action);
+	}
+	/**
+	* Afficheur de parametres
+	* 
+	* @return string
+	*/
+	public function afficherParametres()
+	{
+		return htmlspecialchars((string)$this->parametres);
 	}
 	/**
 	* Afficheur de pageElement

@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$Utilisateur=new \user\Utilisateur(array(
-		'id' => $_GET['id'],
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$Utilisateur->recuperer();
 	if ($Utilisateur->getPseudo()!=$config['nom_guest'])
@@ -52,7 +52,7 @@ if (isset($_GET['id']))
 							'type'    => \user\page\Notification::TYPE_SUCCES,
 							'contenu' => $lang['chat_validation_envoyer_mp_notification_succes'],
 						));
-						$get=array_merge($config['chat_validation_envoyer_mp_notification_succes'], array('id' => $Conversation->getId()));
+						$get=array_merge($config['chat_validation_envoyer_mp_notification_succes'], array($config['nom_parametres'] => array('id' => $Conversation->getId())));
 					}
 					else
 					{
@@ -60,7 +60,7 @@ if (isset($_GET['id']))
 							'type'    => \user\page\Notification::TYPE_ERREUR,
 							'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_message_vide'],
 						));
-						$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_message_vide'], array('id' => $Utilisateur->getId()));
+						$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_message_vide'], array($config['nom_parametres'] => array('id' => $Utilisateur->getId())));
 					}
 				}
 				else
@@ -69,7 +69,7 @@ if (isset($_GET['id']))
 						'type'    => \user\page\Notification::TYPE_ERREUR,
 						'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_formulaire'],
 					));
-					$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_formulaire'], array('id' => $Utilisateur->getId()));
+					$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_formulaire'], array($config['nom_parametres'] => array('id' => $Utilisateur->getId())));
 				}
 			}
 			else
@@ -78,7 +78,7 @@ if (isset($_GET['id']))
 					'type'    => \user\page\Notification::TYPE_ERREUR,
 					'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_plusieurs_mp'],
 				));
-				$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_plusieurs_mp'], array('id' => $Utilisateur->getId()));
+				$get=array_merge($config['chat_validation_envoyer_mp_notification_erreur_plusieurs_mp'], array($config['nom_parametres'] => array('id' => $Utilisateur->getId())));
 			}
 		}
 		else

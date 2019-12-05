@@ -39,14 +39,14 @@ format 222
       stereotype "source"
       php_src "<?php
 
-if(isset($_GET['id']))
+if(isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$BDDFactory=new \\core\\BDDFactory;
 	$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
-	if($PostManager->existId((int)$_GET['id']))
+	if($PostManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 	{
 		$Post=new \\post\\Post(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Post->recuperer();
 		if(autorisationModification($Post, $application, $action))
@@ -64,7 +64,7 @@ if(isset($_GET['id']))
 				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_suppression_message_permission'],
 			));
-			$get=$config['post_suppression_permission'].'&id='.$_GET['id'];
+			$get=$config['post_suppression_permission'].'&id='.$Visiteur->getPage()->getParametres()['id'];
 		}
 	}
 	else

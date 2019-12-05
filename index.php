@@ -10,7 +10,12 @@ $GLOBALS['time_start']=microtime(true);
 require_once 'func/core/utils.func.php';
 initOutputFilter();
 spl_autoload_register('loadClass');
-$Routeur=new \core\Routeur(\core\Routeur::MODE_ROUTE);
+$Mode_routage=\core\Routeur::MODE_FULL_ROUTE;
+if (isset($_GET['force_routage']))
+{
+	$Mode_routage=$_GET['force_routage'];
+}
+$Routeur=new \core\Routeur($Mode_routage);
 require_once 'config/core/config/config.php';
 
 try
@@ -25,11 +30,10 @@ try
 		{
 			$Visiteur->recuperer();
 			$Visiteur->connexion($_SESSION['mdp']);
-			require 'config/core/lang/'.$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
 		}
 		else
 		{
-			require 'config/core/lang/EN/lang.php';
+			require $config['path_lang'].$config['config_utilisateur']['lang'].'/lang.php';
 			throw new Exception($lang['erreur_connexion_utilisateur']);
 		}
 	}
@@ -40,12 +44,12 @@ try
 		));	// Visiteur avec une "session invitée"
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
-		require 'config/core/lang/'.$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
 	}
 	echo $Visiteur->chargePage($Routeur->dechiffrerRoute($_SERVER['REQUEST_URI']));
 }
 catch (Exception $e)
 {
+	exit($e->getTraceAsString());
 	if (!isset($Visiteur))
 	{
 		$Visiteur=new \user\Visiteur(array(
@@ -53,7 +57,6 @@ catch (Exception $e)
 		));	// Visiteur avec une "session invitée"
 		$Visiteur->recuperer();
 		$Visiteur->connexion($config['mdp_guest']);
-		require 'config/core/lang/'.$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
 	}
 	echo $Visiteur->chargePage(array('application' => 'erreur', 'action' => 'erreur'));
 }

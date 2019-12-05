@@ -9,14 +9,14 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 $admin=False;
 $partie_admin='';
 $Utilisateur=$Visiteur;
-if(isset($_GET['id']) & $Visiteur->getRole()->existPermission(array('application' => $config['user_edition_admin_application'], 'action' => $config['user_edition_admin_action'])))
+if(isset($Visiteur->getPage()->getParametres()['id']) & $Visiteur->getRole()->existPermission(array('application' => $config['user_edition_admin_application'], 'action' => $config['user_edition_admin_action'])))
 {
 	$admin=True;
 	$Utilisateur=new \user\Utilisateur(array(
-		'id' => $_GET['id'],
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$Utilisateur->recuperer();
-	$config['user_edition_action']=array_merge($config['user_edition_action'], array('id' => $_GET['id']));
+	$config['user_edition_action']=array_merge($config['user_edition_action'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 	$checked='';
 	if($Utilisateur->getBanni())
 	{

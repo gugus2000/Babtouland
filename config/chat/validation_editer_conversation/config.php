@@ -1,11 +1,11 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	if ($_GET['id']!=$config['id_conversation_all'])
+	if ($Visiteur->getPage()->getParametres()['id']!=$config['id_conversation_all'])
 	{
 		$Conversation=new \chat\Conversation(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Conversation->recuperer();
 		$id_utilisateurs=$Conversation->getId_utilisateurs();
@@ -50,7 +50,7 @@ if (isset($_GET['id']))
 					if (count($liste_utilisateur)>1)
 					{
 						$Conversation=new \chat\Conversation(array(
-							'id'              => $_GET['id'],
+							'id'              => $Visiteur->getPage()->getParametres()['id'],
 							'nom'             => $_POST['conversation_nom'],
 							'description'     => $_POST['conversation_description'],
 							'id_utilisateurs' => $liste_utilisateur,
@@ -60,7 +60,7 @@ if (isset($_GET['id']))
 							'type'    => \user\page\Notification::TYPE_SUCCES,
 							'contenu' => $lang['chat_validation_editer_conversation_notification_succes'],
 						));
-						$get=array_merge($config['chat_validation_editer_conversation_notification_succes'], array('id' => $Conversation->getId()));
+						$get=array_merge($config['chat_validation_editer_conversation_notification_succes'], array($config['nom_parametres'] => array('id' => $Conversation->getId())));
 					}
 					else
 					{
@@ -95,7 +95,7 @@ if (isset($_GET['id']))
 				'type' => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_validation_editer_conversation_notification_erreur_autorisation'],
 			));
-			$get=array_merge($config['chat_validation_editer_conversation_notification_erreur_autorisation'], array('id' => $_GET['id']));
+			$get=array_merge($config['chat_validation_editer_conversation_notification_erreur_autorisation'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 		}
 	}
 	else

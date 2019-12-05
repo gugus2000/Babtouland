@@ -5,9 +5,9 @@ $date_publication=new \DateTime($config['chat_temps_0']);
 $date_comparaison=new \DateInterval($config['chat_voir_conversation_date_comparaison']);
 $date_custom=new \DateTime(date('Y-m-d H:i:s'));
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=(int)$_GET['id'];
+	$id=(int)$Visiteur->getPage()->getParametres()['id'];
 	$Conversation=new \chat\Conversation(array(
 		'id' => $id,
 	));
@@ -82,7 +82,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 		$action_chat_editer=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_editer.html',
 			'elements' => array(
-				'lien' => $Routeur->creerLien(array_merge($lien_editer, array('id' => $Message->afficherId()))),
+				'lien' => $Routeur->creerLien(array_merge($lien_editer, array($config['nom_parametres'] => array('id' => $Message->afficherId())))),
 			),
 		));
 	}
@@ -92,7 +92,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 		$action_chat_supprimer=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_supprimer.html',
 			'elements' => array(
-				'lien' => $Routeur->creerLien(array_merge($lien_supprimer, array('id' => $Message->afficherId()))),
+				'lien' => $Routeur->creerLien(array_merge($lien_supprimer, array($config['nom_parametres'] => array('id' => $Message->afficherId())))),
 			),
 		));
 	}
@@ -145,7 +145,7 @@ $Chat=new \user\PageElement(array(
 $Contenu=new \user\PageElement(array(
 	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 	'elements' => array(
-		'action'        => $Routeur->creerLien(array_merge($config['chat_voir_conversation_form_action'], array('id' => $Conversation->afficherId()))),
+		'action'        => $Routeur->creerLien(array_merge($config['chat_voir_conversation_form_action'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())))),
 		'legend'        => $lang['chat_voir_conversation_form_legend'],
 		'label_message' => $lang['chat_voir_conversation_form_label_message'],
 		'submit'        => $lang['chat_voir_conversation_form_submit'],
@@ -160,11 +160,12 @@ $Contenu=new \user\PageElement(array(
 	'elements' => array(
 		'chat' => $Chat,
 		'form' => $Formulaire,
+		'id'   => $Conversation->afficherId(),
 	),
 ));
 
 $toast_liens=array(
-	'lien'        => array(array_merge($config['chat_voir_conversation_toast_editer_conversation'], array('id' => $Conversation->afficherId())), array_merge($config['chat_voir_conversation_toast_supprimer_conversation'], array('id' => $Conversation->afficherId()))),
+	'lien'        => array(array_merge($config['chat_voir_conversation_toast_editer_conversation'], array('id' => $Conversation->afficherId())), array_merge($config['chat_voir_conversation_toast_supprimer_conversation'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())))),
 	'description' => array($lang['chat_voir_conversation_toast_editer_conversation'], $lang['chat_voir_conversation_toast_supprimer_conversation']),
 	'icone'       => array('edit', 'delete'),
 );

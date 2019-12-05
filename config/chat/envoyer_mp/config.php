@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$Utilisateur=new \user\Utilisateur(array(
-		'id' => $_GET['id'],
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$Utilisateur->recuperer();
 	if ($Utilisateur->getPseudo()!=$config['nom_guest'])
@@ -19,7 +19,7 @@ if (isset($_GET['id']))
 			$Contenu=new \user\PageElement(array(
 				'template' => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 				'elements' => array(
-					'action'         => $Routeur->creerLien(array_merge($config['chat_envoyer_mp_form_action'], array('id' => $Utilisateur->afficherId()))),
+					'action'         => $Routeur->creerLien(array_merge($config['chat_envoyer_mp_form_action'], array($config['nom_parametres'] => array('id' => $Utilisateur->afficherId())))),
 					'legend'         => $lang['chat_envoyer_mp_form_legend'],
 					'label_message'  => $lang['chat_envoyer_mp_form_label_message'],
 					'submit'         => $lang['chat_envoyer_mp_form_submit'],

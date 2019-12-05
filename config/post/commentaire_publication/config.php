@@ -1,10 +1,10 @@
 <?php
 
-if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['commentaire_contenu']) & !empty($_GET['id']))
+if(isset($_POST['commentaire_contenu']) & isset($Visiteur->getPage()->getParametres()['id']) & !empty($_POST['commentaire_contenu']) & !empty($Visiteur->getPage()->getParametres()['id']))
 {
 	$Commentaire=new \post\Commentaire(array(
 		'id_auteur'        => $Visiteur->getId(),
-		'id_post'          => $_GET['id'],
+		'id_post'          => $Visiteur->getPage()->getParametres()['id'],
 		'contenu'          => $_POST['commentaire_contenu'],
 		'date_publication' => date('Y-m-d H:i:s'),
 		'date_mise_a_jour' => date('Y-m-d H:i:s'),
@@ -14,7 +14,7 @@ if(isset($_POST['commentaire_contenu']) & isset($_GET['id']) & !empty($_POST['co
 		'type'    => \user\page\Notification::TYPE_SUCCES,
 		'contenu' => $lang['post_commentaire_publication_message_succes'],
 	));
-	$get=array_merge($config['post_commentaire_publication_suivant'], array('id' => $_GET['id']));
+	$get=array_merge($config['post_commentaire_publication_suivant'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 }
 else
 {

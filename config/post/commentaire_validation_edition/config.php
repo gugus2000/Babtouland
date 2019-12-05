@@ -1,15 +1,15 @@
 <?php
 
 
-if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_GET['id'])& !empty($_POST['edition_commentaire_contenu']))
+if(isset($Visiteur->getPage()->getParametres()['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($Visiteur->getPage()->getParametres()['id'])& !empty($_POST['edition_commentaire_contenu']))
 {
 
 	$BDDFactory=new \core\BDDFactory;
 	$CommentaireManager=new \post\CommentaireManager($BDDFactory->MysqlConnexion());
-	if($CommentaireManager->existId((int)$_GET['id']))
+	if($CommentaireManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 	{
 		$Commentaire=new \post\Commentaire(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Commentaire->recuperer();
 		$Post=$Commentaire->recupererPost();
@@ -19,10 +19,10 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['post_commentaire_validation_edition_message_succes'],
 			));
-			$get=array_merge($config['post_commentaire_validation_edition_lien_succes'], array('id' => $Post->afficherId()));
+			$get=array_merge($config['post_commentaire_validation_edition_lien_succes'], array($config['nom_parametres'] => array('id' => $Post->afficherId())));
 
 			$Commentaire=new \post\Commentaire(array(
-				'id'               => $_GET['id'],
+				'id'               => $Visiteur->getPage()->getParametres()['id'],
 				'contenu'          => $_POST['edition_commentaire_contenu'],
 				'date_mise_a_jour' => date('Y-m-d H:i:s'),
 			));
@@ -34,7 +34,7 @@ if(isset($_GET['id']) & isset($_POST['edition_commentaire_contenu']) & !empty($_
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_commentaire_validation_edition_message_permission'],
 			));
-			$get=array_merge($config['post_commentaire_validation_edition_permission'], array('id' => $Post->afficherId()));
+			$get=array_merge($config['post_commentaire_validation_edition_permission'], array($config['nom_parametres'] => array('id' => $Post->afficherId())));
 		}
 	}
 	else

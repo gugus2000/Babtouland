@@ -1,11 +1,4 @@
-(function (){
-	var url=window.location.href,
-		regex_id=new RegExp('id=([0-9]+)&?'),
-		date_dernier_chargement=getDate(),
-		Chat,
-		childs;
-
-	var id=regex_id.exec(url)[1];
+window.addEventListener('load', function () {
 
 	function getDate()
 	{
@@ -26,7 +19,7 @@
 			childs=xhr.responseXML.getElementById('chat').childNodes;
 			if (childs.length>1)
 			{
-				for (var i = 0; i < childs.length; i++) {		// Pourquoi 4? no sé
+				for (var i = 0; i < childs.length; i++) {
 					if (childs.nodeType==1)	//  pas Noeuds textuels (utile)
 					{
 						Chat.appendChild(childs[0]);
@@ -40,11 +33,15 @@
 				date_dernier_chargement=getDate();
 			}
 		}
-		xhr.open('GET', '?application=xhr&action=chat&id='+encodeURIComponent(id)+'&date_chargement='+encodeURIComponent(date_dernier_chargement));
+		xhr.open('GET', '?force_routage=0&application=xhr&action=chat&id='+encodeURIComponent(id)+'&date_chargement='+encodeURIComponent(date_dernier_chargement));
 		xhr.responseType="document";
 		xhr.send(null);
-		setTimeout('mettre_a_jour()', 10000);
 	}
-	window.addEventListener('load', scrollerbas, false);
+	var url=window.location.href,
+		date_dernier_chargement=getDate(),
+		Chat,
+		childs,
+		id=parseInt((document.getElementById('id_chat').textContent || document.getElementById('id_chat').innerText), 10);
 	setTimeout('mettre_a_jour()', 10000);
-})()
+	scrollerbas();
+});

@@ -140,63 +140,6 @@ class Visiteur extends Utilisateur
 	{
 		if ($this->getMotdepasse()->verif($motdepasse))
 		{
-			global $config;
-			$this->setConfigurations($config['config_utilisateur']);
-			$ConfigurationManager=new \user\ConfigurationManager(\core\BDDFactory::MysqlConnexion());
-			if (isset($_GET['lang']))
-			{
-				if ($this->getId()==$config['id_guest'])	// On définit le guest comme ayant un langage différent
-				{
-					$_SESSION['lang']=$_GET['lang'];
-				}
-				else
-				{
-					if ($ConfigurationManager->exist(array(	// La langue a déjà été définie une fois
-						'id_utilisateur' => $this->getId(),
-						'nom'            => 'lang',
-					)))
-					{
-						$id=$ConfigurationManager->getIdBy(array(
-							'id_utilisateur' => $this->getId(),
-							'nom'            => 'lang',
-						));
-						$ConfigurationManager->update(array(
-							'valeur' => $_GET['lang'],
-						), $id);
-					}
-					else 	// Première fois que la langue a été définie
-					{
-						$ConfigurationManager->add(array(
-							'id_utilisateur' => $this->getId(),
-							'nom'            => 'lang',
-							'valeur'         => $_GET['fr'],
-						));
-					}
-				}
-			}
-			if ($this->getId()==$config['id_guest'])
-			{
-				foreach (array_keys($this->getConfigurations()) as $nom_configuration)
-				{
-					if (isset($_SESSION[$nom_configuration]))
-					{
-						$this->setConfiguration($nom_configuration, $_SESSION[$nom_configuration]);
-					}
-				}
-			}
-			else
-			{
-				$configurations=$ConfigurationManager->getBy(array(
-					'id_utilisateur' => $this->getId(),
-				), array(
-					'id_utilisateur' => '=',
-				));
-				foreach ($configurations as $configuration)
-				{
-					$Configuration=new \user\Configuration($configuration);
-					$this->setConfiguration($Configuration->getNom(), $Configuration->getValeur());
-				}
-			}
 			$utilisateurManager=$this->Manager();
 			$date=date('Y-m-d H:i:s');
 			$utilisateurManager->update(array(
@@ -318,12 +261,78 @@ class Visiteur extends Utilisateur
 	*/
 	public function chargePage($parametres)
 	{
-		global $config, $lang, $Visiteur, $Routeur;
+		global $config, $Visiteur, $Routeur;
+		$this->setConfigurations($config['config_utilisateur']);
+		$ConfigurationManager=new \user\ConfigurationManager(\core\BDDFactory::MysqlConnexion());
+		if (isset($parametres[$config['nom_parametres']]['lang']))
+		{
+			if ($this->getId()==$config['id_guest'])	// On définit le guest comme ayant un langage différent
+			{
+				$_SESSION['lang']=$parametres[$config['nom_parametres']]['lang'];
+			}
+			else
+			{
+				if ($ConfigurationManager->exist(array(	// La langue a déjà été définie une fois
+					'id_utilisateur' => $this->getId(),
+					'nom'            => 'lang',
+				)))
+				{
+					$id=$ConfigurationManager->getIdBy(array(
+						'id_utilisateur' => $this->getId(),
+						'nom'            => 'lang',
+					));
+					$ConfigurationManager->update(array(
+						'valeur' => $parametres[$config['nom_parametres']]['lang'],
+					), $id);
+				}
+				else 	// Première fois que la langue a été définie
+				{
+					$ConfigurationManager->add(array(
+						'id_utilisateur' => $this->getId(),
+						'nom'            => 'lang',
+						'valeur'         => $parametres[$config['nom_parametres']]['lang'],
+					));
+				}
+			}
+		}
+		if ($this->getId()==$config['id_guest'])
+		{
+			foreach (array_keys($this->getConfigurations()) as $nom_configuration)
+			{
+				if (isset($_SESSION[$nom_configuration]))
+				{
+					$this->setConfiguration($nom_configuration, $_SESSION[$nom_configuration]);
+				}
+			}
+		}
+		else
+		{
+			$configurations=$ConfigurationManager->getBy(array(
+				'id_utilisateur' => $this->getId(),
+			), array(
+				'id_utilisateur' => '=',
+			));
+			foreach ($configurations as $configuration)
+			{
+				$Configuration=new \user\Configuration($configuration);
+				$this->setConfiguration($Configuration->getNom(), $Configuration->getValeur());
+			}
+		}
+		require $config['path_lang'].$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
 		if($this->getRole()->existPermission($parametres))	// Permission accordée
 		{
+			if (isset($parametres[$config['nom_parametres']]))
+			{
+				$parametres_plus=$parametres[$config['nom_parametres']];
+			}
+			else
+			{
+				$parametres_plus=array();
+			}
 			$this->setPage(new \user\Page(array(
 				'application'   => $parametres['application'],
 				'action'        => $parametres['action'],
+				'parametres'    => $parametres_plus,
 			)));
 			if (include($this->getPage()->getPath()))
 			{

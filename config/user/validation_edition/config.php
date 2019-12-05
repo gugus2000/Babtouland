@@ -5,15 +5,15 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 	$id=$Visiteur->getId();
 	$banni=$Visiteur->getBanni();
 	$avatar=$Visiteur->getAvatar();
-	if(isset($_GET['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))	// On change quelqu'un d'autre
+	if(isset($Visiteur->getPage()->getParametres()['id']) & $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))	// On change quelqu'un d'autre
 	{
 		$Notification=new \user\page\Notification(array(
 			'type'    => \user\page\Notification::TYPE_SUCCES,
 			'contenu' => $lang['user_validation_edition_message_admin_succes'],
 		));
-		$get=array_merge($config['user_validation_edition_lien_admin_succes'], array('id' => $_GET['id']));
+		$get=array_merge($config['user_validation_edition_lien_admin_succes'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 		$Utilisateur=new \user\Utilisateur(array(
-			'id' => $$_GET['id'],
+			'id' => $$Visiteur->getPage()->getParametres()['id'],
 		));
 		$Utilisateur->recuperer();
 		$avatar=$Utilisateur->getAvatar();
@@ -167,7 +167,7 @@ if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (iss
 		/*---------------------------------------------------------- FIN DU SCRIPT -----------------------------------------------------------------*/
 	}
 	$Utilisateur=new \user\Visiteur(array(
-		'id'     => $_GET['id'],
+		'id'     => $Visiteur->getPage()->getParametres()['id'],
 		'avatar' => $avatar,
 		'banni'  => $banni,
 		'mail'   => $_POST['edition_mail'],

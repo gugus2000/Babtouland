@@ -1,13 +1,13 @@
 <?php
 
-if(isset($_GET['id']))
+if(isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$BDDFactory=new \core\BDDFactory;
 	$PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
-	if($PostManager->existId((int)$_GET['id']))
+	if($PostManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 	{
 		$Post=new \post\Post(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Post->recuperer();
 		if(autorisationModification($Post, $this->getPage()->getApplication(), $this->getPage()->getAction()))
@@ -25,7 +25,7 @@ if(isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_suppression_message_permission'],
 			));
-			$get=array_merge($config['post_suppression_permission'], array('id' => $_GET['id']));
+			$get=array_merge($config['post_suppression_permission'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
 		}
 	}
 	else

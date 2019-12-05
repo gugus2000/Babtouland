@@ -1,13 +1,13 @@
 <?php
 
-if(isset($_GET['id']))
+if(isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$BDDFactory=new \core\BDDFactory;
 	$CommentaireManager=new \post\CommentaireManager($BDDFactory->MysqlConnexion());
-	if($CommentaireManager->existId((int)$_GET['id']))
+	if($CommentaireManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 	{
 		$Commentaire=new \post\Commentaire(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Commentaire->recuperer();
 		if(autorisationModification($Commentaire, $this->getPage()->getApplication(), $this->getPage()->getAction()))
@@ -16,7 +16,7 @@ if(isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['post_commentaire_suppression_message_succes'],
 			));
-			$get=array_merge($config['post_commentaire_suppression_suivant'], array('id' => $Commentaire->recupererPost()->afficherId()));
+			$get=array_merge($config['post_commentaire_suppression_suivant'], array($config['nom_parametres'] => array('id' => $Commentaire->recupererPost()->afficherId())));
 			$Commentaire->supprimer();
 		}
 		else
@@ -25,7 +25,7 @@ if(isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_commentaire_suppression_message_permission'],
 			));
-			$get=array_merge($config['post_commentaire_suppression_permission'], array('id' => $Commentaire->recupererPost()->afficherId()));
+			$get=array_merge($config['post_commentaire_suppression_permission'], array($config['nom_parametres'] => array('id' => $Commentaire->recupererPost()->afficherId())));
 		}
 	}
 	else

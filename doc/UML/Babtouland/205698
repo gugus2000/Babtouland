@@ -44,9 +44,9 @@ require $config['bbcode_config'];
 $BDDFactory=new \\core\\BDDFactory;
 $PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
 $id=$PostManager->getIdByPos(0, 'date_mise_a_jour');
-if(isset($_GET['id']))
+if(isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$id=(int)$_GET['id'];
+	$id=(int)$Visiteur->getPage()->getParametres()['id'];
 }
 
 $bbcode=CreateBBcode();

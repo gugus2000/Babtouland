@@ -1,12 +1,12 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$CommentaireManager=new \post\CommentaireManager(\core\BDDFactory::MysqlConnexion());
-	if ($CommentaireManager->existId((int)$_GET['id']))
+	if ($CommentaireManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 	{
 		$Commentaire=new \post\Commentaire(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Commentaire->recuperer();
 		if (autorisationModification($Commentaire, $this->getPage()->getApplication(), $this->getPage()->getAction()))
@@ -20,7 +20,7 @@ if (isset($_GET['id']))
 			$Contenu=new \user\PageElement(array(
 				'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 				'elements' => array(
-					'action'        => $Routeur->creerLien(array_merge($config['post_commentaire_edition_formulaire_action'], array('id' => $Commentaire->afficherId()))),
+					'action'        => $Routeur->creerLien(array_merge($config['post_commentaire_edition_formulaire_action'], array($config['nom_parametres'] => array('id' => $Commentaire->afficherId())))),
 					'legend'        => $lang['post_commentaire_edition_formulaire_legend'],
 					'label_contenu' => $lang['post_commentaire_edition_formulaire_contenu'],
 					'contenu'       => $Commentaire->afficherContenu(),
@@ -51,7 +51,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['post_commentaire_edition_message_erreur_autorisation'],
 			));
-			header('location: '.$Routeur->creerLien(array_merge($config['post_commentaire_edition_lien_erreur_autorisation'], array('id' => $_GET['id'])));
+			header('location: '.$Routeur->creerLien(array_merge($config['post_commentaire_edition_lien_erreur_autorisation'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])))));
 			exit();
 		}
 	}

@@ -39,14 +39,14 @@ format 222
       stereotype "source"
       php_src "<?php
 
-if(isset($_GET['id']))
+if(isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$BDDFactory=new \\core\\BDDFactory;
 	$CommentaireManager=new \\post\\CommentaireManager($BDDFactory->MysqlConnexion());
-	if($CommentaireManager->existId((int)$_GET['id']))
+	if($CommentaireManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 	{
 		$Commentaire=new \\post\\Commentaire(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Commentaire->recuperer();
 		if(autorisationModification($Commentaire, $application, $action))

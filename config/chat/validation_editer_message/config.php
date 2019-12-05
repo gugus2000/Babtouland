@@ -1,9 +1,9 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$ChatMessage=new \chat\Message(array(
-		'id' => $_GET['id'],
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$ChatMessage->recuperer();
 	$Conversation=new \chat\Conversation(array(
@@ -25,7 +25,7 @@ if (isset($_GET['id']))
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_validation_editer_message_succes'],
 			));
-			$get=array_merge($config['chat_validation_editer_message_succes'], array('id' => $Conversation->afficherId()));
+			$get=array_merge($config['chat_validation_editer_message_succes'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())));
 			$ChatMessage=new \chat\Message(array(
 				'id' => $ChatMessage->getId(),
 				'contenu' => $_POST['chat_message'],

@@ -1,12 +1,12 @@
 <?php
 
-if (isset($_GET['id']))
+if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$PostManager=new \post\PostManager(\core\BDDFactory::MysqlConnexion());
-	if ($PostManager->existId((int)$_GET['id']))
+	if ($PostManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
 	{
 		$Post=new \post\Post(array(
-			'id' => $_GET['id'],
+			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Post->recuperer();
 		if (autorisationModification($Post, $this->getPage()->getApplication(), $this->getPage()->getAction()))
@@ -20,7 +20,7 @@ if (isset($_GET['id']))
 			$Contenu=new \user\PageElement(array(
 				'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
 				'elements' => array(
-					'action'        => $Routeur->creerLien(array_merge($config['post_edition_formulaire_action'], array('id' => $Post->afficherId()))),
+					'action'        => $Routeur->creerLien(array_merge($config['post_edition_formulaire_action'], array($config['nom_parametres'] => array('id' => $Post->afficherId())))),
 					'legend'        => $lang['post_edition_formulaire_legend'],
 					'label_titre'   => $lang['post_edition_formulaire_titre'],
 					'titre'         => $Post->afficherTitre(),
@@ -54,7 +54,7 @@ if (isset($_GET['id']))
 				'contenu' => $lang['post_edition_message_erreur_autorisation'],
 			));
 			$this->getPage()->envoyerNotificationsSession();
-			header('location: '.$Routeur->creerLien(array_merge($config['post_edition_lien_erreur_autorisation'], array('id' => $_GET['id']))));
+			header('location: '.$Routeur->creerLien(array_merge($config['post_edition_lien_erreur_autorisation'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])))));
 			exit();
 		}
 	}

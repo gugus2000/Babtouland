@@ -11,6 +11,8 @@ $config=array(
 
 		),
 	/* Paramètre non modifiable */
+		/* Routage */
+			'nom_parametres' => 'parametres',
 		/* Page */
 			/* PageElement */
 				/* Page */
@@ -100,8 +102,9 @@ $config=array(
 				/*'assets */
 					'path_assets'   => 'assets/',
 					'path_template' => 'assets/html/',
-				/* Config */
+				/* config */
 					'path_config' => 'config/',
+					'path_lang'   => 'config/core/lang/',
 				/* Func */
 					'path_func' => 'func/',
 				/* Définitions des pages */
@@ -159,6 +162,7 @@ $config=array(
 				'user_edition_action'            => array('application' => 'user', 'action' => 'validation_edition'),	// Lien redirigeant le formulaire d'édition d'utilisateur
 				'user_edition_admin_application' => 'core',											// Application dont la permission est nécessaire pour éditer un aure utiliasateur
 				'user_edition_admin_action'      => 'edition_user',									// Action dont la permission est nécessaire pour éditer un aure utiliasateur
+				'user_edition_parametres'        => array('id'),
 			/* validation_edition */
 				'user_validation_edition_lien_erreur_formulaire'       => array('application' => 'user', 'action' => 'statut'),	// Lien de la page à charger lorsque l'édition de l'utilisateur échoue
 				'user_validation_edition_lien_succes'                  => array('application' => 'user', 'action' => 'statut'),	// Lien de la page à charger lorsque l'édition de son profil réussie
@@ -169,6 +173,7 @@ $config=array(
 				'user_validation_edition_avatar_lien_erreur_type'      => array('application' => 'user', 'action' => 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause d'erreur de type de fichier
 				'user_validation_edition_avatar_lien_erreur_extension' => array('application' => 'user', 'action' => 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar échoue pour cause de mauvaise extension de fichier
 				'user_validation_edition_avatar_lien_erreur_dimension' => array('application' => 'user', 'action' => 'statut'),	// Lien de la page à charger lorsque l'édition de l'avatar écgoue pour cause de mauvaise dimension
+				'user_validation_edition_parametres'                   => array('id'),
 			/* configurations */
 				'user_configurations_formulaire_action' => array('application' => 'user', 'action' => 'validation_configurations'),
 			/* validation_configurations */
@@ -194,6 +199,7 @@ $config=array(
 				'post_fil_post_lien_publication' => array('application' => 'post', 'action' => 'publication'),			// Lien vers la page de publication de post
 				'post_fil_post_nav_page_lien'    => array('application' => 'post', 'action' => 'fil_post'),
 				'post_fil_post_tri'              => 'date_publication',																		// Attribut fixant la position des posts
+				'post_fil_post_parametres'       => array('page'),
 			/* publication */
 				'post_publication_action' => array('application' => 'post', 'action' => 'validation_publication'),	// Lien redirigeant le formulaire de publication de post
 			/* validation_publication */
@@ -206,21 +212,25 @@ $config=array(
 				'post_lecture_publication_commentaire'      => array('application' => 'post', 'action' => 'commentaire_publication'),	// Lien redirigeant le formulaire de publication de commentaire
 				'post_lecture_lien_commentaire_suppression' => array('application' => 'post', 'action' => 'commentaire_suppression'),	// Lien vers la page de la suppression dudit commentaire
 				'post_lecture_lien_commentaire_edition'     => array('application' => 'post', 'action' => 'commentaire_edition'),		// Lien vers la page d'édition dudit commentaire
+				'post_lecture_parametres'                   => array('id'),
 			/* commentaire_publication */
-				'post_commentaire_publication_suivant' => array('application' => 'post', 'action' => 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a échoué
-				'post_commentaire_publication_retour'  => array('application' => 'post', 'action' => 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a réussie
+				'post_commentaire_publication_suivant'    => array('application' => 'post', 'action' => 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a échoué
+				'post_commentaire_publication_retour'     => array('application' => 'post', 'action' => 'lecture'),	// Lien de la page à charger lorsque la publication du commentaire a réussie
+				'post_commentaire_publication_parametres' => array('id'),
 			/* suppression */
 				'post_suppression_retour'            => array('application' => 'post', 'action' => 'fil_post'),		// Lien de la page à charger lorsque la suppression d'un post échoue faute d'id
 				'post_suppression_permission'        => array('application' => 'post', 'action' => 'lecture'),		// Lien de la page à charger lorsque la suppression d'un post échoue faute de permission
 				'post_suppression_suivant'           => array('application' => 'post', 'action' => 'fil_post'),		// Lien de la page à charger lorsque la suppression d'un post réussie
 				'post_suppression_admin_application' => 'core',												// Application dont la permission est nécessaire pour supprimer les posts des autres
 				'post_suppression_admin_action'      => 'suppression_post',									// Action dont la permission est nécessaire pour supprimer les posts des autres
+				'post_suppression_parametres'        => array('id'),
 			/* commentaire_suppression */
 				'post_commentaire_suppression_retour'            => array('application' => 'post', 'action' => 'fil_post'),	// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute d'id
 				'post_commentaire_suppression_permission'        => array('application' => 'post', 'action' => 'lecture'),		// Lien de la page à charger lorsque la suppression d'un commentaire échoue faute de permission
 				'post_commentaire_suppression_suivant'           => array('application' => 'post', 'action' => 'lecture'),		// Lien de la page à charger lorsque la suppression d'un commentaire réussie
 				'post_commentaire_suppression_admin_application' => 'core',												// Application dont la permission est nécessaire pour supprimer les posts des autres
 				'post_commentaire_suppression_admin_action'      => 'suppression_commentaire',							// Action dont la permission est nécessaire pour supprimer les posts des autres
+				'post_commentaire_suppression_parametres'        => array('id'),
 			/* edition */
 				'post_edition_lien_erreur_id'           => array('application' => 'post', 'action' => 'fil_post'),				// Lien de la page à charger lorsqu'il n'y a pas l'id du post à éditer précisé
 				'post_edition_lien_erreur_autorisation' => array('application' => 'post', 'action' => 'lecture'),				// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le post
@@ -228,10 +238,12 @@ $config=array(
 				'post_edition_formulaire_action'        => array('application' => 'post', 'action' => 'validation_edition'),	// Lien redirigeant le formulaire d'édition de post
 				'post_edition_admin_application'        => 'core',														// Application dont la permission est nécessaire pour éditer les posts des autres
 				'post_edition_admin_action'             => 'edition_post',												// Action dont la permission est nécessaire pour éditer les posts des autres
+				'post_edition_parametres'               => array('id'),
 			/* validation_edition */
 				'post_validation_edition_lien_formulaire' => array('application' => 'post', 'action' => 'fil_post'),	// Lien de la page à charger lorsque l'édition du post échoue faute d'arguments
 				'post_validation_edition_lien_id'         => array('application' => 'post', 'action' => 'fil_post'),	// Lien de la page à charger lorsque l'édition du post échoue faut d'id valide
 				'post_validation_edition_lien_succes'     => array('application' => 'post', 'action' => 'lecture'),		// Lien de la page à charger lorsque l'édition du post réussie
+				'post_validation_edition_parametres'      => array('id'),
 			/* commentaire_edition */
 				'post_commentaire_edition_lien_erreur_id'           => array('application' => 'post', 'action' => 'fil_post'),							// Lien de la page à charger lorsqu'il n'y a pas l'id du commentaire à éditer précisé
 				'post_commentaire_edition_lien_erreur_autorisation' => array('application' => 'post', 'action' => 'lecture'),							// Lien de la page à charger lorsque le visiteur n'a pas la permission d'éditer le commentaire
@@ -239,11 +251,13 @@ $config=array(
 				'post_commentaire_edition_formulaire_action'        => array('application' => 'post', 'action' => 'commentaire_validation_edition'),	// Lien redirigeant le formulaire d'édition de commentaire
 				'post_commentaire_edition_admin_application'        => 'core',																	// Application dont la permission est nécessaire pour éditer les commentaires des autres
 				'post_commentaire_edition_admin_action'             => 'edition_commentaire',													// Action dont la permission est nécessaire pour éditer les commentaires des autres
+				'post_commentaire_edition_parametres'               => array('id'),
 			/* commentaire_validation_edition */
 				'post_commentaire_validation_edition_lien_formulaire'   => array('application' => 'post', 'action' => 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faute d'arguments
 				'post_commentaire_validation_edition_lien_id'           => array('application' => 'post', 'action' => 'fil_post'),	// Lien de la page à charger lorsque l'édition du commentaire échoue faut d'id valide
 				'post_commentaire_validation_edition_lien_permission'   => array('application' => 'post', 'action' => 'lecture'),
 				'post_commentaire_validation_edition_lien_succes'       => array('application' => 'post', 'action' => 'lecture'),	// Lien de la page à charger lorsque l'édition du commentaire réussie
+				'post_commentaire_validation_edition_parametres'        => array('id'),
 		/* erreur */
 			'defaut_erreur_action' => 'erreur',
 		/* chat */
@@ -259,11 +273,13 @@ $config=array(
 				'chat_voir_conversation_message_suppression'          => array('application' => 'chat', 'action' => 'supprimer_message'),
 				'chat_voir_conversation_toast_editer_conversation'    => array('application' => 'chat', 'action' => 'editer_conversation'),
 				'chat_voir_conversation_toast_supprimer_conversation' => array('application' => 'chat', 'action' => 'supprimer_conversation'),
+				'chat_voir_conversation_parametres'                   => array('id'),
 			/* envoyer_message */
 				'chat_envoyer_message_erreur_id_conversation' => array('application' => 'chat', 'action' => 'hub'),
 				'chat_envoyer_message_erreur_permission'      => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_envoyer_message_erreur_contenu'         => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_envoyer_message_succes'                 => array('application' => 'chat', 'action' => 'voir_conversation'),
+				'chat_envoyer_message_parametres'             => array('id'),
 			/* editer_message */
 				'chat_editer_message_admin_application'   => 'core',
 				'chat_editer_message_admin_action'        => 'editer_message',
@@ -271,6 +287,7 @@ $config=array(
 				'chat_editer_message_erreur_conversation_autorisation' => array('application' => 'chat', 'action' => 'hub'),
 				'chat_editer_message_erreur_message_autorisation'      => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_editer_message_form_action'                      => array('application' => 'chat', 'action' => 'validation_editer_message'),
+				'chat_editer_message_parametres'                       => array('id'),
 			/* supprimer_message */
 				'chat_supprimer_message_admin_application'                => 'core',
 				'chat_supprimer_message_admin_action'                     => 'supprimer_message',
@@ -278,13 +295,16 @@ $config=array(
 				'chat_supprimer_message_erreur_conversation_autorisation' => array('application' => 'chat', 'action' => 'hub'),
 				'chat_supprimer_message_erreur_message_autorisation'      => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_supprimer_message_succes'                           => array('application' => 'chat', 'action' => 'voir_conversation'),
+				'chat_supprimer_message_parametres'                       => array('id'),
 			/* validation_editer_message */
-				'chat_validation_editer_message_succes' => array('application' => 'chat', 'action' => 'voir_conversation'),
+				'chat_validation_editer_message_succes'     => array('application' => 'chat', 'action' => 'voir_conversation'),
+				'chat_validation_editer_message_parametres' => array('id'),
 			/* envoyer_mp */
 				'chat_envoyer_mp_notification_erreur_soi_meme' => array('application' => 'user', 'action' => 'statut'),
 				'chat_envoyer_mp_notification_erreur_guest'    => array('application' => 'user', 'action' => 'statut'),
 				'chat_envoyer_mp_notification_erreur_no_id'    => array('application' => 'user', 'action' => 'statut'),
 				'chat_envoyer_mp_form_action'                  => array('application' => 'chat', 'action' => 'validation_envoyer_mp'),
+				'chat_envoyer_mp_parametres'                   => array('id'),
 			/* validation_envoyer_mp */
 				'chat_validation_envoyer_mp_notification_succes'              => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_validation_envoyer_mp_notification_erreur_message_vide' => array('application' => 'chat', 'action' => 'envoyer_mp'),
@@ -293,6 +313,7 @@ $config=array(
 				'chat_validation_envoyer_mp_notification_erreur_soi_meme'     => array('application' => 'user', 'action' => 'statut'),
 				'chat_validation_envoyer_mp_notification_erreur_guest'        => array('application' => 'user', 'action' => 'statut'),
 				'chat_validation_envoyer_mp_notification_erreur_no_id'        => array('application' => 'user', 'action' => 'statut'),
+				'chat_validation_envoyer_mp_parametres'                       => array('id'),
 			/* ajouter_conversation */
 				'chat_ajouter_conversation_formulaire_action' => array('application' => 'chat', 'action' => 'validation_ajouter_conversation'),
 			/* validation_ajouter_conversation */
@@ -305,6 +326,7 @@ $config=array(
 				'chat_editer_conversation_notification_erreur_autorisation' => array('application' => 'chat', 'action' => 'hub'),
 				'chat_editer_conversation_notification_erreur_general'      => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_editer_conversation_notification_erreur_id'           => array('application' => 'chat', 'action' => 'hub'),
+				'chat_editer_conversation_parametres'                       => array('id'),
 			/* validation_editer_conversation */
 				'chat_validation_editer_conversation_notification_erreur_autorisation'     => array('application' => 'chat', 'action' => 'hub'),
 				'chat_validation_editer_conversation_notification_erreur_general'          => array('application' => 'chat', 'action' => 'voir_conversation'),
@@ -313,13 +335,19 @@ $config=array(
 				'chat_validation_editer_conversation_notification_erreur_pas_utilisateur'  => array('application' => 'chat', 'action' => 'ajouter_conversation'),
 				'chat_validation_editer_conversation_notification_erreur_formulaire_vide'  => array('application' => 'chat', 'action' => 'ajouter_conversation'),
 				'chat_validation_editer_conversation_notification_erreur_formulaire_envoi' => array('application' => 'chat', 'action' => 'ajouter_conversation'),
+				'chat_validation_editer_conversation_parametres'                           => array('id'),
 			/* supprimer_conversation */
 				'chat_supprimer_conversation_notification_succes'              => array('application' => 'chat', 'action' => 'hub'),
 				'chat_supprimer_conversation_notification_erreur_autorisation' => array('application' => 'chat', 'action' => 'hub'),
 				'chat_supprimer_conversation_notification_erreur_general'      => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_supprimer_conversation_notification_erreur_id'           => array('application' => 'chat', 'action' => 'hub'),
+				'chat_supprimer_conversation_parametres'                       => array('id'),
 		/* xhr */
 			'defaut_xhr_action' => 'chat',
+			/* chat */
+				'xhr_chat_parametres' => array('id', 'date_chargement'),
+			/* liste_membre_conversation */
+				'xhr_liste_membre_conversation_parametres' => array('id'),
 
 );
 

@@ -18,6 +18,12 @@ class Routeur
 	* @var int
 	*/
 	const MODE_ROUTE=1;
+	/**
+	* Mode de fonctionnement purement avec /
+	*
+	* @var int
+	*/
+	const MODE_FULL_ROUTE=2;
 
 	/* Attribut */
 
@@ -81,6 +87,9 @@ class Routeur
 			case $this::MODE_ROUTE:
 				return $this->recupererWithRoute($url);
 				break;
+			case $this::MODE_FULL_ROUTE:
+				return $this->recupererWithFullRoute($url);
+				break;
 			default:
 				return array(
 					'application' => $config['defaut_application'],
@@ -113,8 +122,9 @@ class Routeur
 			$action=$config['defaut_'.$application.'_action'];
 		}
 		return array(
-			'application' => $application,
-			'action'      => $action,
+			'application'             => $application,
+			'action'                  => $action,
+			$config['nom_parametres'] => $_GET,
 		);
 	}
 	/**
@@ -148,8 +158,75 @@ class Routeur
 			$action=$config['defaut_'.$application.'_action'];
 		}
 		return array(
-			'application' => $application,
-			'action'      => $action,
+			'application'             => $application,
+			'action'                  => $action,
+			$config['nom_parametres'] => $_GET,
+		);
+	}
+	/**
+	* Retourne l'array contenant tous les paramètres de l'url routé
+	*
+	* @param string url Url de la page
+	* 
+	* @return array
+	*/
+	public function recupererWithFullRoute($url)
+	{
+		global $config, $Visiteur;
+		$Permissisons=$Visiteur->getRole()->getPermissions();
+		$liste_applications=array();
+		foreach($Permissisons as $Permission)
+		{
+			if (!in_array($Permission->getApplication(), $liste_applications))
+			{
+				$liste_applications[]=$Permission->getApplication();
+			}
+		}
+		$liste=explode('/', trim(strtok(getenv('REQUEST_URI'), '?'), '/'));
+		$array=array();
+		$offset=0;
+		if (in_array($liste[$offset], $liste_applications))
+		{
+			$application=$liste[$offset];
+			$offset++;
+		}
+		else
+		{
+			$application=$config['defaut_application'];
+		}
+		$liste_actions=array();
+		foreach($Permissisons as $Permission)
+		{
+			if (!in_array($Permission->getAction(), $liste_actions))
+			{
+				$liste_actions[]=$Permission->getAction();
+			}
+		}
+		if (in_array($liste[$offset], $liste_actions))
+		{
+			$action=$liste[$offset];
+			$offset++;
+		}
+		else
+		{
+			$action=$config['defaut_'.$application.'_action'];
+		}
+		$liste=array_slice($liste, $offset);
+		$parametres=array();
+		if (isset($config[$application.'_'.$action.'_parametres']))
+		{
+			foreach ($config[$application.'_'.$action.'_parametres'] as $index => $nom)
+			{
+				if (isset($liste[$index]))
+				{
+					$parametres[$nom]=$liste[$index];
+				}
+			}
+		}
+		return array(
+			'application'             => $application,
+			'action'                  => $action,
+			$config['nom_parametres'] => $parametres,
 		);
 	}
 	/**
@@ -169,6 +246,9 @@ class Routeur
 			case $this::MODE_ROUTE:
 				return $this->creerLienRoute($parametres);
 				break;
+			case $this::MODE_FULL_ROUTE:
+				return $this->creerLienFullRoute($parametres);
+				break;
 			default:
 				return '/';
 		}
@@ -184,9 +264,9 @@ class Routeur
 	{
 		global $config;
 		$ajout='';
-		foreach ($parametres as $nom => $valeur)
+		if (isset($parametres[$config['nom_parametres']]))
 		{
-			if ($nom!='application' & $nom!='action')
+			foreach ($parametres[$config['nom_parametres']] as $nom => $valeur)
 			{
 				$ajout.='&'.(string)$nom.'='.(string)$valeur;
 			}
@@ -218,9 +298,9 @@ class Routeur
 	{
 		global $config;
 		$ajout='';
-		foreach ($parametres as $nom => $valeur)
+		if (isset($parametres[$config['nom_parametres']]))
 		{
-			if ($nom!='application' & $nom!='action')
+			foreach ($parametres[$config['nom_parametres']] as $nom => $valeur)
 			{
 				$ajout.='&'.(string)$nom.'='.(string)$valeur;
 			}
@@ -245,6 +325,42 @@ class Routeur
 		{
 			return '/'.$config['defaut_application'].'/'.$config['defaut_'.$config['defaut_application'].'_action'].'/'.$ajout;
 		}
+	}
+	/**
+	* Créer un lien en mode full route à partir d'un couple application et action et parametres
+	*
+	* @param array parametres Paramètres de la page
+	* 
+	* @return string
+	*/
+	public function creerLienFullRoute($parametres)
+	{
+		global $config;
+		if (isset($parametres['application']))
+		{
+			$application=$parametres['application'];
+		}
+		else
+		{
+			$application=$config['defaut_application'];
+		}
+		if (isset($parametres['action']))
+		{
+			$action=$parametres['action'];
+		}
+		else
+		{
+			$action=$config['defaut_'.$application.'_action'];
+		}
+		if (isset($parametres[$config['nom_parametres']]))
+		{
+			$parametres_string=implode('/', $parametres['parametres']);
+		}
+		else
+		{
+			$parametres_string='';
+		}
+		return '/'.$application.'/'.$action.'/'.$parametres_string;
 	}
 	/**
 	* Remplit les paramètres incomplets d'un lien si nécessaire
