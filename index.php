@@ -49,7 +49,6 @@ try
 }
 catch (Exception $e)
 {
-	exit($e->getTraceAsString());
 	if (!isset($Visiteur))
 	{
 		$Visiteur=new \user\Visiteur(array(

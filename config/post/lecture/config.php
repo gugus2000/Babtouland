@@ -69,6 +69,7 @@ foreach ($Commentaires as $index => $Commentaire)
 $formulaire='';
 if($Visiteur->getRole()->existPermission($config['post_lecture_publication_commentaire']))		// L'utilisateur a la permission de publier un commentaire
 {
+	$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].$config['formulaire_path_css']);
 	$formulaire=new \user\PageElement(array(
 		'template' => $config['path_template'].'post/lecture/formulaire.html',
 		'elements' => array(
