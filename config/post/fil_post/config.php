@@ -2,6 +2,7 @@
 
 require $config['bbcode_config'];
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/navigation_nombre.css');
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].$config['bbcode_css']);
 $page=$config['post_fil_post_default_page'];
 if(isset($Visiteur->getPage()->getParametres()['page']))
 {
@@ -17,7 +18,7 @@ $BDDFactory=new \core\BDDFactory;
 $PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 $nbr_post=$PostManager->count();
 $liste_navigation=[];
-for ($numero_page=1; $numero_page <= $nbr_post/$Visiteur->getConfiguration('post_fil_post_nombre_posts'); $numero_page++)
+for ($numero_page=1; $numero_page <= ceil($nbr_post/$Visiteur->getConfiguration('post_fil_post_nombre_posts')); $numero_page++)
 { 
 	if ($numero_page==$page)
 	{

@@ -1,7 +1,7 @@
 <?php
 
 require $config['bbcode_config'];
-
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].$config['bbcode_css']);
 $BDDFactory=new \core\BDDFactory;
 $PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
 $id=$PostManager->getIdByPos(0, 'date_mise_a_jour');
@@ -9,20 +9,16 @@ if(isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$id=(int)$Visiteur->getPage()->getParametres()['id'];
 }
-
 $bbcode=CreateBBcode();
-
 $Post=new \post\Post(array(
 	'id' => $id,
 ));
 $Post->recuperer();
-
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre'].$Post->afficherTitre());
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 	'name' => 'description',
 	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
 ));
-
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/commentaire.css');
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/post.css');
 
@@ -39,7 +35,6 @@ $post=new \user\PageElement(array(
 		'contenu'             => $bbcode->parse($Post->afficherContenu()),
 	),
 ));
-
 $commentaires=[];
 $Commentaires=$Post->recupererCommentaires();
 foreach ($Commentaires as $index => $Commentaire)
@@ -71,11 +66,6 @@ foreach ($Commentaires as $index => $Commentaire)
 		),
 	));
 }
-
-$Contenu='';
-
-$Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
-
 $formulaire='';
 if($Visiteur->getRole()->existPermission($config['post_lecture_publication_commentaire']))		// L'utilisateur a la permission de publier un commentaire
 {

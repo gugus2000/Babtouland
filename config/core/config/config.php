@@ -27,10 +27,6 @@ $config=array(
 					'tete_path_fonctions' => 'core/page/tete.func.php',
 					'tete_metas'       => array(
 						array(
-							'charset' => 'utf-8',
-							'lang'    => 'FR',
-						),
-						array(
 							'http-equiv' => 'X-UA-Compatible',
 							'content'    => 'IE=edge',
 						),
@@ -39,7 +35,14 @@ $config=array(
 							'content' => 'width=device-width, initial-scale=1',
 						),
 					),																																																			// Métadonnées de la page par défaut
-					'tete_css'         => array('assets/css/main.css', 'assets/css/reset.css', 'assets/css/normalize.css', 'assets/font/material icons/material-icons.css', 'assets/css/bbcode.css'),							// Css de la page par défaut
+					'tete_css'         => array(
+						'assets/font/material icons/material-icons.css',
+						'assets/font/Jaapokki/Jaapokki.css',
+						'assets/font/Roboto/Roboto.css',
+						'assets/css/main.css',
+						'assets/css/reset.css',
+						'assets/css/normalize.css',
+					),							// Css de la page par défaut
 					'tete_javascripts' => array(),																																												// javascripts de la page par défaut
 					'tete_nom'         => 'tete',
 				/* Titre */
@@ -84,7 +87,8 @@ $config=array(
 			/* Fil post */
 				'post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
 		/* BBcode */
-			'bbcode_config' => 'config/core/bbcode.php',
+			'bbcode_css'    => 'css/bbcode.css',
+			'bbcode_config' => 'config/core/bbcode/bbcode.php',
 		/* Général */
 			'nom_site'           => 'Babtouland',					// Nom du site
 			'mail_dev'           => 'gugus2000@protonmail.com',		// Mail du développeur
@@ -148,10 +152,11 @@ $config=array(
 			/* 'user_deconnexion */
 				'user_deconnexion_lien' => array('application' => 'user', 'action' => 'statut'),
 			/* statut */
-				'user_statut_lien_connexion'   => array('application' => 'user', 'action' => 'connexion'),		// Lien pour se connecter affiché dans la page de statut
-				'user_statut_lien_inscription' => array('application' => 'user', 'action' => 'inscription'),	// Lien pour s'inscrire affiché dans la page de statut
-				'user_statut_lien_deconnexion' => array('application' => 'user', 'action' => 'deconnexion'),	// Lien pour se déconnecter affiché dans la page de statut
-				'user_statut_lien_edition' => array('application' => 'user', 'action' => 'edition'),			// Lien pour éditer son profil affiché dans la page de statut
+				'user_statut_lien_connexion'      => array('application' => 'user', 'action' => 'connexion'),		// Lien pour se connecter affiché dans la page de statut
+				'user_statut_lien_inscription'    => array('application' => 'user', 'action' => 'inscription'),	// Lien pour s'inscrire affiché dans la page de statut
+				'user_statut_lien_deconnexion'    => array('application' => 'user', 'action' => 'deconnexion'),	// Lien pour se déconnecter affiché dans la page de statut
+				'user_statut_lien_edition'        => array('application' => 'user', 'action' => 'edition'),			// Lien pour éditer son profil affiché dans la page de statut
+				'user_statut_lien_configurations' => array('application' => 'user', 'action' => 'configurations'),
 			/* validation_connexion */
 				'user_validation_connexion_retour'  => array('application' => 'user', 'action' => 'connexion'),	// Lien de la page à charger lorsque la connexion échoue
 				'user_validation_connexion_suivant' => array(),					// Lien de la page à charger lorsque la connexion réussie

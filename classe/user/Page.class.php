@@ -165,14 +165,24 @@ class Page
 	*/
 	public function afficher()
 	{
-		global $config;
-		if($this->getPageElement()->getElement($config['tete_nom'])->getElement('titre'))
+		global $config, $Visiteur;
+		if($this->getPageElement()->getElement($config['tete_nom']))
 		{
-			$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('titre', $config['prefixe_titre']);
-		}
-		else
-		{
-			$this->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', '');
+			if ($this->getPageElement()->getElement($config['tete_nom'])->getElement('metas'))
+			{
+				$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+					'charset' => 'utf-8',
+					'lang'    => $Visiteur->getConfiguration('lang'),
+				));
+			}
+			if($this->getPageElement()->getElement($config['tete_nom'])->getElement('titre'))
+			{
+				$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('titre', $config['prefixe_titre']);
+			}
+			else
+			{
+				$this->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', '');
+			}
 		}
 		if (!$this->getPageElement()->getElement($config['temps_nom']))
 		{

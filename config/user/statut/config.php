@@ -21,14 +21,15 @@ if ($Visiteur->getPseudo()!=$config['nom_guest'])
 		),
 	));
 	$lien_connexionEdition='<a href="'.$Routeur->creerLien($config['user_statut_lien_edition']).'" title="'.$lang['user_statut_titre_lien_edition'].'">'.$lang['user_statut_affichage_lien_edition'].'</a><br />';
-	$lien_inscriptionDeconnexion='<a href="'.$Routeur->creerLien($config['user_statut_lien_deconnexion']).'" title="'.$lang['user_statut_titre_lien_deconnexion'].'">'.$lang['user_statut_affichage_lien_deconnexion'].'</a>';
+	$lien_inscriptionDeconnexion='<a href="'.$Routeur->creerLien($config['user_statut_lien_deconnexion']).'" title="'.$lang['user_statut_titre_lien_deconnexion'].'">'.$lang['user_statut_affichage_lien_deconnexion'].'</a><br />';
 }
 else
 {
 	$statut=$lang['user_statut_nologin'].'<br />';
 	$lien_connexionEdition='<a href="'.$Routeur->creerLien($config['user_statut_lien_connexion']).'" title="'.$lang['user_statut_titre_lien_connexion'].'">'.$lang['user_statut_affichage_lien_connexion'].'</a><br />';
-	$lien_inscriptionDeconnexion='<a href="'.$Routeur->creerLien($config['user_statut_lien_inscription']).'" title="'.$lang['user_statut_titre_lien_inscription'].'">'.$lang['user_statut_affichage_lien_inscription'].'</a>';
+	$lien_inscriptionDeconnexion='<a href="'.$Routeur->creerLien($config['user_statut_lien_inscription']).'" title="'.$lang['user_statut_titre_lien_inscription'].'">'.$lang['user_statut_affichage_lien_inscription'].'</a><br />';
 }
+$lien_configuration='<a href="'.$Routeur->creerLien($config['user_statut_lien_configurations']).'" title="'.$lang['user_statut_titre_lien_configurations'].'">'.$lang['user_statut_affichage_lien_configurations'].'</a>';
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
@@ -37,6 +38,7 @@ $Contenu=new \user\PageElement(array(
 		'statut'                      => $statut,
 		'lien_connexionEdition'       => $lien_connexionEdition,
 		'lien_inscriptionDeconnexion' => $lien_inscriptionDeconnexion,
+		'lien_configuration'          => $lien_configuration,
 	),
 ));
 

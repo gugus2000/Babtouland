@@ -34,7 +34,7 @@ class MenuUp extends \user\PageElement
 				'titre_lien_accueil' => $lang['menu-up_accueil'],
 				'src_logo'           => $config['path_assets'].'img/icone/icone-transparent.png',
 				'alt_logo'           => $lang['menu-up_altlogo'].$config['nom_site'],
-				'titre_texte'        => $config['nom_site'],
+				'titre_texte'        => strtoupper($config['nom_site']),
 			),
 		));
 		$DropdownLang=new \user\page\Dropdown($lang['lang_self']['full'], $lang['lang_others'], $Tete);
