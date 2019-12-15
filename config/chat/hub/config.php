@@ -7,6 +7,10 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 	'name'    => 'description',
 	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
 ));
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/survol.css');
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/chat/hub/main.css');
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('javascripts', $config['path_assets'].'js/survol.js?version=test');
+$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('javascripts', $config['path_assets'].'js/chat/hub/survol_var.js');
 
 $Cartes=array();
 
@@ -25,7 +29,10 @@ foreach ($Conversations as $Conversation)
 		'elements' => array(
 			'nom_conversation'        => $Conversation->afficherNom(),
 			'description'             => $Conversation->afficherDescription(),
-			'nombre_utilisateur'      => $lang['chat_hub_nombre_utilisateur'].count($Conversation->getId_utilisateurs()).'/'.count($connecte),
+			'utilisateur_connecte'   => $lang['chat_hub_connectes'],
+			'nombre_connecte'         => count($connecte),
+			'utilisateur_en_tout'     => $lang['chat_hub_total'],
+			'nombre_total'            => count($Conversation->getId_utilisateurs()),
 			'lien_href_conversation'  => $Routeur->creerLien(array_merge($config['chat_hub_lien_voir_conversation'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())))),
 			'lien_title_conversation' => $lang['chat_hub_lien_titre_voir_conversation'],
 			'lien_conversation'       => $lang['chat_hub_lien_voir_conversation'],

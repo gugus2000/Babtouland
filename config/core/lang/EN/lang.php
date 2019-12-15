@@ -286,10 +286,13 @@ $lang=array(
 		/* hub */
 			'chat_hub_titre'                        => 'Hub',
 			'chat_hub_description'                  => 'Control panel for chat',
-			'chat_hub_nombre_utilisateur'           => 'Members in the conversation/Connected now',
+			'chat_hub_connectes'                    => 'person',
+			'chat_hub_total'                        => 'person_outline',
 			'chat_hub_lien_titre_voir_conversation' => 'View the conversation',
 			'chat_hub_lien_voir_conversation'       => 'View',
 			'chat_hub_lien_ajouter_conversation'    => 'Add a new conversation',
+			'chat_hub_survol_connectes'             => 'Number of connected members',
+			'chat_hub_survol_total'                 => 'Total number of members',
 		/* voir_conversation */
 			'chat_voir_conversation_titre'                        => 'Conversation - ',
 			'chat_voir_conversation_description'                  => 'View a conversation',
@@ -380,6 +383,9 @@ $lang=array(
 			'chat_supprimer_conversation_notification_erreur_autorisation' => 'You don\'t have access to this conversation',
 			'chat_supprimer_conversation_notification_erreur_general'      => 'You cannot delete this conversation',
 			'chat_supprimer_conversation_notification_erreur_id'           => 'Id of the conversation is needed',
+	/* xhr */
+		/* lang */
+			'xhr_lang_message_probleme_key' => 'The key does\' exist (anymore?)',
 );
 
 ?>

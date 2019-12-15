@@ -1,0 +1,8 @@
+.carte .survol_colonne
+{
+	width: auto;
+}
+.carte .survol_colonne .ligne .nombre
+{
+	line-height: 24px;
+}

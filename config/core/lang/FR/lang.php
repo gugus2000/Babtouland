@@ -149,7 +149,6 @@ $lang=array(
 			'user_validation_configurations_attention_post_fil_post_nombre_posts_pas_numerique' => 'Le nombre de post dans le fil de post doit être un nombre',
 			'user_validation_configurations_attention_post_fil_post_nombre_posts_pas_valide'    => 'Le nombre de post dans le fil de post n\'est pas valide',
 			'user_validation_configurations_succes'                                             => 'La configuration a été appliqué',
-
 	/* utile */
 		/* a_propos */
 			'utile_a_propos_titre'             => 'À propos',
@@ -287,10 +286,13 @@ $lang=array(
 		/* hub */
 			'chat_hub_titre'                        => 'Hub',
 			'chat_hub_description'                  => 'Centre de contrôle du chat',
-			'chat_hub_nombre_utilisateur'           => 'Membres dans la conversation/actuellement connectés: ',
+			'chat_hub_connectes'                    => 'person',
+			'chat_hub_total'                        => 'person_outline',
 			'chat_hub_lien_titre_voir_conversation' => 'Voir la conversation',
 			'chat_hub_lien_voir_conversation'       => 'Voir',
 			'chat_hub_lien_ajouter_conversation'    => 'Ajouter une nouvelle conversation',
+			'chat_hub_survol_connectes'             => 'Nombre de membres connectés',
+			'chat_hub_survol_total'                 => 'Nombre de membres au total',
 		/* voir_conversation */
 			'chat_voir_conversation_titre'                        => 'Conversation - ',
 			'chat_voir_conversation_description'                  => 'Page de consultation d\'une conversation',
@@ -381,6 +383,9 @@ $lang=array(
 			'chat_supprimer_conversation_notification_erreur_autorisation' => 'Vous n\'avez pas accès à cette conversation',
 			'chat_supprimer_conversation_notification_erreur_general'      => 'Vous ne pouvez pas supprimer cette conversation',
 			'chat_supprimer_conversation_notification_erreur_id'           => 'Il faut l\'id de la conversation pour la supprimer',
+	/* xhr */
+		/* lang */
+			'xhr_lang_message_probleme_key' => 'La clef demandé n\'existe pas (ou plus)',
 );
 
 ?>

@@ -38,3 +38,12 @@
 {
 	color: black;
 }
+
+#id_chat
+{
+	visibility: hidden;
+}
+.action_chat i
+{
+	font-size: inherit;
+}

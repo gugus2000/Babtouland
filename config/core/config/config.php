@@ -353,6 +353,8 @@ $config=array(
 				'xhr_chat_parametres' => array('id', 'date_chargement'),
 			/* liste_membre_conversation */
 				'xhr_liste_membre_conversation_parametres' => array('id'),
+			/* lang */
+				'xhr_lang_parametres' => array('clef'),
 
 );
 

@@ -11,7 +11,7 @@ class PageElement
 	*
 	* @var string
 	*/
-	const SEPARATEUR='\|';
+	const SEPARATEUR='|';
 
 	/* Attribut */
 
@@ -155,7 +155,7 @@ class PageElement
 			{
 				$valeur=$element;
 			}
-			$contenuElement=preg_replace('#'.$this::SEPARATEUR.$nom.$this::SEPARATEUR.'#', $valeur, $contenuElement);
+			$contenuElement=str_replace($this::SEPARATEUR.$nom.$this::SEPARATEUR, $valeur, $contenuElement);
 		}
 		return $contenuElement;
 	}
