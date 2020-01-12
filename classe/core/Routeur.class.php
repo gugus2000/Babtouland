@@ -185,10 +185,17 @@ class Routeur
 		$liste=explode('/', trim(strtok(getenv('REQUEST_URI'), '?'), '/'));
 		$array=array();
 		$offset=0;
-		if (in_array($liste[$offset], $liste_applications))
+		if (isset($liste[$offset]))
 		{
-			$application=$liste[$offset];
-			$offset++;
+			if (in_array($liste[$offset], $liste_applications))
+			{
+				$application=$liste[$offset];
+				$offset++;
+			}
+			else
+			{
+				$application=$config['defaut_application'];
+			}
 		}
 		else
 		{
@@ -202,10 +209,17 @@ class Routeur
 				$liste_actions[]=$Permission->getAction();
 			}
 		}
-		if (in_array($liste[$offset], $liste_actions))
+		if (isset($liste[$offset]))
 		{
-			$action=$liste[$offset];
-			$offset++;
+			if (in_array($liste[$offset], $liste_actions))
+			{
+				$action=$liste[$offset];
+				$offset++;
+			}
+			else
+			{
+				$action=$config['defaut_'.$application.'_action'];
+			}
 		}
 		else
 		{
@@ -215,12 +229,17 @@ class Routeur
 		$parametres=array();
 		if (isset($config[$application.'_'.$action.'_parametres']))
 		{
-			foreach ($config[$application.'_'.$action.'_parametres'] as $index => $nom)
+			$merge_1=$config[$application.'_'.$action.'_parametres'];
+		}
+		else
+		{
+			$merge_1=array();
+		}
+		foreach (array_merge($merge_1, array('lang')) as $index => $nom)
+		{
+			if (isset($liste[$index]))
 			{
-				if (isset($liste[$index]))
-				{
-					$parametres[$nom]=$liste[$index];
-				}
+				$parametres[$nom]=$liste[$index];
 			}
 		}
 		return array(

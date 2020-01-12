@@ -16,7 +16,7 @@ if ($Visiteur->getPseudo()!=$config['nom_guest'])
 			'avatar_src'       =>  $config['chemin_avatar'].$Visiteur->afficherAvatar(),
 			'avatar_alt'       => $lang['user_view_avatar_alt'].$Visiteur->afficherPseudo(),
 			'date_connexion'   => $lang['user_statut_derndateco'].$Visiteur->afficherDate_connexion(),
-			'date_inscription' => $lang['user_statut_premdatein'].$Visiteur->afficherDate_connexion(),
+			'date_inscription' => $lang['user_statut_premdatein'].$Visiteur->afficherDate_inscription(),
 			'mail'             => $lang['user_statut_mail'].$Visiteur->afficherMail(),
 		),
 	));

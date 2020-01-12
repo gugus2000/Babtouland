@@ -266,32 +266,35 @@ class Visiteur extends Utilisateur
 		$ConfigurationManager=new \user\ConfigurationManager(\core\BDDFactory::MysqlConnexion());
 		if (isset($parametres[$config['nom_parametres']]['lang']))
 		{
-			if ($this->getId()==$config['id_guest'])	// On définit le guest comme ayant un langage différent
+			if (in_array($parametres[$config['nom_parametres']]['lang'],$config['lang_available']))
 			{
-				$_SESSION['lang']=$parametres[$config['nom_parametres']]['lang'];
-			}
-			else
-			{
-				if ($ConfigurationManager->exist(array(	// La langue a déjà été définie une fois
-					'id_utilisateur' => $this->getId(),
-					'nom'            => 'lang',
-				)))
+				if ($this->getId()==$config['id_guest'])	// On définit le guest comme ayant un langage différent
 				{
-					$id=$ConfigurationManager->getIdBy(array(
-						'id_utilisateur' => $this->getId(),
-						'nom'            => 'lang',
-					));
-					$ConfigurationManager->update(array(
-						'valeur' => $parametres[$config['nom_parametres']]['lang'],
-					), $id);
+					$_SESSION['lang']=$parametres[$config['nom_parametres']]['lang'];
 				}
-				else 	// Première fois que la langue a été définie
+				else
 				{
-					$ConfigurationManager->add(array(
+					if ($ConfigurationManager->exist(array(	// La langue a déjà été définie une fois
 						'id_utilisateur' => $this->getId(),
 						'nom'            => 'lang',
-						'valeur'         => $parametres[$config['nom_parametres']]['lang'],
-					));
+					)))
+					{
+						$id=$ConfigurationManager->getIdBy(array(
+							'id_utilisateur' => $this->getId(),
+							'nom'            => 'lang',
+						));
+						$ConfigurationManager->update(array(
+							'valeur' => $parametres[$config['nom_parametres']]['lang'],
+						), $id);
+					}
+					else 	// Première fois que la langue a été définie
+					{
+						$ConfigurationManager->add(array(
+							'id_utilisateur' => $this->getId(),
+							'nom'            => 'lang',
+							'valeur'         => $parametres[$config['nom_parametres']]['lang'],
+						));
+					}
 				}
 			}
 		}
@@ -347,6 +350,45 @@ class Visiteur extends Utilisateur
 		{
 			throw new \Exception($lang['erreur_general_autorisations_insuffisantes']);	// Pas l'autorisation
 		}
+	}
+	/**
+	 * Vérifie si au moins un lien de la liste est ouvert d'accès au visiteur
+	 *
+	 * @param Visiteur Visiteur Visiteur à vérifier
+	 *
+	 * @param array liens Liens à vérifier
+	 *
+	 * @return bool
+	 *
+	 **/
+	function verifLiens($liens)
+	{
+		$compteur=0;
+		foreach ($liens as $index => $lien)
+		{
+			if ($this->getRole()->existPermission($lien))
+			{
+				$compteur++;
+			}
+		}
+		return $compteur>0;
+	}
+
+	/**
+	* Vérifie si le visiteur est l'auteur ou à la perm pour éditer ou supprimer un objet
+	*
+	* @param \core\Managed Objet Objet dont on doit vérifier la possibilité d'édition
+	* 
+	* @return bool
+	*/
+	public function autorisationModification($Objet)
+	{
+		global $config;
+		if (method_exists($Objet, 'recupererAuteur'))
+		{
+			return $this->similaire($Objet->recupererAuteur())|$this->getRole()->existPermission(array('application' => $config['application_modification'], 'action' => get_class($Objet)));
+		}
+		return False;
 	}
 }
 

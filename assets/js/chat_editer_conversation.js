@@ -12,7 +12,7 @@
 	var id=regex_id.exec(url)[1];
 	window.addEventListener('load', function(){	
 		xhr_edit=new XMLHttpRequest();
-		xhr_edit.open('GET', '?force_routage=0&application=xhr&action=liste_membre_conv&id='+encodeURIComponent(id));
+		xhr_edit.open('GET', '?force_routage=0&routage_session=False&application=xhr&action=liste_membre_conv&id='+encodeURIComponent(id));
 		xhr_edit.responseType="document";
 		xhr_edit.send(null);
 		xhr_edit.onload=function() {

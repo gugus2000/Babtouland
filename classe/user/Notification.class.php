@@ -314,11 +314,11 @@ class Notification extends \core\Managed
 	public function envoyerNotification($Page=null, $langue=null)
 	{
 		global $config, $lang, $Visiteur;
-		if (!$langue)
+		if (!$Page)
 		{
-			$langue=$lang['lang_self']['abbr'];
+			$Page=$Visiteur->getPage();
 		}
-		else if(!\in_array($langue, $config['lang_available']))
+		if (!$langue|!\in_array($langue, $config['lang_available']))
 		{
 			$langue=$lang['lang_self']['abbr'];
 		}

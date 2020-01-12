@@ -1,5 +1,4 @@
 <?php
-
 $Conversations=$Visiteur->recupererConversations();
 
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
@@ -44,9 +43,10 @@ $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_template'],
 	'fonctions' => $config['path_func'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
-		'cartes'         => $Cartes,
+		'cartes'   => $Cartes,
 	),
 ));
+
 
 $toast_liens=array(
 	'lien'        => array($config['chat_hub_lien_ajouter_conversation']),

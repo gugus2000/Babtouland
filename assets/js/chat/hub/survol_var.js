@@ -1,13 +1,13 @@
 window.addEventListener('load', function () {
 	var xhr=new XMLHttpRequest();
-	xhr.open('GET', '?force_routage=0&application=xhr&action=lang&clef=chat_hub_survol_connectes');
+	xhr.open('GET', '?force_routage=0&routage_session=False&application=xhr&action=lang&clef=chat_hub_survol_connectes');
 	xhr.responseType="document";
 	xhr.send(null);
 	xhr.onload=function() {
 		var content=xhr.responseXML.getElementsByTagName('body')[0].firstChild;
 		var text_connectes=content.textContent || content.innerText;
 			text_connectes=text_connectes.trim();
-		xhr.open('GET', '?force_routage=0&application=xhr&action=lang&clef=chat_hub_survol_total');
+		xhr.open('GET', '?force_routage=0&routage_session=False&application=xhr&action=lang&clef=chat_hub_survol_total');
 		xhr.responseType="document";
 		xhr.send(null);
 		xhr.onload=function() {

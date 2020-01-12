@@ -33,7 +33,7 @@ window.addEventListener('load', function () {
 				date_dernier_chargement=getDate();
 			}
 		}
-		xhr.open('GET', '?force_routage=0&application=xhr&action=chat&id='+encodeURIComponent(id)+'&date_chargement='+encodeURIComponent(date_dernier_chargement));
+		xhr.open('GET', '?force_routage=0&routage_session=False&application=xhr&action=chat&id='+encodeURIComponent(id)+'&date_chargement='+encodeURIComponent(date_dernier_chargement));
 		xhr.responseType="document";
 		xhr.send(null);
 		setTimeout(maj, 10000);

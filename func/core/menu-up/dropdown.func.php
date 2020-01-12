@@ -15,7 +15,7 @@ function dropdown_othersAfficher($lang_others)
 	$affichage='';
 	foreach ($lang_others as $language)
 	{
-		$link=$Routeur->creerLien(array('application' => $Visiteur->getPage()->getApplication(), 'action' => $Visiteur->getPage()->getAction(), 'parametres' => array('lang' => $language['abbr'])));
+		$link=$Routeur->creerLien(array('application' => $Visiteur->getPage()->getApplication(), 'action' => $Visiteur->getPage()->getAction(), 'parametres' => array_merge($Visiteur->getPage()->getParametres(), array('lang' => $language['abbr']))));
 		$affichage.='<a href="'.$link.'">'.$language['full'].'</a>';
 	}
 	return $affichage;

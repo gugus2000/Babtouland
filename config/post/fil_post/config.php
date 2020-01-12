@@ -3,10 +3,14 @@
 require $config['bbcode_config'];
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].'css/navigation_nombre.css');
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('css', $config['path_assets'].$config['bbcode_css']);
-$page=$config['post_fil_post_default_page'];
 if(isset($Visiteur->getPage()->getParametres()['page']))
 {
 	$page=(int)$Visiteur->getPage()->getParametres()['page'];
+}
+else
+{
+	$page=$config['post_fil_post_default_page'];
+	$Visiteur->getPage()->ajouterParametre('page', $page);
 }
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre'].(string)$page);
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
@@ -14,8 +18,7 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
 ));
 $bbcode=CreateBBcode();
-$BDDFactory=new \core\BDDFactory;
-$PostManager=new \post\PostManager($BDDFactory->MysqlConnexion());
+$PostManager=new \post\PostManager(\core\BDDFactory::MysqlConnexion());
 $nbr_post=$PostManager->count();
 $liste_navigation=[];
 for ($numero_page=1; $numero_page <= ceil($nbr_post/$Visiteur->getConfiguration('post_fil_post_nombre_posts')); $numero_page++)
@@ -36,15 +39,11 @@ $Pagination=new \user\PageElement(array(
 	),
 ));
 $liste_post=[];
-for ($position_post=$config['post_fil_post_position_debut']; $position_post < $Visiteur->getConfiguration('post_fil_post_nombre_posts'); $position_post++)
+foreach ($PostManager->getBy(array(), array(), array('fin' => ($page-1)*$Visiteur->getConfiguration('post_fil_post_nombre_posts'), 'nombre' => $Visiteur->getConfiguration('post_fil_post_nombre_posts'), 'ordre' => $config['post_fil_post_tri'])) as $post)
 {
-	$position_vraie=$page*$Visiteur->getConfiguration('post_fil_post_nombre_posts')-($Visiteur->getConfiguration('post_fil_post_nombre_posts')-$position_post);	// Calcul de la position du Post
-	$Post=new \post\Post(array(
-		'id' => $PostManager->getIdByPos($position_vraie, $config['post_fil_post_tri']),
-	));
+	$Post=new \post\Post($post);
 	if($PostManager->existId($Post->getId()))
 	{
-		$Post->recuperer();
 		$PostElement=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/post.html',
 			'elements' => array(
