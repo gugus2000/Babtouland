@@ -259,63 +259,6 @@ class Message extends \core\Managed
 	{
 		return $this->afficherContenu();
 	}
-	/**
-	* Récupère le message
-	*
-	* @return void
-	*/
-	public function recuperer()
-	{
-		$this->get($this->getId());
-	}
-	/**
-	* Créer un message dans la base de donnée
-	* 
-	* @return void
-	*/
-	public function creer()
-	{
-		$Manager=$this->Manager();
-		$Manager->add(array(
-			'id_conversation'  => $this->getId_conversation(),
-			'id_auteur'        => $this->getId_auteur(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		));
-		$this->setId($Manager->getIdBy(array(
-			'id_conversation'  => $this->getId_conversation(),
-			'id_auteur'        => $this->getId_auteur(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		)));
-	}
-
-	/**
-	* Modifie un message donné
-	* 
-	* @return void
-	*/
-	public function modifier()
-	{
-		$Manager=$this->Manager();
-		$Manager->update(array(
-			'contenu'          => $this->getContenu(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		), $this->getId());
-	}
-
-	/**
-	* Supprime un message donné
-	* 
-	* @return void
-	*/
-	public function supprimer()
-	{
-		$Manager=$this->Manager();
-		$Manager->delete($this->getId());
-	}
 	/* Récupère l'auteur du Message */
 	/**
 	* Récupère l'auteur du Message

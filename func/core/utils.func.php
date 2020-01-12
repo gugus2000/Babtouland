@@ -1,36 +1,6 @@
 <?php
 
 /**
- * Créé un lien vers la page à partir de son application et action
- *
- * @param string application Application de la page
- * 
- * @param string action Action de la page
- * 
- * @return string
- * @author gugus2000
- **/
-function createPageLink($application, $action)
-{
-	return '?application='.$application.'&action='.$action;
-}
-
-/**
- * Créé un lien vers la page à partir de son application et action
- *
- * @param string application Application de la page
- * 
- * @param string action Action de la page
- * 
- * @return string
- * @author gugus2000
- **/
-function createPageLinkRoute($application, $action)
-{
-	return 'http://babtouland.com/'.$application.'/'.$action;
-}
-
-/**
  * Retourne le nom de la classe sans son namespace
  *
  * @param string className Nom de la classe
@@ -78,31 +48,6 @@ function loadClass($className)
 	{
 		throw new Exception('Class "'.$className.'" does not exist.');
 	}
-}
-
-/**
- * Retourne l'action et l'application du lien
- *
- * @param string lien Lien à déchiffrer
- * 
- * @return array
- * @author gugus2000
- **/
-function recuperationApplicationActionLien($lien)
-{
-	global $config;
-	preg_match('#application=(\S+)&action=([^&.]+)[&.=.]*#', $lien, $matches);
-	if($matches)
-	{
-		$array['application']=$matches[1];
-		$array['action']=$matches[2];
-	}
-	else
-	{
-		$array['application']=$config['defaut_application'];
-		$array['action']=$config['defaut_'.$array['application'].'_action'];
-	}
-	return $array;
 }
 
 /**
@@ -170,6 +115,39 @@ function initOutputFilter()
 {
    ob_start('ob_gzhandler');
    register_shutdown_function('ob_end_flush');
+}
+/**
+ * Initialise le routage avec la session
+ *
+ * @return string
+ * @author gugus2000
+ **/
+function initRoutageSession()
+{
+	$Mode_routage=\core\Routeur::MODE_FULL_ROUTE;
+	if (isset($_GET['force_routage']))
+	{
+		if (isset($_GET['routage_session']))
+		{
+			$Mode_routage=$_GET['force_routage'];
+		}
+		else
+		{
+			$_SESSION['force_routage']=$_GET['force_routage'];
+		}
+	}
+	if (isset($_SESSION['force_routage']))
+	{
+		if ($_SESSION['force_routage']=='-1')
+		{
+			unset($_SESSION['force_routage']);
+		}
+		else
+		{
+			$Mode_routage=$_SESSION['force_routage'];
+		}
+	}
+	return $Mode_routage;
 }
 
 ?>

@@ -10,12 +10,7 @@ $GLOBALS['time_start']=microtime(true);
 require_once 'func/core/utils.func.php';
 initOutputFilter();
 spl_autoload_register('loadClass');
-$Mode_routage=\core\Routeur::MODE_FULL_ROUTE;
-if (isset($_GET['force_routage']))
-{
-	$Mode_routage=$_GET['force_routage'];
-}
-$Routeur=new \core\Routeur($Mode_routage);
+$Routeur=new \core\Routeur(initRoutageSession());
 require_once 'config/core/config/config.php';
 
 try
@@ -49,6 +44,11 @@ try
 }
 catch (Exception $e)
 {
+	echo '<pre>';
+	var_dump($e->getMessage());
+	print_r($e->getTrace());
+	echo '</pre>';
+	die();
 	if (!isset($Visiteur))
 	{
 		$Visiteur=new \user\Visiteur(array(
@@ -60,6 +60,6 @@ catch (Exception $e)
 	echo $Visiteur->chargePage(array('application' => 'erreur', 'action' => 'erreur'));
 }
 
-exit();
+die();
 
 ?>

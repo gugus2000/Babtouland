@@ -78,6 +78,17 @@ class Manager
 	/* Autres méthodes */
 
 	/**
+	* Vérifie l'existence de chaque attribut dans la liste comme étant un attribut de la table sélectionnée
+	*
+	* @param array attributs Liste à vérifier
+	* 
+	* @return array
+	*/
+	public function testAttributes($attributs)
+	{
+		return array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+	}
+	/**
 	* Récupère le résulat d'une requête Mysql sur un élément
 	*
 	* @param mixed index Index de l'élément
@@ -99,7 +110,7 @@ class Manager
 	*/
 	public function add($attributs)
 	{
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));	// Le tableau ne contient que les attributs valides
+		$attributs=$this->testAttributes($attributs);
 		$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', array_keys($attributs)).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
 		$requete->execute(array_values($attributs));
 	}
@@ -115,7 +126,7 @@ class Manager
 	public function update($attributs, $index)
 	{
 		$attributsWithOperators=array();
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		$attributs=$this->testAttributes($attributs);
 		foreach ($attributs as $nom => $valeur)
 		{
 			$attributsWithOperators[]=$nom.'=?';
@@ -146,7 +157,7 @@ class Manager
 	public function getIdBy($attributs)
 	{
 		$attributsWithOperators=array();
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		$attributs=$this->testAttributes($attributs);
 		foreach ($attributs as $nom => $valeur)
 		{
 			$attributsWithOperators[]=$nom.'=?';
@@ -171,23 +182,140 @@ class Manager
 		return $requete->fetch(\PDO::FETCH_ASSOC)[$this::INDEX];
 	}
 	/**
+	* Permet de générer la clause sur la limite à partir d'un tableau complexe pour une requête mysql
+	*
+	* @param array bornes Bornes
+	* 
+	* @return string
+	*/
+	public function interpreterBornes($bornes)
+	{
+		if (isset($bornes['order_by']))
+		{
+			if (!in_array($bornes['order_by'], $this::ATTRIBUTES))
+			{
+				throw new \UnexpectedValueException((string)$bornes['ordre'].' not exist');
+			}
+			$order_by=$bornes['order_by'];
+		}
+		else if ($bornes['ordre'])
+		{
+			if (!in_array($bornes['ordre'], $this::ATTRIBUTES))
+			{
+				throw new \UnexpectedValueException((string)$bornes['ordre'].' not exist');
+			}
+			$order_by=$bornes['ordre'];
+		}
+		else
+		{
+			$order_by=$this::INDEX;
+		}
+		if (isset($bornes['fin']))
+		{
+			if (!is_numeric($bornes['fin']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['fin'].' not numeric');
+			}
+			$ordre='DESC';
+			$bornes['offset']=$bornes['fin'];
+		}
+		else
+		{
+			$ordre='ASC';
+		}
+		if (isset($bornes['offset']))
+		{
+			if(!is_numeric($bornes['offset']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['offset'].' not numeric');
+			}
+			$offset=$bornes['offset'];
+		}
+		else if (isset($bornes['position']))
+		{
+			if(!is_numeric($bornes['position']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['position'].' not numeric');
+			}
+			$offset=$bornes['position'];
+		}
+		else if (isset($bornes['debut']))
+		{
+			if (!is_numeric($bornes['debut']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['debut'].' not numeric');
+			}
+			$offset=$bornes['debut'];
+		}
+		else
+		{
+			$offset=0;
+		}
+		if (isset($bornes['limit']))
+		{
+			if(!is_numeric($bornes['limit']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['limit'].' not numeric');
+			}
+			$limit=$bornes['limit'];
+		}
+		else if (isset($bornes['nombre']))
+		{
+			if(!is_numeric($bornes['nombre']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['nombre'].' not numeric');
+			}
+			$limit=$bornes['nombre'];
+		}
+		else
+		{
+			$limit=1;
+		}
+		return 'ORDER BY '.$order_by.' '.$ordre.' LIMIT '.(string)$limit.' OFFSET '.(string)$offset;
+	}
+	/**
 	* Récupère le résultat de la requête MYSQL crée à partir des paramètres
 	*
 	* @param array attributs Tableau contenant le nom et la valeur de chaque attribut
 	* 
 	* @param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
 	*
+	* @param array bornes Tableau contenant les bornes dans lesquels chercher
+	*
 	* @return array
 	*/
-	public function getBy($attributs, $operations)
+	public function getBy($attributs, $operations=null, $bornes=null)
 	{
 		$attributsWithOperators=array();
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		$attributs=$this->testAttributes($attributs);
 		foreach ($attributs as $nom => $valeur)
 		{
-			$attributsWithOperators[]=$nom.$operations[$nom].'?';
+			if (isset($operations[$nom]))
+			{
+				$attributsWithOperators[]=$nom.$operations[$nom].'?';
+			}
+			else
+			{
+				$attributsWithOperators[]=$nom.'=?';
+			}
 		}
-		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators).'');
+		if ($attributs & !empty($attributsWithOperators))
+		{
+			$where='WHERE '.implode(' AND ', $attributsWithOperators);
+		}
+		else
+		{
+			$where='';
+		}
+		if ($bornes)
+		{
+			$limite=$this->interpreterBornes($bornes);
+		}
+		else
+		{
+			$limite='';
+		}
+		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' '.$where.' '.$limite);
 		$requete->execute(array_values($attributs));
 		$results=array();
 		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
@@ -216,13 +344,20 @@ class Manager
 	*
 	* @return bool
 	*/
-	public function exist($attributs)
+	public function exist($attributs, $operations=null)
 	{
 		$attributsWithOperators=array();
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		$attributs=$this->testAttributes($attributs);
 		foreach ($attributs as $nom => $valeur)
 		{
-			$attributsWithOperators[]=$nom.'=?';
+			if (isset($operations[$nom]))
+			{
+				$attributsWithOperators[]=$nom.$operations[$nom].'?';
+			}
+			else
+			{
+				$attributsWithOperators[]=$nom.'=?';
+			}
 		}
 		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators).'');
 		$requete->execute(array_values($attributs));

@@ -259,53 +259,6 @@ class Post extends \core\Managed
 		return $this->afficherContenu();
 	}
 	/**
-	* Publie le Post
-	*
-	* @return void
-	*/
-	public function publier()
-	{
-		$Manager=$this->Manager();
-		$Manager->add(array(
-			'id_auteur'        => $this->getId_auteur(),
-			'titre'            => $this->getTitre(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		));
-		$this->setId($Manager->getIdBy(array(
-			'id_auteur'        => $this->getId_auteur(),
-			'titre'            => $this->getTitre(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		)));
-	}
-	/**
-	* Met à jour le Post
-	*
-	* @return void
-	*/
-	public function mettre_a_jour()
-	{
-		$Manager=$this->Manager();
-		$Manager->update(array(
-			'titre'            => $this->getTitre(),
-			'contenu'          => $this->getContenu(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		), $this->getId());
-	}
-	/**
-	* Supprime le Post
-	*
-	* @return void
-	*/
-	public function supprimer()
-	{
-		$Manager=$this->Manager();
-		$Manager->delete($this->getId());
-	}
-	/**
 	* Obtient l'auteur du Post
 	*
 	* @return Utilisateur
@@ -339,15 +292,6 @@ class Post extends \core\Managed
 			$commentaires[]=$Commentaire;
 		}
 		return $commentaires;
-	}
-	/**
-	* Récupère le Post à partir de son id
-	*
-	* @return void
-	*/
-	public function recuperer()
-	{
-		$this->get($this->getId());
 	}
 }
 

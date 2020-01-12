@@ -260,52 +260,6 @@ class Commentaire extends \core\Managed
 		return $this->afficherContenu();
 	}
 	/**
-	* Publie le Commentaire
-	*
-	* @return void
-	*/
-	public function publier()
-	{
-		$Manager=$this->Manager();
-		$Manager->add(array(
-			'id_auteur'        => $this->getId_auteur(),
-			'id_post'          => $this->getId_post(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		));
-		$this->setId($Manager->getIdBy(array(
-			'id_auteur'        => $this->getId_auteur(),
-			'id_post'          => $this->getId_post(),
-			'contenu'          => $this->getContenu(),
-			'date_publication' => $this->getDate_publication(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		)));
-	}
-	/**
-	* Met à jour le Commentaire
-	*
-	* @return void
-	*/
-	public function mettre_a_jour()
-	{
-		$Manager=$this->Manager();
-		$Manager->update(array(
-			'contenu'          => $this->getContenu(),
-			'date_mise_a_jour' => $this->getDate_mise_a_jour(),
-		), $this->getId());
-	}
-	/**
-	* Supprime le Commentaire
-	*
-	* @return void
-	*/
-	public function supprimer()
-	{
-		$Manager=$this->Manager();
-		$Manager->delete($this->getId());
-	}
-	/**
 	* Obtient l'auteur du Commentaire
 	*
 	* @return Utilisateur
@@ -330,15 +284,6 @@ class Commentaire extends \core\Managed
 		));
 		$Post->recuperer();
 		return $Post;
-	}
-	/**
-	* Récupérer le Commentaire à partir de son id
-	*
-	* @return void
-	*/
-	public function recuperer()
-	{
-		$this->get($this->getId());
 	}
 }
 
