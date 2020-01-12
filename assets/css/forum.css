@@ -1,0 +1,37 @@
+#conteneur .forum
+{
+	display: flex;
+	flex-direction: row;
+	color: #3C3C3C;
+}
+#conteneur .forum .nom
+{
+	width: 20%;
+	padding-left: 5%;
+	padding-right: 5%;
+	font-size: 2em;
+	border-right: 1px #3C3C3C solid;
+}
+#conteneur .forum .description
+{
+	padding-left: 5%;
+	padding-right: 5%;
+}
+#conteneur .forum div
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+#conteneur .bandeau
+{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	color: #3C3C3C;
+}
+#conteneur .bandeau .chemins
+{
+	display: flex;
+	flex-direction: row;
+}

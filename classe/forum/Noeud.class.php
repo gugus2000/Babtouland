@@ -7,8 +7,23 @@ namespace forum;
  *
  * @author gugus2000
  **/
-class Noeud extends \core\Managed
+abstract class Noeud extends \core\Managed
 {
+	/* Constante */
+
+	/**
+	* Type dossier
+	*
+	* @var int
+	*/
+	const TYPE_DOSSIER=0;
+	/**
+	* Type fil
+	*
+	* @var int
+	*/
+	const TYPE_FIL=1;
+
 	/* Attribut */
 
 	/**
@@ -17,12 +32,6 @@ class Noeud extends \core\Managed
 	* @var int
 	*/
 	protected $id;
-	/**
-	* Type du nœud
-	* 
-	* @var int
-	*/
-	protected $type;
 	/**
 	* Id du nœud parent
 	* 
@@ -70,15 +79,6 @@ class Noeud extends \core\Managed
 	public function getId()
 	{
 		return $this->id;
-	}
-	/**
-	* Accesseur de type
-	* 
-	* @return int
-	*/
-	public function getType()
-	{
-		return $this->type;
 	}
 	/**
 	* Accesseur de id_parent
@@ -147,17 +147,6 @@ class Noeud extends \core\Managed
 	protected function setId($id)
 	{
 		$this->id=(int)$id;
-	}
-	/**
-	* Définisseur de type
-	*
-	* @param int type Type de nœud
-	* 
-	* @return void
-	*/
-	protected function setType($type)
-	{
-		$this->type=(int)$type;
 	}
 	/**
 	* Définisseur de id_parent
@@ -236,15 +225,6 @@ class Noeud extends \core\Managed
 	public function afficherId()
 	{
 		return htmlspecialchars((string)$this->id);
-	}
-	/**
-	* Afficheur de type
-	* 
-	* @return string
-	*/
-	public function afficherType()
-	{
-		return htmlspecialchars((string)$this->type);
 	}
 	/**
 	* Afficheur de id_parent
@@ -332,7 +312,7 @@ class Noeud extends \core\Managed
 	*/
 	public function afficher()
 	{
-		return 'nom:'.$this->afficherNom().'|type:'.$this->afficherType().'|id:'.$this->afficherId();
+		return 'nom:'.$this->afficherNom().'|description:'.$this->afficherDescription().'|id:'.$this->afficherId();
 	}
 	/**
 	* Récupérer le nœud parent
@@ -365,64 +345,79 @@ class Noeud extends \core\Managed
 		return $Utilisateur;
 	}
 	/**
-	* Récupère le nœud à partir de son id
+	* Récupère toute la descendance du nœud
 	* 
-	* @return void
+	* @return array
 	*/
-	public function recuperer()
+	public function getDescendance()
 	{
-		$this->get($this->getId());
+		global $config;
+		if ($this->getId()==$config['id_conversation_all'])
+		{
+			return array($this);
+		}
+		else
+		{
+			$Dossier=new \forum\Dossier(array(
+				'id' => $this->getId_parent(),
+			));
+			$Dossier->recuperer();
+			return array_merge($Dossier->getDescendance(), array($this));
+		}
 	}
 	/**
-	* Créer un nœud
+	* Insérer le nœud dans la base de donnée
 	* 
 	* @return void
 	*/
 	public function creer()
 	{
-		$this->setDate_publication(date('Y-m-d H:i:s'));
-		$this->setDate_maj($this->getDate_publication());
-		$this->manager()->add(array(
-			'type'             => $this->getType(),
-			'id_parent'        => $this->getId_parent(),
-			'id_auteur'        => $this->getId_auteur(),
-			'nom'              => $this->getNom(),
-			'description'      => $this->getDescription(),
-			'date_publication' => $this->getDate_publication(),
-			'date_maj'         => $this->getDate_maj(),
-		));
-		$this->setId($this->Manager()->getIdBy(array(
-			'type'             => $this->getType(),
-			'id_parent'        => $this->getId_parent(),
-			'id_auteur'        => $this->getId_auteur(),
-			'nom'              => $this->getNom(),
-			'description'      => $this->getDescription(),
-			'date_publication' => $this->getDate_publication(),
-			'date_maj'         => $this->getDate_maj(),
-		)));
+		$this->Manager()->add(array_merge($this->table(), array('type' => $this::TYPE)));
+		$this->setId($this->Manager()->getIdBy(array_merge($this->table(), array('type' => $this::TYPE))));
 	}
 	/**
-	* Mettre à jour le nœud
+	* Accesseur de TYPE
+	*
+	* @param int index Index du nœud
 	* 
-	* @return void
+	* @return int
 	*/
-	public function modifier()
+	public function getType($index=null)
 	{
-		$this->setDate_maj(date('Y-m-d H:i:s'));
-		$this->Manager()->update(array(
-			'nom'         => $this->getNom(),
-			'description' => $this->getDescription(),
-			'date_maj'    => $this->getDate_maj(),
-		), $this->getId());
+		if (!$index)
+		{
+			$index=$this->getId();
+		}
+		$resultats=$this->manager()->get($index);
+		return $resultats['type'];
 	}
 	/**
-	* Supprimer un nœud
+	* Instancie le nœud dont l'index correspond
+	*
+	* @param int index Index du nœud
 	* 
-	* @return void
+	* @return \forum\Noeud
 	*/
-	public function supprimer()
+	static public function newNoeud($index)
 	{
-		$this->getManager()->delete($this->getId());
+		switch ($this->getType($index))
+		{
+			case $this::TYPE_DOSSIER:
+				$Noeud=new \forum\Dossier(array(
+					'id' => $index,
+				));
+				break;
+			case $this::TYPE_FIL:
+				$Noeud=new \forum\Fil(array(
+					'id' => $index,
+				));
+				break;
+			default:
+				throw new \UnexpectedValueException('type undefined');
+				break;
+		}
+		$Noeud->recuperer();
+		return $Noeud;
 	}
 
 } // END class Noeud extends \core\Managed

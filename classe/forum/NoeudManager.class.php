@@ -16,7 +16,7 @@ class NoeudManager extends \core\Manager
 	*
 	* @var string
 	*/
-	const TABLE='forum';
+	const TABLE='noeud';
 	/**
 	* Attributs
 	*
@@ -24,13 +24,13 @@ class NoeudManager extends \core\Manager
 	*/
 	const ATTRIBUTES=array(
 		0 => 'id',
-		1 => 'type',
-		2 => 'id_parent',
-		3 => 'id_auteur',
-		4 => 'nom',
-		5 => 'description',
-		6 => 'date_publication',
-		7 => 'date_maj',
+		1 => 'id_parent',
+		2 => 'id_auteur',
+		3 => 'nom',
+		4 => 'description',
+		5 => 'date_publication',
+		6 => 'date_maj',
+		7 => 'type',
 	);
 } // END class NoeudManager extends \core\Manager
 
