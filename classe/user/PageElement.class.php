@@ -130,13 +130,54 @@ class PageElement
 		return htmlspecialchars(print_r($this->elements));
 	}
 	/**
+	* Affichage d'une array sans fonctions
+	*
+	* @param array liste Liste d'éléments
+	* 
+	* @return string
+	*/
+	public function afficherArray($liste)
+	{
+		$affichage='';
+		foreach ($liste as $nom => $element)
+		{
+			if (is_object($element))
+			{
+				$affichage.=$element->afficher();
+			}
+			else if (is_array($element))
+			{
+				if (function_exists($nom.'Afficher'))
+				{
+					$affichage.=($nom.'Afficher')($element);
+				}
+				else
+				{
+					$affichage.=$this->afficherArray($element);
+				}
+			}
+			else
+			{
+				$affichage.=$element;
+			}
+		}
+		return $affichage;
+	}
+	/**
 	* Afficher l'élément "déployé"
 	* 
 	* @return string
 	*/
 	public function afficher()
 	{
-		$contenuElement=file_get_contents($this->getTemplate());
+		if ($this->getTemplate())
+		{
+			$contenuElement=file_get_contents($this->getTemplate());
+		}
+		else
+		{
+			$contenuElement='';
+		}
 		if ($this->getFonctions())
 		{
 			require $this->getFonctions();
@@ -149,7 +190,14 @@ class PageElement
 			}
 			else if (is_array($element))
 			{
-				$valeur=($nom.'Afficher')($element);
+				if (function_exists($nom.'Afficher'))
+				{
+					$valeur=($nom.'Afficher')($element);
+				}
+				else
+				{
+					$valeur=$this->afficherArray($element);
+				}
 			}
 			else
 			{
@@ -229,7 +277,7 @@ class PageElement
 		}
 		else
 		{
-			throw new Exception("On ne peut pas ajouter la valeur à l'élément s'il n'est pas un array ou une string");
+			throw new \Exception("On ne peut pas ajouter la valeur à l'élément s'il n'est pas un array ou une string");
 		}
 	}
 }
