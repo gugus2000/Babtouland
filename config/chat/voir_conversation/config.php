@@ -154,13 +154,27 @@ $Contenu=new \user\PageElement(array(
 
 $Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
+$boutons=array();
+foreach ($Conversation->recupererUtilisateurs() as $Utilisateur)
+{
+	$classe_bouton='';
+	if ($Utilisateur->estConnecte())
+	{
+		$classe_bouton='success';
+	}
+	$boutons[]=new \user\page\MenuSide\Bouton($Routeur->creerLien(array_merge($config['chat_voir_conversation_menuside_lien_utilisateur'], array('id' => $Utilisateur->afficherId()))), $lang['chat_voir_conversation_menuside_title_utilisateur'].$Utilisateur->afficherPseudo(), $Utilisateur->afficherPseudo(), $classe_bouton);
+}
+$BoutonsListe=new \user\page\MenuSide\BoutonsListe($lang['chat_voir_conversation_menuside_titre'], $boutons);
+$MenuSide=new \user\page\MenuSide($BoutonsListe);
+
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
 	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements' => array(
-		'chat' => $Chat,
-		'form' => $Formulaire,
-		'id'   => $Conversation->afficherId(),
+		'menuSide' => $MenuSide,
+		'chat'     => $Chat,
+		'form'     => $Formulaire,
+		'id'       => $Conversation->afficherId(),
 	),
 ));
 
@@ -180,9 +194,8 @@ else
 	$Toast='';
 }
 
-$Carte=new \user\page\Carte($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 $MenuUp=new \user\page\MenuUp($Visiteur->getPage()->getpageElement()->getElement($config['tete_nom']));
-$Corps=new \user\page\Corps($MenuUp, $Carte, $Toast);
+$Corps=new \user\page\Corps($MenuUp, $Contenu, $Toast);
 
 $Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 $Visiteur->getPage()->getPageElement()->ajouterElement($config['temps_nom'], new \user\page\Temps((string)(microtime(true)-$GLOBALS['time_start'])));
