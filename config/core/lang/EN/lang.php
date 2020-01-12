@@ -306,6 +306,8 @@ $lang=array(
 			'chat_voir_conversation_form_submit'                  => 'SEND',
 			'chat_voir_conversation_toast_editer_conversation'    => 'Edit the conversation',
 			'chat_voir_conversation_toast_supprimer_conversation' => 'Delete the conversation',
+			'chat_voir_conversation_menuside_titre'               => 'Members list',
+			'chat_voir_conversation_menuside_title_utilisateur'   => 'See profile of ',
 		/* envoyer_message */
 			'chat_envoyer_message_erreur_id_conversation' => 'Id of the conversation needed to write a message in it',
 			'chat_envoyer_message_erreur_permission'      => 'You haven\'t the right to write a message in this conversation',

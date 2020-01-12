@@ -55,6 +55,12 @@ $config=array(
 					'temps_nom'           => 'temps',
 					'temps_path_template' => 'core/page/temps.html',
 					'temps_path_css'      => 'css/temps.css',
+				/* MenuSide */
+					'menuSide_path_template'               => 'core/menu-side/menu-side.html',
+					'menuSide_path_css'                    => 'css/menu-side.css',
+					'menuSide_bouton_path_template'        => 'core/menu-side/bouton.html',
+					'menuSide_boutonsListe_path_template'  => 'core/menu-side/liste_boutons.html',
+					'menuSide_boutonsListe_path_fonctions' => 'core/boutons-liste/boutons-liste.func.php',
 				/* MenuUp */
 					'menuUp_path_template'   => 'core/menu-up/menu-up.html',
 					'menuUp_path_fonctions'  => 'core/menu-up/menu-up.func.php',
@@ -83,17 +89,15 @@ $config=array(
 					'notification_path_js'       => 'js/notification.js',								// Js des messages
 					'notification_elements'      => array(),
 					'notification_nom'          => 'notifications',
-		/* Post */
-			/* Fil post */
-				'post_fil_post_position_debut' => 0,	// Position du premier post dans fil_post
 		/* BBcode */
 			'bbcode_css'    => 'css/bbcode.css',
 			'bbcode_config' => 'config/core/bbcode/bbcode.php',
 		/* Général */
-			'nom_site'           => 'Babtouland',					// Nom du site
-			'mail_dev'           => 'gugus2000@protonmail.com',		// Mail du développeur
-			'defaut_application' => 'user',
-			'lang_available'     => array('FR', 'EN'),
+			'nom_site'                 => 'Babtouland',					// Nom du site
+			'mail_dev'                 => 'gugus2000@protonmail.com',		// Mail du développeur
+			'defaut_application'       => 'user',
+			'lang_available'           => array('FR', 'EN'),
+			'application_modification' => 'core',
 			/* Utilisateur */
 				'chemin_avatar'       => 'assets/img/avatar/',				// Chemin vers le dossier contenant les avatars
 				'size_avatar'         => 1000000,							// Taille de l'avatar maximum
@@ -115,8 +119,8 @@ $config=array(
 					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
 			/* Menu-up */
-				'menu-up_liens'       => array(array(), array('application' => 'post', 'action' => 'fil_post'), array('application' => 'utile', 'action' => 'a_propos'), array('application' => 'chat', 'action' => 'hub'), array('application' => 'admin', 'action' => 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
-				'menu-up_icones'      => array('home', 'view_list', 'info', 'chat', 'security'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
+				'menu-up_liens'       => array(array(), array('application' => 'post', 'action' => 'fil_post'), array('application' => 'utile', 'action' => 'a_propos'), array('application' => 'chat', 'action' => 'hub'), array('application' => 'forum', 'action' => 'voir_dossier'), array('application' => 'admin', 'action' => 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
+				'menu-up_icones'      => array('home', 'view_list', 'info', 'chat', 'forum', 'security'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
 				'menu-up_lien-statut' => array('application' => 'user', 'action' => 'statut'),														// Lien lors du clic sur l'avatar dans le menu_up
 			/* Menu-side */
 				'menu-side_css'      => 'assets/css/menu-side.css',
@@ -188,6 +192,7 @@ $config=array(
 			/* view */
 				'user_view_action_statut_editer_lien' => array('application' => 'user', 'action' => 'statut'),
 				'user_view_action_envoyer_mp_lien'    => array('application' => 'chat', 'action' => 'envoyer_mp'),
+				'user_view_parametres'                => array('id'),
 		/* utile */
 			'defaut_utile_action' => 'a_propos',
 			/* a_propos */
@@ -278,6 +283,7 @@ $config=array(
 				'chat_voir_conversation_message_suppression'          => array('application' => 'chat', 'action' => 'supprimer_message'),
 				'chat_voir_conversation_toast_editer_conversation'    => array('application' => 'chat', 'action' => 'editer_conversation'),
 				'chat_voir_conversation_toast_supprimer_conversation' => array('application' => 'chat', 'action' => 'supprimer_conversation'),
+				'chat_voir_conversation_menuside_lien_utilisateur'    => array('application' => 'user', 'action' => 'view'),
 				'chat_voir_conversation_parametres'                   => array('id'),
 			/* envoyer_message */
 				'chat_envoyer_message_erreur_id_conversation' => array('application' => 'chat', 'action' => 'hub'),
@@ -286,8 +292,8 @@ $config=array(
 				'chat_envoyer_message_succes'                 => array('application' => 'chat', 'action' => 'voir_conversation'),
 				'chat_envoyer_message_parametres'             => array('id'),
 			/* editer_message */
-				'chat_editer_message_admin_application'   => 'core',
-				'chat_editer_message_admin_action'        => 'editer_message',
+				'chat_editer_message_admin_application'                => 'core',
+				'chat_editer_message_admin_action'                     => 'editer_message',
 				'chat_editer_message_erreur_id_message'                => array('application' => 'chat', 'action' => 'hub'),
 				'chat_editer_message_erreur_conversation_autorisation' => array('application' => 'chat', 'action' => 'hub'),
 				'chat_editer_message_erreur_message_autorisation'      => array('application' => 'chat', 'action' => 'voir_conversation'),
@@ -355,7 +361,39 @@ $config=array(
 				'xhr_liste_membre_conversation_parametres' => array('id'),
 			/* lang */
 				'xhr_lang_parametres' => array('clef'),
-
+		/* forum */
+			'forum_root_id'       => 1,
+			'defaut_forum_action' => 'voir_dossier',
+			/* voir_dossier */
+				'forum_voir_dossier_notification_erreur_dossier' => array('application' => 'forum', 'action' => 'voir'),
+				'forum_voir_dossier_enfants_lien_dossier'        => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_voir_dossier_enfants_lien_fil'            => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_voir_dossier_lien_ajout'                  => array('application' => 'forum', 'action' => 'ajout'),
+				'forum_voir_dossier_lien_edition'                => array('application' => 'forum', 'action' => 'edition'),
+				'forum_voir_dossier_parametres'                  => array('id'),
+			/* ajout */
+				'forum_ajout_parametres'        => array('id_parent'),
+				'forum_ajout_formulaire_action' => array('application' => 'forum', 'action' => 'validation_ajout'),
+			/* validation_ajout */
+				'forum_validation_ajout_notification_succes'            => array('application' => 'forum'),
+				'forum_validation_ajout_notification_erreur_formulaire' => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_validation_ajout_notification_erreur_id'         => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_validation_ajout_parametres'                     => array('id_parent'),
+			/* voir_fil */
+				'forum_voir_fil_notification_erreur_id'  => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_voir_fil_notification_erreur_fil' => array('application' => 'forum', 'action' => 'voir'),
+				'forum_voir_fil_chemin_lien'             => array('application' => 'forum', 'action' => 'voir'),
+				'forum_voir_fil_message_lien_auteur'     => array('application' => 'user', 'action' => 'view'),
+				'forum_voir_fil_parametres'              => array('id'),
+			/* voir */
+				'forum_voir_no_id'      => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_voir_dossier'    => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_voir_fil'        => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_voir_defaut'     => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_voir_parametres' => array('id'),
+			/* edition */
+				'forum_edition_formulaire_action' => array('application' => 'forum', 'action' => 'validation_edition'),
+				'forum_edition_parametres'        => array('id'),
 );
 
 ?>
