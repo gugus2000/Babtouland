@@ -1,5 +1,6 @@
 .menu-side
 {
+	font-family: Roboto, sans-serif;
 	background-color: #333333;
 	z-index: 9;
 	box-shadow: 1px 1px 10px rgba(0, 0, 0, 1);
@@ -35,32 +36,26 @@
 
 .menu-side.petit
 {
-	max-width: 200px;
-	min-width: 200px;
+	max-width: 15%;
+	min-width: 15%;
 }
 
 .menu-side.moyen
 {
-	max-width: 300px;
-	min-width: 300px;
+	max-width: 20%;
+	min-width: 20%;
 }
 
 .menu-side.grand
 {
-	max-width: 400px;
-	min-width: 400px;
+	max-width: 25%;
+	min-width: 25%;
 }
 .menu-side .content
 {
 	margin-top: 110px;
 	text-align: center;
 	padding: 10px;
-}
-
-.menu-side .content a
-{
-	text-decoration: none;
-	color: #C6517C;
 }
 
 .menu-side h1, .menu-side h2, .menu-side h3, .menu-side h4, .menu-side h5, .menu-side h6
@@ -107,6 +102,21 @@
 	background-color: #444;
 }
 
+.menu-side .content .button.success
+{
+	background: #1b5e20;
+}
+
+#conteneur .menu-side .content .button.success a
+{
+	color: #78D12F;
+}
+
+#conteneur .menu-side .content .button.success:hover a
+{
+	color: #ffffff;
+}
+
 .menu-side .content .button-title
 {
 	background-color: #000;
@@ -117,9 +127,9 @@
 	background-color: #666;
 }
 
-.menu-side .content .button:hover a
+#conteneur .menu-side .content .button:hover a
 {
-	color: #ED84AB;
+	color: #000000;
 }
 
 .menu-side .content button
