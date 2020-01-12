@@ -26,8 +26,8 @@ $lang=array(
 		'menu-up_accueil'    => 'Accueil',
 		'menu-up_altlogo'    => 'Logo de ',
 		'menu-up_avatar'     => 'Votre avatar',
-		'menu-up_titres'     => array('Accueil', 'Fil des posts', 'À propos', 'Chat', 'Admin'),
-		'menu-up_affichages' => array('Accueil', 'Post', 'À propos', 'Chat', 'Admin'),
+		'menu-up_titres'     => array('Accueil', 'Fil des posts', 'À propos', 'Chat', 'Forum', 'Admin'),
+		'menu-up_affichages' => array('Accueil', 'Post', 'À propos', 'Chat', 'Forum', 'Admin'),
 	/* tete */
 		'tete_titre' => 'sans titre',
 	/* temps */
@@ -306,6 +306,8 @@ $lang=array(
 			'chat_voir_conversation_form_submit'                  => 'ENVOYER',
 			'chat_voir_conversation_toast_editer_conversation'    => 'Éditer la conversation',
 			'chat_voir_conversation_toast_supprimer_conversation' => 'Supprimer la conversation',
+			'chat_voir_conversation_menuside_titre'               => 'Liste des membres',
+			'chat_voir_conversation_menuside_title_utilisateur'   => 'Voir le profil de ',
 		/* envoyer_message */
 			'chat_envoyer_message_erreur_id_conversation' => 'Il faut l\'id de la conversation pour y écrire un message',
 			'chat_envoyer_message_erreur_permission'      => 'Vous ne pouvez pas écrire dans cette conversation',
@@ -386,6 +388,44 @@ $lang=array(
 	/* xhr */
 		/* lang */
 			'xhr_lang_message_probleme_key' => 'La clef demandé n\'existe pas (ou plus)',
+	/* forum */
+		'forum_nom_type_0' => 'Dossier',
+		'forum_nom_type_1' => 'Fil',
+		/* voir_dossier */
+			'forum_voir_dossier_titre'                       => 'Dossier: ',
+			'forum_voir_dossier_description'                 => 'Consulter les dossiers du forum',
+			'forum_voir_dossier_notification_erreur_dossier' => 'Cet id ne correspond pas à un dossier',
+			'forum_voir_dossier_enfant_titre_lien_dossier'   => 'Consulter le dossier ',
+			'forum_voir_dossier_enfant_titre_lien_fil'       => 'Consulter le fil ',
+			'forum_voir_dossier_lien_ajout'                  => 'Ajouter un dossier ou un fil',
+			'forum_voir_dossier_lien_edition'                => 'Éditer ce dossier',
+		/* ajout */
+			'forum_ajout_titre'                        => 'Ajouter un nœud',
+			'forum_ajout_description'                  => 'Ajouter un nœud enfant au dossier sélectionné',
+			'forum_ajout_formulaire_legend'            => 'Ajouter un nœud',
+			'forum_ajout_formulaire_label_nom'         => 'Nom du nœud: ',
+			'forum_ajout_formulaire_label_description' => 'Description du nœud: ',
+			'forum_ajout_formulaire_label_type'        => 'Type du nœud: ',
+			'forum_ajout_formulaire_submit'            => 'AJOUTER',
+		/* validation_ajout */
+			'forum_validation_ajout_notification_succes'            => 'Le nœud a bien été créé',
+			'forum_validation_ajout_notification_erreur_formulaire' => 'Le formulaire a mal été remplit',
+			'forum_validation_ajout_notification_erreur_id'         => 'Un id est nécessaire pour créer un nœeud',
+		/* voir_fil */
+			'forum_voir_fil_titre'                   => 'Fil: ',
+			'forum_voir_fil_description'             => 'Consulter les fils du forum',
+			'forum_voir_fil_notification_erreur_id'  => 'L\'id du fil est nécessaire pour voir le fil',
+			'forum_voir_fil_notification_erreur_fil' => 'Cet id ne correspond pas à un fil',
+			'forum_voir_fil_message_titre_auteur'    => 'Voir le profil de ',
+		/* edition */
+			'forum_edition_titre'                        => 'Édition de dossier',
+			'forum_edition_description'                  => 'Édition du dossier précedemment sélectionné',
+			'forum_edition_formulaire_legend'            => 'Éditer le dossier',
+			'forum_edition_formulaire_label_nom'         => 'Nom',
+			'forum_edition_formulaire_label_description' => 'Description',
+			'forum_edition_formulaire_submit'            => 'ÉDITER',
+			'forum_edition_notification_erreur_droit'    => 'Vous n\'avez pas le froit d\'éditer ce nœud',
+			'forum_edition_notification_erreur_id'       => 'Il faut l\'id du nœud pour l\'éditer',
 );
 
 ?>
