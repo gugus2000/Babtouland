@@ -216,7 +216,7 @@ class Page
 		{
 			foreach ($Notifications as $Notification)
 			{
-				$Notification->envoyerNotification($PageElement);
+				$Notification->envoyerNotification($PageElement, $Visiteur->getConfigurations()['lang']);
 			}
 			\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
 		}
@@ -273,6 +273,39 @@ class Page
 	{
 		global $config;
 		return $config['path_pageDef_root'].$this->getApplication().'/'.$this->getAction().'/'.$config['path_pageDef_filename'];
+	}
+	/**
+	* Donne le path du fichier de la template de la page
+	* 
+	* @return string
+	*/
+	public function getTemplatePath()
+	{
+		global $config;
+		return $config['path_template'].$this->getApplication().'/'.$this->getAction().'/'.$config['filename_contenu_template'];
+	}
+	/**
+	* Donne le path du fichier des fonctions de la page
+	* 
+	* @return string
+	*/
+	public function getFonctionsPath()
+	{
+		global $config;
+		return $config['path_func'].$this->getApplication().'/'.$this->getAction().'/'.$config['filename_contenu_fonctions'];
+	}
+	/**
+	* Ajouter un paramètre dans la page
+	*
+	* @param string nom Nom du paramètre (clef)
+	*
+	* @param mixed valeur Valeur du paramètre
+	* 
+	* @return void
+	*/
+	public function ajouterParametre($nom, $valeur)
+	{
+		$this->setParametres(array_merge($this->getParametres(), array($nom => $valeur)));
 	}
 }
 
