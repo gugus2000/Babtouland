@@ -1,0 +1,20 @@
+class Dossier
+!!!474626.php!!!	recupererEnfants(in intervalle_depart : int = 0, in nombre : int = 1) : array
+
+		$array=array();
+		$Manager=$this->Manager();
+		foreach ($Manager->getBy(array('id_parent' => $this->getId()), array('id_parent' => '='), array('debut' => $intervalle_depart, 'nombre' => $nombre, 'ordre' => 'date_publication')) as $noeud)
+		{
+			switch ($noeud['type'])
+			{
+				case $this::TYPE_DOSSIER:
+					$array[]=new \forum\Dossier($noeud);
+					break;
+				case $this::TYPE_FIL:
+					$array[]=new \forum\Fil($noeud);
+					break;
+				default:
+					throw new \UnexpectedValueException((string)$noeud['type'].' not exist');
+			}
+		}
+		return $array;

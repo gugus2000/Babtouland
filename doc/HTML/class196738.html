@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class StringParser_Node_Text</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class StringParser_Node_Text</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_196738"></a>
+<p>String parser text node class<br /><br />@package stringparser<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class StringParser_Node_Text extends <a href="class196482.html#ref4_196482"><b>StringParser_Node</b></a> </li></ul><p>Artifact : <a href="index.html#ref8_236418"><b>StringParser.class</b></a></p>
+<div class="sub">
+<a name="ref1_270978"></a>
+<table><tr><td><div class="element">Attribute <b>_type</b></div></td></tr></table>
+<p>The type of this node.<br /><br />This node is a text node.<br /><br />@access protected <br />@var int<br />@see STRINGPARSER_NODE_TEXT<br /><br /></p><p>Declaration :</p><ul><li>Uml : # _type : int =  STRINGPARSER_NODE_TEXT</li><li>Php : protected $_type</li></ul><a name="ref1_271106"></a>
+<table><tr><td><div class="element">Attribute <b>_flags</b></div></td></tr></table>
+<p>Node flags<br /><br />@access protected <br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : # _flags : array =  array ()</li><li>Php : protected $_flags</li></ul><a name="ref1_271234"></a>
+<table><tr><td><div class="element">Attribute <b>content</b></div></td></tr></table>
+<p>The content of this node<br />@access public <br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + content : string =  ''</li><li>Php : public $content</li></ul><a name="ref2_486786"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Constructor<br /><br />@access public <br />@param string $content The initial content of this element<br />@param int $occurredAt The position in the text where this node<br />                       occurred at. If not determinable, it is -1.<br />@see StringParser_Node_Text::content<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in content : string, in occurredAt : int = -1) : </li><li>Php : public function __construct($content, $occurredAt = -1) </li></ul><a name="ref2_486914"></a>
+<table><tr><td><div class="element">Operation <b>appendText</b></div></td></tr></table><p>Append text to content<br /><br />@access public <br />@param string $text The text to append<br />@see StringParser_Node_Text::content<br /><br /></p><p>Declaration :</p><ul><li>Uml : + appendText(in text : string) : </li><li>Php : public function appendText($text) </li></ul><a name="ref2_487042"></a>
+<table><tr><td><div class="element">Operation <b>setFlag</b></div></td></tr></table><p>Set a flag<br /><br />@access public <br />@param string $name The name of the flag<br />@param mixed $value The value of the flag<br /><br /></p><p>Declaration :</p><ul><li>Uml : + setFlag(in name : string, in value : mixed) : </li><li>Php : public function setFlag($name, $value) </li></ul><a name="ref2_487170"></a>
+<table><tr><td><div class="element">Operation <b>getFlag</b></div></td></tr></table><p>Get Flag<br /><br />@access public <br />@param string $flag The requested flag<br />@param string $type The requested type of the return value<br />@param mixed $default The default return value<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getFlag(in flag : string, in type : string = 'mixed', in default : mixed = null) : </li><li>Php : public function getFlag($flag, $type = 'mixed', $default = null) </li></ul><a name="ref2_487298"></a>
+<table><tr><td><div class="element">Operation <b>_dumpToString</b></div></td></tr></table><p>Dump this node to a string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ _dumpToString() : </li><li>Php :  function _dumpToString() </li></ul></div>
+<p>All public operations : <a href="class196482.html#ref2_484354"><b>__construct</b></a> , <a href="class196738.html#ref2_486786"><b>__construct</b></a> , <a href="class196482.html#ref2_484866"><b>appendChild</b></a> , <a href="class196738.html#ref2_486914"><b>appendText</b></a> , <a href="class196482.html#ref2_484738"><b>appendToLastTextChild</b></a> , <a href="class196482.html#ref2_485634"><b>destroyNode</b></a> , <a href="class196482.html#ref2_486530"><b>dump</b></a> , <a href="class196482.html#ref2_486018"><b>equals</b></a> , <a href="class196482.html#ref2_485378"><b>firstChild</b></a> , <a href="class196738.html#ref2_487170"><b>getFlag</b></a> , <a href="class196482.html#ref2_486402"><b>getNodeCountByCriterium</b></a> , <a href="class196482.html#ref2_486274"><b>getNodesByCriterium</b></a> , <a href="class196482.html#ref2_485122"><b>insertChildAfter</b></a> , <a href="class196482.html#ref2_484994"><b>insertChildBefore</b></a> , <a href="class196482.html#ref2_485506"><b>lastChild</b></a> , <a href="class196482.html#ref2_486146"><b>matchesCriterium</b></a> , <a href="class196482.html#ref2_484610"><b>prependChild</b></a> , <a href="class196482.html#ref2_485250"><b>removeChild</b></a> , <a href="class196738.html#ref2_487042"><b>setFlag</b></a> , <a href="class196482.html#ref2_484482"><b>type</b></a> </p>
+</body>
+</html>

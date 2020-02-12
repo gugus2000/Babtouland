@@ -1,0 +1,78 @@
+class Commentaire
+!!!495234.php!!!	getId() : int
+
+		return $this->id;
+!!!495362.php!!!	getId_auteur() : int
+
+		return $this->id_auteur;
+!!!495490.php!!!	getId_post() : int
+
+		return $this->id_post;
+!!!495618.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!495746.php!!!	getDate_publication() : string
+
+		return $this->date_publication;
+!!!495874.php!!!	getDate_mise_a_jour() : string
+
+		return $this->date_mise_a_jour;
+!!!496002.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!496130.php!!!	setId_auteur(in id_auteur : int) : void
+
+		$this->id_auteur=(int)$id_auteur;
+!!!496258.php!!!	setId_post(in id_post : int) : void
+
+		$this->id_post=(int)$id_post;
+!!!496386.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=$contenu;
+!!!496514.php!!!	setDate_publication(in date_publication : string) : void
+
+		$this->date_publication=$date_publication;
+!!!496642.php!!!	setDate_mise_a_jour(in date_mise_a_jour : string) : void
+
+		$this->date_mise_a_jour=$date_mise_a_jour;
+!!!496770.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!496898.php!!!	afficherId_auteur() : string
+
+		return htmlspecialchars((string)$this->id_auteur);
+!!!497026.php!!!	afficherid_post() : string
+
+		return htmlspecialchars((string)$this->id_post);
+!!!497154.php!!!	afficherContenu() : string
+
+		return htmlspecialchars((string)$this->contenu);
+!!!497282.php!!!	afficherDate_publication() : string
+
+		return htmlspecialchars((string)$this->date_publication);
+!!!497410.php!!!	afficherDate_mise_a_jour() : string
+
+		return htmlspecialchars((string)$this->date_mise_a_jour);
+!!!497538.php!!!	afficherDate_publicationFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_publication));
+!!!497666.php!!!	afficherDate_mise_a_jourFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_mise_a_jour));
+!!!497794.php!!!	afficher() : string
+
+		return $this->afficherContenu();
+!!!497922.php!!!	recupererAuteur() : Utilisateur
+
+		$Utilisateur=new \user\Utilisateur(array(
+			'id' => $this->getId_auteur(),
+		));
+		$Utilisateur->recuperer();
+		return $Utilisateur;
+!!!498050.php!!!	recupererPost() : Post
+
+		$Post=new \post\Post(array(
+			'id' => $this->getId_post(),
+		));
+		$Post->recuperer();
+		return $Post;

@@ -1,0 +1,71 @@
+format 222
+"lang" // Babtouland::func::xhr::lang
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/func/xhr/lang/"
+  deploymentview 216834 "lang"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 251010 "func"
+      stereotype "source"
+      php_src "<?php
+
+/**
+ * Permet l'affichage de l'array lang dans xhr/lang
+ *
+ * @return string
+ * @author gugus2000
+ **/
+function langAfficher($lang, $i=0)
+{
+	$affichage='';
+	foreach ($lang as $key => $value)
+	{
+		$affichage.=str_repeat('----',$i);
+		if (is_array($value))
+		{
+			$affichage.=(string)$key.'=><br />'.langAfficher($value,$i+1);
+		}
+		else
+		{
+			$affichage.=(string)$key.'=>'.(string)$value.'<br />';
+		}
+	}
+	return $affichage;
+}
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

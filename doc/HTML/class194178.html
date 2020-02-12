@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Managed</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Managed</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_194178"></a>
+<p>Objet managÃ© par un Manager<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Managed </li></ul><p>Directly inherited by : <a href="class197250.html#ref4_197250"><b>Commentaire</b></a> <a href="class197762.html#ref4_197762"><b>Configuration</b></a> <a href="class194050.html#ref4_194050"><b>Conversation</b></a> <a href="class194818.html#ref4_194818"><b>Message</b></a> <a href="class196098.html#ref4_196098"><b>Message</b></a> <a href="class198146.html#ref4_198146"><b>Motdepasse</b></a> <a href="class195458.html#ref4_195458"><b>Noeud</b></a> <a href="class198402.html#ref4_198402"><b>Notification</b></a> <a href="class198914.html#ref4_198914"><b>Permission</b></a> <a href="class197506.html#ref4_197506"><b>Post</b></a> <a href="class199170.html#ref4_199170"><b>Role</b></a> <a href="class199426.html#ref4_199426"><b>Utilisateur</b></a> </p>
+<p>Artifact : <a href="index.html#ref8_235010"><b>Managed.class</b></a></p>
+<div class="sub">
+<a name="ref1_264450"></a>
+<table><tr><td><div class="element">Attribute <b>CRITERES_SIMILAIRE</b></div></td></tr></table>
+<p>Constante <br /><br />CritÃ¨res (attributs) permettant de vÃ©rifier une similaritÃ©<br /><br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ CRITERES_SIMILAIRE : array = array('id'), read only</li><li>Php :  const CRITERES_SIMILAIRE</li></ul><a name="ref1_264578"></a>
+<table><tr><td><div class="element">Attribute <b>INDEX</b></div></td></tr></table>
+<p>Index<br /><br />@var mixed<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ INDEX : mixed = 'id', read only</li><li>Php :  const INDEX</li></ul><a name="ref2_469378"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Autre mÃ©thode <br /><br />Construction de l'objet<br /><br />@param array attributs Attributs de l'objet<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in attributs : array = array()) : void</li><li>Php : public function __construct($attributs = array()): void </li></ul><a name="ref2_469506"></a>
+<table><tr><td><div class="element">Operation <b>getGet</b></div></td></tr></table><p>Donne le nom de la fonction accesseur d'un attribut<br /><br />@param string attribut Attribut dont on veut l'accesseur<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getGet(in attribut : string) : string</li><li>Php : public function getGet($attribut): string </li></ul><a name="ref2_469634"></a>
+<table><tr><td><div class="element">Operation <b>getSet</b></div></td></tr></table><p>Donne le nom de la fonction dÃ©finisseur d'un attribut<br /><br />@param string attribut Attribut dont on veut le dÃ©finisseur<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getSet(in attribut : string) : string</li><li>Php : public function getSet($attribut): string </li></ul><a name="ref2_469762"></a>
+<table><tr><td><div class="element">Operation <b>getAff</b></div></td></tr></table><p>Donne le nom de la fonction affichage d'un attribut<br /><br />@param string attribut Attribut dont on veut l'afficheur<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getAff(in attribut : string) : string</li><li>Php : public function getAff($attribut): string </li></ul><a name="ref2_469890"></a>
+<table><tr><td><div class="element">Operation <b>setAffichage</b></div></td></tr></table><p>DÃ©fini l'afficheur d'un attribut<br /><br />@param string attribut Nom de l'attribut<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + setAffichage(in attribut : string) : string</li><li>Php : public function setAffichage($attribut): string </li></ul><a name="ref2_470018"></a>
+<table><tr><td><div class="element">Operation <b>hydrater</b></div></td></tr></table><p>Hydrate l'objet<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut de l'objet<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + hydrater(in attributs : array) : void</li><li>Php : public function hydrater($attributs): void </li></ul><a name="ref2_470146"></a>
+<table><tr><td><div class="element">Operation <b>Manager</b></div></td></tr></table><p>CrÃ©e une instance de la clase du manager de l'objet managÃ©<br /><br />@return Manager<br /><br /></p><p>Declaration :</p><ul><li>Uml : + Manager() : Manager</li><li>Php : public function Manager(): Manager </li></ul><a name="ref2_470274"></a>
+<table><tr><td><div class="element">Operation <b>get</b></div></td></tr></table><p>Remplir l'objet managÃ©<br /><br />@param mixed index Index de l'objet managÃ©<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + get(in index : mixed) : void</li><li>Php : public function get($index): void </li></ul><a name="ref2_470402"></a>
+<table><tr><td><div class="element">Operation <b>similaire</b></div></td></tr></table><p>VÃ©rifie si deux objets managÃ© sont identiques<br /><br />@param Managed objet L'objet qui vÃ©rifie la similaritÃ©<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + similaire(in objet : Managed) : bool</li><li>Php : public function similaire($objet): bool </li></ul><a name="ref2_470530"></a>
+<table><tr><td><div class="element">Operation <b>table</b></div></td></tr></table><p>Retourne un tableau reprÃ©sentant l'objet managÃ©<br /><br />@return array<br /><br /></p><p>Declaration :</p><ul><li>Uml : + table() : array</li><li>Php : public function table(): array </li></ul><a name="ref2_470658"></a>
+<table><tr><td><div class="element">Operation <b>recuperer</b></div></td></tr></table><p>RÃ©cupÃ¨re un objet dans la base de donnÃ©e<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + recuperer() : void</li><li>Php : public function recuperer(): void </li></ul><a name="ref2_470786"></a>
+<table><tr><td><div class="element">Operation <b>creer</b></div></td></tr></table><p>InsÃ©rer l'objet dans la base de donnÃ©e<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + creer() : void</li><li>Php : public function creer(): void </li></ul><a name="ref2_470914"></a>
+<table><tr><td><div class="element">Operation <b>modifier</b></div></td></tr></table><p>Modifie un objet dans la base de donnÃ©e<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + modifier() : void</li><li>Php : public function modifier(): void </li></ul><a name="ref2_471042"></a>
+<table><tr><td><div class="element">Operation <b>supprimer</b></div></td></tr></table><p>Supprime un objet dans la base de donnÃ©e<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + supprimer() : void</li><li>Php : public function supprimer(): void </li></ul></div>
+<p>All public operations : <a href="class194178.html#ref2_469378"><b>__construct</b></a> , <a href="class194178.html#ref2_470786"><b>creer</b></a> , <a href="class194178.html#ref2_470274"><b>get</b></a> , <a href="class194178.html#ref2_469762"><b>getAff</b></a> , <a href="class194178.html#ref2_469506"><b>getGet</b></a> , <a href="class194178.html#ref2_469634"><b>getSet</b></a> , <a href="class194178.html#ref2_470018"><b>hydrater</b></a> , <a href="class194178.html#ref2_470146"><b>Manager</b></a> , <a href="class194178.html#ref2_470914"><b>modifier</b></a> , <a href="class194178.html#ref2_470658"><b>recuperer</b></a> , <a href="class194178.html#ref2_469890"><b>setAffichage</b></a> , <a href="class194178.html#ref2_470402"><b>similaire</b></a> , <a href="class194178.html#ref2_471042"><b>supprimer</b></a> , <a href="class194178.html#ref2_470530"><b>table</b></a> </p>
+</body>
+</html>

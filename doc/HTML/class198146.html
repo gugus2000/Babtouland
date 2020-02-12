@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class Motdepasse</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class Motdepasse</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_198146"></a>
+<p>Mot de passe d'un utilisateur<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class Motdepasse extends <a href="class194178.html#ref4_194178"><b>Managed</b></a> </li></ul><p>Artifact : <a href="index.html#ref8_237570"><b>Motdepasse.class</b></a></p>
+<div class="sub">
+<a name="ref1_276738"></a>
+<table><tr><td><div class="element">Attribute <b>id</b></div></td></tr></table>
+<p>Attributs <br /><br />Id de l'utilisateur<br /><br />@var int<br /><br /></p><p>Declaration :</p><ul><li>Uml : # id : int</li><li>Php : protected $id</li></ul><a name="ref1_276866"></a>
+<table><tr><td><div class="element">Attribute <b>mdp_clair</b></div></td></tr></table>
+<p>Mot de passe en clair<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : # mdp_clair : string</li><li>Php : protected $mdp_clair</li></ul><a name="ref1_276994"></a>
+<table><tr><td><div class="element">Attribute <b>mot_de_passe</b></div></td></tr></table>
+<p>Mot de passe hashÃ©<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : # mot_de_passe : string</li><li>Php : protected $mot_de_passe</li></ul><a name="ref2_503298"></a>
+<table><tr><td><div class="element">Operation <b>getId</b></div></td></tr></table><p>Accesseurs <br /><br />Accesseur de id<br /><br />@return int<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getId() : int</li><li>Php : public function getId(): int </li></ul><a name="ref2_503426"></a>
+<table><tr><td><div class="element">Operation <b>getMdp_clair</b></div></td></tr></table><p>Accesseur de mdp_clair<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getMdp_clair() : string</li><li>Php : public function getMdp_clair(): string </li></ul><a name="ref2_503554"></a>
+<table><tr><td><div class="element">Operation <b>getMot_de_passe</b></div></td></tr></table><p>Accesseur de mot_de_passe<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getMot_de_passe() : string</li><li>Php : public function getMot_de_passe(): string </li></ul><a name="ref1_277122"></a>
+<table><tr><td><div class="element">Attribute <b>HASH_COST</b></div></td></tr></table>
+<p>Constantes <br /><br />CoÃ»t du hash (voir doc)<br /><br />@var int<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ HASH_COST : int = 6, read only</li><li>Php :  const HASH_COST</li></ul><a name="ref2_503682"></a>
+<table><tr><td><div class="element">Operation <b>setId</b></div></td></tr></table><p>DÃ©finisseurs <br /><br />DÃ©finisseur de id<br /><br />@param int id Id de l'utilisateur<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setId(in id : int) : void</li><li>Php : protected function setId($id): void </li></ul><a name="ref2_503810"></a>
+<table><tr><td><div class="element">Operation <b>setMdp_clair</b></div></td></tr></table><p>DÃ©finisseur de mdp_clair<br /><br />@param string mdp_clair Mot de passe en claire<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setMdp_clair(in mdp_clair : string) : void</li><li>Php : protected function setMdp_clair($mdp_clair): void </li></ul><a name="ref2_503938"></a>
+<table><tr><td><div class="element">Operation <b>setMot_de_passe</b></div></td></tr></table><p>DÃ©finisseur de mot_de_passe<br /><br />@param string mot_de_passe Mot de passe hashÃ©<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setMot_de_passe(in mot_de_passe : string) : void</li><li>Php : protected function setMot_de_passe($mot_de_passe): void </li></ul><a name="ref2_504066"></a>
+<table><tr><td><div class="element">Operation <b>afficherId</b></div></td></tr></table><p>Autres mÃ©thodes <br /><br />Afficheur de id<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherId() : string</li><li>Php : public function afficherId(): string </li></ul><a name="ref2_504194"></a>
+<table><tr><td><div class="element">Operation <b>afficherMdp_clair</b></div></td></tr></table><p>Afficheur de mdp_clair<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherMdp_clair() : string</li><li>Php : public function afficherMdp_clair(): string </li></ul><a name="ref2_504322"></a>
+<table><tr><td><div class="element">Operation <b>afficherMdp_hash</b></div></td></tr></table><p>Afficheur de mdp_hash<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherMdp_hash() : string</li><li>Php : public function afficherMdp_hash(): string </li></ul><a name="ref2_504450"></a>
+<table><tr><td><div class="element">Operation <b>hash</b></div></td></tr></table><p>Hash le mot de passe en clair<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + hash() : void</li><li>Php : public function hash(): void </li></ul><a name="ref2_504578"></a>
+<table><tr><td><div class="element">Operation <b>verif</b></div></td></tr></table><p>VÃ©rifie si le mot de passe en clair correspond au mot de passe hashÃ©<br /><br />@param string mot_de_passe Mot de passe en clair Ã  vÃ©rifier<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + verif(in mot_de_passe : string) : bool</li><li>Php : public function verif($mot_de_passe): bool </li></ul></div>
+<p>All public operations : <a href="class194178.html#ref2_469378"><b>__construct</b></a> , <a href="class198146.html#ref2_504066"><b>afficherId</b></a> , <a href="class198146.html#ref2_504194"><b>afficherMdp_clair</b></a> , <a href="class198146.html#ref2_504322"><b>afficherMdp_hash</b></a> , <a href="class194178.html#ref2_470786"><b>creer</b></a> , <a href="class194178.html#ref2_470274"><b>get</b></a> , <a href="class194178.html#ref2_469762"><b>getAff</b></a> , <a href="class194178.html#ref2_469506"><b>getGet</b></a> , <a href="class198146.html#ref2_503298"><b>getId</b></a> , <a href="class198146.html#ref2_503426"><b>getMdp_clair</b></a> , <a href="class198146.html#ref2_503554"><b>getMot_de_passe</b></a> , <a href="class194178.html#ref2_469634"><b>getSet</b></a> , <a href="class198146.html#ref2_504450"><b>hash</b></a> , <a href="class194178.html#ref2_470018"><b>hydrater</b></a> , <a href="class194178.html#ref2_470146"><b>Manager</b></a> , <a href="class194178.html#ref2_470914"><b>modifier</b></a> , <a href="class194178.html#ref2_470658"><b>recuperer</b></a> , <a href="class194178.html#ref2_469890"><b>setAffichage</b></a> , <a href="class194178.html#ref2_470402"><b>similaire</b></a> , <a href="class194178.html#ref2_471042"><b>supprimer</b></a> , <a href="class194178.html#ref2_470530"><b>table</b></a> , <a href="class198146.html#ref2_504578"><b>verif</b></a> </p>
+</body>
+</html>

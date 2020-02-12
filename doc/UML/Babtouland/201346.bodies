@@ -1,0 +1,11 @@
+class Bouton
+!!!525314.php!!!	__construct(in href : string, in title : string, in texte : string, in classe :  = '') : void
+
+		global $config;
+		$this->setTemplate($config['path_template'].$config['menuSide_bouton_path_template']);
+		$this->setElements(array(
+			'classe' => $classe,
+			'href'   => $href,
+			'title'  => $title,
+			'texte'  => $texte,
+		));

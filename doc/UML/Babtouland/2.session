@@ -2,10 +2,10 @@ window_sizes 1600 877 375 1220 747 84
 
 show_stereotypes
 selected 
-  package_ref 200450 // Babtouland
+  package_ref 217602 // Babtouland
 open
   
-  package_ref 200450 // Babtouland
+  package_ref 217602 // Babtouland
 end
 end
 verbose
