@@ -165,7 +165,7 @@ class Permission extends \core\Managed
 	*/
 	public function afficher()
 	{
-		htmlspecialchars($this->afficherApplication.'-'.$this->afficherAction);
+		htmlspecialchars($this->afficherApplication().'-'.$this->afficherAction());
 	}
 	/**
 	* Récupère une permission à partir de son id

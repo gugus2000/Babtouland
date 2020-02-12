@@ -363,15 +363,14 @@ class Visiteur extends Utilisateur
 	 **/
 	function verifLiens($liens)
 	{
-		$compteur=0;
 		foreach ($liens as $index => $lien)
 		{
 			if ($this->getRole()->existPermission($lien))
 			{
-				$compteur++;
+				return True;
 			}
 		}
-		return $compteur>0;
+		return False;
 	}
 
 	/**
