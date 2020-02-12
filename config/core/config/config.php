@@ -7,7 +7,7 @@ $config=array(
 				'lang' => 'FR',
 			/* Post */
 				/* Fil post */
-					'post_fil_post_nombre_posts'   => 4,	// Nombre de posts dans fil_post par défaut
+					'post_fil_post_nombre_posts' => 4,	// Nombre de posts dans fil_post par défaut
 
 		),
 	/* Paramètre non modifiable */
@@ -98,6 +98,7 @@ $config=array(
 			'defaut_application'       => 'user',
 			'lang_available'           => array('FR', 'EN'),
 			'application_modification' => 'core',
+			'format_date'              => 'Y-m-d H:i:s',
 			/* Utilisateur */
 				'chemin_avatar'       => 'assets/img/avatar/',				// Chemin vers le dossier contenant les avatars
 				'size_avatar'         => 1000000,							// Taille de l'avatar maximum
@@ -370,6 +371,7 @@ $config=array(
 				'forum_voir_dossier_enfants_lien_fil'            => array('application' => 'forum', 'action' => 'voir_fil'),
 				'forum_voir_dossier_lien_ajout'                  => array('application' => 'forum', 'action' => 'ajout'),
 				'forum_voir_dossier_lien_edition'                => array('application' => 'forum', 'action' => 'edition'),
+				'forum_voir_dossier_lien_suppression'            => array('application' => 'forum', 'action' => 'suppression'),
 				'forum_voir_dossier_parametres'                  => array('id'),
 			/* ajout */
 				'forum_ajout_parametres'        => array('id_parent'),
@@ -380,11 +382,16 @@ $config=array(
 				'forum_validation_ajout_notification_erreur_id'         => array('application' => 'forum', 'action' => 'voir_dossier'),
 				'forum_validation_ajout_parametres'                     => array('id_parent'),
 			/* voir_fil */
-				'forum_voir_fil_notification_erreur_id'  => array('application' => 'forum', 'action' => 'voir_dossier'),
-				'forum_voir_fil_notification_erreur_fil' => array('application' => 'forum', 'action' => 'voir'),
-				'forum_voir_fil_chemin_lien'             => array('application' => 'forum', 'action' => 'voir'),
-				'forum_voir_fil_message_lien_auteur'     => array('application' => 'user', 'action' => 'view'),
-				'forum_voir_fil_parametres'              => array('id'),
+				'forum_voir_fil_notification_erreur_id'   => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_voir_fil_notification_erreur_fil'  => array('application' => 'forum', 'action' => 'voir'),
+				'forum_voir_fil_chemin_lien'              => array('application' => 'forum', 'action' => 'voir'),
+				'forum_voir_fil_lien_message_edition'     => array('application' => 'forum', 'action' => 'message_edition'),
+				'forum_voir_fil_lien_message_suppression' => array('application' => 'forum', 'action' => 'message_suppression'),
+				'forum_voir_fil_lien_message_ajout'       => array('application' => 'forum', 'action' => 'message_ajout'),
+				'forum_voir_fil_lien_edition'             => array('application' => 'forum', 'action' => 'edition'),
+				'forum_voir_fil_lien_suppression'         => array('application' => 'forum', 'action' => 'suppression'),
+				'forum_voir_fil_message_lien_auteur'      => array('application' => 'user', 'action' => 'view'),
+				'forum_voir_fil_parametres'               => array('id'),
 			/* voir */
 				'forum_voir_no_id'      => array('application' => 'forum', 'action' => 'voir_dossier'),
 				'forum_voir_dossier'    => array('application' => 'forum', 'action' => 'voir_dossier'),
@@ -394,6 +401,46 @@ $config=array(
 			/* edition */
 				'forum_edition_formulaire_action' => array('application' => 'forum', 'action' => 'validation_edition'),
 				'forum_edition_parametres'        => array('id'),
+			/* validation_edition */
+				'forum_validation_edition_notification_succes'              => array('application' => 'forum', 'action' => 'voir'),
+				'forum_validation_edition_notification_erreur_formulaire'   => array('application' => 'forum', 'action' => 'edition'),
+				'forum_validation_edition_notification_erreur_autorisation' => array('application' => 'forum', 'action' => 'voir'),
+				'forum_validation_edition_notification_erreur_id'           => array('application' => 'forum', 'action' => 'voir'),
+				'forum_validation_edition_parametres'                       => array('id'),
+			/* message_ajout */
+				'forum_message_ajout_formulaire_action'        => array('application' => 'forum', 'action' => 'validation_message_ajout'),
+				'forum_message_ajout_notification_erreur_id'   => array('application' => 'forum', 'action' => 'voir'),
+				'forum_message_ajout_notification_erreur_type' => array('application' => 'forum', 'action' => 'voir'),
+				'forum_message_ajout_parametres'               => array('id_fil'),
+			/* validation_message_ajout */
+				'forum_validation_message_ajout_notification_succes'                  => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_validation_message_ajout_notification_erreur_fil'              => array('application' => 'forum', 'action' => 'voir'),
+				'forum_validation_message_ajout_notification_erreur_contenu_vide'     => array('application' => 'forum', 'action' => 'ajout_message'),
+				'forum_validation_message_ajout_notification_erreur_contenu_indefini' => array('application' => 'forum', 'action' => 'ajout_message'),
+				'forum_validation_message_ajout_notification_erreur_id'               => array('application' => 'forum', 'action' => 'voir'),
+				'forum_validation_message_ajout_parametres'                           => array('id_fil'),
+			/* message_edition */
+				'forum_message_edition_formulaire_action'                => array('application' => 'forum', 'action' => 'validation_message_edition'),
+				'forum_message_edition_notification_erreur_autorisation' => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_message_edition_notification_erreur_id'           => array('application' => 'forum', 'action' => 'voir'),
+				'forum_message_edition_parametres'                       => array('id'),
+			/* validation_message_edition */
+				'forum_validation_message_edition_notification_succes'              => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_validation_message_edition_notification_erreur_autorisation' => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_validation_message_edition_notification_erreur_vide'         => array('application' => 'forum', 'action' => 'message_edition'),
+				'forum_validation_message_edition_notification_erreur_formulaire'   => array('application' => 'forum', 'action' => 'message_edition'),
+				'forum_validation_message_edition_notification_erreur_id'           => array('application' => 'forum', 'action' => 'voir'),
+				'forum_validation_message_edition_parametres'                       => array('id'),
+			/* message_suppression */
+				'forum_message_suppression_notification_succes'              => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_message_suppression_notification_erreur_autorisation' => array('application' => 'forum', 'action' => 'voir_fil'),
+				'forum_message_suppression_notification_erreur_id'           => array('application' => 'forum', 'action' => 'voir'),
+				'forum_message_suppression_parametres'                       => array('id'),
+			/* suppression */
+				'forum_suppression_notification_succes'              => array('application' => 'forum', 'action' => 'voir_dossier'),
+				'forum_suppression_notification_erreur_autorisation' => array('application' => 'forum', 'action' => 'voir'),
+				'forum_suppression_notification_erreur_id'           => array('application' => 'forum', 'action' => 'voir'),
+				'forum_suppression_parametres'                       => array('id'),
 );
 
 ?>
