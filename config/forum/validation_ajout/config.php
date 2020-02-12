@@ -45,9 +45,9 @@ else
 {
 	$get=$config['forum_validation_ajout_notification_erreur_id'];
 	\user\page\Notification(array(
-			'type'    => \user\page\Notification::TYPE_ERREUR,
-			'contenu' => $lang['forum_validation_ajout_notification_erreur_id']
-		));
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['forum_validation_ajout_notification_erreur_id']
+	));
 }
 $Visiteur->getPage()->envoyerNotificationsSession();
 header('location: '.$Routeur->creerLien($get));

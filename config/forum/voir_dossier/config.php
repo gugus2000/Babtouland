@@ -92,6 +92,9 @@ if ($Visiteur->autorisationModification($Dossier))
 	$toast_liens['lien'][]=array_merge($config['forum_voir_dossier_lien_edition'], array($config['nom_parametres'] => array('id' => $Dossier->getId())));
 	$toast_liens['description'][] =$lang['forum_voir_dossier_lien_edition'];
 	$toast_liens['icone'][]='edit';
+	$toast_liens['lien'][]=array_merge($config['forum_voir_dossier_lien_suppression'], array($config['nom_parametres'] => array('id' => $Dossier->getId())));
+	$toast_liens['description'][] =$lang['forum_voir_dossier_lien_suppression'];
+	$toast_liens['icone'][]='delete';
 }
 if($Visiteur->verifLiens($toast_liens['lien']))
 {

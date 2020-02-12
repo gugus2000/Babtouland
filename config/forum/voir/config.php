@@ -24,6 +24,7 @@ else
 	}
 	$get[$config['nom_parametres']]=array('id' => $Dossier->getId());
 }
+$Visiteur->getPage()->envoyerNotificationsSession();
 header('location: '.$Routeur->creerLien($get));
 exit();
 

@@ -307,6 +307,20 @@ class Page
 	{
 		$this->setParametres(array_merge($this->getParametres(), array($nom => $valeur)));
 	}
+	/**
+	* Raccourci pour ajouter rapidement le titre et la description de façon automatique
+	* 
+	* @return void
+	*/
+	public function ajouterEnteteClassique()
+	{
+		global $Visiteur, $config, $lang;
+		$Visiteur->getPage()->getpageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+		$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+			'name'   => 'description',
+			'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+		));
+	}
 }
 
 ?>

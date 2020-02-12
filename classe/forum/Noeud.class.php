@@ -392,6 +392,25 @@ abstract class Noeud extends \core\Managed
 		return $resultats['type'];
 	}
 	/**
+	* Afficheur de TYPE
+	*
+	* @param int type Type du noeud
+	* 
+	* @return string
+	*/
+	public function afficherType($type)
+	{
+		switch($type)
+		{
+			case 0:
+				return 'dossier';
+			case 1:
+				return 'fil';
+			default:
+				throw new \Exception('Type unknown');
+		}
+	}
+	/**
 	* Instancie le nœud dont l'index correspond
 	*
 	* @param int index Index du nœud
@@ -400,14 +419,16 @@ abstract class Noeud extends \core\Managed
 	*/
 	static public function newNoeud($index)
 	{
-		switch ($this->getType($index))
+		$manager=new \forum\NoeudManager(\core\BDDFactory::MysqlConnexion());
+		$resultats=$manager->get($index);
+		switch ($resultats['type'])
 		{
-			case $this::TYPE_DOSSIER:
+			case self::TYPE_DOSSIER:
 				$Noeud=new \forum\Dossier(array(
 					'id' => $index,
 				));
 				break;
-			case $this::TYPE_FIL:
+			case self::TYPE_FIL:
 				$Noeud=new \forum\Fil(array(
 					'id' => $index,
 				));

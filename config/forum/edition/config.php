@@ -2,13 +2,11 @@
 
 if (isset($Visiteur->getPage()->getParametres()['id']))
 {
-	$Dossier=new \forum\Dossier(array(
-		'id' => $Visiteur->getPage()->getParametres()['id'],
-	));
-	$Dossier->recuperer();
-	if ($Visiteur->autorisationModification($Dossier))
+	$Noeud=\forum\Noeud::newNoeud($Visiteur->getPage()->getParametres()['id']);
+	$Noeud->recuperer();
+	if ($Visiteur->autorisationModification($Noeud))
 	{
-		$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre'].$Dossier->afficherNom());
+		$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre'].$Noeud->afficherNom());
 		$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 			'name'   => 'description',
 			'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
@@ -16,12 +14,12 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 		$Form=new \user\PageElement(array(
 			'template' => $config['path_template'].$Visiteur->getPage()->afficherApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
 			'elements' => array(
-				'action'            => $Routeur->creerLien(array_merge($config['forum_edition_formulaire_action'], array($config['nom_parametres'] => array('id' => $Dossier->getId())))),
+				'action'            => $Routeur->creerLien(array_merge($config['forum_edition_formulaire_action'], array($config['nom_parametres'] => array('id' => $Noeud->getId())))),
 				'legend'            => $lang['forum_edition_formulaire_legend'],
 				'label_nom'         => $lang['forum_edition_formulaire_label_nom'],
-				'value_nom'         => $Dossier->afficherNom(),
+				'value_nom'         => $Noeud->afficherNom(),
 				'label_description' => $lang['forum_edition_formulaire_label_description'],
-				'value_description' => $Dossier->afficherDescription(),
+				'value_description' => $Noeud->afficherDescription(),
 				'submit'            => $lang['forum_edition_formulaire_submit'],
 			),
 		));

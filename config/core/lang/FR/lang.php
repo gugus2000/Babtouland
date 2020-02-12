@@ -399,6 +399,7 @@ $lang=array(
 			'forum_voir_dossier_enfant_titre_lien_fil'       => 'Consulter le fil ',
 			'forum_voir_dossier_lien_ajout'                  => 'Ajouter un dossier ou un fil',
 			'forum_voir_dossier_lien_edition'                => 'Éditer ce dossier',
+			'forum_voir_dossier_lien_suppression'            => 'Supprimer ce dossier',
 		/* ajout */
 			'forum_ajout_titre'                        => 'Ajouter un nœud',
 			'forum_ajout_description'                  => 'Ajouter un nœud enfant au dossier sélectionné',
@@ -417,6 +418,9 @@ $lang=array(
 			'forum_voir_fil_notification_erreur_id'  => 'L\'id du fil est nécessaire pour voir le fil',
 			'forum_voir_fil_notification_erreur_fil' => 'Cet id ne correspond pas à un fil',
 			'forum_voir_fil_message_titre_auteur'    => 'Voir le profil de ',
+			'forum_voir_fil_lien_message_ajout'      => 'Publier un nouveau message',
+			'forum_voir_fil_lien_edition'            => 'Éditer le fil',
+			'forum_voir_fil_lien_suppression'        => 'Supprimer le fil',
 		/* edition */
 			'forum_edition_titre'                        => 'Édition de dossier',
 			'forum_edition_description'                  => 'Édition du dossier précedemment sélectionné',
@@ -426,6 +430,47 @@ $lang=array(
 			'forum_edition_formulaire_submit'            => 'ÉDITER',
 			'forum_edition_notification_erreur_droit'    => 'Vous n\'avez pas le froit d\'éditer ce nœud',
 			'forum_edition_notification_erreur_id'       => 'Il faut l\'id du nœud pour l\'éditer',
+		/* validation_edition */
+			'forum_validation_edition_notification_succes'              => 'Le noeud a bien été édité',
+			'forum_validation_edition_notification_erreur_formulaire'   => 'Le formulaire a mal été remplit',
+			'forum_validation_edition_notification_erreur_autorisation' => 'Vous n\'avez pas l\'autorisation d\'éditer ce noeud',
+			'forum_validation_edition_notification_erreur_id'           => 'Impossible de modifier un noeud sans son id',
+		/* message ajout */
+			'forum_message_ajout_titre'                    => 'Écrire un message',
+			'forum_message_ajout_description'              => 'Écrire un nouveau message dans le fil',
+			'forum_message_ajout_notification_erreur_id'   => 'Impossible de publier un message sans fil parent',
+			'forum_message_ajout_notification_erreur_type' => 'L\'id du fil ne correspond pas à un fil',
+			'forum_message_ajout_formulaire_legend'        => 'Publier un message',
+			'forum_message_ajout_formulaire_label_contenu' => 'Contenu',
+			'forum_message_ajout_formulaire_submit'        => 'PUBLIER',
+		/* validation_message_ajout */
+			'forum_validation_message_ajout_notification_succes'                  => 'Le message a bien été publié',
+			'forum_validation_message_ajout_notification_erreur_fil'              => 'L\'id du fil ne correspond pas à un fil',
+			'forum_validation_message_ajout_notification_erreur_contenu_vide'     => 'Le contenu du message est vide',
+			'forum_validation_message_ajout_notification_erreur_contenu_indefini' => 'Le formulaire a mal été remplit',
+			'forum_validation_message_ajout_notification_erreur_id'               => 'Impossible de publier un message sans fil parent',
+		/* message_edition */
+			'forum_message_edition_titre'                            => 'Éditer un message',
+			'forum_message_edition_description'                      => 'Édition d\'un message',
+			'forum_message_edition_formulaire_legend'                => 'Éditer le message',
+			'forum_message_edition_formulaire_label_contenu'         => 'Contenu',
+			'forum_message_edition_formulaire_submit'                => 'Éditer',
+			'forum_message_edition_notification_erreur_autorisation' => 'Vous n\'avez pas l\'autorisation d\'éditer ce message',
+			'forum_message_edition_notification_erreur_id'           => 'Impossible d\'éditer un message sans son id',
+		/* validation_message_edition */
+			'forum_validation_message_edition_notification_succes'              => 'Le message a bien été édité',
+			'forum_validation_message_edition_notification_erreur_autorisation' => 'Vous n\'avez pas l\'autorisation d\'éditer ce message',
+			'forum_validation_message_edition_notification_erreur_vide'         => 'Le message ne peut pas être vide',
+			'forum_validation_message_edition_notification_erreur_formulaire'   => 'Le formulaire a mal été remplit',
+			'forum_validation_message_edition_notification_erreur_id'           => 'Impossible d\'éditer un message sans id',
+		/* message_suppression */
+			'forum_message_suppression_notification_succes'              => 'Le message a bien été supprimé',
+			'forum_message_suppression_notification_erreur_autorisation' => 'Vous n\'avez pas l\'autorisation de supprimer ce message',
+			'forum_message_suppression_notification_erreur_id'           => 'Impossible de supprimer un message sans id',
+		/* suppression */
+			'forum_suppression_notification_succes'              => 'Le noeud a bien été supprimé',
+			'forum_suppression_notification_erreur_autorisation' => 'Vous n\'avez pas l\'autorisation de supprimer ce noeud',
+			'forum_suppression_notification_erreur_id'           => 'Impossible de supprimer ce noeud',
 );
 
 ?>
