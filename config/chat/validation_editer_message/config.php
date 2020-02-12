@@ -19,7 +19,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	}
 	if ($Id_utilisateurs[$index])	// Accès à la conversation
 	{
-		if(autorisationModification($ChatMessage, $this->getPage()->getApplication(), 'editer_message'))	// On peut le modifier
+		if ($Visiteur->autorisationModification($ChatMessage))	// On peut le modifier
 		{
 			$Notification=new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_SUCCES,

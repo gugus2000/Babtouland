@@ -77,7 +77,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 	$action_chat_editer='';
 	$lien_editer=$config['chat_voir_conversation_message_edition'];
 	$action_chat_supprimer='';
-	if (autorisationModification($Message, $lien_editer['application'], $lien_editer['action']))
+	if ($Visiteur->autorisationModification($Message))
 	{
 		$action_chat_editer=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_editer.html',
@@ -87,7 +87,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 		));
 	}
 	$lien_supprimer=$config['chat_voir_conversation_message_suppression'];
-	if (autorisationModification($Message, $lien_supprimer['application'], $lien_supprimer['action']))
+	if ($Visiteur->autorisationModification($Message))
 	{
 		$action_chat_supprimer=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_supprimer.html',

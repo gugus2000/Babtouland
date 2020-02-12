@@ -10,7 +10,7 @@ if(isset($Visiteur->getPage()->getParametres()['id']))
 			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Post->recuperer();
-		if(autorisationModification($Post, $this->getPage()->getApplication(), $this->getPage()->getAction()))
+		if($Visiteur->autorisationModification($Post))
 		{
 			$Notification=new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_SUCCES,

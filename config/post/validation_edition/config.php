@@ -13,7 +13,7 @@ if(isset($Visiteur->getPage()->getParametres()['id']) & isset($_POST['edition_ti
 			'contenu'          => $_POST['edition_contenu'],
 			'date_mise_a_jour' => date('Y-m-d H:i:s'),
 		));
-		if(autorisationModification($Post, $this->getPage()->getApplication(), $this->getPage()->getAction()))
+		if($Visiteur->autorisationModification($Post))
 		{
 			$Notification=new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_SUCCES,

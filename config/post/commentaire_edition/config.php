@@ -9,7 +9,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Commentaire->recuperer();
-		if (autorisationModification($Commentaire, $this->getPage()->getApplication(), $this->getPage()->getAction()))
+		if ($Visiteur->autorisationModification($Commentaire))
 		{
 			$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
 			$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(

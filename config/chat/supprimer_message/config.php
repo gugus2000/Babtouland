@@ -19,7 +19,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	}
 	if ($Id_utilisateurs[$index])
 	{
-		if (autorisationModification($Message, $this->getPage()->getApplication(), $this->getPage()->getAction()))
+		if ($Visiteur->autorisationModification($Message))
 		{
 			$Notification=new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_SUCCES,

@@ -40,7 +40,7 @@ $Commentaires=$Post->recupererCommentaires();
 foreach ($Commentaires as $index => $Commentaire)
 {
 	$autorisation='';
-	if(autorisationModification($Commentaire, 'post', 'commentaire_suppression'))
+	if($Visiteur->autorisationModification($Commentaire))
 	{
 		$autorisation=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/autorisation_commentaire.html',

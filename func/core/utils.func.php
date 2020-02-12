@@ -51,24 +51,6 @@ function loadClass($className)
 }
 
 /**
- * Vérifie l'autorisation pour l'édition ou la suppression d'un objet
- *
- * @param mixed Objet Objet qui va être modifié
- * 
- * @param string application Application de la page
- * 
- * @param string action Action de la page
- * 
- * @return bool
- * @author gugus2000
- **/
-function autorisationModification($Objet, $application, $action)
-{
-	global $Visiteur, $config;
-	return ($Objet->recupererAuteur()->similaire($Visiteur) | $Visiteur->getRole()->existPermission(array('application' =>$config[$application.'_'.$action.'_admin_application'], 'action' => $config[$application.'_'.$action.'_admin_action'])));
-}
-
-/**
  * Vérifie si au moins un lien de la liste est ouvert d'accès au visiteur
  *
  * @param Visiteur Visiteur Visiteur à vérifier
