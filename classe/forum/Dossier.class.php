@@ -49,6 +49,30 @@ class Dossier extends \forum\Noeud
 		}
 		return $array;
 	}
+	/**
+	* Retourne le dernier Message posté
+	* 
+	* @return \forum\Message
+	*/
+	public function recentMessage()
+	{
+		foreach ($this->recupererEnfants() as $Enfant)
+		{
+			$Message=$Enfant->recentMessage();
+			if (!isset($dernierMessage))
+			{
+				$dernierMessage=$Message;
+			}
+			else
+			{
+				if ($dernierMessage->getDate_maj()<$Message->getDate_maj())
+				{
+					$dernierMessage=$Message;
+				}
+			}
+		}
+		return $dernierMessage;
+	}
 
 } // END class Dossier extends \forum\Noeud
 

@@ -40,6 +40,15 @@ class Fil extends \forum\Noeud
 		}
 		return $array;
 	}
+	/**
+	* Récupère le dernier message posté
+	* 
+	* @return \forum\Message
+	*/
+	public function recentMessage()
+	{
+		return $this->recupererMessages()[0];
+	}
 
 } // END class Fil extends \forum\Noeud
 
