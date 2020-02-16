@@ -52,7 +52,7 @@ $Bandeau=new \user\PageElement(array(
 	),
 ));
 $messages=array();
-foreach ($Fil->recupererMessages() as $Message)
+foreach ($Fil->recupererMessages(0,10) as $Message)
 {
 	$Auteur=new \user\Utilisateur(array(
 		'id' => $Message->getId_auteur(),

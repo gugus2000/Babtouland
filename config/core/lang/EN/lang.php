@@ -26,8 +26,8 @@ $lang=array(
 		'menu-up_accueil'    => 'Home',
 		'menu-up_altlogo'    => 'Logo of ',
 		'menu-up_avatar'     => 'Your avatar',
-		'menu-up_titres'     => array('Home', 'Post thread', 'About', 'Chat', 'Admin'),
-		'menu-up_affichages' => array('Home', 'Post', 'About', 'Chat', 'Admin'),
+		'menu-up_titres'     => array('Home', 'Post thread', 'About', 'Chat', 'Forum', 'Admin'),
+		'menu-up_affichages' => array('Home', 'Post', 'About', 'Chat', 'Forum', 'Admin'),
 	/* tete */
 		'tete_titre' => 'untitled',
 	/* temps */

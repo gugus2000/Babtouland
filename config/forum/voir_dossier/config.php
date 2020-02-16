@@ -70,7 +70,7 @@ foreach ($Dossier->recupererEnfants(0,100) as $Enfant)
 			'lien'        => $Routeur->creerLien(array_merge($lien_base, array($config['nom_parametres'] => array('id' => $Enfant->afficherId())))),
 			'titre_lien'  => $lien_titre.$Enfant->afficherNom(),
 			'nom'         => $Enfant->afficherNom(),
-			'description' => $Enfant->afficherDescription().'/'.\forum\Noeud::newNoeud($Dossier->recentMessage()->getId_fil())->getNom(),
+			'description' => $Enfant->afficherDescription().'/'.\forum\Noeud::newNoeud($Enfant->recentMessage()->getId_fil())->getNom(),
 		),
 	));
 }

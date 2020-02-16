@@ -56,18 +56,21 @@ class Dossier extends \forum\Noeud
 	*/
 	public function recentMessage()
 	{
-		foreach ($this->recupererEnfants() as $Enfant)
+		foreach ($this->recupererEnfants(0,10) as $Enfant)
 		{
 			$Message=$Enfant->recentMessage();
 			if (!isset($dernierMessage))
 			{
 				$dernierMessage=$Message;
+				$dernierDateMessage=new \DateTime($dernierMessage->getDate_maj());
 			}
 			else
 			{
-				if ($dernierMessage->getDate_maj()<$Message->getDate_maj())
+				$dateMessage=new \DateTime($Message->getDate_maj());
+				if ($dernierDateMessage<$dateMessage)
 				{
 					$dernierMessage=$Message;
+					$dernierDateMessage=$dateMessage;
 				}
 			}
 		}

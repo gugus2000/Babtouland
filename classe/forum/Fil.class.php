@@ -47,7 +47,8 @@ class Fil extends \forum\Noeud
 	*/
 	public function recentMessage()
 	{
-		return $this->recupererMessages()[0];
+		$MessageManager=new \forum\MessageManager(\core\BDDFactory::MysqlConnexion());
+		return new \forum\Message($MessageManager->getBy(array('id_fil' => $this->getId()), array('id_fil' => '='), array('fin' => 0, 'ordre' => 'date_publication'))[0]);
 	}
 
 } // END class Fil extends \forum\Noeud
