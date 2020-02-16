@@ -373,7 +373,7 @@ class Routeur
 		}
 		if (isset($parametres[$config['nom_parametres']]))
 		{
-			$parametres_string=implode('/', $parametres['parametres']);
+			$parametres_string=implode('/', $parametres[$config['nom_parametres']]);
 		}
 		else
 		{

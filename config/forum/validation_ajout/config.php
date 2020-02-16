@@ -16,17 +16,25 @@ if (isset($Visiteur->getPage()->getParametres()['id_parent']))
 		{
 			case \forum\Noeud::TYPE_DOSSIER:
 				$Noeud=new \forum\Dossier($attributs);
-				$action='voir_dossier';
+				$Noeud->creer();
+				$get=array_merge($config['forum_validation_ajout_notification_succes_dossier'], array($config['nom_parametres'] => array('id_parent' => $Noeud->getId())));
+				new \user\page\Notification(array(
+					'type'    => \user\page\Notification::TYPE_ATTENTION,
+					'contenu' => $lang['forum_validation_ajout_renseignement_recursion'],
+				));
 				break;
 			case \forum\Noeud::TYPE_FIL:
 				$Noeud=new \forum\Fil($attributs);
-				$action='voir_fil';
+				$Noeud->creer();
+				$get=array_merge($config['forum_validation_ajout_notification_succes_fil'], array($config['nom_parametres'] => array('id_fil' => $Noeud->getId())));
+				new \user\page\Notification(array(
+					'type'    => \user\page\Notification::TYPE_ATTENTION,
+					'contenu' => $lang['forum_validation_ajout_renseignement_fil'],
+				));
 				break;
 			default:
 				throw new \UnexpectedValueException((string)$_POST['type'].' not exist');
 		}
-		$Noeud->creer();
-		$get=array_merge($config['forum_validation_ajout_notification_succes'], array('action' => $action, $config['nom_parametres'] => array('id' => $Noeud->getId())));
 		new \user\page\Notification(array(
 			'type'    => \user\page\Notification::TYPE_SUCCES,
 			'contenu' => $lang['forum_validation_ajout_notification_succes'],

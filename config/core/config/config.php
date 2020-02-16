@@ -377,7 +377,8 @@ $config=array(
 				'forum_ajout_parametres'        => array('id_parent'),
 				'forum_ajout_formulaire_action' => array('application' => 'forum', 'action' => 'validation_ajout'),
 			/* validation_ajout */
-				'forum_validation_ajout_notification_succes'            => array('application' => 'forum'),
+				'forum_validation_ajout_notification_succes_dossier'    => array('application' => 'forum', 'action' => 'ajout'),
+				'forum_validation_ajout_notification_succes_fil'        => array('application' => 'forum', 'action' => 'message_ajout'),
 				'forum_validation_ajout_notification_erreur_formulaire' => array('application' => 'forum', 'action' => 'voir_dossier'),
 				'forum_validation_ajout_notification_erreur_id'         => array('application' => 'forum', 'action' => 'voir_dossier'),
 				'forum_validation_ajout_parametres'                     => array('id_parent'),

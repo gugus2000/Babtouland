@@ -409,6 +409,8 @@ $lang=array(
 			'forum_ajout_formulaire_label_type'        => 'Type du nœud: ',
 			'forum_ajout_formulaire_submit'            => 'AJOUTER',
 		/* validation_ajout */
+			'forum_validation_ajout_renseignement_recursion'        => 'Pour éviter l\'existence de dossier vide inutile, il vous est demandé de recréer un noeud tant que celui que vous avez crée n\'est pas un fil',
+			'forum_validation_ajout_renseignement_fil'              => 'Pour éviter l\'existence de fil vide inutile, il vous est demandé de créer un premier message pour ce fil',
 			'forum_validation_ajout_notification_succes'            => 'Le nœud a bien été créé',
 			'forum_validation_ajout_notification_erreur_formulaire' => 'Le formulaire a mal été remplit',
 			'forum_validation_ajout_notification_erreur_id'         => 'Un id est nécessaire pour créer un nœeud',
@@ -428,7 +430,7 @@ $lang=array(
 			'forum_edition_formulaire_label_nom'         => 'Nom',
 			'forum_edition_formulaire_label_description' => 'Description',
 			'forum_edition_formulaire_submit'            => 'ÉDITER',
-			'forum_edition_notification_erreur_droit'    => 'Vous n\'avez pas le froit d\'éditer ce nœud',
+			'forum_edition_notification_erreur_droit'    => 'Vous n\'avez pas le droit d\'éditer ce nœud',
 			'forum_edition_notification_erreur_id'       => 'Il faut l\'id du nœud pour l\'éditer',
 		/* validation_edition */
 			'forum_validation_edition_notification_succes'              => 'Le noeud a bien été édité',
