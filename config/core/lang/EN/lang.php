@@ -388,6 +388,91 @@ $lang=array(
 	/* xhr */
 		/* lang */
 			'xhr_lang_message_probleme_key' => 'The key does\' exist (anymore?)',
+	/* forum */
+		'forum_nom_type_0' => 'Folder',
+		'forum_nom_type_1' => 'Thread',
+		/* voir_dossier */
+			'forum_voir_dossier_titre'                       => 'Folder: ',
+			'forum_voir_dossier_description'                 => 'Consult the forum folders',
+			'forum_voir_dossier_notification_erreur_dossier' => 'This id doesn\'t match a folder',
+			'forum_voir_dossier_enfant_titre_lien_dossier'   => 'Consult the folder ',
+			'forum_voir_dossier_enfant_titre_lien_fil'       => 'Consult the thread ',
+			'forum_voir_dossier_lien_ajout'                  => 'Add a folder or a thread',
+			'forum_voir_dossier_lien_edition'                => 'Edit this folder',
+			'forum_voir_dossier_lien_suppression'            => 'Delete this folder',
+		/* ajout */
+			'forum_ajout_titre'                        => 'Add a node',
+			'forum_ajout_description'                  => 'Add a child node to the selected folder',
+			'forum_ajout_formulaire_legend'            => 'Add a node',
+			'forum_ajout_formulaire_label_nom'         => 'Name of the node: ',
+			'forum_ajout_formulaire_label_description' => 'Description of the node: ',
+			'forum_ajout_formulaire_label_type'        => 'Node type: ',
+			'forum_ajout_formulaire_submit'            => 'ADD',
+		/* validation_ajout */
+			'forum_validation_ajout_renseignement_recursion'        => 'To avoid unnecessary empty folders, you\'re required to recreate a node until the one you created is a thread',
+			'forum_validation_ajout_renseignement_fil'              => 'To avoid unnecessary empty threads, you are asked to create an initial message for that thread',
+			'forum_validation_ajout_notification_succes'            => 'Node well created',
+			'forum_validation_ajout_notification_erreur_formulaire' => 'Form not completed',
+			'forum_validation_ajout_notification_erreur_id'         => 'An id is required to create a node.',
+		/* voir_fil */
+			'forum_voir_fil_titre'                   => 'Thread: ',
+			'forum_voir_fil_description'             => 'View forum threads',
+			'forum_voir_fil_notification_erreur_id'  => 'You need the thread\'s id to see it',
+			'forum_voir_fil_notification_erreur_fil' => 'This id doesn\'t match a thread',
+			'forum_voir_fil_message_titre_auteur'    => 'View profile of  ',
+			'forum_voir_fil_lien_message_ajout'      => 'Post a new message',
+			'forum_voir_fil_lien_edition'            => 'Edit the thread',
+			'forum_voir_fil_lien_suppression'        => 'Delete the thread',
+		/* edition */
+			'forum_edition_titre'                        => 'Edit the folder',
+			'forum_edition_description'                  => 'Editing the previously selected folder',
+			'forum_edition_formulaire_legend'            => 'Edit the folder',
+			'forum_edition_formulaire_label_nom'         => 'Name',
+			'forum_edition_formulaire_label_description' => 'Description',
+			'forum_edition_formulaire_submit'            => 'EDIT',
+			'forum_edition_notification_erreur_droit'    => 'You have no right to edit this node',
+			'forum_edition_notification_erreur_id'       => 'You need the node id to edit it',
+		/* validation_edition */
+			'forum_validation_edition_notification_succes'              => 'Node well edited',
+			'forum_validation_edition_notification_erreur_formulaire'   => 'Form not completed',
+			'forum_validation_edition_notification_erreur_autorisation' => 'You have no right to edit this node',
+			'forum_validation_edition_notification_erreur_id'           => 'You need the node id to edit it',
+		/* message ajout */
+			'forum_message_ajout_titre'                    => 'Write a message',
+			'forum_message_ajout_description'              => 'Write a new message in the thread',
+			'forum_message_ajout_notification_erreur_id'   => 'Unable to publish a message without a parent thread',
+			'forum_message_ajout_notification_erreur_type' => 'The id doesn\'t match a thread',
+			'forum_message_ajout_formulaire_legend'        => 'Post a message',
+			'forum_message_ajout_formulaire_label_contenu' => 'Content',
+			'forum_message_ajout_formulaire_submit'        => 'POST',
+		/* validation_message_ajout */
+			'forum_validation_message_ajout_notification_succes'                  => 'Message well posted',
+			'forum_validation_message_ajout_notification_erreur_fil'              => 'The id doesn\'t match a thread',
+			'forum_validation_message_ajout_notification_erreur_contenu_vide'     => 'The message content is empty',
+			'forum_validation_message_ajout_notification_erreur_contenu_indefini' => 'Form not completed',
+			'forum_validation_message_ajout_notification_erreur_id'               => 'Unable to publish a message without a parent thread',
+		/* message_edition */
+			'forum_message_edition_titre'                            => 'Edit a message',
+			'forum_message_edition_description'                      => 'Editing a message',
+			'forum_message_edition_formulaire_legend'                => 'Edit the message',
+			'forum_message_edition_formulaire_label_contenu'         => 'Content',
+			'forum_message_edition_formulaire_submit'                => 'Edit',
+			'forum_message_edition_notification_erreur_autorisation' => 'You do not have permission to edit this message',
+			'forum_message_edition_notification_erreur_id'           => 'You can\'t edit a post without an id',
+		/* validation_message_edition */
+			'forum_validation_message_edition_notification_succes'              => 'Message well edited',
+			'forum_validation_message_edition_notification_erreur_autorisation' => 'You do not have permission to edit this message',
+			'forum_validation_message_edition_notification_erreur_vide'         => 'The message content is empty',
+			'forum_validation_message_edition_notification_erreur_formulaire'   => 'Form not completed',
+			'forum_validation_message_edition_notification_erreur_id'           => 'You can\'t edit a post without an id',
+		/* message_suppression */
+			'forum_message_suppression_notification_succes'              => 'Message well deleted',
+			'forum_message_suppression_notification_erreur_autorisation' => 'You do not have permission to delete this message',
+			'forum_message_suppression_notification_erreur_id'           => 'You can\'t delete a post without an id',
+		/* suppression */
+			'forum_suppression_notification_succes'              => 'Node well deleted',
+			'forum_suppression_notification_erreur_autorisation' => 'You do not have permission to delete this node',
+			'forum_suppression_notification_erreur_id'           => 'You cannot delete this node',
 );
 
 ?>
