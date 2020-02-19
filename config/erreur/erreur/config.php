@@ -2,6 +2,11 @@
 
 global $e;
 
+if (!isset($e))
+{
+	throw new \Exception($lang['erreur_erreur_no_erreur']);
+}
+
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
 $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
 	'name'    => 'description',
@@ -10,7 +15,8 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 
 ob_start();?>
 <section class="contenu">
-	<?= htmlspecialchars($e->getMessage()) ?>
+	<?= htmlspecialchars($e->getMessage()).'<br />' ?>
+	<?= $lang['erreur_erreur_explication'].'<a href="'.$Routeur->creerLien(array('application' => 'utile', 'action' => 'a_propos')).'">'. $lang['erreur_erreur_explication_ici'] .'</a>.' ?>
 </section>
 <?php
 $Contenu=ob_get_clean();

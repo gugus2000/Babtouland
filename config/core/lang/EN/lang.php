@@ -19,11 +19,9 @@ $lang=array(
 		'classe_core_routeur_arguments' => 'There are more arguments than expected',
 	/* erreur */
 		'erreur_general_fichier_introuvable'         => 'Page not found',
-		'erreur_general_autorisations_insuffisantes' => 'Don\'t have permission',
+		'erreur_general_autorisations_insuffisantes' => 'You have not the permission to access to this webpage, or this page does not exist (anymore?).',
 		'erreur_connexion_mot_de_passe'              => 'Login error',
-		'erreur_connexion_utilisateur'               => 'User don\'t exist',
-		'erreur_titre'                               => 'Error',
-		'erreur_description'                         => 'Error page',
+		'erreur_connexion_utilisateur'               => 'User doesn\'t exist',
 	/* menu-up */
 		'menu-up_accueil'    => 'Home',
 		'menu-up_altlogo'    => 'Logo of ',
@@ -276,10 +274,11 @@ $lang=array(
 			'post_commentaire_validation_edition_message_succes'     => 'Comment well edited',
 	/* erreur */
 		/* erreur */
-			'erreur_erreur_titre'       => 'Error',
-			'erreur_erreur_description' => 'Error page',
+			'erreur_erreur_titre'           => 'Error',
 			'erreur_erreur_description'     => 'Error page',
 			'erreur_erreur_explication'     => 'This is an error page. You can report me this error with the form ',
+			'erreur_erreur_explication_ici' => 'here',
+			'erreur_erreur_no_erreur'       => 'Trying to access this webpage without error',
 	/* chat */
 		'chat_mp_nom_conversation_debut'          => 'PM between ',
 		'chat_mp_nom_conversation_milieu'         => ' and ',

@@ -12,6 +12,7 @@ initOutputFilter();
 spl_autoload_register('loadClass');
 $Routeur=new \core\Routeur(initRoutageSession());
 require_once 'config/core/config/config.php';
+require $config['path_lang'].$config['config_utilisateur']['lang'].'/lang.php';
 
 try
 {
@@ -28,7 +29,6 @@ try
 		}
 		else
 		{
-			require $config['path_lang'].$config['config_utilisateur']['lang'].'/lang.php';
 			throw new Exception($lang['erreur_connexion_utilisateur']);
 		}
 	}
@@ -44,11 +44,11 @@ try
 }
 catch (Exception $e)
 {
-	echo '<pre>';
+	/*echo '<pre>';
 	var_dump($e->getMessage());
 	print_r($e->getTrace());
 	echo '</pre>';
-	die();
+	die();*/
 	if (!isset($Visiteur))
 	{
 		$Visiteur=new \user\Visiteur(array(

@@ -19,11 +19,9 @@ $lang=array(
 		'classe_core_routeur_arguments' => 'Il y a plus d\'arguments que prévu',
 	/* erreur */
 		'erreur_general_fichier_introuvable'         => 'Page non trouvé',
-		'erreur_general_autorisations_insuffisantes' => 'Pas la permission',
+		'erreur_general_autorisations_insuffisantes' => 'Vous n\'avez pas la permission de consulter cette page, ou cette page n\'existe pas/plus.',
 		'erreur_connexion_mot_de_passe'              => 'Problème lors de la connexion',
 		'erreur_connexion_utilisateur'               => 'L\'utilisateur n\'existe pas',
-		'erreur_titre'                               => 'Erreur',
-		'erreur_description'                         => 'Page d\'erreur',
 	/* menu-up */
 		'menu-up_accueil'    => 'Accueil',
 		'menu-up_altlogo'    => 'Logo de ',
@@ -276,8 +274,11 @@ $lang=array(
 			'post_commentaire_validation_edition_message_succes'     => 'Commentaire bien édité',
 	/* erreur */
 		/* erreur */
-			'erreur_erreur_titre'       => 'Erreur',
-			'erreur_erreur_description' => 'Page d\'erreur',
+			'erreur_erreur_titre'           => 'Erreur',
+			'erreur_erreur_description'     => 'Page d\'erreur',
+			'erreur_erreur_explication'     => 'Ceci est une page d\'erreur. Vous pouvez me rapporter cette erreur via le formulaire ',
+			'erreur_erreur_explication_ici' => 'ici',
+			'erreur_erreur_no_erreur'       => 'Tentative d\'accès à la page sans erreur',
 	/* chat */
 		'chat_mp_nom_conversation_debut'          => 'MP entre ',
 		'chat_mp_nom_conversation_milieu'         => ' et ',
