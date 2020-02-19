@@ -44,7 +44,16 @@ class Notification extends \user\PageElement
 		global $config, $lang, $Visiteur;
 		if (!$Page)
 		{
-			$Page=$Visiteur->getPage()->getPageElement();
+			if ($Visiteur->getPage()!=null)
+			{
+				$Page=$Visiteur->getPage()->getPageElement();
+			}
+			else 	// On crée la notification avant le chargement de la page
+			{
+				$this->setTemplate($config['path_template'].$config['notification_path_template']);
+				$this->setElements($elements);
+				return null;
+			}
 		}
 		$this->setTemplate($config['path_template'].$config['notification_path_template']);
 		$this->setElements($elements);

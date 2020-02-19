@@ -15,7 +15,9 @@ $lang=array(
 				'full' => 'English',
 			),
 		),
-	/* Erreur */
+	/* classe */
+		'classe_core_routeur_arguments' => 'Il y a plus d\'arguments que prévu',
+	/* erreur */
 		'erreur_general_fichier_introuvable'         => 'Page non trouvé',
 		'erreur_general_autorisations_insuffisantes' => 'Pas la permission',
 		'erreur_connexion_mot_de_passe'              => 'Problème lors de la connexion',

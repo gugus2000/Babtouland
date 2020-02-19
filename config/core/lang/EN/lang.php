@@ -15,7 +15,9 @@ $lang=array(
 				'full' => 'Français',
 			),
 		),
-	/* Erreur */
+	/* classe */
+		'classe_core_routeur_arguments' => 'There are more arguments than expected',
+	/* erreur */
 		'erreur_general_fichier_introuvable'         => 'Page not found',
 		'erreur_general_autorisations_insuffisantes' => 'Don\'t have permission',
 		'erreur_connexion_mot_de_passe'              => 'Login error',
@@ -276,6 +278,8 @@ $lang=array(
 		/* erreur */
 			'erreur_erreur_titre'       => 'Error',
 			'erreur_erreur_description' => 'Error page',
+			'erreur_erreur_description'     => 'Error page',
+			'erreur_erreur_explication'     => 'This is an error page. You can report me this error with the form ',
 	/* chat */
 		'chat_mp_nom_conversation_debut'          => 'PM between ',
 		'chat_mp_nom_conversation_milieu'         => ' and ',

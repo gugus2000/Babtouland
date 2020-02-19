@@ -172,74 +172,70 @@ class Routeur
 	*/
 	public function recupererWithFullRoute($url)
 	{
-		global $config, $Visiteur;
-		$Permissisons=$Visiteur->getRole()->getPermissions();
+		global $lang, $config, $Visiteur;
+		$Permissions=$Visiteur->getRole()->getPermissions();
 		$liste_applications=array();
-		foreach($Permissisons as $Permission)
+		$liste_actions=array();
+		foreach($Permissions as $Permission)
 		{
 			if (!in_array($Permission->getApplication(), $liste_applications))
 			{
 				$liste_applications[]=$Permission->getApplication();
 			}
+			if (!in_array($Permission->getAction(), $liste_actions))
+			{
+				$liste_actions[]=$Permission->getAction();
+			}
+			$liste_couple[$Permission->getAction()]=$Permission->getApplication();
 		}
 		$liste=explode('/', trim(strtok(getenv('REQUEST_URI'), '?'), '/'));
-		$array=array();
-		$offset=0;
-		if (isset($liste[$offset]))
+		$parametres=array();
+		$possible_parametres=array();
+		foreach ($liste as $element)
 		{
-			if (in_array($liste[$offset], $liste_applications))
+			if (in_array($element, $config['lang_available']))
 			{
-				$application=$liste[$offset];
-				$offset++;
+				$parametres['lang']=$element;
+			}
+			else if (in_array($element, $liste_applications))
+			{
+				$application=$element;
+			}
+			else if (in_array($element, $liste_actions))
+			{
+				$action=$element;
+			}
+			else
+			{
+				$possible_parametres[]=$element;
+			}
+		}
+		if (!isset($application))
+		{
+			if (isset($action))
+			{
+				$application=$liste_couple[$action];
 			}
 			else
 			{
 				$application=$config['defaut_application'];
 			}
 		}
-		else
+		if (!isset($action))
 		{
-			$application=$config['defaut_application'];
+			$action=$config['defaut_'.$application.'_action'];
 		}
-		$liste_actions=array();
-		foreach($Permissisons as $Permission)
+		$offset=0;
+		foreach ($possible_parametres as $possible_element)
 		{
-			if (!in_array($Permission->getAction(), $liste_actions))
+			if (isset($config[$application.'_'.$action.'_parametres'][$offset]))
 			{
-				$liste_actions[]=$Permission->getAction();
-			}
-		}
-		if (isset($liste[$offset]))
-		{
-			if (in_array($liste[$offset], $liste_actions))
-			{
-				$action=$liste[$offset];
+				$parametres[$config[$application.'_'.$action.'_parametres'][$offset]]=$possible_element;
 				$offset++;
 			}
 			else
 			{
-				$action=$config['defaut_'.$application.'_action'];
-			}
-		}
-		else
-		{
-			$action=$config['defaut_'.$application.'_action'];
-		}
-		$liste=array_slice($liste, $offset);
-		$parametres=array();
-		if (isset($config[$application.'_'.$action.'_parametres']))
-		{
-			$merge_1=$config[$application.'_'.$action.'_parametres'];
-		}
-		else
-		{
-			$merge_1=array();
-		}
-		foreach (array_merge($merge_1, array('lang')) as $index => $nom)
-		{
-			if (isset($liste[$index]))
-			{
-				$parametres[$nom]=$liste[$index];
+				new \core\Exception\Warning($lang['classe_core_routeur_arguments']);
 			}
 		}
 		return array(

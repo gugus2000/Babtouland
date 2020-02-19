@@ -253,7 +253,7 @@ class Page
 	* 
 	* @return void
 	*/
-	public function ajouterNotificationSession($Notification)
+	static public function ajouterNotificationSession($Notification)
 	{
 		if (isset($_SESSION['notifications']))
 		{
