@@ -40,5 +40,6 @@ $Carte=new \user\page\Carte($contenu);
 $Tete=new \user\page\MenuUp();
 $Corps=new \user\page\Corps($Tete, $Carte, '');
 $Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
+$Visiteur->getPage()->getPageElement()->ajouterElement($config['temps_nom'], new \user\page\Temps((string)(microtime(true)-$GLOBALS['time_start'])));
 
 ?>
