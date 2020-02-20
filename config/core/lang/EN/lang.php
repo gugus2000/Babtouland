@@ -16,7 +16,9 @@ $lang=array(
 			),
 		),
 	/* classe */
-		'classe_core_routeur_arguments' => 'There are more arguments than expected',
+		/* core */
+			'classe_core_routeur_arguments'   => 'There are more arguments than expected',
+			'classe_core_routeur_no_argument' => 'There\'s one or more arguments missing',
 	/* erreur */
 		'erreur_general_fichier_introuvable'         => 'Page not found',
 		'erreur_general_autorisations_insuffisantes' => 'You have not the permission to access to this webpage, or this page does not exist (anymore?).',

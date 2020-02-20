@@ -21,6 +21,7 @@ class Warning extends \Exception
 	public function __construct($contenu)
 	{
 		global $Visiteur;
+		parent::__construct($contenu);
 		if (isset($Visiteur))
 		{
 			$Notification=new \user\page\Notification(array(

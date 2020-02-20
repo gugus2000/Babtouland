@@ -127,7 +127,7 @@ class PageElement
 	*/
 	public function afficherElements()
 	{
-		return htmlspecialchars(print_r($this->elements));
+		return print_r($this->elements);
 	}
 	/**
 	* Affichage d'une array sans fonctions

@@ -193,21 +193,24 @@ class Routeur
 		$possible_parametres=array();
 		foreach ($liste as $element)
 		{
-			if (in_array($element, $config['lang_available']))
+			if (!empty($element))
 			{
-				$parametres['lang']=$element;
-			}
-			else if (in_array($element, $liste_applications))
-			{
-				$application=$element;
-			}
-			else if (in_array($element, $liste_actions))
-			{
-				$action=$element;
-			}
-			else
-			{
-				$possible_parametres[]=$element;
+				if (in_array($element, $config['lang_available']))
+				{
+					$parametres['lang']=$element;
+				}
+				else if (in_array($element, $liste_applications))
+				{
+					$application=$element;
+				}
+				else if (in_array($element, $liste_actions))
+				{
+					$action=$element;
+				}
+				else
+				{
+					$possible_parametres[]=$element;
+				}
 			}
 		}
 		if (!isset($application))
@@ -225,15 +228,31 @@ class Routeur
 		{
 			$action=$config['defaut_'.$application.'_action'];
 		}
-		$offset=0;
-		foreach ($possible_parametres as $possible_element)
+		if (isset($config[$application.'_'.$action.'_parametres']))
 		{
-			if (isset($config[$application.'_'.$action.'_parametres'][$offset]))
+			foreach ($config[$application.'_'.$action.'_parametres'] as $nom => $params)
 			{
-				$parametres[$config[$application.'_'.$action.'_parametres'][$offset]]=$possible_element;
-				$offset++;
+				foreach ($possible_parametres as $key => $possible_parametre)
+				{
+					if (preg_match('#'.$params['regex'].'#', $possible_parametre))
+					{
+						$parametres[$nom]=$possible_parametre;
+						unset($possible_parametres[$key]);
+						break;
+					}
+				}
+				if ($params['necessaire'])
+				{
+					if (!isset($parametres[$nom]))		// Argument non présent
+					{
+						/*throw */new \core\Exception\Warning($lang['classe_core_routeur_no_argument']);
+					}
+				}
 			}
-			else
+		}
+		if (isset($possible_parametres))
+		{
+			if (!empty($possible_parametres))
 			{
 				new \core\Exception\Warning($lang['classe_core_routeur_arguments']);
 			}
