@@ -1,0 +1,837 @@
+format 222
+"page" // Babtouland::classe::user::page
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/user/page/"
+  php_namespace "user\\page"
+  deploymentview 224514 "page"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 263170 "Carte.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 214402 // Carte
+      end
+    end
+
+    artifact 263298 "Corps.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 214530 // Corps
+      end
+    end
+
+    artifact 263426 "Dropdown.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 214658 // Dropdown
+      end
+    end
+
+    artifact 263554 "Formulaire.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 214786 // Formulaire
+      end
+    end
+
+    artifact 263682 "MenuSide.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 214914 // MenuSide
+      end
+    end
+
+    artifact 263810 "MenuUp.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 215042 // MenuUp
+      end
+    end
+
+    artifact 263938 "Notification.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 215170 // Notification
+      end
+    end
+
+    artifact 264066 "Page.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 215298 // Page
+      end
+    end
+
+    artifact 264194 "Temps.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 215426 // Temps
+      end
+    end
+
+    artifact 264322 "Tete.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 215554 // Tete
+      end
+    end
+
+    artifact 264450 "Toast.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 215682 // Toast
+      end
+    end
+  end
+
+  classview 173314 "page"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 214402 "Carte"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Carte classique
+"
+      classrelation 205570 // <generalisation>
+	relation 205570 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 205570 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 593794 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "PageElement"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Carte
+
+@param ${t0} contenu Contenu dans le formulaire
+
+@return ${type}
+"
+      end
+    end
+
+    class 214530 "Corps"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Corps classique
+"
+      classrelation 205698 // <generalisation>
+	relation 205698 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 205698 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 593922 "__construct"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "haut" explicit_type "mixed"
+	    defaultvalue "''"
+	  param in name "centre" explicit_type "mixed"
+	    defaultvalue "''"
+	  param in name "bas" explicit_type "mixed"
+	    defaultvalue "''"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Corps
+
+@param ${t0} haut Haut du contenu dans le corps
+
+@param ${t1} centre Centre du contenu dans le corps
+
+@param ${t2} bas Bas du contenu dans le corps
+
+@return ${type}
+"
+      end
+    end
+
+    class 214658 "Dropdown"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Dropdown classique
+"
+      classrelation 205826 // <generalisation>
+	relation 205826 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 205826 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 594050 "__construct"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "dropdown_select" explicit_type "string"
+	  param in name "dropdown_others" explicit_type "array"
+	  param in name "Tete" explicit_type "PageElement"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Dropdown
+
+@param ${t0} dropdown_select Texte affiché dès le départ dans le dropdown
+
+@param ${t1} dropdown_others Autres textes à afficher
+
+@param ${t2} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 214786 "Formulaire"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Formulaire classique
+"
+      classrelation 205954 // <generalisation>
+	relation 205954 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 205954 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 594178 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "contenu" explicit_type "PageElement"
+	  param in name "Tete" explicit_type "PageElement"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Formulaire
+
+@param ${t0} contenu Contenu dans le formulaire
+
+@param ${t1} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 214914 "MenuSide"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Menu-side
+"
+      classrelation 206082 // <generalisation>
+	relation 206082 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 206082 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 594306 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "contenu" explicit_type "mixed"
+	  param in name "Tete" explicit_type "PageElement"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Menu-side
+
+@param ${t0} contenu Contenu du menu-side
+
+@param ${t1} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 215042 "MenuUp"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Menu-up classique
+"
+      classrelation 206210 // <generalisation>
+	relation 206210 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 206210 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 594434 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "Tete" explicit_type "PageElement"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Menu-up
+
+@param ${t0} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 215170 "Notification"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Notification de page classique
+"
+      classrelation 206338 // <generalisation>
+	relation 206338 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 206338 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      attribute 310402 "TYPE_SUCCES"
+	const_attribute package explicit_type "string"
+	init_value "'succes'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Type de message: succès
+
+@var ${type}
+"
+      end
+
+      attribute 310530 "TYPE_ATTENTION"
+	const_attribute package explicit_type "string"
+	init_value "'attention'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Type de message: attention
+
+@var ${type}
+"
+      end
+
+      attribute 310658 "TYPE_ERREUR"
+	const_attribute package explicit_type "string"
+	init_value "'erreur'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Type de message: erreur
+
+@var ${type}
+"
+      end
+
+      operation 594562 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "elements" explicit_type "array"
+	  param in name "Page" explicit_type "\\user\\page\\Page"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Notification
+
+@param ${t0} elements Éléments à insérer sous la forme d'une array
+
+@param ${t1} Page Page
+
+@return ${type}
+"
+      end
+
+      operation 594690 "ajouterTete"
+	class_operation public explicit_return_type "void"
+	nparams 1
+	  param in name "Tete" explicit_type "\\user\\page\\Tete"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Mets les css et les javascripts dans la tete
+
+@param ${t0} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+
+    class 215298 "Page"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Page classique
+"
+      classrelation 206466 // <generalisation>
+	relation 206466 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 206466 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 594818 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Page
+
+@return ${type}
+"
+      end
+    end
+
+    class 215426 "Temps"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Temps de génération de page
+"
+      classrelation 206594 // <generalisation>
+	relation 206594 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 206594 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 594946 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "temps" explicit_type "string"
+	  param in name "Tete" explicit_type ""
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Temps
+
+@param ${t0} temps Temps de génération à indiquer
+
+@return ${type}
+"
+      end
+    end
+
+    class 215554 "Tete"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Tête de page classique
+"
+      classrelation 206722 // <generalisation>
+	relation 206722 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 206722 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 595074 "__construct"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Tete
+
+@return ${type}
+"
+      end
+    end
+
+    class 215682 "Toast"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Toast classique
+"
+      classrelation 206850 // <generalisation>
+	relation 206850 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 206850 // <generalisation>
+	  b parent class_ref 213250 // PageElement
+      end
+
+      operation 595202 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "elements" explicit_type "array"
+	  param in name "Tete" explicit_type "PageElement"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de Toast
+
+@param ${t0} elements Éléments contenu dans le toast
+
+@param ${t1} Tete Tête de la page
+
+@return ${type}
+"
+      end
+    end
+  end
+
+  package_ref 239106 // MenuSide
+end

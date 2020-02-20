@@ -1,0 +1,97 @@
+format 222
+"suppression" // Babtouland::config::post::suppression
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/suppression/"
+  deploymentview 230146 "suppression"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 270210 "config"
+      stereotype "source"
+      php_src "<?php
+
+if(isset($Visiteur->getPage()->getParametres()['id']))
+{
+	$BDDFactory=new \\core\\BDDFactory;
+	$PostManager=new \\post\\PostManager($BDDFactory->MysqlConnexion());
+	if($PostManager->existId((int)$Visiteur->getPage()->getParametres()['id']))
+	{
+		$Post=new \\post\\Post(array(
+			'id' => $Visiteur->getPage()->getParametres()['id'],
+		));
+		$Post->recuperer();
+		if($Visiteur->autorisationModification($Post))
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_SUCCES,
+				'contenu' => $lang['post_suppression_message_succes'],
+			));
+			$get=$config['post_suppression_suivant'];
+			$Post->supprimer();
+		}
+		else
+		{
+			$Notification=new \\user\\page\\Notification(array(
+				'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+				'contenu' => $lang['post_suppression_message_permission'],
+			));
+			$get=array_merge($config['post_suppression_permission'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
+		}
+	}
+	else
+	{
+		$Notification=new \\user\\page\\Notification(array(
+			'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+			'contenu' => $lang['post_suppression_message_inexistant'],
+		));
+		$get=$config['post_suppression_retour'];
+	}
+}
+else
+{
+	$Notification=new \\user\\page\\Notification(array(
+		'type'    => \\user\\page\\Notification::TYPE_ERREUR,
+		'contenu' => $lang['post_suppression_message_argument'],
+	));
+	$get=$config['post_suppression_retour'];
+}
+
+$this->getPage()->envoyerNotificationsSession();
+header('location: '.$Routeur->creerLien($get));
+exit();
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

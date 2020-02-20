@@ -1,0 +1,41 @@
+class Dossier
+!!!544386.php!!!	recupererEnfants(in intervalle_depart : int = 0, in nombre : int = 1) : array
+
+		$array=array();
+		$Manager=$this->Manager();
+		foreach ($Manager->getBy(array('id_parent' => $this->getId()), array('id_parent' => '='), array('debut' => $intervalle_depart, 'nombre' => $nombre, 'ordre' => 'date_publication')) as $noeud)
+		{
+			switch ($noeud['type'])
+			{
+				case $this::TYPE_DOSSIER:
+					$array[]=new \forum\Dossier($noeud);
+					break;
+				case $this::TYPE_FIL:
+					$array[]=new \forum\Fil($noeud);
+					break;
+				default:
+					throw new \UnexpectedValueException((string)$noeud['type'].' not exist');
+			}
+		}
+		return $array;
+!!!544514.php!!!	recentMessage() : \forum\Message
+
+		foreach ($this->recupererEnfants(0,10) as $Enfant)
+		{
+			$Message=$Enfant->recentMessage();
+			if (!isset($dernierMessage))
+			{
+				$dernierMessage=$Message;
+				$dernierDateMessage=new \DateTime($dernierMessage->getDate_maj());
+			}
+			else
+			{
+				$dateMessage=new \DateTime($Message->getDate_maj());
+				if ($dernierDateMessage<$dateMessage)
+				{
+					$dernierMessage=$Message;
+					$dernierDateMessage=$dateMessage;
+				}
+			}
+		}
+		return $dernierMessage;

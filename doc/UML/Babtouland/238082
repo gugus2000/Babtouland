@@ -1,0 +1,1506 @@
+format 222
+"core" // Babtouland::classe::core
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/core/"
+  php_namespace "core"
+  classview 172418 "core"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 208386 "Managed"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Objet managé par un Manager
+"
+      attribute 292098 "CRITERES_SIMILAIRE"
+	const_attribute package explicit_type "array"
+	init_value "array('id')"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constante 
+
+Critères (attributs) permettant de vérifier une similarité
+
+@var ${type}
+"
+      end
+
+      attribute 292226 "INDEX"
+	const_attribute package explicit_type "mixed"
+	init_value "'id'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Index
+
+@var ${type}
+"
+      end
+
+      operation 539010 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	    defaultvalue "array()"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autre méthode 
+
+Construction de l'objet
+
+@param ${t0} attributs Attributs de l'objet
+
+@return ${type}
+"
+      end
+
+      operation 539138 "getGet"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "attribut" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Donne le nom de la fonction accesseur d'un attribut
+
+@param ${t0} attribut Attribut dont on veut l'accesseur
+
+@return ${type}
+"
+      end
+
+      operation 539266 "getSet"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "attribut" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Donne le nom de la fonction définisseur d'un attribut
+
+@param ${t0} attribut Attribut dont on veut le définisseur
+
+@return ${type}
+"
+      end
+
+      operation 539394 "getAff"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "attribut" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Donne le nom de la fonction affichage d'un attribut
+
+@param ${t0} attribut Attribut dont on veut l'afficheur
+
+@return ${type}
+"
+      end
+
+      operation 539522 "setAffichage"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "attribut" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Défini l'afficheur d'un attribut
+
+@param ${t0} attribut Nom de l'attribut
+
+@return ${type}
+"
+      end
+
+      operation 539650 "hydrater"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Hydrate l'objet
+
+@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut de l'objet
+
+@return ${type}
+"
+      end
+
+      operation 539778 "Manager"
+	public explicit_return_type "Manager"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Crée une instance de la clase du manager de l'objet managé
+
+@return ${type}
+"
+      end
+
+      operation 539906 "get"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "index" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Remplir l'objet managé
+
+@param ${t0} index Index de l'objet managé
+
+@return ${type}
+"
+      end
+
+      operation 540034 "similaire"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "objet" explicit_type "Managed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Vérifie si deux objets managé sont identiques
+
+@param ${t0} objet L'objet qui vérifie la similarité
+
+@return ${type}
+"
+      end
+
+      operation 540162 "table"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Retourne un tableau représentant l'objet managé
+
+@return ${type}
+"
+      end
+
+      operation 540290 "recuperer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère un objet dans la base de donnée
+
+@return ${type}
+"
+      end
+
+      operation 540418 "creer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Insérer l'objet dans la base de donnée
+
+@return ${type}
+"
+      end
+
+      operation 540546 "modifier"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Modifie un objet dans la base de donnée
+
+@return ${type}
+"
+      end
+
+      operation 540674 "supprimer"
+	public explicit_return_type "void"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Supprime un objet dans la base de donnée
+
+@return ${type}
+"
+      end
+    end
+
+    class 208642 "Manager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Connexion entre un objet et la base de donnée qui le caractérise
+"
+      operation 540802 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "bdd" explicit_type "PDO"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Construction du Manager
+
+@param ${t0} bdd Connexion avec la base de donnée
+
+@return ${type}
+"
+      end
+
+      attribute 292354 "bdd"
+	protected explicit_type "PDO"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Connexion avec la base de donnée
+
+@var ${type}
+"
+      end
+
+      attribute 292482 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "''"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Nom de la table lié à l'objet
+
+@var ${type}
+"
+      end
+
+      attribute 292610 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Liste de tous les attributs de la table
+
+@var ${type}
+"
+      end
+
+      attribute 292738 "INDEX"
+	const_attribute package explicit_type "string"
+	init_value "'id'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Index utilisé (clef primaire)
+
+@var ${type}
+"
+      end
+
+      operation 540930 "getBdd"
+	public explicit_return_type "PDO"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de bdd
+
+@return ${type}
+"
+      end
+
+      operation 541058 "setBdd"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "bdd" explicit_type "PDO"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de bdd
+
+@param ${t0} bdd Connexion à la base de donnée
+
+@return ${type}
+"
+      end
+
+      operation 541186 "testAttributes"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Vérifie l'existence de chaque attribut dans la liste comme étant un attribut de la table sélectionnée
+
+@param ${t0} attributs Liste à vérifier
+
+@return ${type}
+"
+      end
+
+      operation 541314 "get"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "index" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère le résulat d'une requête Mysql sur un élément
+
+@param ${t0} index Index de l'élément
+
+@return ${type}
+"
+      end
+
+      operation 541442 "add"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Ajoute un élément dans la base de donnée
+
+@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut
+
+@return ${type}
+"
+      end
+
+      operation 541570 "update"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "attributs" explicit_type "array"
+	  param in name "index" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Met à jour un élément de la base de donnée
+
+@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut a modifier
+
+@param ${t1} index Index de l'élément à modifier
+
+@return ${type}
+"
+      end
+
+      operation 541698 "delete"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "index" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Supprime un élément de la base de donnée
+
+@param ${t0} index Index de l'élément à supprimer
+
+@return ${type}
+"
+      end
+
+      operation 541826 "getIdBy"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Obtient l'index de l'élément
+
+@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attributs permettant de déterminer l'index de l'élément
+
+@return ${type}
+"
+      end
+
+      operation 541954 "getIdByPos"
+	public explicit_return_type "string"
+	nparams 2
+	  param in name "position" explicit_type "int"
+	  param in name "attribut" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Obtient l'index de l'élément à partir de sa position par rapport à un attribut
+
+@param ${t0} position Position de l'élément (0=premier)
+
+@param ${t1} attribut Attribut sur lequel se positionne l'élément
+
+@return ${type}
+"
+      end
+
+      operation 542082 "interpreterBornes"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "bornes" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Permet de générer la clause sur la limite à partir d'un tableau complexe pour une requête mysql
+
+@param ${t0} bornes Bornes
+
+@return ${type}
+"
+      end
+
+      operation 542210 "getBy"
+	public explicit_return_type "array"
+	nparams 3
+	  param in name "attributs" explicit_type "array"
+	  param in name "operations" explicit_type "array"
+	    defaultvalue "null"
+	  param in name "bornes" explicit_type "array"
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Récupère le résultat de la requête MYSQL crée à partir des paramètres
+
+@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut
+
+@param ${t1} operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
+
+@param ${t2} bornes Tableau contenant les bornes dans lesquels chercher
+
+@return ${type}
+"
+      end
+
+      operation 542338 "existId"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "index" explicit_type "mixed"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Vérifie l'existence d'un élément
+
+@param ${t0} index Index de l'élément à vérifier
+
+@return ${type}
+"
+      end
+
+      operation 542466 "exist"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "attributs" explicit_type "array"
+	  param in name "operations" explicit_type ""
+	    defaultvalue "null"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Vérifie l'existence d'un élément
+
+@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attributs de l'élément
+
+@return ${type}
+"
+      end
+
+      operation 542594 "count"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Compte le nombre d'élément dans la base de donnée
+
+@return ${type}
+"
+      end
+    end
+
+    class 208898 "LiaisonManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager d'une table de liaison entre deux autres tables de données
+"
+      operation 537986 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "bdd" explicit_type "PDO"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Construction du Manager
+
+@param ${t0} bdd Connexion avec la base de donnée
+
+@param ${t1} attributs Liste des attributs de la table déjà connus
+
+@return ${type}
+"
+      end
+
+      attribute 291714 "bdd"
+	protected explicit_type "PDO"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Connexion avec la base de donnée
+
+@var ${type}
+"
+      end
+
+      attribute 291842 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "''"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Nom de la table lié à l'objet
+
+@var ${type}
+"
+      end
+
+      attribute 291970 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array()"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Liste de tous les attributs de la table
+
+@var ${type}
+"
+      end
+
+      operation 538114 "getBdd"
+	public explicit_return_type "PDO"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de bdd
+
+@return ${type}
+"
+      end
+
+      operation 538242 "setBdd"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "bdd" explicit_type "PDO"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de bdd
+
+@param ${t0} bdd Connexion à la base de donnée
+
+@return ${type}
+"
+      end
+
+      operation 538370 "get"
+	public explicit_return_type "array"
+	nparams 2
+	  param in name "attributs" explicit_type "array"
+	  param in name "operations" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Récupère certains attributs de la table
+
+@param ${t0} attributs Tableau contenant le nom et la valeur de chaque attribut
+
+@param ${t1} operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
+
+@return ${type}
+"
+      end
+
+      operation 538498 "addBy"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "variants" explicit_type "array"
+	  param in name "invariants" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Ajoute les éléments dans la table avec des paramètres variants et invariants
+
+@param ${t0} variants Valeurs variantes à chaque élément
+
+@param ${t1} invariants Valeurs invariantes communes à tous les éléments à ajouter
+
+@return ${type}
+"
+      end
+
+      operation 538626 "deleteBy"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "attributs" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Supprime des éléments de la base de données en fonction de paramètres définis
+
+@param ${t0} attributs Paramètre permettant de déterminer l'élément à supprimer
+
+@return ${type}
+"
+      end
+
+      operation 538754 "exist"
+	public explicit_return_type "bool"
+	nparams 2
+	  param in name "conditions" explicit_type "array"
+	  param in name "groupe" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Vérifie l'existence d'un element lié à la base de données respectant certaines conditions (cf. chat/envoyer_mp)
+
+@param ${t0} conditions Conditions à respecter
+
+@param ${t1} groupe Lien avec l'élément à vérifier
+
+@return ${type}
+"
+      end
+
+      operation 538882 "getBy"
+	public explicit_return_type "array"
+	nparams 2
+	  param in name "conditions" explicit_type "array"
+	  param in name "groupe" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Selectionne les éléments respectant certaines conditions (cf. chat/envoyer_mp)
+
+@param ${t0} conditions Conditions à respecter
+
+@param ${t1} groupe Attribut de l'élément à vérifier
+
+@return ${type}
+"
+      end
+    end
+
+    class 209282 "BDDFactory"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Permet la création de connexion à la base de donnée
+"
+      operation 537858 "MysqlConnexion"
+	class_operation public explicit_return_type "PDO"
+	nparams 1
+	  param in name "dbname" explicit_type "string"
+	    defaultvalue "'babtouland'"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Création d'une connexion à la base de donnée
+
+@param ${t0} dbname Nom de la base de donnée à laquelle il faut se connecter
+
+@return ${type}
+"
+      end
+    end
+
+    class 209410 "Routeur"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 292866 "MODE_GET"
+	const_attribute package explicit_type "int"
+	init_value "0"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constante 
+
+Mode de fonctionnement du routeur avec GET
+
+@var ${type}
+"
+      end
+
+      attribute 292994 "MODE_ROUTE"
+	const_attribute package explicit_type "int"
+	init_value "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Mode de fonctionnement du routeur avec /
+
+@var ${type}
+"
+      end
+
+      attribute 293122 "MODE_FULL_ROUTE"
+	const_attribute package explicit_type "int"
+	init_value "2"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Mode de fonctionnement purement avec /
+
+@var ${type}
+"
+      end
+
+      attribute 293250 "mode"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attribut 
+
+Mode de fonctionnement du routeur
+
+@var ${type}
+"
+      end
+
+      operation 542722 "getMode"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseur 
+
+Accesseur de mode
+
+@return ${type}
+"
+      end
+
+      operation 542850 "setMode"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "mode" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " définisseur 
+
+Définisseur de mode
+
+@param ${t0} mode Mode de fonctionnement du routeur
+
+@return ${type}
+"
+      end
+
+      operation 542978 "__construct"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "mode" explicit_type ""
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Méthode particulière "
+      end
+
+      operation 543106 "dechiffrerRoute"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "url" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autre méthode 
+
+Retourne le couple application et action transmise par l'url
+
+@param ${t0} url URL de la page
+
+@return ${type}
+"
+      end
+
+      operation 543234 "recupererWithGet"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Retourne le couple application et action à partir de get
+
+@return ${type}
+"
+      end
+
+      operation 543362 "recupererWithRoute"
+	public explicit_return_type "mixed"
+	nparams 1
+	  param in name "url" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Retourne le couple application et action à partir de l'url routé
+
+@param ${t0} url Url de la page
+
+@return ${type}
+"
+      end
+
+      operation 543490 "recupererWithFullRoute"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "url" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Retourne l'array contenant tous les paramètres de l'url routé
+
+@param ${t0} url Url de la page
+
+@return ${type}
+"
+      end
+
+      operation 543618 "creerLien"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "parametres" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Créer un lien à partir d'un couple application et action
+
+@param ${t0} parametres Couple application et action du lien à créer
+
+@return ${type}
+"
+      end
+
+      operation 543746 "creerLienGet"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "parametres" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Créer un lien en mode get à partir d'un couple application et action
+
+@param ${t0} parametres Couple application et action du lien à créer
+
+@return ${type}
+"
+      end
+
+      operation 543874 "creerLienRoute"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "parametres" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Créer un lien en mode route à partir d'un couple application et action
+
+@param ${t0} parametres Couple application et action du lien à créer
+
+@return ${type}
+"
+      end
+
+      operation 544002 "creerLienFullRoute"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "parametres" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Créer un lien en mode full route à partir d'un couple application et action et parametres
+
+@param ${t0} parametres Paramètres de la page
+
+@return ${type}
+"
+      end
+
+      operation 544130 "remplir"
+	public explicit_return_type "array"
+	nparams 1
+	  param in name "parametres" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Remplit les paramètres incomplets d'un lien si nécessaire
+
+@param ${t0} parametres Paramètres de l'URL déjà existant
+
+@return ${type}
+"
+      end
+    end
+  end
+
+  deploymentview 223746 "core"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 258434 "BDDFactory.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 209282 // BDDFactory
+      end
+    end
+
+    artifact 258562 "LiaisonManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 208898 // LiaisonManager
+      end
+    end
+
+    artifact 258690 "Managed.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 208386 // Managed
+      end
+    end
+
+    artifact 258818 "Manager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 208642 // Manager
+      end
+    end
+
+    artifact 258946 "Routeur.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 209410 // Routeur
+      end
+    end
+  end
+
+  package_ref 238210 // Exception
+end

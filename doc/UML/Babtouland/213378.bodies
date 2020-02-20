@@ -1,0 +1,47 @@
+class Permission
+!!!583170.php!!!	getId() : int
+
+		return $this->id;
+!!!583298.php!!!	getNom_role() : string
+
+		return $this->nom_role;
+!!!583426.php!!!	getApplication() : string
+
+		return $this->application;
+!!!583554.php!!!	getAction() : string
+
+		return $this->action;
+!!!583682.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!583810.php!!!	setNom_role(in nom_role : string) : void
+
+		$this->nom_role=$nom_role;
+!!!583938.php!!!	setApplication(in application : string) : void
+
+		$this->application=$application;
+!!!584066.php!!!	setAction(in action : string) : void
+
+		$this->action=$action;
+!!!584194.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!584322.php!!!	afficherNom_role() : string
+
+		return htmlspecialchars((string)$this->nom_role);
+!!!584450.php!!!	afficherApplication() : string
+
+		return htmlspecialchars((string)$this->application);
+!!!584578.php!!!	afficherAction() : string
+
+		return htmlspecialchars((string)$this->action);
+!!!584706.php!!!	afficher() : string
+
+		htmlspecialchars($this->afficherApplication().'-'.$this->afficherAction());
+!!!584834.php!!!	recuperer() : void
+
+		if ($this->getId())
+		{
+			$PermissionManager=$this->Manager();
+			$this->hydrater($PermissionManager->get($this->getId()));
+		}

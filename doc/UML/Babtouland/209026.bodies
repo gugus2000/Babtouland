@@ -1,0 +1,71 @@
+class Message
+!!!535042.php!!!	getId() : int
+
+		return $this->id;
+!!!535170.php!!!	getId_conversation() : int
+
+		return $this->id_conversation;
+!!!535298.php!!!	getId_auteur() : int
+
+		return $this->id_auteur;
+!!!535426.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!535554.php!!!	getDate_publication() : string
+
+		return $this->date_publication;
+!!!535682.php!!!	getDate_mise_a_jour() : string
+
+		return $this->date_mise_a_jour;
+!!!535810.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!535938.php!!!	setId_conversation(in id_conversation : int) : void
+
+		$this->id_conversation=(int)$id_conversation;
+!!!536066.php!!!	setId_auteur(in id_auteur : int) : void
+
+		$this->id_auteur=(int)$id_auteur;
+!!!536194.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=$contenu;
+!!!536322.php!!!	setDate_publication(in date_publication : string) : void
+
+		$this->date_publication=$date_publication;
+!!!536450.php!!!	setDate_mise_a_jour(in date_mise_a_jour : string) : void
+
+		$this->date_mise_a_jour=$date_mise_a_jour;
+!!!536578.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!536706.php!!!	afficherId_conversation() : string
+
+		return htmlspecialchars((string)$this->id_conversation);
+!!!536834.php!!!	afficherId_auteur() : string
+
+		return htmlspecialchars((string)$this->id_auteur);
+!!!536962.php!!!	afficherContenu() : string
+
+		return htmlspecialchars((string)$this->contenu);
+!!!537090.php!!!	afficherDate_publication() : string
+
+		return htmlspecialchars((string)$this->date_publication);
+!!!537218.php!!!	afficherDate_mise_a_jour() : string
+
+		return htmlspecialchars((string)$this->date_mise_a_jour);
+!!!537346.php!!!	afficherDate_publicationFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_publication));
+!!!537474.php!!!	afficherDate_mise_a_jourFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_mise_a_jour));
+!!!537602.php!!!	afficher() : string
+
+		return $this->afficherContenu();
+!!!537730.php!!!	recupererAuteur() : Utilisateur
+
+		$Auteur=new \user\Utilisateur(array(
+			'id' => $this->getId_auteur(),
+		));
+		$Auteur->recuperer();
+		return $Auteur;

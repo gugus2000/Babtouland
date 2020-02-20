@@ -1,0 +1,55 @@
+format 222
+"post" // Babtouland::config::post
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/post/"
+  package_ref 244610 // commentaire_edition
+
+  package_ref 244738 // commentaire_publication
+
+  package_ref 244866 // commentaire_suppression
+
+  package_ref 244994 // commentaire_validation_edition
+
+  package_ref 245122 // edition
+
+  package_ref 245250 // fil_post
+
+  package_ref 245378 // lecture
+
+  package_ref 245506 // publication
+
+  package_ref 245634 // suppression
+
+  package_ref 245762 // validation_edition
+
+  package_ref 245890 // validation_publication
+end

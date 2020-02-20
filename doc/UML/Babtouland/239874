@@ -1,0 +1,59 @@
+format 222
+"chat" // Babtouland::config::chat
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/chat/"
+  package_ref 240002 // ajouter_conversation
+
+  package_ref 240130 // editer_conversation
+
+  package_ref 240258 // editer_message
+
+  package_ref 240386 // envoyer_message
+
+  package_ref 240514 // envoyer_mp
+
+  package_ref 240642 // hub
+
+  package_ref 240770 // supprimer_conversation
+
+  package_ref 240898 // supprimer_message
+
+  package_ref 241026 // validation_ajouter_conversation
+
+  package_ref 241154 // validation_editer_conversation
+
+  package_ref 241282 // validation_editer_message
+
+  package_ref 241410 // validation_envoyer_mp
+
+  package_ref 241538 // voir_conversation
+end

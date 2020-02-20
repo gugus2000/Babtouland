@@ -1,0 +1,129 @@
+class PageElement
+!!!581250.php!!!	getTemplate() : string
+
+		return $this->template;
+!!!581378.php!!!	getFonctions() : string
+
+		return $this->fonctions;
+!!!581506.php!!!	getElements() : array
+
+		return $this->elements;
+!!!581634.php!!!	setTemplate(in template : string) : void
+
+		$this->template=$template;
+!!!581762.php!!!	setFonctions(in fonctions : string) : void
+
+		$this->fonctions=$fonctions;
+!!!581890.php!!!	setElements(in elements : array) : void
+
+		$this->elements=$elements;
+!!!582018.php!!!	afficherTemplate() : string
+
+		return htmlspecialchars($this->template);
+!!!582146.php!!!	afficherFonctions() : string
+
+		return htmlspecialchars($this->fonctions);
+!!!582274.php!!!	afficherElements() : string
+
+		return print_r($this->elements);
+!!!582402.php!!!	afficherArray(in liste : array) : string
+
+		$affichage='';
+		foreach ($liste as $nom => $element)
+		{
+			if (is_object($element))
+			{
+				$affichage.=$element->afficher();
+			}
+			else if (is_array($element))
+			{
+				if (function_exists($nom.'Afficher'))
+				{
+					$affichage.=($nom.'Afficher')($element);
+				}
+				else
+				{
+					$affichage.=$this->afficherArray($element);
+				}
+			}
+			else
+			{
+				$affichage.=$element;
+			}
+		}
+		return $affichage;
+!!!582530.php!!!	afficher() : string
+
+		if ($this->getTemplate())
+		{
+			$contenuElement=file_get_contents($this->getTemplate());
+		}
+		else
+		{
+			$contenuElement='';
+		}
+		if ($this->getFonctions())
+		{
+			require $this->getFonctions();
+		}
+		foreach ($this->getElements() as $nom => $element)
+		{
+			if (is_object($element))
+			{
+				$valeur=$element->afficher();
+			}
+			else if (is_array($element))
+			{
+				if (function_exists($nom.'Afficher'))
+				{
+					$valeur=($nom.'Afficher')($element);
+				}
+				else
+				{
+					$valeur=$this->afficherArray($element);
+				}
+			}
+			else
+			{
+				$valeur=$element;
+			}
+			$contenuElement=str_replace($this::SEPARATEUR.$nom.$this::SEPARATEUR, $valeur, $contenuElement);
+		}
+		return $contenuElement;
+!!!582658.php!!!	getElement(in index : mixed) : mixed
+
+		if (isset($this->elements[$index]))
+		{
+			return $this->elements[$index];
+		}
+		return False;
+!!!582786.php!!!	__construct(in attributs : array) : void
+
+		foreach ($attributs as $key => $value)
+		{
+			$method='set'.ucfirst($key);
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
+!!!582914.php!!!	ajouterElement(in nom : string, in element : PageElement) : void
+
+		$this->elements[$nom]=$element;
+!!!583042.php!!!	ajouterValeurElement(in index : mixed, in valeur : mixed) : void
+
+		if (is_array($this->getElement($index)))
+		{
+			if (!in_array($valeur, $this->elements[$index]))		// La valeur n'existe pas déjà (évite de mettre plusieurs fois le même css par exemple)
+			{
+				$this->elements[$index][]=$valeur;
+			}
+		}
+		else if (is_string($this->getElement($index)))
+		{
+			$this->elements[$index].=(string)$valeur;
+		}
+		else
+		{
+			throw new \Exception("On ne peut pas ajouter la valeur à l'élément s'il n'est pas un array ou une string");
+		}

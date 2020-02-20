@@ -1,0 +1,151 @@
+class Noeud
+!!!547458.php!!!	getId() : int
+
+		return $this->id;
+!!!547586.php!!!	getId_parent() : int
+
+		return $this->id_parent;
+!!!547714.php!!!	getId_auteur() : int
+
+		return $this->id_auteur;
+!!!547842.php!!!	getNom() : string
+
+		return $this->nom;
+!!!547970.php!!!	getDescription() : string
+
+		return $this->description;
+!!!548098.php!!!	getDate_publication() : string
+
+		return $this->date_publication;
+!!!548226.php!!!	getDate_maj() : string
+
+		return $this->date_maj;
+!!!548354.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!548482.php!!!	setId_parent(in id_parent : int) : void
+
+		$this->id_parent=(int)$id_parent;
+!!!548610.php!!!	setId_auteur(in id_auteur : int) : void
+
+		$this->id_auteur=(int)$id_auteur;
+!!!548738.php!!!	setNom(in nom : string) : void
+
+		$this->nom=$nom;
+!!!548866.php!!!	setDescription(in description : string) : void
+
+		$this->description=$description;
+!!!548994.php!!!	setDate_publication(in date_publication : string) : void
+
+		$this->date_publication=$date_publication;
+!!!549122.php!!!	setDate_maj(in date_maj : string) : void
+
+		$this->date_maj=$date_maj;
+!!!549250.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!549378.php!!!	afficherId_parent() : string
+
+		return htmlspecialchars((string)$this->id_parent);
+!!!549506.php!!!	afficherId_auteur() : string
+
+		return htmlspecialchars((string)$this->id_auteur);
+!!!549634.php!!!	afficherNom() : string
+
+		return htmlspecialchars((string)$this->nom);
+!!!549762.php!!!	afficherDescription() : string
+
+		return htmlspecialchars((string)$this->description);
+!!!549890.php!!!	afficherDate_publication() : string
+
+		return htmlspecialchars((string)$this->date_publication);
+!!!550018.php!!!	afficherDate_maj() : string
+
+		return htmlspecialchars((string)$this->date_maj);
+!!!550146.php!!!	afficherDate_publicationFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_publication));
+!!!550274.php!!!	afficherDate_majFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_maj));
+!!!550402.php!!!	afficher() : string
+
+		return 'nom:'.$this->afficherNom().'|description:'.$this->afficherDescription().'|id:'.$this->afficherId();
+!!!550530.php!!!	recupererParent() : mixed
+
+		if ($this->getId_parent()>0)
+		{
+			$Parent=new \forum\Noeud(array(
+				'id' => $this->getId_parent(),
+			));
+			$Parent->recuperer();
+			return $Parent;
+		}
+		return False;
+!!!550658.php!!!	recupererAuteur() : \user\Utilisateur
+
+		$Utilisateur=new \user\Utilisateur(array(
+			'id' => $this->getId_auteur(),
+		));
+		$Utilisateur->recuperer();
+		return $Utilisateur;
+!!!550786.php!!!	getDescendance() : array
+
+		global $config;
+		if ($this->getId()==$config['id_conversation_all'])
+		{
+			return array($this);
+		}
+		else
+		{
+			$Dossier=new \forum\Dossier(array(
+				'id' => $this->getId_parent(),
+			));
+			$Dossier->recuperer();
+			return array_merge($Dossier->getDescendance(), array($this));
+		}
+!!!550914.php!!!	creer() : void
+
+		$this->Manager()->add(array_merge($this->table(), array('type' => $this::TYPE)));
+		$this->setId($this->Manager()->getIdBy(array_merge($this->table(), array('type' => $this::TYPE))));
+!!!551042.php!!!	getType(in index : int = null) : int
+
+		if (!$index)
+		{
+			$index=$this->getId();
+		}
+		$resultats=$this->manager()->get($index);
+		return $resultats['type'];
+!!!551170.php!!!	afficherType(in type : int) : string
+
+		switch($type)
+		{
+			case 0:
+				return 'dossier';
+			case 1:
+				return 'fil';
+			default:
+				throw new \Exception('Type unknown');
+		}
+!!!551298.php!!!	newNoeud(in index : int) : \forum\Noeud
+
+		$manager=new \forum\NoeudManager(\core\BDDFactory::MysqlConnexion());
+		$resultats=$manager->get($index);
+		switch ($resultats['type'])
+		{
+			case self::TYPE_DOSSIER:
+				$Noeud=new \forum\Dossier(array(
+					'id' => $index,
+				));
+				break;
+			case self::TYPE_FIL:
+				$Noeud=new \forum\Fil(array(
+					'id' => $index,
+				));
+				break;
+			default:
+				throw new \UnexpectedValueException('type undefined');
+				break;
+		}
+		$Noeud->recuperer();
+		return $Noeud;
