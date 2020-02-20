@@ -2,10 +2,10 @@
 
 $UtilisateurManager=new \user\UtilisateurManager(\core\BDDFactory::Mysqlconnexion());
 $nombre_utilisateurs=$UtilisateurManager->count()-1;		// Guest pas pris en compte
-$date=new \DateTime(date('Y-m-d H:i:s'));
+$date=new \DateTime(date($config['format_date']));
 $date->sub(new \DateInterval($config['intervalle_connecte']));
 $connectes=$UtilisateurManager->getBy(array(
-	'date_connexion' => $date->format('Y-m-d H:i:s'),
+	'date_connexion' => $date->format($config['format_date']),
 	'pseudo'         => $config['nom_guest'],
 ), array(
 	'date_connexion' => '>=',

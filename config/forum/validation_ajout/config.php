@@ -9,8 +9,8 @@ if (isset($Visiteur->getPage()->getParametres()['id_parent']))
 			'id_auteur'        => $Visiteur->getId(),
 			'nom'              => $_POST['nom'],
 			'description'      => $_POST['description'],
-			'date_publication' => date('Y-m-d H:i:s'),
-			'date_maj'         => date('Y-m-d H:i:s'),
+			'date_publication' => date($config['format_date']),
+			'date_maj'         => date($config['format_date']),
 		);
 		switch ($_POST['type'])
 		{

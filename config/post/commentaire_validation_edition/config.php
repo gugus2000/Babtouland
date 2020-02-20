@@ -24,7 +24,7 @@ if(isset($Visiteur->getPage()->getParametres()['id']) & isset($_POST['edition_co
 			$Commentaire=new \post\Commentaire(array(
 				'id'               => $Visiteur->getPage()->getParametres()['id'],
 				'contenu'          => $_POST['edition_commentaire_contenu'],
-				'date_mise_a_jour' => date('Y-m-d H:i:s'),
+				'date_mise_a_jour' => date($config['format_date']),
 			));
 			$Commentaire->mettre_a_jour();
 		}

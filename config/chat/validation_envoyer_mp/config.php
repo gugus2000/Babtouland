@@ -44,8 +44,8 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 							'id_conversation' => $Conversation->getId(),
 							'id_auteur'       => $this->getId(),
 							'contenu'         => $_POST['mp_message'],
-							'date_publication' => date('Y-m-d H:i:s'),
-							'date_mise_a_jour' => date('Y-m-d H:i:s'),
+							'date_publication' => date($config['format_date']),
+							'date_mise_a_jour' => date($config['format_date']),
 						));
 						$Message->creer();
 						new \user\Notification(array(

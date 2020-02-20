@@ -8,8 +8,8 @@ if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isse
 		$newVisiteur=new \user\Visiteur(array(
 			'pseudo'           => $_POST['inscription_pseudo'],
 			'avatar'           => $config['default_avatar'],
-			'date_inscription' => date('Y-m-d H:i:s'),
-			'date_connexion'   => date('Y-m-d H:i:s'),
+			'date_inscription' => date($config['format_date']),
+			'date_connexion'   => date($config['format_date']),
 			'banni'            => $config['default_banni'],
 			'mail'             => $_POST['inscription_mail'],
 		));

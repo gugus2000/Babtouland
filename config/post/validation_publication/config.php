@@ -6,8 +6,8 @@ if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !
 		'id_auteur'        => $Visiteur->getId(),
 		'titre'            => $_POST['publication_titre'],
 		'contenu'          => $_POST['publication_contenu'],
-		'date_publication' => date('Y-m-d H:i:s'),
-		'date_mise_a_jour' => date('Y-m-d H:i:s'),
+		'date_publication' => date($config['format_date']),
+		'date_mise_a_jour' => date($config['format_date']),
 	));
 	$Post->publier();
 	$Notification=new \user\page\Notification(array(

@@ -11,7 +11,7 @@ if(isset($Visiteur->getPage()->getParametres()['id']) & isset($_POST['edition_ti
 			'id'               => $Visiteur->getPage()->getParametres()['id'],
 			'titre'            => $_POST['edition_titre'],
 			'contenu'          => $_POST['edition_contenu'],
-			'date_mise_a_jour' => date('Y-m-d H:i:s'),
+			'date_mise_a_jour' => date($config['format_date']),
 		));
 		if($Visiteur->autorisationModification($Post))
 		{

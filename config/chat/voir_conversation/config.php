@@ -3,7 +3,7 @@
 $id_auteur=null;
 $date_publication=new \DateTime($config['chat_temps_0']);
 $date_comparaison=new \DateInterval($config['chat_voir_conversation_date_comparaison']);
-$date_custom=new \DateTime(date('Y-m-d H:i:s'));
+$date_custom=new \DateTime(date($config['format_date']));
 
 if (isset($Visiteur->getPage()->getParametres()['id']))
 {
@@ -11,7 +11,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	$Conversation=new \chat\Conversation(array(
 		'id' => $id,
 	));
-	$Conversation->recuperer($date_publication->format('Y-m-d H:i:s'));
+	$Conversation->recuperer($date_publication->format($config['format_date']));
 	$Id_utilisateurs=$Conversation->getId_utilisateurs();
 	$index=0;
 	while (isset($Id_utilisateurs[$index]))		// Évite de parcourir toute la liste
@@ -48,7 +48,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 	$date_comparaison2=clone $date_custom;
 	$Detail_message='';
 	$Separation='';
-	$date_diff=$date_publication->diff(new DateTime($Message->afficherDate_publicationFormat('Y-m-d H:i:s')), True);
+	$date_diff=$date_publication->diff(new DateTime($Message->afficherDate_publicationFormat($config['format_date'])), True);
 	$date_comparaison1->add($date_comparaison);
 	$date_comparaison2->add($date_diff);
 	if ($Message->getId_auteur()!=$id_auteur | $date_comparaison1<$date_comparaison2)
@@ -58,7 +58,7 @@ foreach ($Conversation->recupererMessages() as $Message)
 		));
 		$Auteur->recuperer();
 		$id_auteur=$Auteur->getId();
-		$date_publication=new \DateTime($Message->afficherDate_publicationFormat('Y-m-d H:i:s'));
+		$date_publication=new \DateTime($Message->afficherDate_publicationFormat($config['format_date']));
 
 		$Detail_message=new \user\PageElement(array(
 			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/detail_message.html',

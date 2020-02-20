@@ -9,8 +9,8 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	$Conversation=new \chat\Conversation(array(
 		'id' => $ChatMessage->getId_conversation(),
 	));
-	$date_maintenant=new \DateTime(date('Y-m-d H:i:s'));
-	$Conversation->recuperer($date_maintenant->format('Y-m-d H:i:s'));
+	$date_maintenant=new \DateTime(date($config['format_date']));
+	$Conversation->recuperer($date_maintenant->format($config['format_date']));
 	$Id_utilisateurs=$Conversation->getId_utilisateurs();
 	$index=0;
 	while (isset($Id_utilisateurs[$index]) & $Id_utilisateurs[$index]==$Visiteur->getId())		// Évite de parcourir toute la liste

@@ -6,8 +6,8 @@ if(isset($_POST['commentaire_contenu']) & isset($Visiteur->getPage()->getParamet
 		'id_auteur'        => $Visiteur->getId(),
 		'id_post'          => $Visiteur->getPage()->getParametres()['id'],
 		'contenu'          => $_POST['commentaire_contenu'],
-		'date_publication' => date('Y-m-d H:i:s'),
-		'date_mise_a_jour' => date('Y-m-d H:i:s'),
+		'date_publication' => date($config['format_date']),
+		'date_mise_a_jour' => date($config['format_date']),
 	));
 	$Commentaire->publier();
 	$Notification=new \user\page\Notification(array(
