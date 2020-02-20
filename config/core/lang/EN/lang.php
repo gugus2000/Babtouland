@@ -393,6 +393,10 @@ $lang=array(
 	/* xhr */
 		/* lang */
 			'xhr_lang_message_probleme_key' => 'The key does\' exist (anymore?)',
+		/* liste_membre_conv */
+			'xhr_liste_membre_conv_erreur_pas_dans_conv' => 'You are not in this conversation',
+			'xhr_liste_membre_conv_erreur_conv_all'      => 'All users are in this conversation',
+			'xhr_liste_membre_conv_erreur_no_id'         => 'Id of the conversation is needed',
 	/* forum */
 		'forum_nom_type_0' => 'Folder',
 		'forum_nom_type_1' => 'Thread',

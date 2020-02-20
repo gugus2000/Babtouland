@@ -87,3 +87,13 @@
 	color: #3C3C3C;
 
 }
+
+.formulaire .id
+{
+
+	position: absolute;
+	visibility: hidden;
+	height: 0px;
+	width: 0px;
+
+}

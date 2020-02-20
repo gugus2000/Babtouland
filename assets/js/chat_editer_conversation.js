@@ -1,4 +1,4 @@
-(function(){
+(function () {
 	var trie_edit=new Trie();
 	function EventMoins(element_moins)
 	{
@@ -7,10 +7,8 @@
 			element_moins.parentNode.remove();
 		});
 	}
-	var url=window.location.href,
-		regex_id=new RegExp('id=([0-9]+)&?');
-	var id=regex_id.exec(url)[1];
 	window.addEventListener('load', function(){	
+		var id=parseInt((document.getElementsByClassName('id')[0].textContent || document.getElementsByClassName('id')[0].innerText), 10);
 		xhr_edit=new XMLHttpRequest();
 		xhr_edit.open('GET', '?force_routage=0&routage_session=False&application=xhr&action=liste_membre_conv&id='+encodeURIComponent(id));
 		xhr_edit.responseType="document";
@@ -92,4 +90,4 @@
 			};
 		}
 	}, false);
-})()
+})();

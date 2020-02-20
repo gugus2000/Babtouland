@@ -42,6 +42,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 					'value_conversation_description' => $Conversation->getDescription(),
 					'legend_ajouter_utilisateurs'    => $lang['chat_editer_conversation_formulaire_utilisateurs_legend'],
 					'submit'                         => $lang['chat_editer_conversation_formulaire_submit'],
+					'id'                             => $Conversation->getId(),
 				),
 			));
 			$Formulaire=new \user\page\Formulaire($Form);

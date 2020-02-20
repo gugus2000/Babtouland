@@ -393,6 +393,10 @@ $lang=array(
 	/* xhr */
 		/* lang */
 			'xhr_lang_message_probleme_key' => 'La clef demandé n\'existe pas (ou plus)',
+		/* liste_membre_conv */
+			'xhr_liste_membre_conv_erreur_pas_dans_conv' => 'Vous n\'êtes pas dans la conversation',
+			'xhr_liste_membre_conv_erreur_conv_all'      => 'Tous les utilisateurs sont dans cette conversation',
+			'xhr_liste_membre_conv_erreur_no_id'         => 'Id de la conversation nécessaire',
 	/* forum */
 		'forum_nom_type_0' => 'Dossier',
 		'forum_nom_type_1' => 'Fil',

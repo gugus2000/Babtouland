@@ -162,7 +162,7 @@ foreach ($Conversation->recupererUtilisateurs() as $Utilisateur)
 	{
 		$classe_bouton='success';
 	}
-	$boutons[]=new \user\page\MenuSide\Bouton($Routeur->creerLien(array_merge($config['chat_voir_conversation_menuside_lien_utilisateur'], array('id' => $Utilisateur->afficherId()))), $lang['chat_voir_conversation_menuside_title_utilisateur'].$Utilisateur->afficherPseudo(), $Utilisateur->afficherPseudo(), $classe_bouton);
+	$boutons[]=new \user\page\MenuSide\Bouton($Routeur->creerLien(array_merge($config['chat_voir_conversation_menuside_lien_utilisateur'], array($config['nom_parametres'] => array('id' => $Utilisateur->afficherId())))), $lang['chat_voir_conversation_menuside_title_utilisateur'].$Utilisateur->afficherPseudo(), $Utilisateur->afficherPseudo(), $classe_bouton);
 }
 $BoutonsListe=new \user\page\MenuSide\BoutonsListe($lang['chat_voir_conversation_menuside_titre'], $boutons);
 $MenuSide=new \user\page\MenuSide($BoutonsListe);
@@ -179,7 +179,7 @@ $Contenu=new \user\PageElement(array(
 ));
 
 $toast_liens=array(
-	'lien'        => array(array_merge($config['chat_voir_conversation_toast_editer_conversation'], array('id' => $Conversation->afficherId())), array_merge($config['chat_voir_conversation_toast_supprimer_conversation'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())))),
+	'lien'        => array(array_merge($config['chat_voir_conversation_toast_editer_conversation'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId()))), array_merge($config['chat_voir_conversation_toast_supprimer_conversation'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())))),
 	'description' => array($lang['chat_voir_conversation_toast_editer_conversation'], $lang['chat_voir_conversation_toast_supprimer_conversation']),
 	'icone'       => array('edit', 'delete'),
 );

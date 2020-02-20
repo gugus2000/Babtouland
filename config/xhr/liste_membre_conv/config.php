@@ -9,20 +9,10 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 		));
 		$Conversation->recupererId_utilisateurs();
 		$id_utilisateurs=$Conversation->getId_utilisateurs();
-		$index=0;
-		while (isset($id_utilisateurs[$index]))
+		if (in_array($Visiteur->getId(), $id_utilisateurs))
 		{
-			if ($id_utilisateurs[$index]==$Visiteur->getId())
-			{
-				break;
-			}
-			$index++;
-		}
-		if (isset($id_utilisateurs[$index]))
-		{
-			$utilisateurs=$Conversation->recupererUtilisateurs();
 			$pseudos=array();
-			foreach ($utilisateurs as $utilisateur)
+			foreach ($Conversation->recupererUtilisateurs() as $utilisateur)
 			{
 				if (!$utilisateur->similaire($Visiteur))
 				{
@@ -33,7 +23,28 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 			$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
 			$this->getPage()->envoyerNotificationsSession();
 		}
+		else
+		{
+			new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ERREUR,
+				'contenu' => $lang['xhr_liste_membre_conv_erreur_pas_dans_conv'],
+			));
+		}
 	}
+	else
+	{
+		new \user\page\Notification(array(
+			'type'    => \user\page\Notification::TYPE_ERREUR,
+			'contenu' => $lang['xhr_liste_membre_conv_erreur_conv_all'],
+		));
+	}
+}
+else
+{
+	new \user\page\Notification(array(
+		'type'    => \user\page\Notification::TYPE_ERREUR,
+		'contenu' => $lang['xhr_liste_membre_conv_erreur_no_id'],
+	));
 }
 
 ?>
