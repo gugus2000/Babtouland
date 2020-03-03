@@ -22,12 +22,6 @@ class PageElement
 	*/
 	protected $template;
 	/**
-	* Chemin vers les fonctions nécessaires
-	* 
-	* @var string
-	*/
-	protected $fonctions;
-	/**
 	* Liste des éléments du PagElement
 	* 
 	* @var array
@@ -44,15 +38,6 @@ class PageElement
 	public function getTemplate()
 	{
 		return $this->template;
-	}
-	/**
-	* Accesseur de fonctions
-	* 
-	* @return string
-	*/
-	public function getFonctions()
-	{
-		return $this->fonctions;
 	}
 	/**
 	* Accesseur de elements
@@ -78,17 +63,6 @@ class PageElement
 		$this->template=$template;
 	}
 	/**
-	* Définisseur de fonctions
-	*
-	* @param string fonctions Chemin vers les fonctions nécessaires
-	* 
-	* @return void
-	*/
-	protected function setFonctions($fonctions)
-	{
-		$this->fonctions=$fonctions;
-	}
-	/**
 	* Définisseur de elements
 	*
 	* @param array elements Liste des éléments du PageElement
@@ -110,15 +84,6 @@ class PageElement
 	public function afficherTemplate()
 	{
 		return htmlspecialchars($this->template);
-	}
-	/**
-	* Afficheur de fonctions
-	* 
-	* @return string
-	*/
-	public function afficherFonctions()
-	{
-		return htmlspecialchars($this->fonctions);
 	}
 	/**
 	* Afficheur de elements
@@ -147,14 +112,7 @@ class PageElement
 			}
 			else if (is_array($element))
 			{
-				if (function_exists($nom.'Afficher'))
-				{
-					$affichage.=($nom.'Afficher')($element);
-				}
-				else
-				{
-					$affichage.=$this->afficherArray($element);
-				}
+				$affichage.=$this->afficherArray($element);
 			}
 			else
 			{
@@ -190,14 +148,7 @@ class PageElement
 			}
 			else if (is_array($element))
 			{
-				if (function_exists($nom.'Afficher'))
-				{
-					$valeur=($nom.'Afficher')($element);
-				}
-				else
-				{
-					$valeur=$this->afficherArray($element);
-				}
+				$valeur=$this->afficherArray($element);
 			}
 			else
 			{
