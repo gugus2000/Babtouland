@@ -43,7 +43,6 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 
 			$Contenu=new \user\PageElement(array(
 				'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_template'],
-				'fonctions' => $config['path_func'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 				'elements' => array(
 					'formulaire' => $Formulaire,
 				),

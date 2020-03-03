@@ -32,7 +32,6 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 
 			$Contenu=new \user\PageElement(array(
 				'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
-				'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 				'elements'  => array(
 					'formulaire' => $Formulaire,
 				),

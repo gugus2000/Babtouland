@@ -25,11 +25,11 @@ $lang=array(
 		'erreur_connexion_mot_de_passe'              => 'Login error',
 		'erreur_connexion_utilisateur'               => 'User doesn\'t exist',
 	/* menu-up */
-		'menu-up_accueil'    => 'Home',
-		'menu-up_altlogo'    => 'Logo of ',
-		'menu-up_avatar'     => 'Your avatar',
-		'menu-up_titres'     => array('Home', 'Post thread', 'About', 'Chat', 'Forum', 'Admin'),
-		'menu-up_affichages' => array('Home', 'Post', 'About', 'Chat', 'Forum', 'Admin'),
+		'menuUp_accueil'    => 'Home',
+		'menuUp_altlogo'    => 'Logo of ',
+		'menuUp_avatar'     => 'Your avatar',
+		'menuUp_titres'     => array('Home', 'Post thread', 'About', 'Chat', 'Forum', 'Admin'),
+		'menuUp_affichages' => array('Home', 'Post', 'About', 'Chat', 'Forum', 'Admin'),
 	/* tete */
 		'tete_titre' => 'untitled',
 	/* temps */
@@ -482,6 +482,10 @@ $lang=array(
 			'forum_suppression_notification_succes'              => 'Node well deleted',
 			'forum_suppression_notification_erreur_autorisation' => 'You do not have permission to delete this node',
 			'forum_suppression_notification_erreur_id'           => 'You cannot delete this node',
+	/* rss */
+		/* post */
+			'rss_post_title'       => 'Post',
+			'rss_post_description' => 'Last post from the website ',
 );
 
 ?>

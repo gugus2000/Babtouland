@@ -83,7 +83,6 @@ if($Visiteur->getRole()->existPermission($config['post_lecture_publication_comme
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'post'         => $post,
 		'commentaires' => $commentaires,
@@ -97,7 +96,7 @@ $toast_liens=array(
 	'icone'       => array('edit', 'delete'),
 );
 
-if(verifLiens($Visiteur, $toast_liens['lien']))
+if($Visiteur->verifLiens($toast_liens['lien']))
 {
 	$Toast=new \user\page\Toast($toast_liens, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 }

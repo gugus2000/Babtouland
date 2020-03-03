@@ -41,7 +41,6 @@ foreach ($resultats as $index => $resultat)
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'caption'                      => $lang['utile_liste_user_table_caption'],
 		'user_nom'                     => $lang['utile_liste_user_table_th_nom'],

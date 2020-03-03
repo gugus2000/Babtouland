@@ -136,7 +136,6 @@ if (!$Conversation->recupererMessages())
 
 $Chat=new \user\PageElement(array(
 	'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/chat.html',
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/chat.func.php',
 	'elements' => array(
 		'messages' => $MessagesElements,
 	),
@@ -169,7 +168,6 @@ $MenuSide=new \user\page\MenuSide($BoutonsListe);
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements' => array(
 		'menuSide' => $MenuSide,
 		'chat'     => $Chat,
@@ -185,7 +183,7 @@ $toast_liens=array(
 );
 
 
-if(verifLiens($Visiteur, $toast_liens['lien']) & $Conversation->getId()!=$config['id_conversation_all'])
+if($Visiteur->verifLiens($toast_liens['lien']) & $Conversation->getId()!=$config['id_conversation_all'])
 {
 	$Toast=new \user\page\Toast($toast_liens);
 }

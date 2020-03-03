@@ -25,11 +25,11 @@ $lang=array(
 		'erreur_connexion_mot_de_passe'              => 'Problème lors de la connexion',
 		'erreur_connexion_utilisateur'               => 'L\'utilisateur n\'existe pas',
 	/* menu-up */
-		'menu-up_accueil'    => 'Accueil',
-		'menu-up_altlogo'    => 'Logo de ',
-		'menu-up_avatar'     => 'Votre avatar',
-		'menu-up_titres'     => array('Accueil', 'Fil des posts', 'À propos', 'Chat', 'Forum', 'Admin'),
-		'menu-up_affichages' => array('Accueil', 'Post', 'À propos', 'Chat', 'Forum', 'Admin'),
+		'menuUp_accueil'    => 'Accueil',
+		'menuUp_altlogo'    => 'Logo de ',
+		'menuUp_avatar'     => 'Votre avatar',
+		'menuUp_titres'     => array('Accueil', 'Fil des posts', 'À propos', 'Chat', 'Forum', 'Admin'),
+		'menuUp_affichages' => array('Accueil', 'Post', 'À propos', 'Chat', 'Forum', 'Admin'),
 	/* tete */
 		'tete_titre' => 'sans titre',
 	/* temps */
@@ -482,6 +482,10 @@ $lang=array(
 			'forum_suppression_notification_succes'              => 'Le noeud a bien été supprimé',
 			'forum_suppression_notification_erreur_autorisation' => 'Vous n\'avez pas l\'autorisation de supprimer ce noeud',
 			'forum_suppression_notification_erreur_id'           => 'Impossible de supprimer ce noeud',
+	/* rss */
+		/* post */
+			'rss_post_title'       => 'Post',
+			'rss_post_description' => 'Les derniers posts sur le site ',
 );
 
 ?>

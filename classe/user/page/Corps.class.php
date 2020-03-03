@@ -24,7 +24,6 @@ class Corps extends \user\PageElement
 	{
 		global $config, $lang, $Visiteur;
 		$this->setTemplate($config['path_template'].$config['corps_path_template']);
-		$this->setFonctions($config['path_func'].$config['corps_path_fonctions']);
 		$this->setElements(array(
 			'haut'   => $haut,
 			'centre' => $centre,

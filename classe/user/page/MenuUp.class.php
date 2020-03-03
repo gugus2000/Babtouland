@@ -25,46 +25,53 @@ class MenuUp extends \user\PageElement
 			$Tete=$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']);
 		}
 		$this->setTemplate($config['path_template'].$config['menuUp_path_template']);
-		$this->setFonctions($config['path_func'].$config['menuUp_path_fonctions']);
 		$Logo=new \user\PageElement(array(
-			'template'  => $config['path_template'].'core/menu-up/logo.html',
-			'fonctions' => $config['path_func'].'core/menu-up/logo.func.php',
+			'template'  => $config['path_template'].$config['menuUp_logo_path_template'],
 			'elements'  => array(
 				'lien'               => $Routeur->creerLien($config['menuUp_lien_logo']),
-				'titre_lien_accueil' => $lang['menu-up_accueil'],
+				'titre_lien_accueil' => $lang['menuUp_accueil'],
 				'src_logo'           => $config['path_assets'].'img/icone/icone-transparent.png',
-				'alt_logo'           => $lang['menu-up_altlogo'].$config['nom_site'],
+				'alt_logo'           => $lang['menuUp_altlogo'].$config['nom_site'],
 				'titre_texte'        => strtoupper($config['nom_site']),
 			),
 		));
 		$DropdownLang=new \user\page\Dropdown($lang['lang_self']['full'], $lang['lang_others'], $Tete);
 		$Avatar=new \user\PageElement(array(
-			'template'  => $config['path_template'].'core/menu-up/avatar.html',
-			'fonctions' => $config['path_func'].'core/menu-up/avatar.func.php',
+			'template'  => $config['path_template'].$config['menuUp_avatar_path_template'],
 			'elements'  => array(
-				'lien_avatar' => $Routeur->creerLien($config['menu-up_lien-statut']),
+				'lien_avatar' => $Routeur->creerLien($config['menuUp_lien-statut']),
 				'lien_titre'  => $Visiteur->afficherPseudo(),
 				'src_avatar'  => $config['path_assets'].'img/avatar/'.$Visiteur->afficherAvatar(),
-				'alt_avatar'  => $lang['menu-up_avatar'],
+				'alt_avatar'  => $lang['menuUp_avatar'],
 			),
 		));
+		$liens_grand=array();
+		$liens_petit=array();
+		foreach($config['menuUp_liens'] as $index => $href)
+		{
+			$liens_grand[]=new \user\PageElement(array(
+				'template' => $config['path_template'].$config['menuUp_lien_grand_path_template'],
+				'elements' => array(
+					'href'        => $Routeur->creerLien($href),
+					'title'       => $lang['menuUp_titres'][$index],
+					'description' => $lang['menuUp_affichages'][$index],
+				),
+			));
+			$liens_petit[]=new \user\PageElement(array(
+				'template' => $config['path_template'].$config['menuUp_lien_petit_path_template'],
+				'elements' => array(
+					'href'  => $Routeur->creerLien($href),
+					'title' => $lang['menuUp_titres'][$index],
+					'icon'  => $config['menuUp_icones'][$index],
+				),
+			));
+		}
 		$this->setElements(array(
-			'logo'             => $Logo,
-			'liens_grand_ecran' => array(
-				'liens'      => $config['menu-up_liens'],
-				'titres'     => $lang['menu-up_titres'],
-				'items'      => $lang['menu-up_affichages'],
-				'type_ecran' => 'grand-ecran',
-			),
-			'dropdown_lang'    => $DropdownLang,
-			'avatar'           => $Avatar,
-			'menu_petit_ecran' => '<a href="#" class="petit-ecran-menu"><i class="material-icons petit-ecran-menu">menu</i></a>',
-			'liens_petit_ecran' => array(
-				'liens'      => $config['menu-up_liens'],
-				'titres'     => $lang['menu-up_titres'],
-				'items'      => $config['menu-up_icones'],
-				'type_ecran' => 'petit-ecran',
-			),
+			'logo'              => $Logo,
+			'liens_grand_ecran' => $liens_grand,
+			'dropdown_lang'     => $DropdownLang,
+			'avatar'            => $Avatar,
+			'liens_petit_ecran' => $liens_petit,
 		));
 		$Tete->ajouterValeurElement('css', $config['path_assets'].$config['menuUp_path_css']);
 		$Tete->ajouterValeurElement('javascripts', $config['path_assets'].$config['menuUp_path_javascript']);

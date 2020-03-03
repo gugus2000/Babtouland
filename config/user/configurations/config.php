@@ -25,7 +25,6 @@ foreach ($lang['lang_others'] as $langue)
 }
 $Form=new \user\PageElement(array(
 	'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/form.html',
-	'fonctions' => $config['path_func'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'action'                           => $Routeur->creerLien($config['user_configurations_formulaire_action']),
 		'legend'                           => $lang['user_configurations_formulaire_legend'],

@@ -41,7 +41,6 @@ foreach ($Conversations as $Conversation)
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$Visiteur->getPage()->getApplication().'/'.$Visiteur->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'cartes'   => $Cartes,
 	),
@@ -55,7 +54,7 @@ $toast_liens=array(
 );
 
 
-if(verifLiens($Visiteur, $toast_liens['lien']))
+if($Visiteur->verifLiens($toast_liens['lien']))
 {
 	$Toast=new \user\page\Toast($toast_liens, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 }

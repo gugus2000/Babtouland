@@ -33,7 +33,6 @@ $lien_configuration='<a href="'.$Routeur->creerLien($config['user_statut_lien_co
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'statut'                      => $statut,
 		'lien_connexionEdition'       => $lien_connexionEdition,

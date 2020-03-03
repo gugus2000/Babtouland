@@ -223,6 +223,22 @@ class PageElement
 		return False;
 	}
 	/**
+	* Définisseur d'un élément de elments
+	*
+	* @param mixed index Index de l'élément à définir
+	*
+	* @param mixed valeur valeur de l'élément à définir
+	* 
+	* @return void
+	*/
+	protected function setElement($index, $valeur)
+	{
+		if (isset($this->elements[$index]))
+		{
+			$this->elements[$index]=$valeur;
+		}
+	}
+	/**
 	* Construction de l'objet PageElement
 	*
 	* @param array attributs Attributs du PageElement

@@ -199,11 +199,11 @@ class Routeur
 				{
 					$parametres['lang']=$element;
 				}
-				else if (in_array($element, $liste_applications))
+				else if (in_array($element, $liste_applications) & !isset($application))
 				{
 					$application=$element;
 				}
-				else if (in_array($element, $liste_actions))
+				else if (in_array($element, $liste_actions) & !isset($action))
 				{
 					$action=$element;
 				}

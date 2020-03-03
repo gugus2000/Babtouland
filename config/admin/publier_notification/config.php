@@ -22,7 +22,6 @@ while ($resultat=$requete->fetch(\PDO::FETCH_ASSOC))
 }
 $Form=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/form.html',
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/func.php',
 	'elements'  => array(
 		'action'                          => $Routeur->creerLien($config['admin_publier_notification_formulaire_action']),
 		'legend'                          => $lang['admin_publier_notification_formulaire_legend'],

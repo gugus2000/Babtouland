@@ -17,15 +17,16 @@ $config=array(
 			/* PageElement */
 				/* Page */
 					'pageElement_page_template'  => 'assets/html/core/page/page.html',		// Chemin vers la template de la page
-					'pageElement_page_fonctions' => 'func/core/page/page.func.php',			// Chemin vers les fonctions de la page
-					'pageElement_page_elements'       => array(),							// Chemin vers les éléments de la page
+					'pageElement_page_elements'  => array(),								// Chemin vers les éléments de la page
 				/* Contenu */
 					'filename_contenu_template'  => 'template.html',
-					'filename_contenu_fonctions' => 'func.php',
 				/* Tete */
-					'tete_path_template'  => 'core/page/tete.html',
-					'tete_path_fonctions' => 'core/page/tete.func.php',
-					'tete_metas'       => array(
+					'tete_path_template'            => 'core/page/tete/tete.html',
+					'tete_meta_path_template'       => 'core/page/tete/meta.html',
+					'tete_metas_path_template'      => 'core/page/tete/metas.html',
+					'tete_css_path_template'        => 'core/page/tete/css.html',
+					'tete_javascript_path_template' => 'core/page/tete/javascript.html',
+					'tete_metas'                    => array(
 						array(
 							'http-equiv' => 'X-UA-Compatible',
 							'content'    => 'IE=edge',
@@ -49,7 +50,6 @@ $config=array(
 					'prefixe_titre' => ' | Babtouland',
 				/* Corps */
 					'corps_path_template'  => 'core/page/corps.html',
-					'corps_path_fonctions' => 'core/page/corps.func.php',
 					'corps_nom'            => 'corps',
 				/* Temps */
 					'temps_nom'           => 'temps',
@@ -60,45 +60,63 @@ $config=array(
 					'menuSide_path_css'                    => 'css/menu-side.css',
 					'menuSide_bouton_path_template'        => 'core/menu-side/bouton.html',
 					'menuSide_boutonsListe_path_template'  => 'core/menu-side/liste_boutons.html',
-					'menuSide_boutonsListe_path_fonctions' => 'core/boutons-liste/boutons-liste.func.php',
 				/* MenuUp */
-					'menuUp_path_template'   => 'core/menu-up/menu-up.html',
-					'menuUp_path_fonctions'  => 'core/menu-up/menu-up.func.php',
-					'menuUp_path_css'        => 'css/menu-up.css',
-					'menuUp_path_javascript' => 'js/menu-up.js',
-					'menuUp_lien_logo'       => array(),
+					'menuUp_path_template'            => 'core/menu-up/menu-up.html',
+					'menuUp_lien_grand_path_template' => 'core/menu-up/lien-grand.html',
+					'menuUp_lien_petit_path_template' => 'core/menu-up/lien-petit.html',
+					'menuUp_logo_path_template'       => 'core/menu-up/logo.html',
+					'menuUp_avatar_path_template'     => 'core/menu-up/avatar.html',
+					'menuUp_path_css'                 => 'css/menu-up.css',
+					'menuUp_path_javascript'          => 'js/menu-up.js',
+					'menuUp_lien_logo'                => array(),
+					'menuUp_liens'       => array(
+						array(),
+						array('application' => 'post', 'action' => 'fil_post'),
+						array('application' => 'utile', 'action' => 'a_propos'),
+						array('application' => 'chat', 'action' => 'hub'),
+						array('application' => 'forum', 'action' => 'voir_dossier'),
+						array('application' => 'admin', 'action' => 'hub')
+					),																							// Liste des liens dans le menu_up (dans l'ordre)
+					'menuUp_icones'      => array('home', 'view_list', 'info', 'chat', 'forum', 'security'),	// Liste des icones du menu_up version petit_ecran (dans l'ordre)
+					'menuUp_lien-statut' => array('application' => 'user', 'action' => 'statut'),				// Lien lors du clic sur l'avatar dans le menu_up
 				/* Dropdown */
-					'dropdown_path_template'  => 'core/menu-up/dropdown.html',
-					'dropdown_path_fonctions' => 'core/menu-up/dropdown.func.php',
-					'dropdown_path_css'       => 'css/dropdown.css',
+					'dropdown_path_template'        => 'core/menu-up/dropdown.html',
+					'dropdown_others_path_template' => 'core/menu-up/dropdown-others.html',
+					'dropdown_path_css'             => 'css/dropdown.css',
 				/* Carte */
 					'carte_path_template'  => 'core/carte/carte.html',
-					'carte_path_fonctions' => 'core/carte/carte.func.php',
 				/* Formulaire */
 					'formulaire_path_template'  => 'core/formulaire/formulaire.html',
-					'formulaire_path_fonctions' => 'core/formulaire/formulaire.func.php',
 					'formulaire_path_css'       => 'css/formulaire.css',
 				/* Toast */
-					'toast_path_template'   => 'core/toast/toast.html',
-					'toast_path_fonctions'  => 'core/toast/toast.func.php',
-					'toast_path_css'        => 'css/toast.css',
-					'toast_path_javascript' => 'js/toast.js',
+					'toast_path_template'      => 'core/toast/toast.html',
+					'toast_lien_path_template' => 'core/toast/lien.html',
+					'toast_path_css'           => 'css/toast.css',
+					'toast_path_javascript'    => 'js/toast.js',
 				/* Notification */
 					'notification_path_template' => 'core/notification/notification.html',	// Template des messages
 					'notification_path_css'      => 'css/notification.css',								// Css des messages
 					'notification_path_js'       => 'js/notification.js',								// Js des messages
 					'notification_elements'      => array(),
 					'notification_nom'          => 'notifications',
+				/* Rss */
+					'rss_path_template'          => 'rss/main.html',
+					'rss_channel_path_template'  => 'rss/channel.html',
 		/* BBcode */
 			'bbcode_css'    => 'css/bbcode.css',
 			'bbcode_config' => 'config/core/bbcode/bbcode.php',
 		/* Général */
-			'nom_site'                 => 'Babtouland',					// Nom du site
+			'nom_site'                 => 'Babtouland',						// Nom du site
 			'mail_dev'                 => 'gugus2000@protonmail.com',		// Mail du développeur
+			'url_website'              => 'http://babtouland.com',
 			'defaut_application'       => 'user',
 			'lang_available'           => array('FR', 'EN'),
 			'application_modification' => 'core',
 			'format_date'              => 'Y-m-d H:i:s',
+			'defaut_config'            => array(
+				'notifications'      => True,
+				'custom_pageElement' => False,
+			),
 			/* Utilisateur */
 				'chemin_avatar'       => 'assets/img/avatar/',				// Chemin vers le dossier contenant les avatars
 				'size_avatar'         => 1000000,							// Taille de l'avatar maximum
@@ -114,15 +132,9 @@ $config=array(
 				/* config */
 					'path_config' => 'config/',
 					'path_lang'   => 'config/core/lang/',
-				/* Func */
-					'path_func' => 'func/',
-				/* Définitions des pages */
+				/* définitions des pages */
 					'path_pageDef_root'     => 'config/',			// Chemin vers la racine des configurations des pages
 					'path_pageDef_filename' => 'config.php',		// Nom du fichier de la configuration d'une page
-			/* Menu-up */
-				'menu-up_liens'       => array(array(), array('application' => 'post', 'action' => 'fil_post'), array('application' => 'utile', 'action' => 'a_propos'), array('application' => 'chat', 'action' => 'hub'), array('application' => 'forum', 'action' => 'voir_dossier'), array('application' => 'admin', 'action' => 'hub')),	// Liste des liens dans le menu_up (dans l'ordre)
-				'menu-up_icones'      => array('home', 'view_list', 'info', 'chat', 'forum', 'security'),														// Liste des icones du menu_up version petit_ecran (dans l'ordre)
-				'menu-up_lien-statut' => array('application' => 'user', 'action' => 'statut'),														// Lien lors du clic sur l'avatar dans le menu_up
 			/* Menu-side */
 				'menu-side_css'      => 'assets/css/menu-side.css',
 				'menu-side_js'       => '',
@@ -132,8 +144,6 @@ $config=array(
 				'nom_guest' => 'guest',	// pseudo de l'utilisateur "guest"
 				'mdp_guest' => 'guest',	// mot de passe de l'utilisateur "guest"
 				'id_guest'  => 12,		// A CHANGER POUR CHAQUE BDD
-			/* Erreur */
-				'erreur_path' => 'erreur/page.php',	// Chemin vers la page d'erreur
 		/* admin */
 			'defaut_admin_action' => 'hub',
 			/* hub */
@@ -172,7 +182,7 @@ $config=array(
 				'user_edition_action'            => array('application' => 'user', 'action' => 'validation_edition'),	// Lien redirigeant le formulaire d'édition d'utilisateur
 				'user_edition_admin_application' => 'core',											// Application dont la permission est nécessaire pour éditer un aure utiliasateur
 				'user_edition_admin_action'      => 'edition_user',									// Action dont la permission est nécessaire pour éditer un aure utilisateur
-				'user_edition_parametres'        => array('id' => array('regex' => '\\d+', 'necessaire' => True)),
+				'user_edition_parametres'        => array('id' => array('regex' => '\\d+', 'necessaire' => False)),
 			/* validation_edition */
 				'user_validation_edition_lien_erreur_formulaire'       => array('application' => 'user', 'action' => 'statut'),	// Lien de la page à charger lorsque l'édition de l'utilisateur échoue
 				'user_validation_edition_lien_succes'                  => array('application' => 'user', 'action' => 'statut'),	// Lien de la page à charger lorsque l'édition de son profil réussie
@@ -442,6 +452,15 @@ $config=array(
 				'forum_suppression_notification_erreur_autorisation' => array('application' => 'forum', 'action' => 'voir'),
 				'forum_suppression_notification_erreur_id'           => array('application' => 'forum', 'action' => 'voir'),
 				'forum_suppression_parametres'                       => array('id' => array('regex' => '\\d+', 'necessaire' => True)),
+		/* rss */
+			'defaut_rss_action' => 'post',
+			'rss_config'        => array(
+				'notifications'      => False,
+				'custom_pageElement' => True,
+			),
+			/* post */
+				'rss_post_link'      => array('application' => 'post', 'action' => 'fil_post'),
+				'rss_post_item_link' => array('application' => 'post', 'action' => 'lecture'),
 );
 
 ?>

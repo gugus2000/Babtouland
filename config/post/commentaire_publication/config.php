@@ -9,7 +9,7 @@ if(isset($_POST['commentaire_contenu']) & isset($Visiteur->getPage()->getParamet
 		'date_publication' => date($config['format_date']),
 		'date_mise_a_jour' => date($config['format_date']),
 	));
-	$Commentaire->publier();
+	$Commentaire->creer();
 	$Notification=new \user\page\Notification(array(
 		'type'    => \user\page\Notification::TYPE_SUCCES,
 		'contenu' => $lang['post_commentaire_publication_message_succes'],

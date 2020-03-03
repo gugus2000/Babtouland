@@ -198,7 +198,7 @@ class Manager
 			}
 			$order_by=$bornes['order_by'];
 		}
-		else if ($bornes['ordre'])
+		else if (isset($bornes['ordre']))
 		{
 			if (!in_array($bornes['ordre'], $this::ATTRIBUTES))
 			{
@@ -221,7 +221,23 @@ class Manager
 		}
 		else
 		{
-			$ordre='ASC';
+			if (isset($bornes['sens']))
+			{
+				switch ($bornes['sens'])
+				{
+					case 'ASC':
+					case 'DESC':
+						$ordre=$bornes['sens'];
+						break;
+					default:
+						$ordre='ASC';
+						break;
+				}
+			}
+			else
+			{
+				$ordre='ASC';
+			}
 		}
 		if (isset($bornes['offset']))
 		{

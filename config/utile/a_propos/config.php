@@ -32,7 +32,6 @@ for ($i=0, $lenght=count($lang['utile_a_propos_contenu_questions']); $i < $lengh
 
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'titre'      => $lang['utile_a_propos_contenu_titre'],
 		'contenu'    => $questions_reponses,

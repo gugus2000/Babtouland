@@ -166,27 +166,30 @@ class Page
 	public function afficher()
 	{
 		global $config, $Visiteur;
-		if($this->getPageElement()->getElement($config['tete_nom']))
+		if ($this->getParametres()['config_perso']['notifications'])
 		{
-			if ($this->getPageElement()->getElement($config['tete_nom'])->getElement('metas'))
+			if($this->getPageElement()->getElement($config['tete_nom']))
 			{
-				$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
-					'charset' => 'utf-8',
-					'lang'    => $Visiteur->getConfiguration('lang'),
-				));
+				if ($this->getPageElement()->getElement($config['tete_nom'])->getElement('metas'))
+				{
+					$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+						'charset' => 'utf-8',
+						'lang'    => $Visiteur->getConfiguration('lang'),
+					));
+				}
+				if($this->getPageElement()->getElement($config['tete_nom'])->getElement('titre'))
+				{
+					$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('titre', $config['prefixe_titre']);
+				}
+				else
+				{
+					$this->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', '');
+				}
 			}
-			if($this->getPageElement()->getElement($config['tete_nom'])->getElement('titre'))
+			if (!$this->getPageElement()->getElement($config['temps_nom']))
 			{
-				$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('titre', $config['prefixe_titre']);
+				$this->getPageElement()->ajouterElement($config['temps_nom'], '');
 			}
-			else
-			{
-				$this->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', '');
-			}
-		}
-		if (!$this->getPageElement()->getElement($config['temps_nom']))
-		{
-			$this->getPageElement()->ajouterElement($config['temps_nom'], '');
 		}
 		return $this->afficherPageElement();
 	}
@@ -208,28 +211,49 @@ class Page
 				$this->$method($value);
 			}
 		}
-		$PageElement=new \user\page\Page();
-		$PageElement->ajouterElement($config['tete_nom'], new \user\page\Tete());
-		$PageElement->ajouterElement($config['notification_nom'], $config['notification_elements']);
-		$Notifications=$Visiteur->recupererNotifications();
-		if ($Notifications)		// Gestion des notifications de la base de données
+		$configPerso=$this->chargementConfigPerso();
+		$parametres=$this->getParametres();
+		if (isset($parametres['config_perso']))
 		{
-			foreach ($Notifications as $Notification)
-			{
-				$Notification->envoyerNotification($PageElement, $Visiteur->getConfigurations()['lang']);
-			}
-			\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
+			$configPerso=array_merge($parametres['config_perso'], $configPerso);
 		}
-		if (isset($_SESSION['notifications']))		// Gestion des notifications de sessions
+		$parametres['config_perso']=$configPerso;
+		$this->setParametres($parametres);
+		if ($configPerso['notifications'])
 		{
-			foreach ($_SESSION['notifications'] as $notification_serialize)
-			{
-				$PageElement->ajouterValeurElement($config['notification_nom'], unserialize($notification_serialize));
-			}
-			\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
-			unset($_SESSION['notifications']);
+			$Notifications=$Visiteur->recupererNotifications();
 		}
-		$this->setPageElement($PageElement);
+		if (!$configPerso['custom_pageElement'])
+		{
+			$PageElement=new \user\page\Page();
+			$PageElement->ajouterElement($config['tete_nom'], new \user\page\Tete());
+			if ($configPerso['notifications'])
+			{
+				$PageElement->ajouterElement($config['notification_nom'], $config['notification_elements']);
+				if ($Notifications)		// Gestion des notifications de la base de données
+				{
+					foreach ($Notifications as $Notification)
+					{
+						$Notification->envoyerNotification($PageElement, $Visiteur->getConfigurations()['lang']);
+					}
+					\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
+				}
+				if (isset($_SESSION['notifications']))		// Gestion des notifications de sessions
+				{
+					foreach ($_SESSION['notifications'] as $notification_serialize)
+					{
+						$PageElement->ajouterValeurElement($config['notification_nom'], unserialize($notification_serialize));
+					}
+					\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
+					unset($_SESSION['notifications']);
+				}
+			}
+			else
+			{
+				$PageElement->ajouterElement($config['notification_nom'], '');
+			}
+			$this->setPageElement($PageElement);
+		}
 	}
 	/**
 	* Envoie les notifications dans la session
@@ -321,6 +345,43 @@ class Page
 			'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
 		));
 	}
+	/**
+	* Chargement de la config perso
+	* 
+	* @return array
+	*/
+	public function chargementConfigPerso()
+	{
+		global $config;
+		$array=$config['defaut_config'];
+		if (isset($config[$this->getApplication().'_config']))
+		{
+			$array=array_merge($array, $config[$this->getApplication().'_config']);
+		}
+		if (isset($config[$this->getApplication().'_'.$this->getAction().'_config']))
+		{
+			$array=array_merge($array, $config[$this->getApplication().'_'.$this->getAction().'_config']);
+		}
+		return $array;
+	}
+	/**
+	* Changer de pageElement
+	*
+	* @param \user\PageElement pageElement Le nouveau PageElement
+	* 
+	* @return void
+	*/
+	public function creerPage($pageElement)
+	{
+		if ($this->getParametres()['config_perso']['custom_pageElement']!=null)
+		{
+			if ($this->getParametres()['config_perso']['custom_pageElement'])
+			{
+				$this->setPageElement($pageElement);
+			}
+		}
+	}
+
 }
 
 ?>

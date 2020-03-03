@@ -9,7 +9,7 @@ if(isset($_POST['publication_titre']) & isset($_POST['publication_contenu']) & !
 		'date_publication' => date($config['format_date']),
 		'date_mise_a_jour' => date($config['format_date']),
 	));
-	$Post->publier();
+	$Post->creer();
 	$Notification=new \user\page\Notification(array(
 		'type'    => \user\page\Notification::TYPE_SUCCES,
 		'contenu' => $lang['post_validation_publication_message_succes'],

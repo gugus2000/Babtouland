@@ -64,7 +64,6 @@ foreach ($PostManager->getBy(array(), array(), array('fin' => ($page-1)*$Visiteu
 }
 $Contenu=new \user\PageElement(array(
 	'template'  => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_template'],
-	'fonctions' => $config['path_func'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/'.$config['filename_contenu_fonctions'],
 	'elements'  => array(
 		'liste_post' => $liste_post,
 		'pagination' => $Pagination,
@@ -75,7 +74,7 @@ $toast_liens=array(
 	'description' => array($lang['post_fil_post_publication']),
 	'icone'       => array('add'),
 );
-if(verifLiens($Visiteur, $toast_liens['lien']))
+if($Visiteur->verifLiens($toast_liens['lien']))
 {
 	$Toast=new \user\page\Toast($toast_liens, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 }

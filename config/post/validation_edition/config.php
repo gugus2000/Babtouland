@@ -20,7 +20,7 @@ if(isset($Visiteur->getPage()->getParametres()['id']) & isset($_POST['edition_ti
 				'contenu' => $lang['post_validation_edition_message_succes'],
 			));
 			$get=array_merge($config['post_validation_edition_lien_succes'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
-			$Post->mettre_a_jour();
+			$Post->modifier();
 		}
 		else
 		{
