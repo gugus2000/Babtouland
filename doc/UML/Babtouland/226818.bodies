@@ -1,0 +1,60 @@
+class Motdepasse
+!!!643202.php!!!	getId() : int
+
+		return $this->id;
+!!!643330.php!!!	getMdp_clair() : string
+
+		return $this->mdp_clair;
+!!!643458.php!!!	getMot_de_passe() : string
+
+		return $this->mot_de_passe;
+!!!643586.php!!!	setId(in id : int) : void
+
+		$this->id=$id;
+!!!643714.php!!!	setMdp_clair(in mdp_clair : string) : void
+
+		$this->mdp_clair=$mdp_clair;
+!!!643842.php!!!	setMot_de_passe(in mot_de_passe : string) : void
+
+		$this->mot_de_passe=$mot_de_passe;
+!!!643970.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!644098.php!!!	afficherMdp_clair() : string
+
+		return htmlspecialchars((string)$this->mdp_clair);
+!!!644226.php!!!	afficherMdp_hash() : string
+
+		return htmlspecialchars((string)$this->mdp_hash);
+!!!644354.php!!!	hash() : void
+
+		if ($this->getMdp_clair())
+		{
+			$mdp_hash=password_hash($this->getMdp_clair(), PASSWORD_DEFAULT);
+			$this->setMot_de_passe($mdp_hash);
+		}
+!!!644482.php!!!	verif(in mot_de_passe : string) : bool
+
+		if ($this->getMot_de_passe())
+		{
+			$password=$mot_de_passe;
+			$hash=$this->getMot_de_passe();
+			$options=array(
+				'cost' => $this::HASH_COST,
+			);
+			if (password_verify($password, $hash))
+			{
+			    if (password_needs_rehash($hash, PASSWORD_DEFAULT, $options))
+			    {
+			        $this->setMot_de_passe(password_hash($password, PASSWORD_DEFAULT, $options));
+			        $Mot_de_passeManager=$this->Manager();
+			        $Mot_de_passeManager->update(array(
+			        	'mot_de_passe' => $this->getMot_de_passe(),
+			        ), $this->getId());
+			    }
+			    $this->setMdp_clair($mot_de_passe);
+			    return True;
+			}
+			return False;
+		}
+		return False;

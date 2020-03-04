@@ -1,0 +1,184 @@
+class Page
+!!!647682.php!!!	getApplication() : string
+
+		return $this->application;
+!!!647810.php!!!	getAction() : string
+
+		return $this->action;
+!!!647938.php!!!	getParametres() : array
+
+		return $this->parametres;
+!!!648066.php!!!	getPageElement() : PageElement
+
+		return $this->pageElement;
+!!!648194.php!!!	setApplication(in application : string) : void
+
+		$this->application=$application;
+!!!648322.php!!!	setAction(in action : string) : void
+
+		$this->action=$action;
+!!!648450.php!!!	setParametres(in parametres : array) : void
+
+		$this->parametres=$parametres;
+!!!648578.php!!!	setPageElement(in pageElement : PageElement) : void
+
+		$this->pageElement=$pageElement;
+!!!648706.php!!!	afficherApplication() : string
+
+		return htmlspecialchars((string)$this->application);
+!!!648834.php!!!	afficherAction() : string
+
+		return htmlspecialchars((string)$this->action);
+!!!648962.php!!!	afficherParametres() : string
+
+		return htmlspecialchars((string)$this->parametres);
+!!!649090.php!!!	afficherPageElement() : string
+
+		return $this->pageElement->afficher();
+!!!649218.php!!!	afficher() : string
+
+		global $config, $Visiteur;
+		if (!$this->getParametres()['config_perso']['custom_pageElement'])
+		{
+			if($this->getPageElement()->getElement($config['tete_nom']))
+			{
+				if ($this->getPageElement()->getElement($config['tete_nom'])->getElement('metas'))
+				{
+					$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+						'charset' => 'utf-8',
+						'lang'    => $Visiteur->getConfiguration('lang'),
+					));
+				}
+				if($this->getPageElement()->getElement($config['tete_nom'])->getElement('titre'))
+				{
+					$this->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('titre', $config['prefixe_titre']);
+				}
+				else
+				{
+					$this->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', '');
+				}
+			}
+			if (!$this->getPageElement()->getElement($config['temps_nom']))
+			{
+				$this->getPageElement()->ajouterElement($config['temps_nom'], '');
+			}
+		}
+		return $this->afficherPageElement();
+!!!649346.php!!!	__construct(in attributs : array) : void
+
+		global $config, $lang, $Visiteur;
+		foreach ($attributs as $key => $value)
+		{
+			$method='set'.ucfirst($key);
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
+		$configPerso=$this->chargementConfigPerso();
+		$parametres=$this->getParametres();
+		if (isset($parametres['config_perso']))
+		{
+			$configPerso=array_merge($parametres['config_perso'], $configPerso);
+		}
+		$parametres['config_perso']=$configPerso;
+		$this->setParametres($parametres);
+		if ($configPerso['notifications'])
+		{
+			$Notifications=$Visiteur->recupererNotifications();
+		}
+		if (!$configPerso['custom_pageElement'])
+		{
+			$PageElement=new \user\page\Page();
+			$PageElement->ajouterElement($config['tete_nom'], new \user\page\Tete());
+			if ($configPerso['notifications'])
+			{
+				$PageElement->ajouterElement($config['notification_nom'], $config['notification_elements']);
+				if ($Notifications)		// Gestion des notifications de la base de données
+				{
+					foreach ($Notifications as $Notification)
+					{
+						$Notification->envoyerNotification($PageElement);
+					}
+					\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
+				}
+				if (isset($_SESSION['notifications']))		// Gestion des notifications de sessions
+				{
+					foreach ($_SESSION['notifications'] as $notification_serialize)
+					{
+						$PageElement->ajouterValeurElement($config['notification_nom'], unserialize($notification_serialize));
+					}
+					\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
+					unset($_SESSION['notifications']);
+				}
+			}
+			else
+			{
+				$PageElement->ajouterElement($config['notification_nom'], '');
+			}
+			$this->setPageElement($PageElement);
+		}
+!!!649474.php!!!	envoyerNotificationsSession() : void
+
+		global $config;
+		$notifications_serialise=array();
+		foreach ($this->getPageElement()->getElement($config['notification_nom']) as $notification)
+		{
+			$notifications_serialise[]=serialize($notification);
+		}
+		$_SESSION['notifications']=$notifications_serialise;
+!!!649602.php!!!	ajouterNotificationSession(in Notification : \user\page\Notification) : void
+
+		if (isset($_SESSION['notifications']))
+		{
+			$_SESSION['notifications'][]=serialize($Notification);
+		}
+		else
+		{
+			$_SESSION['notifications']=array(serialize($Notification));
+		}
+!!!649730.php!!!	getPath() : string
+
+		global $config;
+		return $config['path_pageDef_root'].$this->getApplication().'/'.$this->getAction().'/'.$config['path_pageDef_filename'];
+!!!649858.php!!!	getTemplatePath() : string
+
+		global $config;
+		return $config['path_template'].$this->getApplication().'/'.$this->getAction().'/'.$config['filename_contenu_template'];
+!!!649986.php!!!	getFonctionsPath() : string
+
+		global $config;
+		return $config['path_func'].$this->getApplication().'/'.$this->getAction().'/'.$config['filename_contenu_fonctions'];
+!!!650114.php!!!	ajouterParametre(in nom : string, in valeur : mixed) : void
+
+		$this->setParametres(array_merge($this->getParametres(), array($nom => $valeur)));
+!!!650242.php!!!	ajouterEnteteClassique() : void
+
+		global $Visiteur, $config, $lang;
+		$Visiteur->getPage()->getpageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
+		$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(
+			'name'   => 'description',
+			'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
+		));
+!!!650370.php!!!	chargementConfigPerso() : array
+
+		global $config;
+		$array=$config['defaut_config'];
+		if (isset($config[$this->getApplication().'_config']))
+		{
+			$array=array_merge($array, $config[$this->getApplication().'_config']);
+		}
+		if (isset($config[$this->getApplication().'_'.$this->getAction().'_config']))
+		{
+			$array=array_merge($array, $config[$this->getApplication().'_'.$this->getAction().'_config']);
+		}
+		return $array;
+!!!650498.php!!!	creerPage(in pageElement : \user\PageElement) : void
+
+		if ($this->getParametres()['config_perso']['custom_pageElement']!=null)
+		{
+			if ($this->getParametres()['config_perso']['custom_pageElement'])
+			{
+				$this->setPageElement($pageElement);
+			}
+		}

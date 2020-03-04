@@ -1,0 +1,193 @@
+format 222
+"MenuSide" // Babtouland::classe::user::page::MenuSide
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/user/page/MenuSide/"
+  php_namespace "user\\page\\MenuSide"
+  deploymentview 242178 "MenuSide"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 288258 "Bouton.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 230018 // Bouton
+      end
+    end
+
+    artifact 288386 "BoutonsListe.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 230146 // BoutonsListe
+      end
+    end
+  end
+
+  classview 181122 "MenuSide"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 230018 "Bouton"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Bouton pour le menu-side
+"
+      classrelation 219906 // <generalisation>
+	relation 219906 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 219906 // <generalisation>
+	  b parent class_ref 227458 // PageElement
+      end
+
+      operation 664962 "__construct"
+	public explicit_return_type "void"
+	nparams 4
+	  param in name "href" explicit_type "string"
+	  param in name "title" explicit_type "string"
+	  param in name "texte" explicit_type "string"
+	  param in name "classe" explicit_type ""
+	    defaultvalue "''"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de bouton
+
+@param ${t0} href Lien du bouton
+
+@param ${t1} title Titre du lien
+
+@param ${t2} texte Texte dans le bouton
+
+@return ${type}
+"
+      end
+    end
+
+    class 230146 "BoutonsListe"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Liste de boutons pour menu-side
+"
+      classrelation 220034 // <generalisation>
+	relation 220034 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 220034 // <generalisation>
+	  b parent class_ref 227458 // PageElement
+      end
+
+      operation 665090 "__construct"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "titre" explicit_type "string"
+	  param in name "boutons" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}, ${p1}${v1}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "Autres méthodes 
+
+Constructeur de BoutonsListe
+
+@param ${t0} titre Titre de la liste
+
+@param ${t1} boutons Liste de boutons
+
+@return ${type}
+"
+      end
+    end
+  end
+end

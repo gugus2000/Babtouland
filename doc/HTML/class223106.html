@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class LiaisonManager</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class LiaisonManager</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_223106"></a>
+<p>Manager d'une table de liaison entre deux autres tables de donnÃ©es<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class LiaisonManager </li></ul><p>Directly inherited by : <a href="class222978.html#ref4_222978"><b>LiaisonConversationUtilisateur</b></a> <a href="class226690.html#ref4_226690"><b>LiaisonNotificationUtilisateur</b></a> </p>
+<p>Artifact : <a href="index.html#ref8_282242"><b>LiaisonManager.class</b></a></p>
+<div class="sub">
+<a name="ref2_607874"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Construction du Manager<br /><br />@param PDO bdd Connexion avec la base de donnÃ©e<br /><br />@param ??? attributs Liste des attributs de la table dÃ©jÃ  connus<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in bdd : PDO) : void</li><li>Php : public function __construct($bdd): void </li></ul><a name="ref1_319362"></a>
+<table><tr><td><div class="element">Attribute <b>bdd</b></div></td></tr></table>
+<p>Attributs <br /><br />Connexion avec la base de donnÃ©e<br /><br />@var PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : # bdd : PDO</li><li>Php : protected $bdd</li></ul><a name="ref1_319490"></a>
+<table><tr><td><div class="element">Attribute <b>TABLE</b></div></td></tr></table>
+<p>Constantes <br /><br />Nom de la table liÃ© Ã  l'objet<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ TABLE : string = '', read only</li><li>Php :  const TABLE</li></ul><a name="ref1_319618"></a>
+<table><tr><td><div class="element">Attribute <b>ATTRIBUTES</b></div></td></tr></table>
+<p>Liste de tous les attributs de la table<br /><br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ ATTRIBUTES : array = array(), read only</li><li>Php :  const ATTRIBUTES</li></ul><a name="ref2_608002"></a>
+<table><tr><td><div class="element">Operation <b>getBdd</b></div></td></tr></table><p>Accesseurs <br /><br />Accesseur de bdd<br /><br />@return PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getBdd() : PDO</li><li>Php : public function getBdd(): PDO </li></ul><a name="ref2_608130"></a>
+<table><tr><td><div class="element">Operation <b>setBdd</b></div></td></tr></table><p>DÃ©finisseurs <br /><br />DÃ©finisseur de bdd<br /><br />@param PDO bdd Connexion Ã  la base de donnÃ©e<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setBdd(in bdd : PDO) : void</li><li>Php : protected function setBdd($bdd): void </li></ul><a name="ref2_608258"></a>
+<table><tr><td><div class="element">Operation <b>get</b></div></td></tr></table><p>Autres mÃ©thodes <br /><br />RÃ©cupÃ¨re certains attributs de la table<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut<br /><br />@param array operations Tableau contenant le nom et l'opÃ©ration Ã  exÃ©cuter sur chaque attributs<br /><br />@return array<br /><br /></p><p>Declaration :</p><ul><li>Uml : + get(in attributs : array, in operations : array) : array</li><li>Php : public function get($attributs, $operations): array </li></ul><a name="ref2_608386"></a>
+<table><tr><td><div class="element">Operation <b>addBy</b></div></td></tr></table><p>Ajoute les Ã©lÃ©ments dans la table avec des paramÃ¨tres variants et invariants<br /><br />@param array variants Valeurs variantes Ã  chaque Ã©lÃ©ment<br /><br />@param array invariants Valeurs invariantes communes Ã  tous les Ã©lÃ©ments Ã  ajouter<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + addBy(in variants : array, in invariants : array) : void</li><li>Php : public function addBy($variants, $invariants): void </li></ul><a name="ref2_608514"></a>
+<table><tr><td><div class="element">Operation <b>deleteBy</b></div></td></tr></table><p>Supprime des Ã©lÃ©ments de la base de donnÃ©es en fonction de paramÃ¨tres dÃ©finis<br /><br />@param array attributs ParamÃ¨tre permettant de dÃ©terminer l'Ã©lÃ©ment Ã  supprimer<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + deleteBy(in attributs : array) : void</li><li>Php : public function deleteBy($attributs): void </li></ul><a name="ref2_608642"></a>
+<table><tr><td><div class="element">Operation <b>exist</b></div></td></tr></table><p>VÃ©rifie l'existence d'un element liÃ© Ã  la base de donnÃ©es respectant certaines conditions (cf. chat/envoyer_mp)<br /><br />@param array conditions Conditions Ã  respecter<br /><br />@param string groupe Lien avec l'Ã©lÃ©ment Ã  vÃ©rifier<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + exist(in conditions : array, in groupe : string) : bool</li><li>Php : public function exist($conditions, $groupe): bool </li></ul><a name="ref2_608770"></a>
+<table><tr><td><div class="element">Operation <b>getBy</b></div></td></tr></table><p>Selectionne les Ã©lÃ©ments respectant certaines conditions (cf. chat/envoyer_mp)<br /><br />@param array conditions Conditions Ã  respecter<br /><br />@param string groupe Attribut de l'Ã©lÃ©ment Ã  vÃ©rifier<br /><br />@return array<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getBy(in conditions : array, in groupe : string) : array</li><li>Php : public function getBy($conditions, $groupe): array </li></ul></div>
+<p>All public operations : <a href="class223106.html#ref2_607874"><b>__construct</b></a> , <a href="class223106.html#ref2_608386"><b>addBy</b></a> , <a href="class223106.html#ref2_608514"><b>deleteBy</b></a> , <a href="class223106.html#ref2_608642"><b>exist</b></a> , <a href="class223106.html#ref2_608258"><b>get</b></a> , <a href="class223106.html#ref2_608002"><b>getBdd</b></a> , <a href="class223106.html#ref2_608770"><b>getBy</b></a> </p>
+</body>
+</html>

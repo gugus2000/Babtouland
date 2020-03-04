@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class PageElement</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class PageElement</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_227458"></a>
+<p>Declaration :</p><ul>
+<li>Php : class PageElement </li></ul><p>Directly inherited by : <a href="class230018.html#ref4_230018"><b>Bouton</b></a> <a href="class230146.html#ref4_230146"><b>BoutonsListe</b></a> <a href="class228610.html#ref4_228610"><b>Carte</b></a> <a href="class230274.html#ref4_230274"><b>Channel</b></a> <a href="class228738.html#ref4_228738"><b>Corps</b></a> <a href="class228866.html#ref4_228866"><b>Dropdown</b></a> <a href="class228994.html#ref4_228994"><b>Formulaire</b></a> <a href="class229122.html#ref4_229122"><b>MenuSide</b></a> <a href="class229250.html#ref4_229250"><b>MenuUp</b></a> <a href="class229378.html#ref4_229378"><b>Notification</b></a> <a href="class229506.html#ref4_229506"><b>Page</b></a> <a href="class230402.html#ref4_230402"><b>Rss</b></a> <a href="class229634.html#ref4_229634"><b>Temps</b></a> <a href="class229762.html#ref4_229762"><b>Tete</b></a> <a href="class229890.html#ref4_229890"><b>Toast</b></a> </p>
+<p>Artifact : <a href="index.html#ref8_285698"><b>PageElement.class</b></a></p>
+<div class="sub">
+<a name="ref1_334210"></a>
+<table><tr><td><div class="element">Attribute <b>SEPARATEUR</b></div></td></tr></table>
+<p>Constante <br /><br />SÃ©parateur utilisÃ© pour l'insertion d'Ã©lÃ©ment dans la template<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ SEPARATEUR : string = '|', read only</li><li>Php :  const SEPARATEUR</li></ul><a name="ref1_334338"></a>
+<table><tr><td><div class="element">Attribute <b>template</b></div></td></tr></table>
+<p>Attribut <br /><br />Chemin vers la template<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : # template : string</li><li>Php : protected $template</li></ul><a name="ref1_334466"></a>
+<table><tr><td><div class="element">Attribute <b>elements</b></div></td></tr></table>
+<p>Liste des Ã©lÃ©ments du PagElement<br /><br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : # elements : array</li><li>Php : protected $elements</li></ul><a name="ref2_650626"></a>
+<table><tr><td><div class="element">Operation <b>getTemplate</b></div></td></tr></table><p>Afficheur <br /><br />Accesseur de template<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getTemplate() : string</li><li>Php : public function getTemplate(): string </li></ul><a name="ref2_650754"></a>
+<table><tr><td><div class="element">Operation <b>getElements</b></div></td></tr></table><p>Accesseur de elements<br /><br />@return array<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getElements() : array</li><li>Php : public function getElements(): array </li></ul><a name="ref2_650882"></a>
+<table><tr><td><div class="element">Operation <b>setTemplate</b></div></td></tr></table><p>DÃ©finisseur <br /><br />DÃ©finisseur de template<br /><br />@param string template Chemin vers la template<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setTemplate(in template : string) : void</li><li>Php : protected function setTemplate($template): void </li></ul><a name="ref2_651010"></a>
+<table><tr><td><div class="element">Operation <b>setElements</b></div></td></tr></table><p>DÃ©finisseur de elements<br /><br />@param array elements Liste des Ã©lÃ©ments du PageElement<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setElements(in elements : array) : void</li><li>Php : protected function setElements($elements): void </li></ul><a name="ref2_651138"></a>
+<table><tr><td><div class="element">Operation <b>afficherTemplate</b></div></td></tr></table><p>MÃ©thodes <br /><br />Afficheur de template<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherTemplate() : string</li><li>Php : public function afficherTemplate(): string </li></ul><a name="ref2_651266"></a>
+<table><tr><td><div class="element">Operation <b>afficherElements</b></div></td></tr></table><p>Afficheur de elements<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherElements() : string</li><li>Php : public function afficherElements(): string </li></ul><a name="ref2_651394"></a>
+<table><tr><td><div class="element">Operation <b>afficherArray</b></div></td></tr></table><p>Affichage d'une array sans fonctions<br /><br />@param array liste Liste d'Ã©lÃ©ments<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficherArray(in liste : array) : string</li><li>Php : public function afficherArray($liste): string </li></ul><a name="ref2_651522"></a>
+<table><tr><td><div class="element">Operation <b>afficher</b></div></td></tr></table><p>Afficher l'Ã©lÃ©ment "dÃ©ployÃ©"<br /><br />@return string<br /><br /></p><p>Declaration :</p><ul><li>Uml : + afficher() : string</li><li>Php : public function afficher(): string </li></ul><a name="ref2_651650"></a>
+<table><tr><td><div class="element">Operation <b>getElement</b></div></td></tr></table><p>Accesseur d'un Ã©lÃ©ment de elements<br /><br />@param mixed index Index de l'Ã©lÃ©ment Ã  rÃ©cupÃ©rer<br /><br />@return mixed<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getElement(in index : mixed) : mixed</li><li>Php : public function getElement($index): mixed </li></ul><a name="ref2_651778"></a>
+<table><tr><td><div class="element">Operation <b>setElement</b></div></td></tr></table><p>DÃ©finisseur d'un Ã©lÃ©ment de elments<br /><br />@param mixed index Index de l'Ã©lÃ©ment Ã  dÃ©finir<br /><br />@param mixed valeur valeur de l'Ã©lÃ©ment Ã  dÃ©finir<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setElement(in index : mixed, in valeur : mixed) : void</li><li>Php : protected function setElement($index, $valeur): void </li></ul><a name="ref2_651906"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Construction de l'objet PageElement<br /><br />@param array attributs Attributs du PageElement<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in attributs : array) : void</li><li>Php : public function __construct($attributs): void </li></ul><a name="ref2_652034"></a>
+<table><tr><td><div class="element">Operation <b>ajouterElement</b></div></td></tr></table><p>Ajoute un Ã©lÃ©ment<br /><br />@param string nom Nom de l'Ã©lÃ©ment Ã  ajouter<br /><br />@param PageElement element PageElement Ã  ajouter<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + ajouterElement(in nom : string, in element : PageElement) : void</li><li>Php : public function ajouterElement($nom, $element): void </li></ul><a name="ref2_652162"></a>
+<table><tr><td><div class="element">Operation <b>ajouterValeurElement</b></div></td></tr></table><p>Ajoute un Ã©lÃ©ment dans un Ã©lÃ©ment array dans elements<br /><br />@param mixed index Index de l'Ã©lÃ©ment Ã  laquelle ajouter la valeur<br /><br />@param mixed valeur Valeur de l'Ã©lÃ©ment de l'Ã©lÃ©ment Ã  ajouter<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + ajouterValeurElement(in index : mixed, in valeur : mixed) : void</li><li>Php : public function ajouterValeurElement($index, $valeur): void </li></ul></div>
+<p>All public operations : <a href="class227458.html#ref2_651906"><b>__construct</b></a> , <a href="class227458.html#ref2_651522"><b>afficher</b></a> , <a href="class227458.html#ref2_651394"><b>afficherArray</b></a> , <a href="class227458.html#ref2_651266"><b>afficherElements</b></a> , <a href="class227458.html#ref2_651138"><b>afficherTemplate</b></a> , <a href="class227458.html#ref2_652034"><b>ajouterElement</b></a> , <a href="class227458.html#ref2_652162"><b>ajouterValeurElement</b></a> , <a href="class227458.html#ref2_651650"><b>getElement</b></a> , <a href="class227458.html#ref2_650754"><b>getElements</b></a> , <a href="class227458.html#ref2_650626"><b>getTemplate</b></a> </p>
+</body>
+</html>

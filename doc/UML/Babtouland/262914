@@ -1,0 +1,59 @@
+format 222
+"forum" // Babtouland::config::forum
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/forum/"
+  package_ref 263042 // ajout
+
+  package_ref 263170 // edition
+
+  package_ref 263298 // message_ajout
+
+  package_ref 263426 // message_edition
+
+  package_ref 263554 // message_suppression
+
+  package_ref 263682 // suppression
+
+  package_ref 263810 // validation_ajout
+
+  package_ref 263938 // validation_edition
+
+  package_ref 264066 // validation_message_ajout
+
+  package_ref 264194 // validation_message_edition
+
+  package_ref 264322 // voir
+
+  package_ref 264450 // voir_dossier
+
+  package_ref 264578 // voir_fil
+end

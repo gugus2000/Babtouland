@@ -1,0 +1,178 @@
+class Notification
+!!!644610.php!!!	getId() : int
+
+		return $this->id;
+!!!644738.php!!!	getType() : string
+
+		return $this->type;
+!!!644866.php!!!	getDate_publication() : string
+
+		return $this->date_publication;
+!!!644994.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!645122.php!!!	getId_utilisateurs() : array
+
+		return $this->id_utilisateurs;
+!!!645250.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!645378.php!!!	setType(in type : string) : void
+
+		$this->type=$type;
+!!!645506.php!!!	setDate_publication(in date_publication : string) : void
+
+		$this->date_publication=$date_publication;
+!!!645634.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=$contenu;
+!!!645762.php!!!	setId_utilisateurs(in id_utilisateurs : array) : void
+
+		$this->id_utilisateurs=$id_utilisateurs;
+!!!645890.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!646018.php!!!	afficherType() : string
+
+		return htmlspecialchars((string)$this->type);
+!!!646146.php!!!	afficherDate_publication() : string
+
+		return htmlspecialchars((string)$this->date_publication);
+!!!646274.php!!!	afficherContenu() : string
+
+		return htmlspecialchars((string)$this->contenu);
+!!!646402.php!!!	afficherDate_publicationFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_publication));
+!!!646530.php!!!	afficheId_utilisateurs() : string
+
+		$affichage='';
+		foreach ($this->id_utilisateurs as $id_utilisateur)
+		{
+			$affichage.=htmlspecialchars($id_utilisateur);
+		}
+		return $affichage;
+!!!646658.php!!!	afficher() : string
+
+		$this->afficherContenu();
+!!!646786.php!!!	recuperer() : void
+
+		$this->get($this->getId());
+		$this->recupererId_utilisateurs();
+!!!646914.php!!!	envoyerNotification(in Page : \user\page\Page = null) : void
+
+		global $config, $Visiteur;
+		if (!$Page)
+		{
+			$Page=$Visiteur->getPage();
+		}
+		$Notification=new \user\page\Notification(array(
+			'type'    => $this->afficherType(),
+			'contenu' => $this->afficherContenu(),
+		), $Page);
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
+		$LiaisonNotificationUtilisateur->deleteBy(array(
+			'id_notification' => $this->getId(),
+			'id_utilisateur'  => $Visiteur->getId(),
+		));
+!!!647042.php!!!	creer() : void
+
+		$Manager=$this->Manager();
+		$Manager->add(array(
+			'type'             => $this->getType(),
+			'date_publication' => date('Y-m-d H:i:s'),
+			'contenu'          => $this->getContenu(),
+		));
+		$this->setId($Manager->getIdBy(array(
+			'type'    => $this->getType(),
+			'contenu' => $this->getContenu(),
+		)));
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
+		$id_utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id_utilisateur)
+		{
+			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
+		}
+		$LiaisonNotificationUtilisateur->addBy($id_utilisateurs, array(
+			'id_notification' => $this->getId(),
+		));
+!!!647170.php!!!	modifier() : void
+
+		$Manager=$this->Manager();
+		$Manager->update(array(
+			'type'             => $this->getType(),
+			'date_publication' => date('Y-m-d H:i:s'),
+			'contenu'          => $this->getContenu(),
+		), $this->getId());
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
+		$id_utilisateurs=$this->getId_utilisateurs();
+		$donnees_already_in=$LiaisonNotificationUtilisateur->get(array(
+			'id_notification' => $this->getId(),
+		), array(
+			'id_notification' => '=',
+		));
+		$id_utilisateurs_already_in=array();
+		foreach ($donnees_already_in as $donnee)
+		{
+			$id_utilisateurs_already_in[]=$donnee['id_utilisateur'];
+		}
+		$id_utilisateurs_non_modifies=array_intersect($id_utilisateurs_already_in, $id_utilisateurs);
+		if(array_diff($id_utilisateurs_non_modifies, $id_utilisateurs_already_in))	// Il y a des utilisateurs qui ne sont plus dans la discussion
+		{
+			$LiaisonNotificationUtilisateur->deleteBy(array(
+				'id_notification' => $this->getId(),
+			));
+			$LiaisonNotificationUtilisateur->addBy(array(array(
+				'id_utilisateur' => $id_utilisateurs,
+			)), array(
+				'id_notification' => $this->getId(),
+			));
+		}
+		else
+		{
+			$id_utilisateurs_a_ajouter=array_diff($id_utilisateurs, $id_utilisateurs_non_modifies);
+			$LiaisonNotificationUtilisateur->addBy(array(array(
+				'id_utilisateur' => $id_utilisateurs_a_ajouter,
+			)), array(
+				'id_notification' => $this->getId(),
+			));
+		}
+!!!647298.php!!!	supprimer() : void
+
+		$Manager=$this->Manager();
+		$Manager->delete($this->getId());
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
+		$LiaisonNotificationUtilisateur->deleteBy(array(
+			'id_notification' => $this->getId(),
+		));
+!!!647426.php!!!	recupererId_utilisateurs() : void
+
+		$BDDFactory=new \core\BDDFactory;
+		$Liaison=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
+		$resultats=$Liaison->get(array(
+			'id_notification' => $this->getId(),
+		), array(
+			'id_notification' => '=',
+		));
+		$id=array();
+		foreach ($resultats as $resultat)
+		{
+			$id[]=$resultat['id_utilisateur'];
+		}
+		$this->setId_utilisateurs($id);
+!!!647554.php!!!	recupererUtilisateurs() : array
+
+		$utilisateurs=array();
+		foreach ($this->getId_utilisateurs() as $id)
+		{
+			$utilisateur=new \user\Utilisateur(array(
+				'id' => $id,
+			));
+			$utilisateur->recuperer();
+			$utilisateurs[]=$utilisateur;
+		}
+		return $utilisateurs;

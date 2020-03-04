@@ -1,0 +1,6 @@
+class Carte
+!!!662914.php!!!	__construct(in contenu : PageElement) : void
+
+		global $config, $lang, $Visiteur;
+		$this->setTemplate($config['path_template'].$config['carte_path_template']);
+		$this->setElements(array('contenu' => $contenu));

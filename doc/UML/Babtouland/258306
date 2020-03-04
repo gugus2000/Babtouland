@@ -1,0 +1,123 @@
+format 222
+"Exception" // Babtouland::classe::core::Exception
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/core/Exception/"
+  php_namespace "core\\Exception"
+  deploymentview 241410 "Exception"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 282754 "Warning.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 223746 // Warning
+      end
+    end
+  end
+
+  classview 180226 "Exception"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 223746 "Warning"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Exception qui ne fait pas terminer le script
+
+@author gugus2000
+"
+      classrelation 214274 // <generalisation>
+	relation 214274 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 214274 // <generalisation>
+	  b parent class_ref 223874 // \Exception
+      end
+
+      operation 614146 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Méthode spéciale 
+
+Constructeur de Warning
+
+@param ${t0} contenu Description de l'erreur affiché
+
+@return ${type}
+"
+      end
+    end
+  end
+end

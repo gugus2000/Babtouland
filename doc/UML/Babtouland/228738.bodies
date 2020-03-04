@@ -1,0 +1,10 @@
+class Corps
+!!!663042.php!!!	__construct(in haut : mixed = '', in centre : mixed = '', in bas : mixed = '') : void
+
+		global $config, $lang, $Visiteur;
+		$this->setTemplate($config['path_template'].$config['corps_path_template']);
+		$this->setElements(array(
+			'haut'   => $haut,
+			'centre' => $centre,
+			'bas'    => $bas,
+		));
