@@ -19,9 +19,13 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 					$pseudos[]=$utilisateur->afficherPseudo();
 				}
 			}
-			$Corps=new \user\page\Corps('', implode('|', $pseudos), '');
-			$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
-			$this->getPage()->envoyerNotificationsSession();
+			$pseudos=implode('|', $pseudos);
+			$Contenu=new \user\PageElement(array(
+				'elements' => array(
+					'contenu' => $pseudos,
+				),
+			));
+			$Visiteur->getPage()->creerPage($Contenu);
 		}
 		else
 		{

@@ -45,8 +45,6 @@ else
 	));
 }
 
-$Corps=new \user\page\Corps('',$Contenu,'');
-$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Contenu);
-$this->getPage()->envoyerNotificationsSession();
+$Visiteur->getPage()->creerPage($Contenu);
 
 ?>

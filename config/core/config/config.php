@@ -366,6 +366,10 @@ $config=array(
 				'chat_supprimer_conversation_parametres'                       => array('id' => array('regex' => '\\d+', 'necessaire' => True)),
 		/* xhr */
 			'defaut_xhr_action' => 'chat',
+			'xhr_config'     => array(
+				'notifications'      => False,
+				'custom_pageElement' => True,
+			),
 			/* chat */
 				'xhr_chat_parametres' => array('id' => array('regex' => '\\d+', 'necessaire' => True), 'date_chargement' => array('regex' => '\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}', 'necessaire' => False)),
 			/* liste_membre_conversation */

@@ -104,9 +104,6 @@ $Chat=new \user\PageElement(array(
 	),
 ));
 
-$Corps=new \user\page\Corps('', $Chat, '');
-
-$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
-$this->getPage()->envoyerNotificationsSession();
+$Visiteur->getPage()->creerPage($Chat);
 
 ?>

@@ -128,7 +128,7 @@ class PageElement
 	*/
 	public function afficher()
 	{
-		if ($this->getTemplate())
+		if ($this->getTemplate()!==null)
 		{
 			$contenuElement=file_get_contents($this->getTemplate());
 		}
@@ -150,7 +150,14 @@ class PageElement
 			{
 				$valeur=$element;
 			}
-			$contenuElement=str_replace($this::SEPARATEUR.$nom.$this::SEPARATEUR, $valeur, $contenuElement);
+			if ($this->getTemplate()!==null)
+			{
+				$contenuElement=str_replace($this::SEPARATEUR.$nom.$this::SEPARATEUR, $valeur, $contenuElement);
+			}
+			else
+			{
+				$contenuElement.=$valeur;
+			}
 		}
 		return $contenuElement;
 	}

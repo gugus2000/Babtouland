@@ -12,8 +12,12 @@ foreach ($resultats as $resultat)
 	$ids[]=$resultat['pseudo'];
 }
 
-$Corps=new \user\page\Corps('', implode('|', $ids), '');
-$Visiteur->getPage()->getPageElement()->ajouterElement($config['corps_nom'], $Corps);
-$this->getPage()->envoyerNotificationsSession();
+$ids=implode('|', $ids);
+$Contenu=new \user\PageElement(array(
+	'elements' => array(
+		'contenu' => $ids,
+	),
+));
+$Visiteur->getPage()->creerPage($Contenu);
 
 ?>
