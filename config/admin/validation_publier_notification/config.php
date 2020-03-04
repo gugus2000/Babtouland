@@ -71,9 +71,7 @@ if (isset($_POST['notification_message']) & isset($_POST['notification_type']) &
 		}
 		$Notification=new \user\Notification(array(
 			'type'            => $_POST['notification_type'],
-			'contenu_defaut'  => $_POST['notification_message'],
-			'contenu_FR'      => '',
-			'contenu_EN'      => '',
+			'contenu'         => $_POST['notification_message'],
 			'id_utilisateurs' => $resultats,
 		));
 		$Notification->creer();

@@ -24,9 +24,7 @@ class NotificationManager extends \core\Manager
 		0 => 'id',
 		1 => 'type',
 		2 => 'date_publication',
-		3 => 'contenu_defaut',
-		4 => 'contenu_FR',
-		5 => 'contenu_EN',
+		3 => 'contenu',
 	);
 }
 

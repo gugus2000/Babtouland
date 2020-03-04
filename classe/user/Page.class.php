@@ -166,7 +166,7 @@ class Page
 	public function afficher()
 	{
 		global $config, $Visiteur;
-		if ($this->getParametres()['config_perso']['notifications'])
+		if (!$this->getParametres()['config_perso']['custom_pageElement'])
 		{
 			if($this->getPageElement()->getElement($config['tete_nom']))
 			{
@@ -234,7 +234,7 @@ class Page
 				{
 					foreach ($Notifications as $Notification)
 					{
-						$Notification->envoyerNotification($PageElement, $Visiteur->getConfigurations()['lang']);
+						$Notification->envoyerNotification($PageElement);
 					}
 					\user\page\Notification::ajouterTete($PageElement->getElement($config['tete_nom']));
 				}

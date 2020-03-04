@@ -29,23 +29,11 @@ class Notification extends \core\Managed
 	*/
 	protected $date_publication;
 	/**
-	* Contenu de la notification lorsque la langue n'est pas supportée
+	* Contenu de la notification
 	* 
 	* @var string
 	*/
-	protected $contenu_defaut;
-	/**
-	* Contenu de la notification en français
-	* 
-	* @var string
-	*/
-	protected $contenu_FR;
-	/**
-	* Contenu de la notification en anglais
-	* 
-	* @var string
-	*/
-	protected $contenu_EN;
+	protected $contenu;
 	/**
 	* Id des utilisateurs devant voir la notification
 	* 
@@ -83,31 +71,13 @@ class Notification extends \core\Managed
 		return $this->date_publication;
 	}
 	/**
-	* Accesseur de contenu_defaut
+	* Accesseur de contenu
 	* 
 	* @return string
 	*/
-	public function getContenu_defaut()
+	public function getContenu()
 	{
-		return $this->contenu_defaut;
-	}
-	/**
-	* Accesseur de contenu_FR
-	* 
-	* @return string
-	*/
-	public function getContenu_FR()
-	{
-		return $this->contenu_FR;
-	}
-	/**
-	* Accesseur de contenu_EN
-	* 
-	* @return string
-	*/
-	public function getContenu_EN()
-	{
-		return $this->contenu_EN;
+		return $this->contenu;
 	}
 	/**
 	* Accesseur de id_utilisateurs
@@ -155,37 +125,15 @@ class Notification extends \core\Managed
 		$this->date_publication=$date_publication;
 	}
 	/**
-	* Définisseur de contenu_defaut
+	* Définisseur de contenu
 	*
-	* @param string contenu_defaut Contenu de la notification lorsque la langue n'est pas supportée
+	* @param string contenut Contenu de la notification
 	* 
 	* @return void
 	*/
-	protected function setContenu_defaut($contenu_defaut)
+	protected function setContenu($contenu)
 	{
-		$this->contenu_defaut=$contenu_defaut;
-	}
-	/**
-	* Définisseur de contenu_FR
-	*
-	* @param string contenu_FR Contenu de la notification en français
-	* 
-	* @return void
-	*/
-	protected function setContenu_FR($contenu_FR)
-	{
-		$this->contenu_FR=$contenu_FR;
-	}
-	/**
-	* Définisseur de contenu_EN
-	*
-	* @param string contenu_EN Contenu de la notification en anglais
-	* 
-	* @return void
-	*/
-	protected function setContenu_EN($contenu_EN)
-	{
-		$this->contenu_EN=$contenu_EN;
+		$this->contenu=$contenu;
 	}
 	/**
 	* Définisseur de id_utilisateurs
@@ -229,31 +177,13 @@ class Notification extends \core\Managed
 		return htmlspecialchars((string)$this->date_publication);
 	}
 	/**
-	* Afficheur de contenu_defaut
+	* Afficheur de contenu
 	* 
 	* @return string
 	*/
-	public function afficherContenu_defaut()
+	public function afficherContenu()
 	{
-		return htmlspecialchars((string)$this->contenu_defaut);
-	}
-	/**
-	* Afficheur de contenu_FR
-	* 
-	* @return string
-	*/
-	public function afficherContenu_FR()
-	{
-		return htmlspecialchars((string)$this->contenu_FR);
-	}
-	/**
-	* Afficheur de contenu_EN
-	* 
-	* @return string
-	*/
-	public function afficherContenu_EN()
-	{
-		return htmlspecialchars((string)$this->contenu_EN);
+		return htmlspecialchars((string)$this->contenu);
 	}
 	/**
 	* Affiche date_publication avec le bon format
@@ -287,7 +217,7 @@ class Notification extends \core\Managed
 	*/
 	public function afficher()
 	{
-		$this->afficherContenu_defaut();
+		$this->afficherContenu();
 	}
 
 	/* Autres méthode */
@@ -306,30 +236,19 @@ class Notification extends \core\Managed
 	* Envoyer la notification sur la page
 	*
 	* @param \user\page\Page Page Page
-	*
-	* @param string lang Langue dans laquelle afficher la notification (abbr)
 	* 
 	* @return void
 	*/
-	public function envoyerNotification($Page=null, $langue=null)
+	public function envoyerNotification($Page=null)
 	{
-		global $config, $lang, $Visiteur;
+		global $config, $Visiteur;
 		if (!$Page)
 		{
 			$Page=$Visiteur->getPage();
 		}
-		if (!$langue|!\in_array($langue, $config['lang_available']))
-		{
-			$langue=$lang['lang_self']['abbr'];
-		}
-		$methode='afficherContenu_'.$langue;
-		if (!$this->$methode())		// Pas de contenu pour la langue utilisée
-		{
-			$methode='afficherContenu_defaut';
-		}
 		$Notification=new \user\page\Notification(array(
 			'type'    => $this->afficherType(),
-			'contenu' => $this->$methode(),
+			'contenu' => $this->afficherContenu(),
 		), $Page);
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
@@ -349,15 +268,11 @@ class Notification extends \core\Managed
 		$Manager->add(array(
 			'type'             => $this->getType(),
 			'date_publication' => date('Y-m-d H:i:s'),
-			'contenu_defaut'   => $this->getContenu_defaut(),
-			'contenu_FR'       => $this->getContenu_FR(),
-			'contenu_EN'       => $this->getContenu_EN(),
+			'contenu'          => $this->getContenu(),
 		));
 		$this->setId($Manager->getIdBy(array(
-			'type'           => $this->getType(),
-			'contenu_defaut' => $this->getContenu_defaut(),
-			'contenu_FR'     => $this->getContenu_FR(),
-			'contenu_EN'     => $this->getContenu_EN(),
+			'type'    => $this->getType(),
+			'contenu' => $this->getContenu(),
 		)));
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
@@ -379,11 +294,9 @@ class Notification extends \core\Managed
 	{
 		$Manager=$this->Manager();
 		$Manager->update(array(
-			'type'           => $this->getType(),
+			'type'             => $this->getType(),
 			'date_publication' => date('Y-m-d H:i:s'),
-			'contenu_defaut' => $this->getContenu_defaut(),
-			'contenu_FR'     => $this->getContenu_FR(),
-			'contenu_EN'     => $this->getContenu_EN(),
+			'contenu'          => $this->getContenu(),
 		), $this->getId());
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
