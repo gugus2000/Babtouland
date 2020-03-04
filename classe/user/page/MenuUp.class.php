@@ -49,22 +49,25 @@ class MenuUp extends \user\PageElement
 		$liens_petit=array();
 		foreach($config['menuUp_liens'] as $index => $href)
 		{
-			$liens_grand[]=new \user\PageElement(array(
-				'template' => $config['path_template'].$config['menuUp_lien_grand_path_template'],
-				'elements' => array(
-					'href'        => $Routeur->creerLien($href),
-					'title'       => $lang['menuUp_titres'][$index],
-					'description' => $lang['menuUp_affichages'][$index],
-				),
-			));
-			$liens_petit[]=new \user\PageElement(array(
-				'template' => $config['path_template'].$config['menuUp_lien_petit_path_template'],
-				'elements' => array(
-					'href'  => $Routeur->creerLien($href),
-					'title' => $lang['menuUp_titres'][$index],
-					'icon'  => $config['menuUp_icones'][$index],
-				),
-			));
+			if ($Visiteur->getRole()->existPermission($href))
+			{
+				$liens_grand[]=new \user\PageElement(array(
+					'template' => $config['path_template'].$config['menuUp_lien_grand_path_template'],
+					'elements' => array(
+						'href'        => $Routeur->creerLien($href),
+						'title'       => $lang['menuUp_titres'][$index],
+						'description' => $lang['menuUp_affichages'][$index],
+					),
+				));
+				$liens_petit[]=new \user\PageElement(array(
+					'template' => $config['path_template'].$config['menuUp_lien_petit_path_template'],
+					'elements' => array(
+						'href'  => $Routeur->creerLien($href),
+						'title' => $lang['menuUp_titres'][$index],
+						'icon'  => $config['menuUp_icones'][$index],
+					),
+				));
+			}
 		}
 		$this->setElements(array(
 			'logo'              => $Logo,
