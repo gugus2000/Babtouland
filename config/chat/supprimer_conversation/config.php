@@ -28,7 +28,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 				'type' => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_supprimer_conversation_notification_succes'],
 			));
-			$get=array_merge($config['chat_supprimer_conversation_notification_succes'], array($config['nom_parametres'] => array('id' => $Visiteur->getPage()->getParametres()['id'])));
+			$get=$config['chat_supprimer_conversation_notification_succes'];
 		}
 		else
 		{

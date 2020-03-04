@@ -10,6 +10,11 @@ if(isset($Visiteur->getPage()->getParametres()['clef']))
 	{
 		$Contenu=$lang['xhr_lang_message_probleme_key'];
 	}
+	$Contenu=new \user\PageElement(array(
+		'elements'  => array(
+			'contenu'   => $Contenu,
+		),
+	));
 }
 else
 {
