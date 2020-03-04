@@ -56,10 +56,11 @@ class Dossier extends \forum\Noeud
 	*/
 	public function recentMessage()
 	{
+		$dernierMessage=null;
 		foreach ($this->recupererEnfants(0,10) as $Enfant)
 		{
 			$Message=$Enfant->recentMessage();
-			if (!isset($dernierMessage))
+			if ($dernierMessage===null)
 			{
 				$dernierMessage=$Message;
 				$dernierDateMessage=new \DateTime($dernierMessage->getDate_maj());

@@ -3,7 +3,7 @@
 if (isset($Visiteur->getPage()->getParametres()['id']))
 {
 	$Message=new \forum\Message(array(
-		'id' => $Visiteur->getPage()->getParametres(['id']),
+		'id' => $Visiteur->getPage()->getParametres()['id'],
 	));
 	$Message->recuperer();
 	$Fil=new \forum\Fil(array(

@@ -62,6 +62,14 @@ foreach ($Dossier->recupererEnfants(0,100) as $Enfant)
 		default:
 			throw new \UnexpectedValueException((string)$Enfant::TYPE.' not exist');
 	}
+	if ($Enfant->recentMessage()!==null)
+	{
+		$suite_desc='/'.\forum\Noeud::newNoeud($Enfant->recentMessage()->getId_fil())->getNom();
+	}
+	else
+	{
+		$suite_desc='';
+	}
 	$enfants[]=new \user\PageElement(array(
 		'template' => $config['path_template'].$Visiteur->getPage()->afficherApplication().'/'.$Visiteur->getPage()->afficherAction().'/enfant.html',
 		'elements' => array(
@@ -70,7 +78,7 @@ foreach ($Dossier->recupererEnfants(0,100) as $Enfant)
 			'lien'        => $Routeur->creerLien(array_merge($lien_base, array($config['nom_parametres'] => array('id' => $Enfant->afficherId())))),
 			'titre_lien'  => $lien_titre.$Enfant->afficherNom(),
 			'nom'         => $Enfant->afficherNom(),
-			'description' => $Enfant->afficherDescription().'/'.\forum\Noeud::newNoeud($Enfant->recentMessage()->getId_fil())->getNom(),
+			'description' => $Enfant->afficherDescription().$suite_desc,
 		),
 	));
 }
