@@ -136,10 +136,6 @@ class PageElement
 		{
 			$contenuElement='';
 		}
-		if ($this->getFonctions())
-		{
-			require $this->getFonctions();
-		}
 		foreach ($this->getElements() as $nom => $element)
 		{
 			if (is_object($element))
