@@ -45,7 +45,7 @@ $Bandeau=new \user\PageElement(array(
 	),
 ));
 $enfants=array();
-foreach ($Dossier->recupererEnfants(0,100) as $Enfant)
+foreach ($Dossier->recupererEnfants(0) as $Enfant)
 {
 	switch ($Enfant::TYPE)
 	{

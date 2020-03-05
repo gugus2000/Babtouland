@@ -29,10 +29,14 @@ class Dossier extends \forum\Noeud
 	* 
 	* @return array
 	*/
-	public function recupererEnfants($intervalle_depart=0, $nombre=1)
+	public function recupererEnfants($intervalle_depart=0, $nombre=null)
 	{
 		$array=array();
 		$Manager=$this->Manager();
+		if ($nombre===null)
+		{
+			$nombre=$Manager->countBy(array('id_parent' => $this->getId()), array('id_parent' => '='));
+		}
 		foreach ($Manager->getBy(array('id_parent' => $this->getId()), array('id_parent' => '='), array('debut' => $intervalle_depart, 'nombre' => $nombre, 'ordre' => 'date_publication')) as $noeud)
 		{
 			switch ($noeud['type'])
@@ -57,7 +61,7 @@ class Dossier extends \forum\Noeud
 	public function recentMessage()
 	{
 		$dernierMessage=null;
-		foreach ($this->recupererEnfants(0,10) as $Enfant)
+		foreach ($this->recupererEnfants(0) as $Enfant)
 		{
 			$Message=$Enfant->recentMessage();
 			if ($dernierMessage===null)

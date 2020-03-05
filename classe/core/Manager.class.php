@@ -380,6 +380,43 @@ class Manager
 		return (bool)$requete->fetch(\PDO::FETCH_ASSOC);
 	}
 	/**
+	* Compte le nombre d'élément dans la base de donnée qui respectent une clause précise
+	*
+	* @param array attributs Tableau contenant le nom et la valeur de chaque attribut
+	* 
+	* @param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
+	* 
+	* @return int
+	*/
+	public function countBy($attributs, $operations=null)
+	{
+		$attributsWithOperators=array();
+		$attributs=$this->testAttributes($attributs);
+		foreach ($attributs as $nom => $valeur)
+		{
+			if (isset($operations[$nom]))
+			{
+				$attributsWithOperators[]=$nom.$operations[$nom].'?';
+			}
+			else
+			{
+				$attributsWithOperators[]=$nom.'=?';
+			}
+		}
+		if ($attributs & !empty($attributsWithOperators))
+		{
+			$where='WHERE '.implode(' AND ', $attributsWithOperators);
+		}
+		else
+		{
+			$where='';
+		}
+		$requete=$this->getBdd()->prepare('SELECT count('.$this::INDEX.') AS nbr FROM '.$this::TABLE.' '.$where);
+		$requete->execute(array_values($attributs));
+		$donnees=$requete->fetch(\PDO::FETCH_ASSOC);
+		return (int)$donnees['nbr'];
+	}
+	/**
 	* Compte le nombre d'élément dans la base de donnée
 	*
 	* @return int
