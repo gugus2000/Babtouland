@@ -80,8 +80,10 @@ $lang=array(
 			'admin_nettoyer_post_notification_debut' => 'Nettoyage de ',
 			'admin_nettoyer_post_notification_fin'   => ' commentaire(s) terminé avec succès',
 		/* nettoyer_chat */
-			'admin_nettoyer_chat_notification_debut' => 'Nettoyage de ',
-			'admin_nettoyer_chat_notification_fin'   => ' messsage(s) terminé avec succès',
+			'admin_nettoyer_chat_notification_message_debut'      => 'Nettoyage de ',
+			'admin_nettoyer_chat_notification_message_fin'        => ' messsage(s) terminé avec succès',
+			'admin_nettoyer_chat_notification_conversation_debut' => 'Nettoyage de ',
+			'admin_nettoyer_chat_notification_conversation_fin'   => ' conversation(s) terminé avec succès',
 		/* nettoyer_notification */
 			'admin_nettoyer_notification_notification_debut' => 'Nettoyage de ',
 			'admin_nettoyer_notification_notification_fin'   => ' notification(s) terminé avec succès',

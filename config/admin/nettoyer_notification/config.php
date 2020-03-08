@@ -10,11 +10,7 @@ $notifications=$NotificationManager->getBy(array(
 ));
 foreach ($notifications as $notification)
 {
-	if (!(bool)$LiaisonNotificationUtilisateur->get(array(
-		'id_notification' => (int)$notification['id'],
-	), array(
-		'id_notification' => '=',
-	)))
+	if (!$LiaisonNotificationUtilisateur->exist('id_notification', (int)$notification['id']))
 	{
 		$compteur_elements_supprimes++;
 		$Notification=new \user\Notification(array(

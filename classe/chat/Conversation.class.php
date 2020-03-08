@@ -262,11 +262,7 @@ class Conversation extends \core\Managed
 		{
 			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
 		}
-		$donnees_already_in=$LiaisonConversationUtilisateur->get(array(
-			'id_conversation' => $this->getId(),
-		), array(
-			'id_conversation' => '=',
-		));
+		$donnees_already_in=$LiaisonConversationUtilisateur->get('id_conversation', $this->getId());
 		$id_utilisateurs_already_in=array();
 		foreach ($donnees_already_in as $donnee)
 		{
@@ -322,11 +318,7 @@ class Conversation extends \core\Managed
 	{
 		$BDDFactory=new \core\BDDFactory;
 		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
-		$resultats=$Liaison->get(array(
-			'id_conversation' => $this->getId(),
-		), array(
-			'id_conversation' => '=',
-		));
+		$resultats=$Liaison->get('id_conversation', $this->getId());
 		$id=array();
 		foreach ($resultats as $resultat)
 		{

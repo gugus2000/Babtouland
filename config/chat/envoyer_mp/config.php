@@ -42,7 +42,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 		}
 		else
 		{
-			new \user\Notification(array(
+			new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_envoyer_mp_notification_erreur_soi_meme'],
 			));
@@ -54,7 +54,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	}
 	else
 	{
-		new \user\Notification(array(
+		new \user\page\Notification(array(
 			'type'    => \user\page\Notification::TYPE_ERREUR,
 			'contenu' => $lang['chat_envoyer_mp_notification_erreur_guest'],
 		));
@@ -66,7 +66,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 }
 else
 {
-	new \user\Notification(array(
+	new \user\page\Notification(array(
 		'type'    => \user\page\Notification::TYPE_ERREUR,
 		'contenu' => $lang['chat_envoyer_mp_notification_erreur_no_id'],
 	));

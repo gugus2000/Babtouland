@@ -297,8 +297,6 @@ class Manager
 	* @param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
 	*
 	* @param array bornes Tableau contenant les bornes dans lesquels chercher
-	*
-	* @return array
 	*/
 	public function getBy($attributs=null, $operations=null, $bornes=null)
 	{

@@ -11,11 +11,23 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 		if (!$Utilisateur->similaire($this))
 		{
 			$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur(\core\BDDFactory::MysqlConnexion());
-			if (!$LiaisonConversationUtilisateur->exist(array(array(
-				'id_utilisateur' => $this->getId(),
-			), array(
-				'id_utilisateur' => $Utilisateur->getId(),
-			)), 'id_conversation'))
+			$resultats=$LiaisonConversationUtilisateur->getByGroup(array(
+				array(
+					'id_utilisateur' => $this->getId(),
+				),
+				array(
+					'id_utilisateur' => $Utilisateur->getId(),
+				)
+			),
+			array(
+				array(
+					'id_utilisateur' => '=',
+				),
+				array(
+					'id_utilisateur' => '=',
+				),
+			), 'id_conversation', True);
+			if (!(bool)$resultats)
 			{
 				$Conversation=new \chat\Conversation(array(
 					'nom'             => $lang['chat_mp_nom_conversation_debut'].$this->getPseudo().$lang['chat_mp_nom_conversation_milieu'].$Utilisateur->getPseudo().$lang['chat_mp_nom_conversation_fin'],
@@ -23,13 +35,23 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 					'id_utilisateurs' => array($this->getId(), $Utilisateur->getId()),
 				));
 				$Conversation->creer();
+				$resultats=$LiaisonConversationUtilisateur->getByGroup(array(
+					array(
+						'id_utilisateur' => $this->getId(),
+					),
+					array(
+						'id_utilisateur' => $Utilisateur->getId(),
+					)
+				),
+				array(
+					array(
+						'id_utilisateur' => '=',
+					),
+					array(
+						'id_utilisateur' => '=',
+					),
+				), 'id_conversation', True);
 			}
-			$valeurs=array($this->getId(), $Utilisateur->getId());
-			$resultats=$LiaisonConversationUtilisateur->getBy(array(array(
-				'id_utilisateur' => $this->getId(),
-			), array(
-				'id_utilisateur' => $Utilisateur->getId(),
-			)), 'id_conversation');
 			if (count($resultats)==1)
 			{
 				$Conversation=new \chat\Conversation(array(
@@ -48,7 +70,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 							'date_mise_a_jour' => date($config['format_date']),
 						));
 						$Message->creer();
-						new \user\Notification(array(
+						new \user\page\Notification(array(
 							'type'    => \user\page\Notification::TYPE_SUCCES,
 							'contenu' => $lang['chat_validation_envoyer_mp_notification_succes'],
 						));
@@ -56,7 +78,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 					}
 					else
 					{
-						new \user\Notification(array(
+						new \user\page\Notification(array(
 							'type'    => \user\page\Notification::TYPE_ERREUR,
 							'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_message_vide'],
 						));
@@ -65,7 +87,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 				}
 				else
 				{
-					new \user\Notification(array(
+					new \user\page\Notification(array(
 						'type'    => \user\page\Notification::TYPE_ERREUR,
 						'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_formulaire'],
 					));
@@ -74,7 +96,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 			}
 			else
 			{
-				new \user\Notification(array(
+				new \user\page\Notification(array(
 					'type'    => \user\page\Notification::TYPE_ERREUR,
 					'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_plusieurs_mp'],
 				));
@@ -83,7 +105,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 		}
 		else
 		{
-			new \user\Notification(array(
+			new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_ERREUR,
 				'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_soi_meme'],
 			));
@@ -92,7 +114,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	}
 	else
 	{
-		new \user\Notification(array(
+		new \user\page\Notification(array(
 			'type'    => \user\page\Notification::TYPE_ERREUR,
 			'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_guest'],
 		));
@@ -101,7 +123,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 }
 else
 {
-	new \user\Notification(array(
+	new \user\page\Notification(array(
 		'type'    => \user\page\Notification::TYPE_ERREUR,
 		'contenu' => $lang['chat_validation_envoyer_mp_notification_erreur_no_id'],
 	));

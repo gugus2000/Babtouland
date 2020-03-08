@@ -201,7 +201,7 @@ class Notification extends \core\Managed
 	*
 	* @return string
 	*/
-	public function afficheId_utilisateurs()
+	public function afficherId_utilisateurs()
 	{
 		$affichage='';
 		foreach ($this->id_utilisateurs as $id_utilisateur)
@@ -301,11 +301,7 @@ class Notification extends \core\Managed
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
 		$id_utilisateurs=$this->getId_utilisateurs();
-		$donnees_already_in=$LiaisonNotificationUtilisateur->get(array(
-			'id_notification' => $this->getId(),
-		), array(
-			'id_notification' => '=',
-		));
+		$donnees_already_in=$LiaisonNotificationUtilisateur->get('id_notification', $this->getId());
 		$id_utilisateurs_already_in=array();
 		foreach ($donnees_already_in as $donnee)
 		{
@@ -357,11 +353,7 @@ class Notification extends \core\Managed
 	{
 		$BDDFactory=new \core\BDDFactory;
 		$Liaison=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
-		$resultats=$Liaison->get(array(
-			'id_notification' => $this->getId(),
-		), array(
-			'id_notification' => '=',
-		));
+		$resultats=$Liaison->get('id_notification', $this->getId());
 		$id=array();
 		foreach ($resultats as $resultat)
 		{

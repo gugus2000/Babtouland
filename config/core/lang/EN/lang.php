@@ -80,8 +80,10 @@ $lang=array(
 			'admin_nettoyer_post_notification_debut' => 'Cleaning up ',
 			'admin_nettoyer_post_notification_fin'   => ' comments(s) successfully completed',
 		/* nettoyer_chat */
-			'admin_nettoyer_chat_notification_debut' => 'Cleaning up ',
-			'admin_nettoyer_chat_notification_fin'   => ' messsage(s) successfully completed',
+			'admin_nettoyer_chat_notification_message_debut'      => 'Cleaning up ',
+			'admin_nettoyer_chat_notification_message_fin'        => ' messsage(s) successfully completed',
+			'admin_nettoyer_chat_notification_conversation_debut' => 'Cleaning up ',
+			'admin_nettoyer_chat_notification_conversation_fin'   => ' conversation(s) successfully completed',
 		/* nettoyer_notification */
 			'admin_nettoyer_notification_notification_debut' => 'Cleaning up ',
 			'admin_nettoyer_notification_notification_fin'   => ' notification(s) successfully completed',

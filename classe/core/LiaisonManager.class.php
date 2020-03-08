@@ -11,8 +11,6 @@ class LiaisonManager
 	* Construction du Manager
 	*
 	* @param PDO bdd Connexion avec la base de donnée
-	* 
-	* @param array attributs Liste des attributs de la table déjà connus
 	*
 	* @return void
 	*/
@@ -44,6 +42,12 @@ class LiaisonManager
 	* @var array
 	*/
 	const ATTRIBUTES=array();
+	/**
+	* Index utilisé (clef primaire)
+	*
+	* @var string
+	*/
+	const INDEX='id';
 	
 	/* Accesseurs */
 
@@ -70,19 +74,38 @@ class LiaisonManager
 	{
 		$this->bdd=$bdd;
 	}
-	
+
 	/* Autres méthodes */
 
 	/**
-	* Récupère certains attributs de la table
+	* Récupère les entrées avec un index donnée dans une colonne donnée
+	* 
+	* @param string attribut Attribut pour l'index donné
+	*
+	* @param mixed index Index de l'élément
+	* 
+	* @return mixed
+	*/
+	public function get($attribut, $index)
+	{
+		if (in_array($attribut, $this::ATTRIBUTES))
+		{
+			$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.$attribut.'=?');
+			$requete->execute(array($index));
+			return $requete->fetchAll();
+		}
+		return False;
+	}
+	/**
+	* Récupère les entrées avec des paramètres précis
 	*
 	* @param array attributs Tableau contenant le nom et la valeur de chaque attribut
-	* 
-	* @param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
 	*
-	* @return array
+	* @param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
+	* 
+	* @return mixed
 	*/
-	public function get($attributs, $operations)
+	public function getBy($attributs, $operations)
 	{
 		$attributsWithOperators=array();
 		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
@@ -92,14 +115,83 @@ class LiaisonManager
 		}
 		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
 		$requete->execute(array_values($attributs));
-		$results=array();
-		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
-		{
-			array_push($results, $result);
-		}
-		return $results;
+		return $requete->fetchAll();
 	}
-
+	/**
+	* Récupère les entrée ayant plusieurs autres mêmes attributs ayant des valeurs particulières
+	*
+	* @param array attributs Tableau de tableau d'attributs avec leurs valeurs
+	*
+	* @param array operations Tableau de tableau d'operations
+	*
+	* @param string groupe Attribut utilisé pour grouper
+	*
+	* @param bool strict Si le mode strict est activé ou non (si le nombre d'attributs dans ce groupe doit correspondre exactement )
+	* 
+	* @return mixed
+	*/
+	public function getByGroup($attributs, $operations, $groupe, $strict=False)
+	{
+		if (in_array($groupe, $this::ATTRIBUTES))
+		{
+			$donnees=array();
+			$attributs_operateurs=array();
+			$valeurs_tous=array();
+			foreach ($attributs as $index => $condition)
+			{
+				array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+				$attributs_operateurs[$index]=array();
+				foreach ($condition as $attribut => $valeur)
+				{
+					$attributs_operateurs[$index][]=$attribut.$operations[$index][$attribut].'?';
+					if (!isset($donnees[$attribut]))
+					{
+						$donnees[$attribut]=array();
+					}
+					$donnees[$attribut][]=$valeur;
+					$valeurs_tous[]=$valeur;
+				}
+			}
+			if ($strict)
+			{
+				$attributs_count=array();
+				foreach ($donnees as $attribut => $valeurs)
+				{
+					$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+				}
+				$condition_count=' AND '.$groupe.' IN (SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+			}
+			else
+			{
+				$condition_count='';
+			}
+			$selects_avec_nom_table=array();
+			$egalites_join_avec_nom_table=array();
+			$nbr_conditions=count($attributs);
+			for ($index=0; $index < $nbr_conditions; $index++)
+			{
+				$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_operateurs[$index]).$condition_count.') AS table_'.$index;
+				if ($index+1<$nbr_conditions)
+				{
+					$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+				}
+			}
+			$groupe_avec_nom_table='table_0.'.$groupe;
+			if (count($egalites_join_avec_nom_table)==0)
+			{
+				$where_egalites_join='';
+			}
+			else
+			{
+				$where_egalites_join=' WHERE '.implode(' AND ', $egalites_join_avec_nom_table);
+			}
+			$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).$where_egalites_join.' GROUP BY '.$groupe_avec_nom_table;
+			$requete=$this->getBdd()->prepare($select);
+			$requete->execute($valeurs_tous);
+			return $requete->fetchAll();
+		}
+		return False;
+	}
 	/**
 	* Ajoute les éléments dans la table avec des paramètres variants et invariants
 	*
@@ -156,131 +248,34 @@ class LiaisonManager
 		$requete->execute(array_values($attributs));
 	}
 	/**
-	* Vérifie l'existence d'un element lié à la base de données respectant certaines conditions (cf. chat/envoyer_mp)
+	* Vérifie l'existence d'au moins un élément ayant un attribut avec une valeur particulière
 	*
-	* @param array conditions Conditions à respecter
+	* @param string attribut Attribut donné
 	*
-	* @param string groupe Lien avec l'élément à vérifier
+	* @param mixed index Valeur de l'attribut
 	* 
 	* @return bool
 	*/
-	public function exist($conditions, $groupe)
+	public function exist($attribut, $index)
 	{
-		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
-		{
-			return False;
-		}
-		$donnees=array();
-		$attributs_egalite=array();
-		$valeurs_tous=array();
-		foreach ($conditions as $index => $condition)
-		{
-			$condition=array_intersect_key($condition, array_flip($this::ATTRIBUTES));
-			$attributs_egalite[$index]=array();
-			foreach ($condition as $attribut => $valeur)
-			{
-				$attributs_egalite[$index][]=$attribut.'=?';
-				if (!isset($donnees[$attribut]))
-				{
-					$donnees[$attribut]=array();
-				}
-				$donnees[$attribut][]=$valeur;
-				$valeurs_tous[]=$valeur;
-			}
-		}
-
-		$attributs_count=array();
-		foreach ($donnees as $attribut => $valeurs)
-		{
-			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
-		}
-		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
-		$selects_avec_nom_table=array();
-		$egalites_join_avec_nom_table=array();
-		$nbr_conditions=count($conditions);
-		for ($index=0; $index < $nbr_conditions; $index++)
-		{
-			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
-			if ($index+1<$nbr_conditions)
-			{
-				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
-			}
-		}
-		$groupe_avec_nom_table='table_0.'.$groupe;
-		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
-		$requete=$this->getBdd()->prepare($select);
-		$requete->execute($valeurs_tous);
-		return (bool)$requete->fetch(\PDO::FETCH_ASSOC);
+		return (bool)$this->get($attribut, $index);
 	}
 	/**
-	* Selectionne les éléments respectant certaines conditions (cf. chat/envoyer_mp)
+	* Vérifie l'existence d'au moins une entrée ayant plusieurs autres mêmes attributs ayant des valeurs particulières
 	*
-	* @param array conditions Conditions à respecter
+	* @param array attributs Tableau de tableau d'attributs avec leurs valeurs
 	*
-	* @param string groupe Attribut de l'élément à vérifier
+	* @param array operations Tableau de tableau d'operations
+	*
+	* @param string groupe Attribut utilisé pour grouper
+	*
+	* @param bool strict Si le mode strict est activé ou non (si le nombre d'attributs dans ce groupe doit correspondre exactement )
 	* 
-	* @return array
+	* @return bool
 	*/
-	public function getBy($conditions, $groupe)
+	public function existByGroup($attributs, $operations, $groupe, $strict=False)
 	{
-		if (!in_array($groupe, $this::ATTRIBUTES))	// L'élément n'est pas lié à la base de donnée
-		{
-			return False;
-		}
-		$donnees=array();
-		$attributs_egalite=array();
-		$valeurs_tous=array();
-		foreach ($conditions as $index => $condition)
-		{
-			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
-			$attributs_egalite[$index]=array();
-			foreach ($condition as $attribut => $valeur)
-			{
-				$attributs_egalite[$index][]=$attribut.'=?';
-				if (!isset($donnees[$attribut]))
-				{
-					$donnees[$attribut]=array();
-				}
-				$donnees[$attribut][]=$valeur;
-				$valeurs_tous[]=$valeur;
-			}
-		}
-
-		$attributs_count=array();
-		foreach ($donnees as $attribut => $valeurs)
-		{
-			$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
-		}
-		$select_count='(SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
-		$selects_avec_nom_table=array();
-		$egalites_join_avec_nom_table=array();
-		$nbr_conditions=count($conditions);
-		for ($index=0; $index < $nbr_conditions; $index++)
-		{
-			$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_egalite[$index]).' AND '.$groupe.' IN '.$select_count.') AS table_'.$index;
-			if ($index+1<$nbr_conditions)
-			{
-				$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
-			}
-		}
-		$groupe_avec_nom_table='table_0.'.$groupe;
-		if (count($egalites_join_avec_nom_table)==0)
-		{
-			$where_egalites_join='';
-		}
-		else
-		{
-			$where_egalites_join=' WHERE '.implode(' AND ', $egalites_join_avec_nom_table);
-		}
-		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).$where_egalites_join.' GROUP BY '.$groupe_avec_nom_table;
-		$requete=$this->getBdd()->prepare($select);
-		$requete->execute($valeurs_tous);
-		$resultats=array();
-		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
-		{
-			$resultats[]=$result;
-		}
-		return $resultats;
+		return (bool)$this->getByGroup($attributs, $operations, $groupe, $strict);
 	}
 }
 

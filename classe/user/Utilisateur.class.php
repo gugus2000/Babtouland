@@ -450,11 +450,7 @@ class Utilisateur extends \core\Managed
 	{
 		$BDDFactory=new \core\BDDFactory;
 		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
-		$resultats=$Liaison->get(array(
-			'id_utilisateur' => $this->getId(),
-		), array(
-			'id_utilisateur' => '=',
-		));
+		$resultats=$Liaison->get('id_utilisateur', $this->getId());
 		$conversations=array();
 		foreach ($resultats as $key => $resultat)
 		{
@@ -475,11 +471,7 @@ class Utilisateur extends \core\Managed
 	{
 		$BDDFactory=new \core\BDDFactory;
 		$Liaison=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
-		$resultats=$Liaison->get(array(
-			'id_utilisateur' => $this->getId(),
-		), array(
-			'id_utilisateur' => '=',
-		));
+		$resultats=$Liaison->get('id_utilisateur', $this->getId());
 		$notifications=array();
 		foreach ($resultats as $key => $resultat)
 		{
