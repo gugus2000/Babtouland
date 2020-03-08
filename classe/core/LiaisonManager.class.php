@@ -90,7 +90,7 @@ class LiaisonManager
 		{
 			$attributsWithOperators[]=$nom.$operations[$nom].'?';
 		}
-		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators).'');
+		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
 		$requete->execute(array_values($attributs));
 		$results=array();
 		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
@@ -175,7 +175,7 @@ class LiaisonManager
 		$valeurs_tous=array();
 		foreach ($conditions as $index => $condition)
 		{
-			array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+			$condition=array_intersect_key($condition, array_flip($this::ATTRIBUTES));
 			$attributs_egalite[$index]=array();
 			foreach ($condition as $attribut => $valeur)
 			{
@@ -264,7 +264,15 @@ class LiaisonManager
 			}
 		}
 		$groupe_avec_nom_table='table_0.'.$groupe;
-		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).' WHERE '.implode(' AND ', $egalites_join_avec_nom_table).' GROUP BY '.$groupe_avec_nom_table;
+		if (count($egalites_join_avec_nom_table)==0)
+		{
+			$where_egalites_join='';
+		}
+		else
+		{
+			$where_egalites_join=' WHERE '.implode(' AND ', $egalites_join_avec_nom_table);
+		}
+		$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).$where_egalites_join.' GROUP BY '.$groupe_avec_nom_table;
 		$requete=$this->getBdd()->prepare($select);
 		$requete->execute($valeurs_tous);
 		$resultats=array();

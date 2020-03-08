@@ -45,6 +45,8 @@ $lang=array(
 			'admin_hub_ratio_connectes_fin'              => '% utilisateurs connectés',
 			'admin_hub_liste_utilisateurs'               => 'Liste des utilisateurs',
 			'admin_hub_publier_notification_description' => 'Publier une notification',
+			'admin_hub_lien_nettoyage_title'             => 'Nettoyer la base de donnée',
+			'admin_hub_lien_nettoyage_description'       => 'Nettoyage BDD',
 		/* publier_notification */
 			'admin_publier_notification_titre'                         => 'Envoyer une notification',
 			'admin_publier_notification_description'                   => 'Permet l\'envoi d\'une notification publique ciblée',
@@ -63,6 +65,31 @@ $lang=array(
 			'admin_validation_publier_notification_succes'                         => 'La notification a bien été envoyé',
 			'admin_validation_publier_notification_erreur_vide'                    => 'Certains champs obligatoires du formulaire ont été laissé vide',
 			'admin_validation_publier_notification_utilisateurs_erreur_formulaire' => 'Formulaire non ou mal remplit',
+		/* nettoyer */
+			'admin_nettoyer_titre'                    => 'Nettoyage',
+			'admin_nettoyer_description'              => 'Permet le nettoyage de la base de donnée de différentes parties du site',
+			'admin_nettoyer_post_title'               => 'Supprimer les entrées inutiles pour le système de post',
+			'admin_nettoyer_post_description'         => 'Nettoyer le blogue',
+			'admin_nettoyer_forum_title'              => 'Supprimer les entrées inutiles pour le forum',
+			'admin_nettoyer_forum_description'        => 'Nettoyer le forum',
+			'admin_nettoyer_chat_title'               => 'Supprimer les entrées inutiles pour le chat',
+			'admin_nettoyer_chat_description'         => 'Nettoyer le chat',
+			'admin_nettoyer_notification_title'       => 'Supprimer les entrées inutiles pour le système de notification',
+			'admin_nettoyer_notification_description' => 'Nettoyer les notifications',
+		/* nettoyer_post */
+			'admin_nettoyer_post_notification_debut' => 'Nettoyage de ',
+			'admin_nettoyer_post_notification_fin'   => ' commentaire(s) terminé avec succès',
+		/* nettoyer_chat */
+			'admin_nettoyer_chat_notification_debut' => 'Nettoyage de ',
+			'admin_nettoyer_chat_notification_fin'   => ' messsage(s) terminé avec succès',
+		/* nettoyer_notification */
+			'admin_nettoyer_notification_notification_debut' => 'Nettoyage de ',
+			'admin_nettoyer_notification_notification_fin'   => ' notification(s) terminé avec succès',
+		/* nettoyer_forum */
+			'admin_nettoyer_forum_notification_noeud_debut'   => 'Nettoyage de ',
+			'admin_nettoyer_forum_notification_noeud_fin'     => ' nœud(s) terminé avec succès',
+			'admin_nettoyer_forum_notification_message_debut' => 'Nettoyage de ',
+			'admin_nettoyer_forum_notification_message_fin'   => ' message(s) terminé avec succès',
 	/* user */
 		'user_formulairepseudo' => 'Pseudo:',
 		'user_formulairemdp'    => 'Mot de passe:',

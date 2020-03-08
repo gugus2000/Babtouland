@@ -300,7 +300,7 @@ class Manager
 	*
 	* @return array
 	*/
-	public function getBy($attributs, $operations=null, $bornes=null)
+	public function getBy($attributs=null, $operations=null, $bornes=null)
 	{
 		$attributsWithOperators=array();
 		$attributs=$this->testAttributes($attributs);

@@ -149,12 +149,27 @@ $config=array(
 			/* hub */
 				'admin_hub_lien_liste_utilisateur'    => array('application' => 'utile', 'action' => 'liste_user'),
 				'admin_hub_publier_notification_lien' => array('application' => 'admin', 'action' => 'publier_notification'),
+				'admin_hub_lien_nettoyage_href'       => array('application' => 'admin', 'action' => 'nettoyer'),
 			/* publier_notification */
 				'admin_publier_notification_formulaire_action' => array('application' => 'admin', 'action' => 'validation_publier_notification'),
 			/* validation_publier_notification */
 				'admin_validation_publier_notification_succes'                         => array('application' => 'admin', 'action' => 'hub'),
 				'admin_validation_publier_notification_erreur_vide'                    => array('application' => 'admin', 'action' => 'publier_notification'),
 				'admin_validation_publier_notification_utilisateurs_erreur_formulaire' => array('application' => 'admin', 'action' => 'publier_notification'),
+			/* nettoyer */
+				'admin_nettoyer_post_href'         => array('application' => 'admin', 'action' => 'nettoyer_post'),
+				'admin_nettoyer_forum_href'        => array('application' => 'admin', 'action' => 'nettoyer_forum'),
+				'admin_nettoyer_chat_href'         =>  array('application' => 'admin', 'action' => 'nettoyer_chat'),
+				'admin_nettoyer_notification_href' =>  array('application' => 'admin', 'action' => 'nettoyer_notification'),
+			/* nettoyer_post */
+				'admin_nettoyer_post_notification_lien' => array('application' => 'admin', 'action' => 'nettoyer'),
+			/* nettoyer_chat */
+				'admin_nettoyer_chat_notification_lien' => array('application' => 'admin', 'action' => 'nettoyer'),
+			/* nettoyer_notification */
+				'admin_nettoyer_notification_notification_lien' => array('application' => 'admin', 'action' => 'nettoyer'),
+			/* nettoyer_forum */
+				'admin_nettoyer_forum_notification_lien' => array('application' => 'admin', 'action' => 'nettoyer'),
+
 		/* user */
 			'defaut_user_action' => 'statut',
 			/* inscription */

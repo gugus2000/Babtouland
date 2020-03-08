@@ -24,6 +24,7 @@ $Contenu=new \user\PageElement(array(
 		'nombre_connectes'    => $lang['admin_hub_nombre_connectes'].$nombre_connectes,
 		'ratio_connectes'     => $lang['admin_hub_ratio_connectes_debut'].substr((string)(($nombre_connectes/$nombre_utilisateurs)*100),0,5).$lang['admin_hub_ratio_connectes_fin'],
 		'liste_utilisateurs'  => '<a href="'.$Routeur->creerLien($config['admin_hub_lien_liste_utilisateur']).'">'.$lang['admin_hub_liste_utilisateurs'].'</a>',
+		'nettoyage'           => '<a href="'.$Routeur->creerLien($config['admin_hub_lien_nettoyage_href']).'"" title="'.$lang['admin_hub_lien_nettoyage_title'].'">'.$lang['admin_hub_lien_nettoyage_description'].'</a>',
 	),
 ));
 $MenuUp=new \user\page\MenuUp();

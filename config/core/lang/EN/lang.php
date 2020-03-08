@@ -45,6 +45,8 @@ $lang=array(
 			'admin_hub_ratio_connectes_fin'              => '% connected users',
 			'admin_hub_liste_utilisateurs'               => 'List of users',
 			'admin_hub_publier_notification_description' => 'Send a notification',
+			'admin_hub_lien_nettoyage_title'             => 'Clean the database',
+			'admin_hub_lien_nettoyage_description'       => 'Clean DBB',
 		/* publier_notification */
 			'admin_publier_notification_titre'                         => 'Send a notification',
 			'admin_publier_notification_description'                   => 'Allows to send a cibled public notification',
@@ -63,6 +65,31 @@ $lang=array(
 			'admin_validation_publier_notification_succes'                         => 'Notification well published',
 			'admin_validation_publier_notification_erreur_vide'                    => 'Some needed input are empty',
 			'admin_validation_publier_notification_utilisateurs_erreur_formulaire' => 'Form not or incorrectly completed',
+		/* nettoyer */
+			'admin_nettoyer_titre'                    => 'Cleaning',
+			'admin_nettoyer_description'              => 'Allows cleaning of the database of different parts of the site',
+			'admin_nettoyer_post_title'               => 'Delete useless entries on the blog',
+			'admin_nettoyer_post_description'         => 'Clean up the blog',
+			'admin_nettoyer_forum_title'              => 'Delete useless entries on the forum',
+			'admin_nettoyer_forum_description'        => 'Clean up the forum',
+			'admin_nettoyer_chat_title'               => 'Delee useless entries on the chat',
+			'admin_nettoyer_chat_description'         => 'Clean up the chat',
+			'admin_nettoyer_notification_title'       => 'Delete useless entries for the notification system',
+			'admin_nettoyer_notification_description' => 'Clean up the notifications',
+		/* nettoyer_post */
+			'admin_nettoyer_post_notification_debut' => 'Cleaning up ',
+			'admin_nettoyer_post_notification_fin'   => ' comments(s) successfully completed',
+		/* nettoyer_chat */
+			'admin_nettoyer_chat_notification_debut' => 'Cleaning up ',
+			'admin_nettoyer_chat_notification_fin'   => ' messsage(s) successfully completed',
+		/* nettoyer_notification */
+			'admin_nettoyer_notification_notification_debut' => 'Cleaning up ',
+			'admin_nettoyer_notification_notification_fin'   => ' notification(s) successfully completed',
+		/* nettoyer_forum */
+			'admin_nettoyer_forum_notification_noeud_debut'   => 'Cleaning up ',
+			'admin_nettoyer_forum_notification_noeud_fin'     => ' node(s) successfully completed',
+			'admin_nettoyer_forum_notification_message_debut' => 'Cleaning up ',
+			'admin_nettoyer_forum_notification_message_fin'   => ' message(s)  successfully completed',
 	/* user */
 		'user_formulairepseudo' => 'Username:',
 		'user_formulairemdp'    => 'Password:',
