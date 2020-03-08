@@ -1,0 +1,32 @@
+class Channel
+!!!927618.php!!!	__construct(in elements : array) : void
+
+		global $config;
+		$this->setTemplate($config['path_template'].$config['rss_channel_path_template']);
+		$this->setElements($elements);
+!!!927746.php!!!	afficherArray(in liste : array) : string
+
+		$affichage='';
+		foreach ($liste as $tag => $element)
+		{
+			if (is_object($element))
+			{
+				$affichage.=$element->afficher();
+			}
+			else if (is_array($element))
+			{
+				foreach ($element as $tag => $valeur)
+				{
+					if (is_array($valeur))
+					{
+						$valeur=$this->afficherArray($valeur);
+					}
+					$affichage.='<'.$tag.'>'.$valeur.'</'.$tag.'>';
+				}
+			}
+			else
+			{
+				$affichage.='<'.$tag.'>'.$element.'</'.$tag.'>';
+			}
+		}
+		return $affichage;

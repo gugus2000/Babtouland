@@ -1,0 +1,229 @@
+class Visiteur
+!!!993538.php!!!	getPage() : Page
+
+		return $this->page;
+!!!993666.php!!!	getConfigurations() : array
+
+		return $this->configurations;
+!!!993794.php!!!	setPage(in page : Page) : void
+
+		$this->page=$page;
+!!!993922.php!!!	setConfigurations(in configurations : array) : void
+
+		$this->configurations=$configurations;
+!!!994050.php!!!	afficherPage() : string
+
+		return htmlspecialchars((string)$this->page->afficher());
+!!!994178.php!!!	afficherConfigurations() : string
+
+		$affichage='';
+		foreach ($this->configurations as $Configuration)
+		{
+			$affichage.=$Configuration->afficher().'<br />';
+		}
+		return $affichage;
+!!!994306.php!!!	setConfiguration(in index : string, in valeur : mixed) : void
+
+		$this->configurations[$index]=$valeur;
+!!!994434.php!!!	getConfiguration(in index : string) : mixed
+
+		return $this->configurations[$index];
+!!!994562.php!!!	verifPermission() : bool
+
+		return $this->getRole()->existPermission(array('application' => $this->getPage()->getApplication(), 'action' => $this->getPage()->getAction()));
+!!!994690.php!!!	connexion(in motdepasse : string) : bool
+
+		if ($this->getMotdepasse()->verif($motdepasse))
+		{
+			$utilisateurManager=$this->Manager();
+			$date=date('Y-m-d H:i:s');
+			$utilisateurManager->update(array(
+				'date_connexion' => $date,
+			), $this->getId());
+			$this->setDate_connexion($date);
+			$_SESSION['mdp']=$this->getMotdepasse()->getMdp_clair();
+			$_SESSION['pseudo']=$this->getPseudo();
+			$_SESSION['id']=$this->getId();
+			return True;
+		}
+		else
+		{
+			return False;
+		}
+!!!994818.php!!!	deconnexion() : void
+
+		if ($this->getMotdepasse()->verif($motdepasse))
+		{
+			$utilisateurManager=$this->Manager();
+			$date=date('Y-m-d H:i:s');
+			$utilisateurManager->update(array(
+				'date_connexion' => $date,
+			), $this->getId());
+			$_SESSION=array();
+		}
+!!!994946.php!!!	inscription(in motdepasse : string, in nom_role : string) : void
+
+		$VisiteurManager=$this->Manager();
+		$VisiteurManager->add(array(				// Inscription dans la base de donnée
+			'pseudo'           => $this->getPseudo(),
+			'avatar'           => $this->getAvatar(),
+			'date_inscription' => $this->getDate_inscription(),
+			'date_connexion'   => $this->getDate_connexion(),
+			'banni'            => (int)$this->getBanni(),
+			'mail'             => $this->getMail(),
+		));
+		$this->setId($VisiteurManager->getIdBy(array(	// Récupération de l'id
+			'pseudo'           => $this->getPseudo(),
+			'avatar'           => $this->getAvatar(),
+			'date_inscription' => $this->getDate_inscription(),
+			'date_connexion'   => $this->getDate_connexion(),
+			'banni'            => (int)$this->getBanni(),
+			'mail'             => $this->getMail(),
+		)));
+		$this->setMotdepasse(new \user\Motdepasse(array(
+			'id' => $this->getId(),
+			'mdp_clair' => $motdepasse,
+		)));
+		$this->setRole(new \user\Role(array(
+			'id' => $this->getId(),
+			'nom_role' => $nom_role,
+		)));
+		$this->getRole()->recuperer_permissions();
+		$RoleManager=$this->getRole()->Manager();
+		$RoleManager->update(array(
+			'nom_role' => $this->getRole()->getNom_role(),	// Inscription du role dans la table utilisateur
+		), $this->getId());
+		$MotdepasseManager=$this->getMotdepasse()->Manager();
+		$this->getMotdepasse()->hash();
+		$MotdepasseManager->update(array(					// Inscription du mot de passe
+			'mot_de_passe' => $this->getMotdepasse()->getMot_de_passe(),
+		), $this->getId());
+		$BDDFactory=new \core\BDDFactory;
+		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
+		global $config;
+		$LiaisonConversationUtilisateur->addBy(array(array(			// On met l'utilisateur dans la conversation "général"
+			'id_conversation' => $config['id_conversation_all'],
+		)), array(
+			'id_utilisateur' => $this->getId(),
+		));
+!!!995074.php!!!	mettre_a_jour() : void
+
+		$Manager=$this->Manager();
+		$Manager->update(array(
+			'avatar' => $this->getAvatar(),
+			'banni'  => (int)$this->getBanni(),
+			'mail'   => $this->getMail(),
+		), $this->getId());
+!!!995202.php!!!	supprimer() : void
+
+		$Manager=$this->Manager();
+		$Manager->delete($this->getId());
+!!!995330.php!!!	chargePage(in parametres : array) : string
+
+		global $config, $Visiteur, $Routeur;
+		$this->setConfigurations($config['config_utilisateur']);
+		$ConfigurationManager=new \user\ConfigurationManager(\core\BDDFactory::MysqlConnexion());
+		if (isset($parametres[$config['nom_parametres']]['lang']))
+		{
+			if (in_array($parametres[$config['nom_parametres']]['lang'],$config['lang_available']))
+			{
+				if ($this->getId()==$config['id_guest'])	// On définit le guest comme ayant un langage différent
+				{
+					$_SESSION['lang']=$parametres[$config['nom_parametres']]['lang'];
+				}
+				else
+				{
+					if ($ConfigurationManager->exist(array(	// La langue a déjà été définie une fois
+						'id_utilisateur' => $this->getId(),
+						'nom'            => 'lang',
+					)))
+					{
+						$id=$ConfigurationManager->getIdBy(array(
+							'id_utilisateur' => $this->getId(),
+							'nom'            => 'lang',
+						));
+						$ConfigurationManager->update(array(
+							'valeur' => $parametres[$config['nom_parametres']]['lang'],
+						), $id);
+					}
+					else 	// Première fois que la langue a été définie
+					{
+						$ConfigurationManager->add(array(
+							'id_utilisateur' => $this->getId(),
+							'nom'            => 'lang',
+							'valeur'         => $parametres[$config['nom_parametres']]['lang'],
+						));
+					}
+				}
+			}
+		}
+		if ($this->getId()==$config['id_guest'])
+		{
+			foreach (array_keys($this->getConfigurations()) as $nom_configuration)
+			{
+				if (isset($_SESSION[$nom_configuration]))
+				{
+					$this->setConfiguration($nom_configuration, $_SESSION[$nom_configuration]);
+				}
+			}
+		}
+		else
+		{
+			$configurations=$ConfigurationManager->getBy(array(
+				'id_utilisateur' => $this->getId(),
+			), array(
+				'id_utilisateur' => '=',
+			));
+			foreach ($configurations as $configuration)
+			{
+				$Configuration=new \user\Configuration($configuration);
+				$this->setConfiguration($Configuration->getNom(), $Configuration->getValeur());
+			}
+		}
+		require $config['path_lang'].$Visiteur->getConfiguration('lang').'/lang.php';	// Chargement de la traduction
+		if($this->getRole()->existPermission($parametres))	// Permission accordée
+		{
+			if (isset($parametres[$config['nom_parametres']]))
+			{
+				$parametres_plus=$parametres[$config['nom_parametres']];
+			}
+			else
+			{
+				$parametres_plus=array();
+			}
+			$this->setPage(new \user\Page(array(
+				'application'   => $parametres['application'],
+				'action'        => $parametres['action'],
+				'parametres'    => $parametres_plus,
+			)));
+			if (include($this->getPage()->getPath()))
+			{
+				return $this->getPage()->afficher();
+			}
+			else
+			{
+				throw new \Exception($lang['erreur_general_fichier_introuvable']);
+			}
+		}
+		else
+		{
+			throw new \Exception($lang['erreur_general_autorisations_insuffisantes']);	// Pas l'autorisation
+		}
+!!!995458.php!!!	verifLiens(in liens : Visiteur) : bool
+
+		foreach ($liens as $index => $lien)
+		{
+			if ($this->getRole()->existPermission($lien))
+			{
+				return True;
+			}
+		}
+		return False;
+!!!995586.php!!!	autorisationModification(in Objet : \core\Managed) : bool
+
+		global $config;
+		if (method_exists($Objet, 'recupererAuteur'))
+		{
+			return $this->similaire($Objet->recupererAuteur())|$this->getRole()->existPermission(array('application' => $config['application_modification'], 'action' => get_class($Objet)));
+		}
+		return False;

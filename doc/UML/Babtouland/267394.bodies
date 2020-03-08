@@ -1,0 +1,11 @@
+class Formulaire
+!!!925698.php!!!	__construct(in contenu : PageElement, in Tete : PageElement = null) : void
+
+		global $config, $lang, $Visiteur;
+		if (!$Tete)
+		{
+			$Tete=$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']);
+		}
+		$this->setTemplate($config['path_template'].$config['formulaire_path_template']);
+		$this->setElements(array('contenu' => $contenu));
+		$Tete->ajouterValeurElement('css', $config['path_assets'].$config['formulaire_path_css']);

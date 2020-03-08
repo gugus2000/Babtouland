@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Documentation produced by the Html generator of Bouml (http://www.bouml.fr) -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Class LiaisonManager</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body bgcolor="#ffffff">
+
+<div class = "title">Class LiaisonManager</div>
+<p></p>
+
+<!-- ============================================================= -->
+
+<a name="ref4_275970"></a>
+<p>Manager d'une table de liaison entre deux autres tables de donnÃ©es<br /><br /></p>
+<p>Declaration :</p><ul>
+<li>Php : class LiaisonManager </li></ul><p>Directly inherited by : <a href="class275842.html#ref4_275842"><b>LiaisonConversationUtilisateur</b></a> <a href="class279554.html#ref4_279554"><b>LiaisonNotificationUtilisateur</b></a> </p>
+<p>Artifact : <a href="index.html#ref8_376322"><b>LiaisonManager.class</b></a></p>
+<div class="sub">
+<a name="ref2_940290"></a>
+<table><tr><td><div class="element">Operation <b>__construct</b></div></td></tr></table><p>Construction du Manager<br /><br />@param PDO bdd Connexion avec la base de donnÃ©e<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + __construct(in bdd : PDO) : void</li><li>Php : public function __construct($bdd): void </li></ul><a name="ref1_436994"></a>
+<table><tr><td><div class="element">Attribute <b>bdd</b></div></td></tr></table>
+<p>Attributs <br /><br />Connexion avec la base de donnÃ©e<br /><br />@var PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : # bdd : PDO</li><li>Php : protected $bdd</li></ul><a name="ref1_437122"></a>
+<table><tr><td><div class="element">Attribute <b>TABLE</b></div></td></tr></table>
+<p>Constantes <br /><br />Nom de la table liÃ© Ã  l'objet<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ TABLE : string = '', read only</li><li>Php :  const TABLE</li></ul><a name="ref1_437250"></a>
+<table><tr><td><div class="element">Attribute <b>ATTRIBUTES</b></div></td></tr></table>
+<p>Liste de tous les attributs de la table<br /><br />@var array<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ ATTRIBUTES : array = array(), read only</li><li>Php :  const ATTRIBUTES</li></ul><a name="ref1_437378"></a>
+<table><tr><td><div class="element">Attribute <b>INDEX</b></div></td></tr></table>
+<p>Index utilisÃ© (clef primaire)<br /><br />@var string<br /><br /></p><p>Declaration :</p><ul><li>Uml : ~ INDEX : string = 'id', read only</li><li>Php :  const INDEX</li></ul><a name="ref2_940418"></a>
+<table><tr><td><div class="element">Operation <b>getBdd</b></div></td></tr></table><p>Accesseurs <br /><br />Accesseur de bdd<br /><br />@return PDO<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getBdd() : PDO</li><li>Php : public function getBdd(): PDO </li></ul><a name="ref2_940546"></a>
+<table><tr><td><div class="element">Operation <b>setBdd</b></div></td></tr></table><p>DÃ©finisseurs <br /><br />DÃ©finisseur de bdd<br /><br />@param PDO bdd Connexion Ã  la base de donnÃ©e<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : # setBdd(in bdd : PDO) : void</li><li>Php : protected function setBdd($bdd): void </li></ul><a name="ref2_940674"></a>
+<table><tr><td><div class="element">Operation <b>get</b></div></td></tr></table><p>Autres mÃ©thodes <br /><br />RÃ©cupÃ¨re les entrÃ©es avec un index donnÃ©e dans une colonne donnÃ©e<br /><br />@param string attribut Attribut pour l'index donnÃ©<br /><br />@param mixed index Index de l'Ã©lÃ©ment<br /><br />@return mixed<br /><br /></p><p>Declaration :</p><ul><li>Uml : + get(in attribut : string, in index : mixed) : mixed</li><li>Php : public function get($attribut, $index): mixed </li></ul><a name="ref2_940802"></a>
+<table><tr><td><div class="element">Operation <b>getBy</b></div></td></tr></table><p>RÃ©cupÃ¨re les entrÃ©es avec des paramÃ¨tres prÃ©cis<br /><br />@param array attributs Tableau contenant le nom et la valeur de chaque attribut<br /><br />@param array operations Tableau contenant le nom et l'opÃ©ration Ã  exÃ©cuter sur chaque attributs<br /><br />@return mixed<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getBy(in attributs : array, in operations : array) : mixed</li><li>Php : public function getBy($attributs, $operations): mixed </li></ul><a name="ref2_940930"></a>
+<table><tr><td><div class="element">Operation <b>getByGroup</b></div></td></tr></table><p>RÃ©cupÃ¨re les entrÃ©e ayant plusieurs autres mÃªmes attributs ayant des valeurs particuliÃ¨res<br /><br />@param array attributs Tableau de tableau d'attributs avec leurs valeurs<br /><br />@param array operations Tableau de tableau d'operations<br /><br />@param string groupe Attribut utilisÃ© pour grouper<br /><br />@param bool strict Si le mode strict est activÃ© ou non (si le nombre d'attributs dans ce groupe doit correspondre exactement )<br /><br />@return mixed<br /><br /></p><p>Declaration :</p><ul><li>Uml : + getByGroup(in attributs : array, in operations : array, in groupe : string, in strict : bool = False) : mixed</li><li>Php : public function getByGroup($attributs, $operations, $groupe, $strict = False): mixed </li></ul><a name="ref2_941058"></a>
+<table><tr><td><div class="element">Operation <b>addBy</b></div></td></tr></table><p>Ajoute les Ã©lÃ©ments dans la table avec des paramÃ¨tres variants et invariants<br /><br />@param array variants Valeurs variantes Ã  chaque Ã©lÃ©ment<br /><br />@param array invariants Valeurs invariantes communes Ã  tous les Ã©lÃ©ments Ã  ajouter<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + addBy(in variants : array, in invariants : array) : void</li><li>Php : public function addBy($variants, $invariants): void </li></ul><a name="ref2_941186"></a>
+<table><tr><td><div class="element">Operation <b>deleteBy</b></div></td></tr></table><p>Supprime des Ã©lÃ©ments de la base de donnÃ©es en fonction de paramÃ¨tres dÃ©finis<br /><br />@param array attributs ParamÃ¨tre permettant de dÃ©terminer l'Ã©lÃ©ment Ã  supprimer<br /><br />@return void<br /><br /></p><p>Declaration :</p><ul><li>Uml : + deleteBy(in attributs : array) : void</li><li>Php : public function deleteBy($attributs): void </li></ul><a name="ref2_941314"></a>
+<table><tr><td><div class="element">Operation <b>exist</b></div></td></tr></table><p>VÃ©rifie l'existence d'au moins un Ã©lÃ©ment ayant un attribut avec une valeur particuliÃ¨re<br /><br />@param string attribut Attribut donnÃ©<br /><br />@param mixed index Valeur de l'attribut<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + exist(in attribut : string, in index : mixed) : bool</li><li>Php : public function exist($attribut, $index): bool </li></ul><a name="ref2_941442"></a>
+<table><tr><td><div class="element">Operation <b>existByGroup</b></div></td></tr></table><p>VÃ©rifie l'existence d'au moins une entrÃ©e ayant plusieurs autres mÃªmes attributs ayant des valeurs particuliÃ¨res<br /><br />@param array attributs Tableau de tableau d'attributs avec leurs valeurs<br /><br />@param array operations Tableau de tableau d'operations<br /><br />@param string groupe Attribut utilisÃ© pour grouper<br /><br />@param bool strict Si le mode strict est activÃ© ou non (si le nombre d'attributs dans ce groupe doit correspondre exactement )<br /><br />@return bool<br /><br /></p><p>Declaration :</p><ul><li>Uml : + existByGroup(in attributs : array, in operations : array, in groupe : string, in strict : bool = False) : bool</li><li>Php : public function existByGroup($attributs, $operations, $groupe, $strict = False): bool </li></ul></div>
+<p>All public operations : <a href="class275970.html#ref2_940290"><b>__construct</b></a> , <a href="class275970.html#ref2_941058"><b>addBy</b></a> , <a href="class275970.html#ref2_941186"><b>deleteBy</b></a> , <a href="class275970.html#ref2_941314"><b>exist</b></a> , <a href="class275970.html#ref2_941442"><b>existByGroup</b></a> , <a href="class275970.html#ref2_940674"><b>get</b></a> , <a href="class275970.html#ref2_940418"><b>getBdd</b></a> , <a href="class275970.html#ref2_940802"><b>getBy</b></a> , <a href="class275970.html#ref2_940930"><b>getByGroup</b></a> </p>
+</body>
+</html>

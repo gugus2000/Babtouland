@@ -1,0 +1,1392 @@
+format 222
+"post" // Babtouland::classe::post
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/post/"
+  php_namespace "post"
+  deploymentview 305794 "post"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 378242 "Commentaire.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 278786 // Commentaire
+      end
+    end
+
+    artifact 378370 "CommentaireManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 278914 // CommentaireManager
+      end
+    end
+
+    artifact 378498 "Post.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 279042 // Post
+      end
+    end
+
+    artifact 378626 "PostManager.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 279170 // PostManager
+      end
+    end
+  end
+
+  classview 200322 "post"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 278786 "Commentaire"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Commentaire d'un post
+"
+      classrelation 262786 // <generalisation>
+	relation 262786 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 262786 // <generalisation>
+	  b parent class_ref 275458 // Managed
+      end
+
+      attribute 446722 "id"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Id du Commentaire
+
+@var ${type}
+"
+      end
+
+      attribute 446850 "id_auteur"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id de l'auteur du Commentaire
+
+@var ${type}
+"
+      end
+
+      attribute 446978 "id_post"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id du Post du Commentaire
+
+@var ${type}
+"
+      end
+
+      attribute 447106 "contenu"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Contenu du Commentaire
+
+@var ${type}
+"
+      end
+
+      attribute 447234 "date_publication"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de la publication du Commentaire
+
+@var ${type}
+"
+      end
+
+      attribute 447362 "date_mise_a_jour"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de la mise à jour du Commentaire
+
+@var ${type}
+"
+      end
+
+      operation 967938 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de id
+
+@return ${type}
+"
+      end
+
+      operation 968066 "getId_auteur"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de id_auteur
+
+@return ${type}
+"
+      end
+
+      operation 968194 "getId_post"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de id_post
+
+@return ${type}
+"
+      end
+
+      operation 968322 "getContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 968450 "getDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_publication
+
+@return ${type}
+"
+      end
+
+      operation 968578 "getDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_mise_a_jour
+
+@return ${type}
+"
+      end
+
+      operation 968706 "setId"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de id
+
+@param ${t0} id Id du Commentaire
+
+@return ${type}
+"
+      end
+
+      operation 968834 "setId_auteur"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id_auteur" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de id_auteur
+
+@param ${t0} id_auteur Id de l'auteur du Commentaire
+
+@return ${type}
+"
+      end
+
+      operation 968962 "setId_post"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id_post" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de id_post
+
+@param ${t0} id_post Id du Post du Commentaire
+
+@return ${type}
+"
+      end
+
+      operation 969090 "setContenu"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de contenu
+
+@param ${t0} contenu Contenu du Commentaire
+
+@return ${type}
+"
+      end
+
+      operation 969218 "setDate_publication"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_publication" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_publication
+
+@param ${t0} date_publication Date de la publication du Commentaire
+
+@return ${type}
+"
+      end
+
+      operation 969346 "setDate_mise_a_jour"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_mise_a_jour" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_mise_a_jour
+
+@param ${t0} date_mise_a_jour Date de la mise à jour du Commentaire
+
+@return ${type}
+"
+      end
+
+      operation 969474 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de id
+
+@return ${type}
+"
+      end
+
+      operation 969602 "afficherId_auteur"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de id_auteur
+
+@return ${type}
+"
+      end
+
+      operation 969730 "afficherid_post"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de id_post
+
+@return ${type}
+"
+      end
+
+      operation 969858 "afficherContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 969986 "afficherDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_publication
+
+@return ${type}
+"
+      end
+
+      operation 970114 "afficherDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_mise_a_jour
+
+@return ${type}
+"
+      end
+
+      operation 970242 "afficherDate_publicationFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_publication avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 970370 "afficherDate_mise_a_jourFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_mise_a_jour avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 970498 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Converti l'objet Post en string
+
+@return ${type}
+"
+      end
+
+      operation 970626 "recupererAuteur"
+	public explicit_return_type "Utilisateur"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Obtient l'auteur du Commentaire
+
+@return ${type}
+"
+      end
+
+      operation 970754 "recupererPost"
+	public explicit_return_type "Post"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Obtient le Post du Commentaire
+
+@return ${type}
+"
+      end
+    end
+
+    class 278914 "CommentaireManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Commentaire
+"
+      classrelation 262914 // <generalisation>
+	relation 262914 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 262914 // <generalisation>
+	  b parent class_ref 275714 // Manager
+      end
+
+      attribute 447490 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'commentaire'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par Commentaire
+
+@var ${type}
+"
+      end
+
+      attribute 447618 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'id_auteur',
+		2 => 'id_post',
+		3 => 'contenu',
+		4 => 'date_publication',
+		5 => 'date_mise_a_jour',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+
+    class 279042 "Post"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Post du site
+"
+      classrelation 263042 // <generalisation>
+	relation 263042 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 263042 // <generalisation>
+	  b parent class_ref 275458 // Managed
+      end
+
+      attribute 447746 "id"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Attributs 
+
+Id du Post
+
+@var ${type}
+"
+      end
+
+      attribute 447874 "id_auteur"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Id de l'auteur du Post
+
+@var ${type}
+"
+      end
+
+      attribute 448002 "titre"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Titre du Post
+
+@var ${type}
+"
+      end
+
+      attribute 448130 "contenu"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Contenu du Post
+
+@var ${type}
+"
+      end
+
+      attribute 448258 "date_publication"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de la publication du Post
+
+@var ${type}
+"
+      end
+
+      attribute 448386 "date_mise_a_jour"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Date de la dernière mise à jour du Post
+
+@var ${type}
+"
+      end
+
+      operation 970882 "getId"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Accesseurs 
+
+Accesseur de id
+
+@return ${type}
+"
+      end
+
+      operation 971010 "getId_auteur"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de id_auteur
+
+@return ${type}
+"
+      end
+
+      operation 971138 "getTitre"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de titre
+
+@return ${type}
+"
+      end
+
+      operation 971266 "getContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 971394 "getDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_publication
+
+@return ${type}
+"
+      end
+
+      operation 971522 "getDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Accesseur de date_mise_a_jour
+
+@return ${type}
+"
+      end
+
+      operation 971650 "setId"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Définisseurs 
+
+Définisseur de id
+
+@param ${t0} id Id du Post
+
+@return ${type}
+"
+      end
+
+      operation 971778 "setId_auteur"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "id_auteur" explicit_type "int"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de id_auteur
+
+@param ${t0} id_auteur Id de l'auteur du Post
+
+@return ${type}
+"
+      end
+
+      operation 971906 "setTitre"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "titre" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de titre
+
+@param ${t0} titre Titre du Post
+
+@return ${type}
+"
+      end
+
+      operation 972034 "setContenu"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "contenu" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de contenu
+
+@param ${t0} contenu Contenu du Post
+
+@return ${type}
+"
+      end
+
+      operation 972162 "setDate_publication"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_publication" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_publication
+
+@param ${t0} date_publication Date de publication du Post
+
+@return ${type}
+"
+      end
+
+      operation 972290 "setDate_mise_a_jour"
+	protected explicit_return_type "void"
+	nparams 1
+	  param in name "date_mise_a_jour" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Définisseur de date_mise_a_jour
+
+@param ${t0} date_mise_a_jour Date de la dernière mise à jour du Post
+
+@return ${type}
+"
+      end
+
+      operation 972418 "afficherId"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " Autres méthodes 
+
+Afficheur de id
+
+@return ${type}
+"
+      end
+
+      operation 972546 "afficherId_auteur"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de id_auteur
+
+@return ${type}
+"
+      end
+
+      operation 972674 "afficherTitre"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de titre
+
+@return ${type}
+"
+      end
+
+      operation 972802 "afficherContenu"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de contenu
+
+@return ${type}
+"
+      end
+
+      operation 972930 "afficherDate_publication"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_publication
+
+@return ${type}
+"
+      end
+
+      operation 973058 "afficherDate_mise_a_jour"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de date_mise_a_jour
+
+@return ${type}
+"
+      end
+
+      operation 973186 "afficherDate_publicationFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_publication avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 973314 "afficherDate_mise_a_jourFormat"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "format" explicit_type "string"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affiche date_mise_a_jour avec le bon format
+
+@param ${t0} format Format de l'affichage de la date
+
+@return ${type}
+"
+      end
+
+      operation 973442 "afficher"
+	public explicit_return_type "string"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Afficheur de Post
+
+@return ${type}
+"
+      end
+
+      operation 973570 "recupererAuteur"
+	public explicit_return_type "Utilisateur"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Obtient l'auteur du Post
+
+@return ${type}
+"
+      end
+
+      operation 973698 "recupererCommentaires"
+	public explicit_return_type "array"
+	nparams 0
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Obtient les Commentaires du Post
+
+@return ${type}
+"
+      end
+    end
+
+    class 279170 "PostManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Manager de Post
+"
+      classrelation 263170 // <generalisation>
+	relation 263170 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 263170 // <generalisation>
+	  b parent class_ref 275714 // Manager
+      end
+
+      attribute 448514 "TABLE"
+	const_attribute package explicit_type "string"
+	init_value "'post'"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Constantes 
+
+Table de donnée utilisé par Post
+
+@var ${type}
+"
+      end
+
+      attribute 448642 "ATTRIBUTES"
+	const_attribute package explicit_type "array"
+	init_value "array(
+		0 => 'id',
+		1 => 'id_auteur',
+		2 => 'titre',
+		3 => 'contenu',
+		4 => 'date_publication',
+		5 => 'date_mise_a_jour',
+	)"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "
+Attributs
+
+@var ${type}
+"
+      end
+    end
+  end
+end

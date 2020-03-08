@@ -1,0 +1,9 @@
+class BoutonsListe
+!!!927490.php!!!	__construct(in titre : string, in boutons : array) : void
+
+		global $config;
+		$this->setTemplate($config['path_template'].$config['menuSide_boutonsListe_path_template']);
+		$this->setElements(array(
+			'titre'   => $titre,
+			'boutons' => $boutons,
+		));

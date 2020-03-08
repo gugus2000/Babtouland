@@ -1,0 +1,81 @@
+class Managed
+!!!871170.php!!!	__construct(in attributs : array = array()) : void
+
+		$this->hydrater($attributs);
+!!!871298.php!!!	getGet(in attribut : string) : string
+
+		return 'get'.ucfirst($attribut);
+!!!871426.php!!!	getSet(in attribut : string) : string
+
+		return 'set'.ucfirst($attribut);
+!!!871554.php!!!	getAff(in attribut : string) : string
+
+		return 'afficher'.ucfirst($attribut);
+!!!871682.php!!!	setAffichage(in attribut : string) : string
+
+		return htmlspecialchars((string)$this->$attribut);
+!!!871810.php!!!	hydrater(in attributs : array) : void
+
+		if (!$attributs)
+		{
+			throw new \Exception($attributs);
+		}
+		foreach ($attributs as $key => $value)
+		{
+			$method=$this->getSet($key);
+			if (method_exists($this, $method))
+			{
+				$this->$method($value);
+			}
+		}
+!!!871938.php!!!	Manager() : Manager
+
+		$BDDFactory=new \core\BDDFactory;
+		$object=get_class($this).'Manager';
+		return new $object($BDDFactory->MysqlConnexion());
+!!!872066.php!!!	get(in index : mixed) : void
+
+		$this->hydrater($this->Manager()->get($index));
+!!!872194.php!!!	similaire(in objet : Managed) : bool
+
+		$resultat=0;
+		foreach ($this::CRITERES_SIMILAIRE as $critere)
+		{
+			$accesseur=$this->getGet($critere);
+			if ($this->$accesseur()==$objet->$accesseur())
+			{
+				$resultat+=1;
+			}
+		}
+		return $resultat==count($this::CRITERES_SIMILAIRE);
+!!!872322.php!!!	table() : array
+
+		$array=array();
+		foreach ($this->Manager()::ATTRIBUTES as $attribut)
+		{
+			$accesseur=$this->getGet($attribut);
+			if (method_exists($this, $accesseur))
+			{
+				if ($this->$accesseur()!=null)
+				{
+					$array[$attribut]=$this->$accesseur();
+				}
+			}
+		}
+		return $array;
+!!!872450.php!!!	recuperer() : void
+
+		$getter=$this->getGet($this::INDEX);
+		$this->get($this->$getter());
+!!!872578.php!!!	creer() : void
+
+		$this->Manager()->add($this->table());
+		$this->setId($this->Manager()->getIdBy($this->table()));
+!!!872706.php!!!	modifier() : void
+
+		$getter=$this->getGet($this::INDEX);
+		$this->Manager()->update($this->table(), $this->$getter());
+!!!872834.php!!!	supprimer() : void
+
+		$getter=$this->getGet($this::INDEX);
+		$this->Manager()->delete($this->$getter());

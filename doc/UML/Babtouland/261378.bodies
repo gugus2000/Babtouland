@@ -1,0 +1,249 @@
+class Manager
+!!!872962.php!!!	__construct(in bdd : PDO) : void
+
+		$this->setBdd($bdd);
+!!!873090.php!!!	getBdd() : PDO
+
+		return $this->bdd;
+!!!873218.php!!!	setBdd(in bdd : PDO) : void
+
+		$this->bdd=$bdd;
+!!!873346.php!!!	testAttributes(in attributs : array) : array
+
+		return array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+!!!873474.php!!!	get(in index : mixed) : array
+
+		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.$this::INDEX.'=?');
+		$requete->execute(array($index));
+		return $requete->fetch(\PDO::FETCH_ASSOC);
+!!!873602.php!!!	add(in attributs : array) : void
+
+		$attributs=$this->testAttributes($attributs);
+		$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', array_keys($attributs)).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
+		$requete->execute(array_values($attributs));
+!!!873730.php!!!	update(in attributs : array, in index : mixed) : void
+
+		$attributsWithOperators=array();
+		$attributs=$this->testAttributes($attributs);
+		foreach ($attributs as $nom => $valeur)
+		{
+			$attributsWithOperators[]=$nom.'=?';
+		}
+		$requete=$this->getBdd()->prepare('UPDATE '.$this::TABLE.' SET '.implode(',', $attributsWithOperators).' WHERE '.$this::INDEX.'=?');
+		array_push($attributs,$index);
+		$requete->execute(array_values($attributs));
+!!!873858.php!!!	delete(in index : mixed) : void
+
+		$requete=$this->getBdd()->prepare('DELETE FROM '.$this::TABLE.' WHERE '.$this::INDEX.'=?');
+		$requete->execute(array($index));
+!!!873986.php!!!	getIdBy(in attributs : array) : string
+
+		$attributsWithOperators=array();
+		$attributs=$this->testAttributes($attributs);
+		foreach ($attributs as $nom => $valeur)
+		{
+			$attributsWithOperators[]=$nom.'=?';
+		}
+		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
+		$requete->execute(array_values($attributs));
+		return $requete->fetch(\PDO::FETCH_ASSOC)[$this::INDEX];
+!!!874114.php!!!	getIdByPos(in position : int, in attribut : string) : string
+
+		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' ORDER BY '.$attribut.' DESC LIMIT 1 OFFSET '.$position);
+		$requete->execute();
+		return $requete->fetch(\PDO::FETCH_ASSOC)[$this::INDEX];
+!!!874242.php!!!	interpreterBornes(in bornes : array) : string
+
+		if (isset($bornes['order_by']))
+		{
+			if (!in_array($bornes['order_by'], $this::ATTRIBUTES))
+			{
+				throw new \UnexpectedValueException((string)$bornes['ordre'].' not exist');
+			}
+			$order_by=$bornes['order_by'];
+		}
+		else if (isset($bornes['ordre']))
+		{
+			if (!in_array($bornes['ordre'], $this::ATTRIBUTES))
+			{
+				throw new \UnexpectedValueException((string)$bornes['ordre'].' not exist');
+			}
+			$order_by=$bornes['ordre'];
+		}
+		else
+		{
+			$order_by=$this::INDEX;
+		}
+		if (isset($bornes['fin']))
+		{
+			if (!is_numeric($bornes['fin']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['fin'].' not numeric');
+			}
+			$ordre='DESC';
+			$bornes['offset']=$bornes['fin'];
+		}
+		else
+		{
+			if (isset($bornes['sens']))
+			{
+				switch ($bornes['sens'])
+				{
+					case 'ASC':
+					case 'DESC':
+						$ordre=$bornes['sens'];
+						break;
+					default:
+						$ordre='ASC';
+						break;
+				}
+			}
+			else
+			{
+				$ordre='ASC';
+			}
+		}
+		if (isset($bornes['offset']))
+		{
+			if(!is_numeric($bornes['offset']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['offset'].' not numeric');
+			}
+			$offset=$bornes['offset'];
+		}
+		else if (isset($bornes['position']))
+		{
+			if(!is_numeric($bornes['position']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['position'].' not numeric');
+			}
+			$offset=$bornes['position'];
+		}
+		else if (isset($bornes['debut']))
+		{
+			if (!is_numeric($bornes['debut']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['debut'].' not numeric');
+			}
+			$offset=$bornes['debut'];
+		}
+		else
+		{
+			$offset=0;
+		}
+		if (isset($bornes['limit']))
+		{
+			if(!is_numeric($bornes['limit']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['limit'].' not numeric');
+			}
+			$limit=$bornes['limit'];
+		}
+		else if (isset($bornes['nombre']))
+		{
+			if(!is_numeric($bornes['nombre']))
+			{
+				throw new \UnexpectedValueException((string)$bornes['nombre'].' not numeric');
+			}
+			$limit=$bornes['nombre'];
+		}
+		else
+		{
+			$limit=1;
+		}
+		return 'ORDER BY '.$order_by.' '.$ordre.' LIMIT '.(string)$limit.' OFFSET '.(string)$offset;
+!!!874370.php!!!	getBy(in attributs : array = null, in operations : array = null, in bornes : array = null)
+
+		$attributsWithOperators=array();
+		$attributs=$this->testAttributes($attributs);
+		foreach ($attributs as $nom => $valeur)
+		{
+			if (isset($operations[$nom]))
+			{
+				$attributsWithOperators[]=$nom.$operations[$nom].'?';
+			}
+			else
+			{
+				$attributsWithOperators[]=$nom.'=?';
+			}
+		}
+		if ($attributs & !empty($attributsWithOperators))
+		{
+			$where='WHERE '.implode(' AND ', $attributsWithOperators);
+		}
+		else
+		{
+			$where='';
+		}
+		if ($bornes)
+		{
+			$limite=$this->interpreterBornes($bornes);
+		}
+		else
+		{
+			$limite='';
+		}
+		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' '.$where.' '.$limite);
+		$requete->execute(array_values($attributs));
+		$results=array();
+		while ($result=$requete->fetch(\PDO::FETCH_ASSOC))
+		{
+			array_push($results, $result);
+		}
+		return $results;
+!!!874498.php!!!	existId(in index : mixed) : bool
+
+		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' WHERE id=?');
+		$requete->execute(array($index));
+		return (bool)$requete->fetch(\PDO::FETCH_ASSOC);
+!!!874626.php!!!	exist(in attributs : array, in operations :  = null) : bool
+
+		$attributsWithOperators=array();
+		$attributs=$this->testAttributes($attributs);
+		foreach ($attributs as $nom => $valeur)
+		{
+			if (isset($operations[$nom]))
+			{
+				$attributsWithOperators[]=$nom.$operations[$nom].'?';
+			}
+			else
+			{
+				$attributsWithOperators[]=$nom.'=?';
+			}
+		}
+		$requete=$this->getBdd()->prepare('SELECT '.$this::INDEX.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators).'');
+		$requete->execute(array_values($attributs));
+		return (bool)$requete->fetch(\PDO::FETCH_ASSOC);
+!!!874754.php!!!	countBy(in attributs : array, in operations : array = null) : int
+
+		$attributsWithOperators=array();
+		$attributs=$this->testAttributes($attributs);
+		foreach ($attributs as $nom => $valeur)
+		{
+			if (isset($operations[$nom]))
+			{
+				$attributsWithOperators[]=$nom.$operations[$nom].'?';
+			}
+			else
+			{
+				$attributsWithOperators[]=$nom.'=?';
+			}
+		}
+		if ($attributs & !empty($attributsWithOperators))
+		{
+			$where='WHERE '.implode(' AND ', $attributsWithOperators);
+		}
+		else
+		{
+			$where='';
+		}
+		$requete=$this->getBdd()->prepare('SELECT count('.$this::INDEX.') AS nbr FROM '.$this::TABLE.' '.$where);
+		$requete->execute(array_values($attributs));
+		$donnees=$requete->fetch(\PDO::FETCH_ASSOC);
+		return (int)$donnees['nbr'];
+!!!874882.php!!!	count() : int
+
+		$requete=$this->getBdd()->prepare('SELECT count('.$this::INDEX.') AS nbr FROM '.$this::TABLE);
+		$requete->execute();
+		$donnees=$requete->fetch(\PDO::FETCH_ASSOC);
+		return (int)$donnees['nbr'];

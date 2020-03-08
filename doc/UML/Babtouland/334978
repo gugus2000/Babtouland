@@ -1,0 +1,39 @@
+format 222
+"core" // Babtouland::config::core
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/core/"
+  package_ref 335106 // bbcode
+
+  package_ref 335234 // config
+
+  package_ref 335362 // lang
+end

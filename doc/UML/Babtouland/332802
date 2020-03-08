@@ -1,0 +1,75 @@
+format 222
+"nettoyer_post" // Babtouland::config::admin::nettoyer_post
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/admin/nettoyer_post/"
+  deploymentview 307074 "nettoyer_post"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 383490 "config"
+      stereotype "source"
+      php_src "<?php
+
+$compteur_elements_supprimes=0;
+$CommentaireManager=new \\post\\CommentaireManager(\\core\\BDDFactory::MysqlConnexion());
+$PostManager=new \\post\\PostManager(\\core\\BDDFactory::MysqlConnexion());
+$commentaires=$CommentaireManager->getBy(array(
+	'id' => -1,
+), array(
+	'id' => '!=',
+));
+foreach ($commentaires as $commentaire)
+{
+	if (!$PostManager->existId((int)$commentaire['id_post']))
+	{
+		$compteur_elements_supprimes++;
+		$Commentaire=new \\post\\Commentaire(array(
+			'id' => $commentaire['id'],
+		));
+		$Commentaire->supprimer();
+	}
+}
+
+new \\user\\page\\Notification(array(
+	'type' => \\user\\page\\Notification::TYPE_SUCCES,
+	'contenu' => $lang['admin_nettoyer_post_notification_debut'].(string)$compteur_elements_supprimes.$lang['admin_nettoyer_post_notification_fin'],
+));
+$Visiteur->getPage()->envoyerNotificationsSession();
+header('location: '.$Routeur->creerLien($config['admin_nettoyer_post_notification_lien']));
+exit();
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

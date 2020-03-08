@@ -1,0 +1,7 @@
+class Rss
+!!!927874.php!!!	__construct(in elements : array) : void
+
+		global $config;
+		header('Content-type: text/xml');
+		$this->setTemplate($config['path_template'].$config['rss_path_template']);
+		$this->setElements($elements);

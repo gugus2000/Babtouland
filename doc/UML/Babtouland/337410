@@ -1,0 +1,75 @@
+format 222
+"voir" // Babtouland::config::forum::voir
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/forum/voir/"
+  deploymentview 311042 "voir"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 387458 "config"
+      stereotype "source"
+      php_src "<?php
+
+if (!isset($Visiteur->getPage()->getParametres()['id']))
+{
+	$get=$config['forum_voir_no_id'];
+}
+else
+{
+	$Dossier=new \\forum\\Dossier(array(
+		'id' => $Visiteur->getPage()->getParametres()['id'],
+	));
+	$Dossier->recuperer();
+	switch ($Dossier->getType())
+	{
+		case \\forum\\Noeud::TYPE_DOSSIER:
+			$get=$config['forum_voir_dossier'];
+			break;
+		case \\forum\\Noeud::TYPE_FIL:
+			$get=$config['forum_voir_fil'];
+			break;
+		default:
+			$get=$config['forum_voir_defaut'];
+			break;
+	}
+	$get[$config['nom_parametres']]=array('id' => $Dossier->getId());
+}
+$Visiteur->getPage()->envoyerNotificationsSession();
+header('location: '.$Routeur->creerLien($get));
+exit();
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

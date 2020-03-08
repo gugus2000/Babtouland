@@ -1,0 +1,87 @@
+class Post
+!!!900482.php!!!	getId() : int
+
+		return $this->id;
+!!!900610.php!!!	getId_auteur() : int
+
+		return $this->id_auteur;
+!!!900738.php!!!	getTitre() : string
+
+		return $this->titre;
+!!!900866.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!900994.php!!!	getDate_publication() : string
+
+		return $this->date_publication;
+!!!901122.php!!!	getDate_mise_a_jour() : string
+
+		return $this->date_mise_a_jour;
+!!!901250.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!901378.php!!!	setId_auteur(in id_auteur : int) : void
+
+		$this->id_auteur=(int)$id_auteur;
+!!!901506.php!!!	setTitre(in titre : string) : void
+
+		$this->titre=$titre;
+!!!901634.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=$contenu;
+!!!901762.php!!!	setDate_publication(in date_publication : string) : void
+
+		$this->date_publication=$date_publication;
+!!!901890.php!!!	setDate_mise_a_jour(in date_mise_a_jour : string) : void
+
+		$this->date_mise_a_jour=$date_mise_a_jour;
+!!!902018.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!902146.php!!!	afficherId_auteur() : string
+
+		return htmlspecialchars((string)$this->id_auteur);
+!!!902274.php!!!	afficherTitre() : string
+
+		return htmlspecialchars((string)$this->titre);
+!!!902402.php!!!	afficherContenu() : string
+
+		return htmlspecialchars((string)$this->contenu);
+!!!902530.php!!!	afficherDate_publication() : string
+
+		return htmlspecialchars((string)$this->date_publication);
+!!!902658.php!!!	afficherDate_mise_a_jour() : string
+
+		return htmlspecialchars((string)$this->date_mise_a_jour);
+!!!902786.php!!!	afficherDate_publicationFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_publication));
+!!!902914.php!!!	afficherDate_mise_a_jourFormat(in format : string) : string
+
+		return date($format, strtotime($this->date_mise_a_jour));
+!!!903042.php!!!	afficher() : string
+
+		return $this->afficherContenu();
+!!!903170.php!!!	recupererAuteur() : Utilisateur
+
+		$Utilisateur=new \user\Utilisateur(array(
+			'id' => $this->getId_auteur(),
+		));
+		$Utilisateur->recuperer();
+		return $Utilisateur;
+!!!903298.php!!!	recupererCommentaires() : array
+
+		$BDDFactory=new \core\BDDFactory;
+		$CommentaireManager=new \post\CommentaireManager($BDDFactory->MysqlConnexion());
+		$commentaires=array();
+		$donnees=$CommentaireManager->getBy(array(
+			'id_post' => $this->getId(),
+		), array(
+			'id_post' => '=',
+		));
+		foreach ($donnees as $key => $donnee)
+		{
+			$Commentaire=new \post\Commentaire($donnee);
+			$commentaires[]=$Commentaire;
+		}
+		return $commentaires;

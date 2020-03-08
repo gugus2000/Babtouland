@@ -1,0 +1,15 @@
+class Fil
+!!!876930.php!!!	recupererMessages(in intervalle_depart : int = 0, in nombre : int = 1) : array
+
+		$array=array();
+		$MessageManager=new \forum\MessageManager(\core\BDDFactory::MysqlConnexion());
+		foreach ($MessageManager->getBy(array('id_fil' => $this->getId()), array('id_fil' => '='), array('debut' => $intervalle_depart, 'nombre' => $nombre, 'ordre' => 'date_publication')) as $message)
+		{
+			$Message=new \forum\Message($message);
+			$array[]=$Message;
+		}
+		return $array;
+!!!877058.php!!!	recentMessage() : \forum\Message
+
+		$MessageManager=new \forum\MessageManager(\core\BDDFactory::MysqlConnexion());
+		return new \forum\Message($MessageManager->getBy(array('id_fil' => $this->getId()), array('id_fil' => '='), array('fin' => 0, 'ordre' => 'date_publication'))[0]);

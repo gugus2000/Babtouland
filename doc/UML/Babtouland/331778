@@ -1,0 +1,207 @@
+format 222
+"rss" // Babtouland::classe::user::page::rss
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/classe/user/page/rss/"
+  php_namespace "user\\page\\rss"
+  deploymentview 306306 "rss"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 382594 "Channel.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 283138 // Channel
+      end
+    end
+
+    artifact 382722 "Rss.class"
+      stereotype "source"
+      php_src "<?php
+
+${namespace}
+${definition}
+
+
+
+?>"
+      associated_elems
+	class_ref 283266 // Rss
+      end
+    end
+  end
+
+  classview 200834 "rss"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 283138 "Channel"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Page Channel
+
+@author gugus2000
+"
+      classrelation 266882 // <generalisation>
+	relation 266882 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 266882 // <generalisation>
+	  b parent class_ref 280322 // PageElement
+      end
+
+      operation 998018 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "elements" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " méthode particulière 
+
+Constructeur de Channel
+
+@param ${t0} elements Éléments contenu dans le flux
+
+@return ${type}
+"
+      end
+
+      operation 998146 "afficherArray"
+	public explicit_return_type "string"
+	nparams 1
+	  param in name "liste" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${final}${visibility}${abstract}${static}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment "
+Affichage d'une array
+
+@param ${t0} liste Liste d'éléments
+
+@return ${type}
+"
+      end
+    end
+
+    class 283266 "Rss"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "
+Page rss
+
+@author gugus2000
+"
+      classrelation 267010 // <generalisation>
+	relation 267010 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 267010 // <generalisation>
+	  b parent class_ref 280322 // PageElement
+      end
+
+      operation 998274 "__construct"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "elements" explicit_type "array"
+	
+	
+	preserve_php_body_indent php_def "  ${comment}${visibility}function ${name}${(}${p0}${v0}${)}${type}
+{
+  ${body}}
+"
+	
+	
+	comment " méthode particulière 
+
+Constructeur de Rss
+
+@param ${t0} elements Éléments contenu dans le flux
+
+@return ${type}
+"
+      end
+    end
+  end
+end

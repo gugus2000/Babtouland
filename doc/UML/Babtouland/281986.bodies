@@ -1,0 +1,13 @@
+class MenuSide
+!!!996226.php!!!	__construct(in contenu : mixed, in Tete : PageElement = null) : void
+
+		global $config, $Visiteur;
+		if (!$Tete)
+		{
+			$Tete=$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']);
+		}
+		$this->setTemplate($config['path_template'].$config['menuSide_path_template']);
+		$this->setElements(array(
+			'contenu' => $contenu,
+		));
+		$Tete->ajouterValeurElement('css', $config['path_assets'].$config['menuSide_path_css']);

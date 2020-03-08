@@ -1,0 +1,49 @@
+format 222
+"admin" // Babtouland::config::admin
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/admin/"
+  package_ref 332162 // hub
+
+  package_ref 332290 // nettoyer
+
+  package_ref 332418 // nettoyer_chat
+
+  package_ref 332546 // nettoyer_forum
+
+  package_ref 332674 // nettoyer_notification
+
+  package_ref 332802 // nettoyer_post
+
+  package_ref 332930 // publier_notification
+
+  package_ref 333058 // validation_publier_notification
+end

@@ -1,0 +1,26 @@
+class Notification
+!!!996482.php!!!	__construct(in elements : array, in Page : \user\page\Page = null) : void
+
+		global $config, $lang, $Visiteur;
+		if (!$Page)
+		{
+			if ($Visiteur->getPage()!=null)
+			{
+				$Page=$Visiteur->getPage()->getPageElement();
+			}
+			else 	// On crée la notification avant le chargement de la page
+			{
+				$this->setTemplate($config['path_template'].$config['notification_path_template']);
+				$this->setElements($elements);
+				return null;
+			}
+		}
+		$this->setTemplate($config['path_template'].$config['notification_path_template']);
+		$this->setElements($elements);
+		$this->ajouterTete($Page->getElement($config['tete_nom']));
+		$Page->ajouterValeurElement($config['notification_nom'], $this);
+!!!996610.php!!!	ajouterTete(in Tete : \user\page\Tete) : void
+
+		global $config;
+		$Tete->ajouterValeurElement('css', $config['path_assets'].$config['notification_path_css']);
+		$Tete->ajouterValeurElement('javascripts', $config['path_assets'].$config['notification_path_js']);

@@ -1,0 +1,65 @@
+class Message
+!!!947586.php!!!	getId() : int
+
+		return $this->id;
+!!!947714.php!!!	getId_fil() : int
+
+		return $this->id_fil;
+!!!947842.php!!!	getId_auteur() : int
+
+		return $this->id_auteur;
+!!!947970.php!!!	getContenu() : string
+
+		return $this->contenu;
+!!!948098.php!!!	getDate_publication() : string
+
+		return $this->date_publication;
+!!!948226.php!!!	getDate_maj() : string
+
+		return $this->date_maj;
+!!!948354.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!948482.php!!!	setId_fil(in id_fil : int) : void
+
+		$this->id_fil=(int)$id_fil;
+!!!948610.php!!!	setId_auteur(in id_auteur : int) : void
+
+		$this->id_auteur=(int)$id_auteur;
+!!!948738.php!!!	setContenu(in contenu : string) : void
+
+		$this->contenu=(string)$contenu;
+!!!948866.php!!!	setDate_publication(in date_publication : string) : void
+
+		$this->date_publication=(string)$date_publication;
+!!!948994.php!!!	setDate_maj(in date_maj : string) : void
+
+		$this->date_maj=(string)$date_maj;
+!!!949122.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!949250.php!!!	afficherId_fil() : string
+
+		return htmlspecialchars((string)$this->id_fil);
+!!!949378.php!!!	afficherId_auteur() : string
+
+		return htmlspecialchars((string)$this->id_auteur);
+!!!949506.php!!!	afficherContenu() : string
+
+		return htmlspecialchars((string)$this->contenu);
+!!!949634.php!!!	afficherDate_publication() : string
+
+		return htmlspecialchars((string)$this->date_publication);
+!!!949762.php!!!	afficherDate_maj() : string
+
+		return htmlspecialchars((string)$this->date_maj);
+!!!949890.php!!!	recupererFil() : \forum\Fil
+
+		$Fil=new \forum\Fil(array('id' => $this->getId_fil()));
+		$Fil->recuperer();
+		return $Fil;
+!!!950018.php!!!	recupererAuteur() : \user\Utilisateur
+
+		$Utilisateur=new \user\Utilisateur(array('id' => $this->getId_auteur()));
+		$Utilisateur->recuperer();
+		return $Utilisateur;

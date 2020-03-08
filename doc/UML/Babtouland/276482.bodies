@@ -1,0 +1,287 @@
+class Routeur
+!!!945410.php!!!	getMode() : int
+
+		return $this->mode;
+!!!945538.php!!!	setMode(in mode : int) : void
+
+		$this->mode=$mode;
+!!!945666.php!!!	__construct(in mode : )
+
+		$this->setMode($mode);
+!!!945794.php!!!	dechiffrerRoute(in url : string) : array
+
+		global $config;
+		switch ($this->getMode())
+		{
+			case $this::MODE_GET:
+				return $this->recupererWithGet();
+				break;
+			case $this::MODE_ROUTE:
+				return $this->recupererWithRoute($url);
+				break;
+			case $this::MODE_FULL_ROUTE:
+				return $this->recupererWithFullRoute($url);
+				break;
+			default:
+				return array(
+					'application' => $config['defaut_application'],
+					'action'      => $config['defaut_'.$config['defaut_application'].'_action']
+				);
+		}
+!!!945922.php!!!	recupererWithGet() : array
+
+		global $config;
+		if (isset($_GET['application']))
+		{
+			$application=$_GET['application'];
+		}
+		else
+		{
+			$application=$config['defaut_application'];
+		}
+		if (isset($_GET['action']))
+		{
+			$action=$_GET['action'];
+		}
+		else
+		{
+			$action=$config['defaut_'.$application.'_action'];
+		}
+		return array(
+			'application'             => $application,
+			'action'                  => $action,
+			$config['nom_parametres'] => $_GET,
+		);
+!!!946050.php!!!	recupererWithRoute(in url : string) : mixed
+
+		global $config;
+		$path=parse_url($url, PHP_URL_PATH);
+		preg_match('#\/([\w]+)\/([\w]+)#', $path, $matches);
+		if($matches)
+		{
+			$application=$matches[1];
+			$action=$matches[2];
+		}
+		else
+		{
+			preg_match('#\/([\w]+)#', $path, $matches);
+			if ($matches)
+			{
+				$application=$matches[1];
+			}
+			else
+			{
+				$application=$config['defaut_application'];
+			}
+			$action=$config['defaut_'.$application.'_action'];
+		}
+		return array(
+			'application'             => $application,
+			'action'                  => $action,
+			$config['nom_parametres'] => $_GET,
+		);
+!!!946178.php!!!	recupererWithFullRoute(in url : string) : array
+
+		global $lang, $config, $Visiteur;
+		$Permissions=$Visiteur->getRole()->getPermissions();
+		$liste_applications=array();
+		$liste_actions=array();
+		foreach($Permissions as $Permission)
+		{
+			if (!in_array($Permission->getApplication(), $liste_applications))
+			{
+				$liste_applications[]=$Permission->getApplication();
+			}
+			if (!in_array($Permission->getAction(), $liste_actions))
+			{
+				$liste_actions[]=$Permission->getAction();
+			}
+			$liste_couple[$Permission->getAction()]=$Permission->getApplication();
+		}
+		$liste=explode('/', trim(strtok(getenv('REQUEST_URI'), '?'), '/'));
+		$parametres=array();
+		$possible_parametres=array();
+		foreach ($liste as $element)
+		{
+			if (!empty($element))
+			{
+				if (in_array($element, $config['lang_available']))
+				{
+					$parametres['lang']=$element;
+				}
+				else if (in_array($element, $liste_applications) & !isset($application))
+				{
+					$application=$element;
+				}
+				else if (in_array($element, $liste_actions) & !isset($action))
+				{
+					$action=$element;
+				}
+				else
+				{
+					$possible_parametres[]=$element;
+				}
+			}
+		}
+		if (!isset($application))
+		{
+			if (isset($action))
+			{
+				$application=$liste_couple[$action];
+			}
+			else
+			{
+				$application=$config['defaut_application'];
+			}
+		}
+		if (!isset($action))
+		{
+			$action=$config['defaut_'.$application.'_action'];
+		}
+		if (isset($config[$application.'_'.$action.'_parametres']))
+		{
+			foreach ($config[$application.'_'.$action.'_parametres'] as $nom => $params)
+			{
+				foreach ($possible_parametres as $key => $possible_parametre)
+				{
+					if (preg_match('#'.$params['regex'].'#', $possible_parametre))
+					{
+						$parametres[$nom]=$possible_parametre;
+						unset($possible_parametres[$key]);
+						break;
+					}
+				}
+				if ($params['necessaire'])
+				{
+					if (!isset($parametres[$nom]))		// Argument non présent
+					{
+						/*throw */new \core\Exception\Warning($lang['classe_core_routeur_no_argument']);
+					}
+				}
+			}
+		}
+		if (isset($possible_parametres))
+		{
+			if (!empty($possible_parametres))
+			{
+				new \core\Exception\Warning($lang['classe_core_routeur_arguments']);
+			}
+		}
+		return array(
+			'application'             => $application,
+			'action'                  => $action,
+			$config['nom_parametres'] => $parametres,
+		);
+!!!946306.php!!!	creerLien(in parametres : array) : string
+
+		switch ($this->getMode())
+		{
+			case $this::MODE_GET:
+				return $this->creerLienGet($parametres);
+				break;
+			case $this::MODE_ROUTE:
+				return $this->creerLienRoute($parametres);
+				break;
+			case $this::MODE_FULL_ROUTE:
+				return $this->creerLienFullRoute($parametres);
+				break;
+			default:
+				return '/';
+		}
+!!!946434.php!!!	creerLienGet(in parametres : array) : string
+
+		global $config;
+		$ajout='';
+		if (isset($parametres[$config['nom_parametres']]))
+		{
+			foreach ($parametres[$config['nom_parametres']] as $nom => $valeur)
+			{
+				$ajout.='&'.(string)$nom.'='.(string)$valeur;
+			}
+		}
+		if (isset($parametres['application']))
+		{
+			if (isset($parametres['action']))
+			{
+				return '?application='.$parametres['application'].'&action='.$parametres['action'].$ajout;
+			}
+			else
+			{
+				return '?application='.$parametres['application'].'&action='.$config['defaut_'.$parametres['application'].'_action'].$ajout;
+			}
+		}
+		else
+		{
+			return '?application='.$config['defaut_application'].'&action='.$config['defaut_'.$config['defaut_application'].'_action'].$ajout;
+		}
+!!!946562.php!!!	creerLienRoute(in parametres : array) : string
+
+		global $config;
+		$ajout='';
+		if (isset($parametres[$config['nom_parametres']]))
+		{
+			foreach ($parametres[$config['nom_parametres']] as $nom => $valeur)
+			{
+				$ajout.='&'.(string)$nom.'='.(string)$valeur;
+			}
+		}
+		if (strlen($ajout)>0)
+		{
+			$ajout=substr($ajout, 1);	// On enlève le "&"
+			$ajout='?'.$ajout;			// On ajoute le "?"
+		}
+		if (isset($parametres['application']))
+		{
+			if (isset($parametres['action']))
+			{
+				return '/'.$parametres['application'].'/'.$parametres['action'].'/'.$ajout;
+			}
+			else
+			{
+				return '/'.$parametres['application'].'/'.$config['defaut_'.$parametres['application'].'_action'].'/'.$ajout;
+			}
+		}
+		else
+		{
+			return '/'.$config['defaut_application'].'/'.$config['defaut_'.$config['defaut_application'].'_action'].'/'.$ajout;
+		}
+!!!946690.php!!!	creerLienFullRoute(in parametres : array) : string
+
+		global $config;
+		if (isset($parametres['application']))
+		{
+			$application=$parametres['application'];
+		}
+		else
+		{
+			$application=$config['defaut_application'];
+		}
+		if (isset($parametres['action']))
+		{
+			$action=$parametres['action'];
+		}
+		else
+		{
+			$action=$config['defaut_'.$application.'_action'];
+		}
+		if (isset($parametres[$config['nom_parametres']]))
+		{
+			$parametres_string=implode('/', $parametres[$config['nom_parametres']]);
+		}
+		else
+		{
+			$parametres_string='';
+		}
+		return '/'.$application.'/'.$action.'/'.$parametres_string;
+!!!946818.php!!!	remplir(in parametres : array) : array
+
+		global $config;
+		if (!isset($parametres['application']))
+		{
+			$parametres['application']=$config['defaut_application'];
+		}
+		if (!isset($parametres['action']))
+		{
+			$parametres['action']=$config['defaut_'.$parametres['application'].'_action'];
+		}
+		return $parametres;

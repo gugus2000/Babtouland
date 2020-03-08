@@ -1,0 +1,75 @@
+format 222
+"nettoyer_notification" // Babtouland::config::admin::nettoyer_notification
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/admin/nettoyer_notification/"
+  deploymentview 306946 "nettoyer_notification"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 383362 "config"
+      stereotype "source"
+      php_src "<?php
+
+$compteur_elements_supprimes=0;
+$NotificationManager=new \\user\\NotificationManager(\\core\\BDDFactory::MysqlConnexion());
+$LiaisonNotificationUtilisateur=new \\user\\LiaisonNotificationUtilisateur(\\core\\BDDFactory::MysqlConnexion());
+$notifications=$NotificationManager->getBy(array(
+	'id' => -1,
+), array(
+	'id' => '!=',
+));
+foreach ($notifications as $notification)
+{
+	if (!$LiaisonNotificationUtilisateur->exist('id_notification', (int)$notification['id']))
+	{
+		$compteur_elements_supprimes++;
+		$Notification=new \\user\\Notification(array(
+			'id' => $notification['id'],
+		));
+		$Notification->supprimer();
+	}
+}
+
+new \\user\\page\\Notification(array(
+	'type' => \\user\\page\\Notification::TYPE_SUCCES,
+	'contenu' => $lang['admin_nettoyer_notification_notification_debut'].(string)$compteur_elements_supprimes.$lang['admin_nettoyer_notification_notification_fin'],
+));
+$Visiteur->getPage()->envoyerNotificationsSession();
+header('location: '.$Routeur->creerLien($config['admin_nettoyer_notification_notification_lien']));
+exit();
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

@@ -1,0 +1,134 @@
+class LiaisonManager
+!!!940290.php!!!	__construct(in bdd : PDO) : void
+
+		$this->setBdd($bdd);
+!!!940418.php!!!	getBdd() : PDO
+
+		return $this->bdd;
+!!!940546.php!!!	setBdd(in bdd : PDO) : void
+
+		$this->bdd=$bdd;
+!!!940674.php!!!	get(in attribut : string, in index : mixed) : mixed
+
+		if (in_array($attribut, $this::ATTRIBUTES))
+		{
+			$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.$attribut.'=?');
+			$requete->execute(array($index));
+			return $requete->fetchAll();
+		}
+		return False;
+!!!940802.php!!!	getBy(in attributs : array, in operations : array) : mixed
+
+		$attributsWithOperators=array();
+		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		foreach ($attributs as $nom => $valeur)
+		{
+			$attributsWithOperators[]=$nom.$operations[$nom].'?';
+		}
+		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
+		$requete->execute(array_values($attributs));
+		return $requete->fetchAll();
+!!!940930.php!!!	getByGroup(in attributs : array, in operations : array, in groupe : string, in strict : bool = False) : mixed
+
+		if (in_array($groupe, $this::ATTRIBUTES))
+		{
+			$donnees=array();
+			$attributs_operateurs=array();
+			$valeurs_tous=array();
+			foreach ($attributs as $index => $condition)
+			{
+				array_intersect_key($condition, array_flip($this::ATTRIBUTES));
+				$attributs_operateurs[$index]=array();
+				foreach ($condition as $attribut => $valeur)
+				{
+					$attributs_operateurs[$index][]=$attribut.$operations[$index][$attribut].'?';
+					if (!isset($donnees[$attribut]))
+					{
+						$donnees[$attribut]=array();
+					}
+					$donnees[$attribut][]=$valeur;
+					$valeurs_tous[]=$valeur;
+				}
+			}
+			if ($strict)
+			{
+				$attributs_count=array();
+				foreach ($donnees as $attribut => $valeurs)
+				{
+					$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+				}
+				$condition_count=' AND '.$groupe.' IN (SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
+			}
+			else
+			{
+				$condition_count='';
+			}
+			$selects_avec_nom_table=array();
+			$egalites_join_avec_nom_table=array();
+			$nbr_conditions=count($attributs);
+			for ($index=0; $index < $nbr_conditions; $index++)
+			{
+				$selects_avec_nom_table[]='(SELECT '.$groupe.' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributs_operateurs[$index]).$condition_count.') AS table_'.$index;
+				if ($index+1<$nbr_conditions)
+				{
+					$egalites_join_avec_nom_table[]='table_'.$index.'.'.$groupe.'=table_'.(string)($index+1).'.'.$groupe;
+				}
+			}
+			$groupe_avec_nom_table='table_0.'.$groupe;
+			if (count($egalites_join_avec_nom_table)==0)
+			{
+				$where_egalites_join='';
+			}
+			else
+			{
+				$where_egalites_join=' WHERE '.implode(' AND ', $egalites_join_avec_nom_table);
+			}
+			$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).$where_egalites_join.' GROUP BY '.$groupe_avec_nom_table;
+			$requete=$this->getBdd()->prepare($select);
+			$requete->execute($valeurs_tous);
+			return $requete->fetchAll();
+		}
+		return False;
+!!!941058.php!!!	addBy(in variants : array, in invariants : array) : void
+
+		foreach ($variants as $variant)
+		{
+			$variant=array_intersect_key($variant, array_flip($this::ATTRIBUTES));
+		}
+		$invariants=array_intersect_key($invariants, array_flip($this::ATTRIBUTES));
+		$attributs=array_merge(array_keys($variants[\array_key_first($variants)]),array_keys($invariants));
+		$donnees=array();
+		for ($i=0; $i < count($variants); $i++)
+		{ 
+			$donnee=array();
+			foreach ($variants[$i] as $attribut => $valeur)
+			{
+				$donnee[$attribut]=$valeur;
+			}
+			foreach ($invariants as $attribut => $valeur)
+			{
+				$donnee[$attribut]=$valeur;
+			}
+			$donnees[]=$donnee;	// donnees est un tableau contenant les attributs et leur valeur pour chaque élément
+		}
+		foreach ($donnees as $donnee)
+		{
+			$requete=$this->getBdd()->prepare('INSERT INTO '.$this::TABLE.'('.implode(',', $attributs).') VALUES ('.implode(',', array_fill(0, count($attributs), '?')).')');
+			$requete->execute(array_values($donnee));
+		}
+!!!941186.php!!!	deleteBy(in attributs : array) : void
+
+		$attributsWithOperators=array();
+		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
+		foreach ($attributs as $nom => $valeur)
+		{
+			$attributsWithOperators[]=$nom.'=?';
+		}
+		$requete=$this->getBdd()->prepare('DELETE FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
+		$requete->execute(array_values($attributs));
+!!!941314.php!!!	exist(in attribut : string, in index : mixed) : bool
+
+		return (bool)$this->get($attribut, $index);
+!!!941442.php!!!	existByGroup(in attributs : array, in operations : array, in groupe : string, in strict : bool = False) : bool
+
+		return (bool)$this->getByGroup($attributs, $operations, $groupe, $strict);

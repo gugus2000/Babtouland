@@ -1,0 +1,17 @@
+class Warning
+!!!876546.php!!!	__construct(in contenu : string) : void
+
+		global $Visiteur;
+		parent::__construct($contenu);
+		if (isset($Visiteur))
+		{
+			$Notification=new \user\page\Notification(array(
+				'type'    => \user\page\Notification::TYPE_ATTENTION,
+				'contenu' => $contenu,
+			));
+			\user\Page::ajouterNotificationSession($Notification);
+		}
+		else
+		{
+			throw new \Exception('Warning: '.$contenu);
+		}

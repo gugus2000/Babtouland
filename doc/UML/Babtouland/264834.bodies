@@ -1,0 +1,66 @@
+class Configuration
+!!!903426.php!!!	getId() : int
+
+		return $this->id;
+!!!903554.php!!!	getId_utilisateur() : int
+
+		return $this->id_utilisateur;
+!!!903682.php!!!	getNom() : string
+
+		return $this->nom;
+!!!903810.php!!!	getValeur() : mixed
+
+		return $this->valeur;
+!!!903938.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!904066.php!!!	setId_utilisateur(in id_utilisateur : int) : void
+
+		$this->id_utilisateur=(int)$id_utilisateur;
+!!!904194.php!!!	setNom(in nom : string) : void
+
+		$this->nom=$nom;
+!!!904322.php!!!	setValeur(in valeur : mixed) : void
+
+		$this->valeur=$valeur;
+!!!904450.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!904578.php!!!	afficherId_utilisateur() : string
+
+		return htmlspecialchars((string)$this->id_utilisateur);
+!!!904706.php!!!	afficherNom() : string
+
+		return htmlspecialchars((string)$this->nom);
+!!!904834.php!!!	afficherValeur() : string
+
+		return htmlspecialchars((string)$this->valeur);
+!!!904962.php!!!	afficher() : string
+
+		return $this->afficherNom().':'.$this->afficherValeur();
+!!!905090.php!!!	recuperer() : void
+
+		$this->get($this->getId());
+!!!905218.php!!!	creer() : void
+
+		$Manager=$this->Manager();
+		$Manager->add(array(
+			'id_utilisateur' => $this->getId_utilisateur(),
+			'nom'            => $this->getNom(),
+			'valeur'         => $this->getValeur(),
+		));
+		$this->setId($Manager->getIdBy(array(
+			'id_utilisateur' => $this->getId_utilisateur(),
+			'nom'            => $this->getNom(),
+			'valeur'         => $this->getValeur(),
+		)));
+!!!905346.php!!!	changer() : void
+
+		$Manager=$this->Manager();
+		$Manager->update(array(
+			'valeur' => $this->getValeur(),
+		), $this->getId());
+!!!905474.php!!!	supprimer() : void
+
+		$Manager=$this->Manager();
+		$Manager->delete($this->getId());

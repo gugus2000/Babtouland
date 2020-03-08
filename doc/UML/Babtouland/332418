@@ -1,0 +1,101 @@
+format 222
+"nettoyer_chat" // Babtouland::config::admin::nettoyer_chat
+  revision 1
+  modified_by 2 "gugus.demagny"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  php_dir "C:\\xampp\\htdocs\\moi\\Babtouland/config/admin/nettoyer_chat/"
+  deploymentview 306690 "nettoyer_chat"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 383106 "config"
+      stereotype "source"
+      php_src "<?php
+
+$ConversationManager=new \\chat\\ConversationManager(\\core\\BDDFactory::MysqlConnexion());
+$LiaisonConversationUtilisateur=new \\chat\\LiaisonConversationUtilisateur(\\core\\BDDFactory::MysqlConnexion());
+$conversations=$ConversationManager->getBy(array(
+	'id' => $config['id_conversation_all'],
+), array(
+	'id' => '!=',
+));
+
+$compteur_conversations_supprimes=0;
+foreach($conversations as $conversation)
+{
+	if (!$LiaisonConversationUtilisateur->exist('id_conversation', (int)$conversation['id']))
+	{
+		$compteur_conversations_supprimes++;
+		$Conversation=new \\chat\\Conversation(array(
+			'id' => $conversation['id'],
+		));
+		$Conversation->supprimer();
+	}
+}
+
+new \\user\\page\\Notification(array(
+	'type' => \\user\\page\\Notification::TYPE_SUCCES,
+	'contenu' => $lang['admin_nettoyer_chat_notification_conversation_debut'].(string)$compteur_conversations_supprimes.$lang['admin_nettoyer_chat_notification_conversation_fin'],
+));
+
+$MessageManager=new \\chat\\MessageManager(\\core\\BDDFactory::MysqlConnexion());
+$messages=$MessageManager->getBy(array(
+	'id' => -1,
+), array(
+	'id' => '!=',
+));
+
+$compteur_messages_supprimes=0;
+foreach ($messages as $message)
+{
+	if (!$ConversationManager->existId((int)$message['id_conversation']))
+	{
+		$compteur_messages_supprimes++;
+		$Message=new \\chat\\Message(array(
+			'id' => $message['id'],
+		));
+		$Message->supprimer();
+	}
+}
+
+new \\user\\page\\Notification(array(
+	'type' => \\user\\page\\Notification::TYPE_SUCCES,
+	'contenu' => $lang['admin_nettoyer_chat_notification_message_debut'].(string)$compteur_messages_supprimes.$lang['admin_nettoyer_chat_notification_message_fin'],
+));
+$Visiteur->getPage()->envoyerNotificationsSession();
+header('location: '.$Routeur->creerLien($config['admin_nettoyer_chat_notification_lien']));
+exit();
+
+?>"
+      associated_elems
+      end
+    end
+  end
+end

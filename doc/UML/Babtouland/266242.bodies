@@ -1,0 +1,86 @@
+class Role
+!!!916482.php!!!	getNom_role() : string
+
+		return $this->nom_role;
+!!!916610.php!!!	getId() : int
+
+		return $this->id;
+!!!916738.php!!!	getPermissions() : array
+
+		return $this->permissions;
+!!!916866.php!!!	setNom_role(in nom_role : string) : void
+
+		$this->nom_role=$nom_role;
+!!!916994.php!!!	setId(in id : int) : void
+
+		$this->id=(int)$id;
+!!!917122.php!!!	setPermissions(in permissions : array) : void
+
+		$this->permissions=$permissions;
+!!!917250.php!!!	afficherNom_role() : string
+
+		return htmlspecialchars((string)$this->nom_role);
+!!!917378.php!!!	afficherId() : string
+
+		return htmlspecialchars((string)$this->id);
+!!!917506.php!!!	afficherPermissions() : string
+
+		$affichage=array();
+		foreach ($this->permissions as $key => $permission)
+		{
+			array_push($affichage, $permission->afficher());
+		}
+		return htmlspecialchars((string)implode(', ', $affichage));
+!!!917634.php!!!	getPermission(in index : int) : Permission
+
+		return $this->permissions[$index];
+!!!917762.php!!!	setPermission(in index : int, in permission : Permission) : void
+
+		$this->permissions[$index]=$permission;
+!!!917890.php!!!	afficherpermission(in index : int) : string
+
+		return htmlspecialchars((string)$this->permissions[$index]->afficher());
+!!!918018.php!!!	afficher() : string
+
+		return $this->afficherNom_role();
+!!!918146.php!!!	recuperer_permissions() : void
+
+		if ($this->getNom_role())
+		{
+			$BDDFactory=new \core\BDDFactory;
+			$PermissionManager=new \user\PermissionManager($BDDFactory->MysqlConnexion());
+			$permissions=$PermissionManager->getBy(array(
+				'nom_role' => $this->getNom_role(),
+			), array(
+				'nom_role' => '=',
+			));
+			$Permissions=array();
+			foreach ($permissions as $key => $permission)
+			{
+				$Permission=new \user\Permission($permission);
+				$Permissions[]=$Permission;
+			}
+			$this->setPermissions($Permissions);
+		}
+!!!918274.php!!!	existPermission(in lien : array) : bool
+
+		global $Routeur;
+		$lien=$Routeur->remplir($lien);
+		$PermissionManager=new \user\PermissionManager(\core\BDDFactory::MysqlConnexion());
+		return $PermissionManager->getBy(array(
+			'nom_role'    => $this->getNom_role(),
+			'application' => $lien['application'],
+			'action'      => $lien['action'],
+		), array(
+			'nom_role'    => '=',
+			'application' => '=',
+			'action'      => '=',
+		));
+!!!918402.php!!!	recuperer() : void
+
+		if ($this->getId())
+		{
+			$RoleManager=$this->Manager();
+			$this->setNom_role($RoleManager->get($this->getId())['nom_role']);
+			$this->recuperer_permissions();
+		}
