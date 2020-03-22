@@ -32,9 +32,8 @@ if (isset($_POST['conversation_nom']) & isset($_POST['conversation_description']
 			$Conversation=new \chat\Conversation(array(
 				'nom'             => $_POST['conversation_nom'],
 				'description'     => $_POST['conversation_description'],
-				'id_utilisateurs' => $liste_utilisateur,
 			));
-			$Conversation->creer();
+			$Conversation->creer($liste_utilisateur);
 			new \user\page\Notification(array(
 				'type'    => \user\page\Notification::TYPE_SUCCES,
 				'contenu' => $lang['chat_validation_ajouter_conversation_notification_succes'],

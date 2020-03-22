@@ -1,6 +1,6 @@
 <?php
 
-if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) | (isset($_POST['edition_mail']) & !empty($_POST['mail'])) | $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))
+if((isset($_FILES['edition_avatar']) & !empty($_FILES['edition_avatar'])) || (isset($_POST['edition_mail']) & !empty($_POST['mail'])) | $Visiteur->getRole()->existPermission($config['user_edition_admin_application'], $config['user_edition_admin_action']))
 {
 	$id=$Visiteur->getId();
 	$banni=$Visiteur->getBanni();

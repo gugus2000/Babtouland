@@ -1,5 +1,4 @@
 <?php
-
 $id_auteur=null;
 $date_publication=new \DateTime($config['chat_temps_0']);
 $date_comparaison=new \DateInterval($config['chat_voir_conversation_date_comparaison']);
@@ -11,18 +10,17 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	$Conversation=new \chat\Conversation(array(
 		'id' => $id,
 	));
-	$Conversation->recuperer($date_publication->format($config['format_date']));
-	$Id_utilisateurs=$Conversation->getId_utilisateurs();
-	$index=0;
-	while (isset($Id_utilisateurs[$index]))		// Évite de parcourir toute la liste
+	$Utilisateurs=$Conversation->recupererUtilisateurs();
+	$present=False;
+	foreach ($Utilisateurs as $Utilisateur)
 	{
-		if (!$Id_utilisateurs[$index]==$Visiteur->getId())
+		if ($Utilisateur->similaire($Visiteur))
 		{
+			$present=True;
 			break;
 		}
-		$index++;
 	}
-	if (!isset($Id_utilisateurs[$index-1]))
+	if (!$present)
 	{
 		throw new \Exception($lang['chat_voir_conversation_erreur_pas_membre']);
 	}
@@ -40,23 +38,18 @@ $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouter
 	'name'    => 'description',
 	'content' => $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_description'],
 ));
-
 $MessagesElements=[];
-foreach ($Conversation->recupererMessages() as $Message)
+$Messages=$Conversation->recupererMessages();
+foreach ($Messages as $Message)
 {
 	$date_comparaison1=clone $date_custom;
 	$date_comparaison2=clone $date_custom;
-	$Detail_message='';
-	$Separation='';
 	$date_diff=$date_publication->diff(new DateTime($Message->afficherDate_publicationFormat($config['format_date'])), True);
 	$date_comparaison1->add($date_comparaison);
 	$date_comparaison2->add($date_diff);
-	if ($Message->getId_auteur()!=$id_auteur | $date_comparaison1<$date_comparaison2)
+	if ($Message->getId_auteur()!=$id_auteur || $date_comparaison1<$date_comparaison2)
 	{
-		$Auteur=new \user\Utilisateur(array(
-			'id' => $Message->getId_auteur(),
-		));
-		$Auteur->recuperer();
+		$Auteur=$Message->recupererAuteur();
 		$id_auteur=$Auteur->getId();
 		$date_publication=new \DateTime($Message->afficherDate_publicationFormat($config['format_date']));
 
@@ -73,56 +66,39 @@ foreach ($Conversation->recupererMessages() as $Message)
 			'elements' => array(),
 		));
 	}
-
-	$action_chat_editer='';
-	$lien_editer=$config['chat_voir_conversation_message_edition'];
-	$action_chat_supprimer='';
-	if ($Visiteur->autorisationModification($Message))
+	else
 	{
-		$action_chat_editer=new \user\PageElement(array(
-			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_editer.html',
+		$Detail_message='';
+		$Separation='';
+	}
+	if ($Visiteur->getId()==$id_auteur)		// le test doit être rapide, donc je n'utilise pas la méthode \user\Utilisateur->similaire();
+	{
+		$lien_editer=$config['chat_voir_conversation_message_edition'];
+		$lien_supprimer=$config['chat_voir_conversation_message_suppression'];
+		$action_chat=new \user\PageElement(array(
+			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat.html',
 			'elements' => array(
-				'lien' => $Routeur->creerLien(array_merge($lien_editer, array($config['nom_parametres'] => array('id' => $Message->afficherId())))),
+				'lien_editer'    => $Routeur->creerLien(array_merge($lien_editer, array($config['nom_parametres'] => array('id' => $Message->afficherId())))),
+				'lien_supprimer' => $Routeur->creerLien(array_merge($lien_supprimer, array($config['nom_parametres'] => array('id' => $Message->afficherId())))),
 			),
 		));
 	}
-	$lien_supprimer=$config['chat_voir_conversation_message_suppression'];
-	if ($Visiteur->autorisationModification($Message))
+	else
 	{
-		$action_chat_supprimer=new \user\PageElement(array(
-			'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat_supprimer.html',
-			'elements' => array(
-				'lien' => $Routeur->creerLien(array_merge($lien_supprimer, array($config['nom_parametres'] => array('id' => $Message->afficherId())))),
-			),
-		));
+		$action_chat='';
 	}
-
-	$action_chat=new \user\PageElement(array(
-		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/action_chat.html',
-		'elements' => array(
-			'editer'    => $action_chat_editer,
-			'supprimer' => $action_chat_supprimer,
-		),
-	));
-
-	$Contenu_message=new \user\PageElement(array(
-		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/contenu_message.html',
-		'elements' => array(
-			'action_chat' => $action_chat,
-			'contenu'     => $Message->afficherContenu(),
-		),
-	));
-
 	$MessagesElements[]=new \user\PageElement(array(
 		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/message.html',
 		'elements' => array(
-			'detail_message'  => $Detail_message,
-			'contenu_message' => $Contenu_message,
-			'separation'      => $Separation,
+			'detail_message' => $Detail_message,
+			'action_chat'    => $action_chat,
+			'contenu'        => $Message->afficherContenu(),
+			'separation'     => $Separation,
 		),
 	));
 }
-if (!$Conversation->recupererMessages())
+
+if (!$Messages)
 {
 	$MessagesElements[]=new \user\PageElement(array(
 		'template' => $config['path_template'].$this->getPage()->getApplication().'/'.$this->getPage()->getAction().'/message.html',
@@ -154,7 +130,7 @@ $Contenu=new \user\PageElement(array(
 $Formulaire=new \user\page\Formulaire($Contenu, $Visiteur->getPage()->getPageElement()->getElement($config['tete_nom']));
 
 $boutons=array();
-foreach ($Conversation->recupererUtilisateurs() as $Utilisateur)
+foreach ($Utilisateurs as $Utilisateur)
 {
 	$classe_bouton='';
 	if ($Utilisateur->estConnecte())

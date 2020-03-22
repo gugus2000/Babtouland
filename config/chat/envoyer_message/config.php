@@ -8,13 +8,17 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	));
 	$date_maintenant=new \DateTime(date($config['format_date']));
 	$Conversation->recuperer($date_maintenant->format($config['format_date']));
-	$Id_utilisateurs=$Conversation->getId_utilisateurs();
-	$index=0;
-	while (isset($Id_tilisateurs[$index]) & $Id_utilisateurs[$index]==$Visiteur->getId())		// Évite de parcourir toute la liste
+	$Utilisateurs=$Conversation->recupererUtilisateurs();
+	$present=False;
+	foreach ($Utilisateurs as $Utilisateur)
 	{
-		$index++;
+		if ($Utilisateur->similaire($Visiteur))
+		{
+			$present=True;
+			break;
+		}
 	}
-	if ($Id_utilisateurs[$index])
+	if ($present)
 	{
 		if (isset($_POST['chat_message']))
 		{

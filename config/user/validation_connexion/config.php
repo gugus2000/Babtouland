@@ -2,7 +2,7 @@
 
 if(isset($_POST['connexion_pseudo']) & isset($_POST['connexion_mdp']) & !empty($_POST['connexion_pseudo']) & !empty($_POST['connexion_mdp']))
 {
-	if ($Visiteur->Manager()->exist(array('pseudo' => $_POST['connexion_pseudo'])))
+	if ($Visiteur->Manager()->existBy(array('pseudo' => $_POST['connexion_pseudo'])))
 	{
 		$Visiteur=new \user\Visiteur(array(
 			'pseudo' => $_POST['connexion_pseudo'],

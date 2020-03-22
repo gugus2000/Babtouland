@@ -9,9 +9,18 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 	$Conversation=new \chat\Conversation(array(
 		'id' => $ChatMessage->getId_conversation(),
 	));
-	$date_maintenant=new \DateTime(date($config['format_date']));
-	$Conversation->recuperer($date_maintenant->format($config['format_date']));
-	if (in_array($Visiteur->getId(), $Conversation->getId_utilisateurs()))	// Accès à la conversation
+	$Conversation->recuperer();
+	$Utilisateurs=$Conversation->recupererUtilisateurs();
+	$present=False;
+	foreach ($Utilisateurs as $Utilisateur)
+	{
+		if ($Utilisateur->similaire($Visiteur))
+		{
+			$present=True;
+			break;
+		}
+	}
+	if ($present)
 	{
 		if ($Visiteur->autorisationModification($ChatMessage))	// On peut le modifier
 		{

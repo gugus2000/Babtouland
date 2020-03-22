@@ -88,16 +88,16 @@ function initRoutageSession()
 	{
 		if (isset($_GET['routage_session']))
 		{
-			$Mode_routage=$_GET['force_routage'];
+			if ((bool)$_GET['routage_session'])
+			{
+				$_SESSION['force_routage']=(bool)$_GET['force_routage'];
+			}
 		}
-		else
-		{
-			$_SESSION['force_routage']=$_GET['force_routage'];
-		}
+		$Mode_routage=$_GET['force_routage'];
 	}
 	if (isset($_SESSION['force_routage']))
 	{
-		if ($_SESSION['force_routage']=='-1')
+		if ($_SESSION['force_routage']==False)
 		{
 			unset($_SESSION['force_routage']);
 		}
@@ -107,6 +107,55 @@ function initRoutageSession()
 		}
 	}
 	return $Mode_routage;
+}
+/**
+ * Récupère le tableau des clefs d'un tableau multi-dimensionnel
+ *
+ * @return array
+ * @author Meliborn at https://stackoverflow.com/questions/11234852/how-to-get-all-the-key-in-multi-dimensional-array-in-php (edited by gugus2000)
+ **/
+function array_keys_multi($array)
+{
+    $keys = array();
+
+    foreach ($array as $key => $value) {
+
+        if (!is_array($value))		// I don't want key of array to be given
+        {
+	        $keys[] = $key;
+        }
+        else
+        {
+            $keys = array_merge($keys, array_keys_multi($value));
+        }
+    }
+
+    return $keys;
+}
+/**
+ * flatten an arbitrarily deep multidimensional array
+ * into a list of its scalar values
+ * (may be inefficient for large structures)
+ *  (will infinite recurse on self-referential structures)
+ *  (could be extended to handle objects)
+ *
+ * @return array
+ * @author Anonymous at https://www.php.net/manual/fr/function.array-values.php
+*/
+function array_values_recursive($ary)
+{
+   $lst = array();
+   foreach( array_keys($ary) as $k ){
+      $v = $ary[$k];
+      if (is_scalar($v)) {
+         $lst[] = $v;
+      } elseif (is_array($v)) {
+         $lst = array_merge( $lst,
+            array_values_recursive($v)
+         );
+      }
+   }
+   return $lst;
 }
 
 ?>

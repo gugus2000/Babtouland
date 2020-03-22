@@ -9,7 +9,7 @@ if (isset($_POST['lang']) & isset($_POST['post_fil_post_nombre_posts']))
 		{
 			if ($Visiteur->getId()!=$config['id_guest'])
 				{
-					if ($ConfigurationManager->exist(array(
+					if ($ConfigurationManager->existBy(array(
 						'id_utilisateur' => $Visiteur->getId(),
 						'nom'            => 'lang',
 					)))
@@ -54,7 +54,7 @@ if (isset($_POST['lang']) & isset($_POST['post_fil_post_nombre_posts']))
 			{
 				if ($Visiteur->getId()!=$config['id_guest'])
 				{
-					if ($ConfigurationManager->exist(array(
+					if ($ConfigurationManager->existBy(array(
 						'id_utilisateur' => $Visiteur->getId(),
 						'nom'            => 'post_fil_post_nombre_posts',
 					)))

@@ -22,7 +22,7 @@ try
 			'pseudo' => $_SESSION['pseudo'],
 			'id'     => $_SESSION['id'],
 		));
-		if ($Visiteur->Manager()->existId($_SESSION['id']) & $Visiteur->Manager()->exist(array('pseudo' => $_SESSION['pseudo'])))
+		if ($Visiteur->Manager()->existId($_SESSION['id']) & $Visiteur->Manager()->existBy(array('pseudo' => $_SESSION['pseudo'])))
 		{
 			$Visiteur->recuperer();
 			$Visiteur->connexion($_SESSION['mdp']);

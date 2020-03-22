@@ -27,18 +27,6 @@ class Conversation extends \core\Managed
 	* @var string
 	*/
 	protected $description;
-	/**
-	* Id des messages de la conversation
-	*
-	* @var array
-	*/
-	protected $id_messages;
-	/**
-	* Id des utilisateurs de la conversations
-	*
-	* @var array
-	*/
-	protected $id_utilisateurs;
 
 	/* Accesseurs */
 
@@ -68,24 +56,6 @@ class Conversation extends \core\Managed
 	public function getDescription()
 	{
 		return $this->description;
-	}
-	/**
-	* Accesseur de id_messages
-	*
-	* @return array
-	*/
-	public function getId_messages()
-	{
-		return $this->id_messages;
-	}
-	/**
-	* Accesseur de id_utilisateurs
-	*
-	* @return array
-	*/
-	public function getId_utilisateurs()
-	{
-		return $this->id_utilisateurs;
 	}
 
 	/* Définisseurs */
@@ -123,28 +93,6 @@ class Conversation extends \core\Managed
 	{
 		$this->description=$description;
 	}
-	/**
-	* Définisseur de id_messages
-	*
-	* @param array id_messages Messages de la conversation
-	*
-	* @return void
-	*/
-	protected function setId_messages($id_messages)
-	{
-		$this->id_messages=$id_messages;
-	}
-	/**
-	* Définisseur de id_utilisateurs
-	*
-	* @param array id_utilisateurs Utilisateurs de la conversation
-	*
-	* @return void
-	*/
-	protected function setId_utilisateurs($id_utilisateurs)
-	{
-		$this->id_utilisateurs=$id_utilisateurs;
-	}
 
 	/* Autres méthodes */
 
@@ -176,52 +124,22 @@ class Conversation extends \core\Managed
 		return htmlspecialchars((string)$this->description);
 	}
 	/**
-	* Afficheur de messages
-	*
-	* @return string
-	*/
-	public function afficherId_messages()
-	{
-		$affichage='';
-		foreach ($this->id_messages as $id_message)
-		{
-			$affichage.=htmlspecialchars($id_message).'\n';
-		}
-		return $affichage;
-	}
-	/**
-	* Afficheur de id_utilisateurs
-	*
-	* @return string
-	*/
-	public function afficheId_utilisateurs()
-	{
-		$affichage='';
-		foreach ($this->id_utilisateurs as $id_utilisateur)
-		{
-			$affichage.=htmlspecialchars($id_utilisateur);
-		}
-		return $affichage;
-	}
-	/**
 	* Recuperer une conversation
-	*
-	* @param mixed date_historique Optionnel, date après laquelle les messages de la conversation vont être récupéré
 	*
 	* @return void
 	*/
-	public function recuperer($date_historique=null)
+	public function recuperer()
 	{
 		$this->get($this->getId());
-		$this->recupererId_messages($date_historique);
-		$this->recupererId_utilisateurs();
 	}
 	/**
 	* Créer une conversation
 	*
+	* @param array id_utilisateurs Id des utilisateurs dans la conversation
+	*
 	* @return void
 	*/
-	public function creer()
+	public function creer($ids_utilisateurs=null)
 	{
 		$Manager=$this->Manager();
 		$Manager->add(array(
@@ -235,9 +153,9 @@ class Conversation extends \core\Managed
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
 		$id_utilisateurs=array();
-		foreach ($this->getId_utilisateurs() as $id_utilisateur)
+		foreach ($ids_utilisateurs as $id)
 		{
-			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
+			$id_utilisateurs[]=array('id_utilisateur' => $id);
 		}
 		$LiaisonConversationUtilisateur->addBy($id_utilisateurs, array(
 			'id_conversation' => $this->getId(),
@@ -246,9 +164,11 @@ class Conversation extends \core\Managed
 	/**
 	* Modifier une conversation
 	*
+	* @param array id_utilisateurs Id des utilisateurs maintenant dans la conversation
+	*
 	* @return void
 	*/
-	public function modifier()
+	public function modifier($ids_utilisateurs=null)
 	{
 		$Manager=$this->Manager();
 		$Manager->update(array(
@@ -258,21 +178,19 @@ class Conversation extends \core\Managed
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
 		$id_utilisateurs=array();
-		foreach ($this->getId_utilisateurs() as $id_utilisateur)
+		foreach ($ids_utilisateurs as $id)
 		{
-			$id_utilisateurs[]=array('id_utilisateur' => $id_utilisateur);
+			$id_utilisateurs[]=array('id_utilisateur' => $id);
 		}
 		$donnees_already_in=$LiaisonConversationUtilisateur->get('id_conversation', $this->getId());
-		$id_utilisateurs_already_in=array();
-		foreach ($donnees_already_in as $donnee)
-		{
-			$id_utilisateurs_already_in[]=$donnee['id_utilisateur'];
-		}
-		$id_utilisateurs_non_modifies=array_intersect($id_utilisateurs_already_in, $this->getId_utilisateurs());
+		$id_utilisateurs_already_in=array_column($donnees_already_in, 'id_utilisateur');
+		$id_utilisateurs_non_modifies=array_intersect($id_utilisateurs_already_in, array_column($id_utilisateurs, 'id_utilisateur'));
 		if(count(array_diff($id_utilisateurs_already_in, $id_utilisateurs_non_modifies))!=0)	// Il y a des utilisateurs qui ne sont plus dans la discussion
 		{
 			$LiaisonConversationUtilisateur->deleteBy(array(
 				'id_conversation' => $this->getId(),
+			), array(
+				'id_conversation' => '=',
 			));
 			$LiaisonConversationUtilisateur->addBy($id_utilisateurs, array(
 				'id_conversation' => $this->getId(),
@@ -280,7 +198,7 @@ class Conversation extends \core\Managed
 		}
 		else
 		{
-			$id_utilisateurs_a_ajouter=array_diff($this->getId_utilisateurs(), $id_utilisateurs_non_modifies);
+			$id_utilisateurs_a_ajouter=array_diff(array_column($id_utilisateurs, 'id_utilisateur'), $id_utilisateurs_non_modifies);
 			$id_utilisateurs_utile=array();
 			foreach ($id_utilisateurs_a_ajouter as $id_utilisateur_a_ajouter)
 			{
@@ -307,24 +225,9 @@ class Conversation extends \core\Managed
 		$LiaisonConversationUtilisateur=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
 		$LiaisonConversationUtilisateur->deleteBy(array(
 			'id_conversation' => $this->getId(),
+		), array(
+			'id_conversation' => '=',
 		));
-	}
-	/**
-	* Récupère l'id des utilisateurs participant à la conversation
-	*
-	* @return void
-	*/
-	public function recupererId_utilisateurs()
-	{
-		$BDDFactory=new \core\BDDFactory;
-		$Liaison=new \chat\LiaisonConversationUtilisateur($BDDFactory->MysqlConnexion());
-		$resultats=$Liaison->get('id_conversation', $this->getId());
-		$id=array();
-		foreach ($resultats as $resultat)
-		{
-			$id[]=$resultat['id_utilisateur'];
-		}
-		$this->setId_utilisateurs($id);
 	}
 	/**
 	* Récupère les utilisateurs participant à la conversation
@@ -333,64 +236,35 @@ class Conversation extends \core\Managed
 	*/
 	public function recupererUtilisateurs()
 	{
-		$utilisateurs=array();
-		foreach ($this->getId_utilisateurs() as $id)
-		{
-			$utilisateur=new \user\Utilisateur(array(
-				'id' => $id,
-			));
-			$utilisateur->recuperer();
-			$utilisateurs[]=$utilisateur;
-		}
-		return $utilisateurs;
+		$Liaison=new \chat\LiaisonConversationUtilisateur(\core\BDDFactory::MysqlConnexion());
+		return $Liaison->recuperateBy(array(
+			'id_conversation' => $this->getId(),
+		), array(
+			'id_conversation' => '=',
+		), '\\user\\Utilisateur');
 	}
 	/**
-	* Récupère les id des messages de la conversations
+	* Récupère les messages de la conversations
 	*
-	* @param mixed date_historique Optionnel, date après laquelle les messages de la conversation vont être récupéré
+	* @param mixed date_historique Date après laquelle les messages de la conversation vont être récupéré
 	*
-	* @return void
+	* @return array
 	*/
-	public function recupererId_messages($date_historique=null)
+	public function recupererMessages($date_historique=null)
 	{
-		$BDDFactory=new \core\BDDFactory;
-		$MessageManager=new \chat\MessageManager($BDDFactory->MysqlConnexion());
+		$MessageManager=new \chat\MessageManager(\core\BDDFactory::MysqlConnexion());
 		$getByArray=array(
 			'id_conversation' => $this->getId(),
 		);
 		$getByOperateur=array(
 			'id_conversation' => '=',
 		);
-		if ($date_historique)
+		if ($date_historique!==null)
 		{
 			$getByArray['date_publication']=$date_historique;
 			$getByOperateur['date_publication']='>';
 		}
-		$resultats=$MessageManager->getBy($getByArray, $getByOperateur);
-		$id=array();
-		foreach ($resultats as $resultat)
-		{
-			$id[]=$resultat['id'];
-		}
-		$this->setId_messages($id);
-	}
-	/**
-	* Récupère les messages de la conversations
-	*
-	* @return array
-	*/
-	public function recupererMessages()
-	{
-		$Messages=array();
-		foreach ($this->getId_messages() as $id)
-		{
-			$Message=new \chat\Message(array(
-				'id' => $id,
-			));
-			$Message->recuperer();
-			$Messages[]=$Message;
-		}
-		return $Messages;
+		return $MessageManager->recuperateBy($getByArray, $getByOperateur);
 	}
 }
 

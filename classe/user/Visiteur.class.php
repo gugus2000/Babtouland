@@ -274,7 +274,7 @@ class Visiteur extends Utilisateur
 				}
 				else
 				{
-					if ($ConfigurationManager->exist(array(	// La langue a déjà été définie une fois
+					if ($ConfigurationManager->existBy(array(	// La langue a déjà été définie une fois
 						'id_utilisateur' => $this->getId(),
 						'nom'            => 'lang',
 					)))
@@ -385,7 +385,7 @@ class Visiteur extends Utilisateur
 		global $config;
 		if (method_exists($Objet, 'recupererAuteur'))
 		{
-			return $this->similaire($Objet->recupererAuteur())|$this->getRole()->existPermission(array('application' => $config['application_modification'], 'action' => get_class($Objet)));
+			return $this->similaire($Objet->recupererAuteur())||$this->getRole()->existPermission(array('application' => $config['application_modification'], 'action' => get_class($Objet)));
 		}
 		return False;
 	}

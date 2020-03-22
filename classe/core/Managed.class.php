@@ -86,11 +86,11 @@ class Managed
 	*
 	* @return void
 	*/
-	public function hydrater($attributs)
+	protected function hydrater($attributs)
 	{
 		if (!$attributs)
 		{
-			throw new \Exception($attributs);
+			throw new \Exception('No attributes to hydrate');
 		}
 		foreach ($attributs as $key => $value)
 		{
@@ -102,7 +102,7 @@ class Managed
 		}
 	}
 	/**
-	* Crée une instance de la clase du manager de l'objet managé
+	* Crée une instance de la classe du manager de l'objet managé
 	*
 	* @return Manager
 	*/
@@ -182,7 +182,10 @@ class Managed
 	public function creer()
 	{
 		$this->Manager()->add($this->table());
-		$this->setId($this->Manager()->getIdBy($this->table()));
+		if (method_exists($this, 'setId'))
+		{
+			$this->setId($this->Manager()->getIdBy($this->table()));
+		}
 	}
 	/**
 	* Modifie un objet dans la base de donnée

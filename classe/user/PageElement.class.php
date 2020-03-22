@@ -130,33 +130,44 @@ class PageElement
 	{
 		if ($this->getTemplate()!==null)
 		{
-			$contenuElement=file_get_contents($this->getTemplate());
+			if (!isset($GLOBALS['cache_pageElement']))
+			{
+				$GLOBALS['cache_pageElement']=array();
+			}
+			if (!isset($GLOBALS['cache_pageElement'][$this->getTemplate()]))
+			{
+				$GLOBALS['cache_pageElement'][$this->getTemplate()]=file_get_contents($this->getTemplate());
+			}
+			$contenuElement=$GLOBALS['cache_pageElement'][$this->getTemplate()];
 		}
 		else
 		{
 			$contenuElement='';
 		}
-		foreach ($this->getElements() as $nom => $element)
+		if ($this->getElements()!==null)
 		{
-			if (is_object($element))
+			foreach ($this->getElements() as $nom => $element)
 			{
-				$valeur=$element->afficher();
-			}
-			else if (is_array($element))
-			{
-				$valeur=$this->afficherArray($element);
-			}
-			else
-			{
-				$valeur=$element;
-			}
-			if ($this->getTemplate()!==null)
-			{
-				$contenuElement=str_replace($this::SEPARATEUR.$nom.$this::SEPARATEUR, $valeur, $contenuElement);
-			}
-			else
-			{
-				$contenuElement.=$valeur;
+				if (is_object($element))
+				{
+					$valeur=$element->afficher();
+				}
+				else if (is_array($element))
+				{
+					$valeur=$this->afficherArray($element);
+				}
+				else
+				{
+					$valeur=$element;
+				}
+				if ($this->getTemplate()!==null)
+				{
+					$contenuElement=str_replace($this::SEPARATEUR.$nom.$this::SEPARATEUR, $valeur, $contenuElement);
+				}
+				else
+				{
+					$contenuElement.=$valeur;
+				}
 			}
 		}
 		return $contenuElement;

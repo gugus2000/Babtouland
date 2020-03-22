@@ -7,18 +7,23 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 		$Conversation=new \chat\Conversation(array(
 			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
-		$Conversation->recupererId_utilisateurs();
-		$id_utilisateurs=$Conversation->getId_utilisateurs();
-		if (in_array($Visiteur->getId(), $id_utilisateurs))
+		$Conversation->recuperer();
+		$Utilisateurs=$Conversation->recupererUtilisateurs();
+		$pseudos=array();
+		$est_dans_conv=False;
+		foreach ($Utilisateurs as $Utilisateur)
 		{
-			$pseudos=array();
-			foreach ($Conversation->recupererUtilisateurs() as $utilisateur)
+			if (!$Utilisateur->similaire($Visiteur))
 			{
-				if (!$utilisateur->similaire($Visiteur))
-				{
-					$pseudos[]=$utilisateur->afficherPseudo();
-				}
+				$pseudos[]=$Utilisateur->afficherPseudo();
 			}
+			else
+			{
+				$est_dans_conv=True;
+			}
+		}
+		if ($est_dans_conv)
+		{
 			$pseudos=implode('|', $pseudos);
 			$Contenu=new \user\PageElement(array(
 				'elements' => array(

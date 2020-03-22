@@ -5,7 +5,7 @@ if (isset($_POST['notification_message']) & isset($_POST['notification_type']) &
 	if (!empty($_POST['notification_message']) & !empty($_POST['notification_type']))
 	{
 		$UtilisateurManager=new \user\UtilisateurManager(\core\BDDFactory::MysqlConnexion());
-		if (empty($_POST['notification_groupe']) | $_POST['notification_groupe']=='tous')	// Tous
+		if (empty($_POST['notification_groupe']) || $_POST['notification_groupe']=='tous')	// Tous
 		{
 			$resultats=$UtilisateurManager->getBy(array(
 				'id' => $config['id_guest'],
@@ -69,9 +69,17 @@ if (isset($_POST['notification_message']) & isset($_POST['notification_type']) &
 				'contenu' => $lang['admin_validation_publier_notification_attention_utilisateurs_vide'],
 			));
 		}
+		$id_contenu=\contenu\contenu::determination_new_id();
+		$Contenu=new \contenu\Contenu(array(
+			'id_contenu'       => $id_contenu,
+			'lang'             => $Visiteur->getConfiguration('lang'),
+			'texte'            => $_POST['notification_message'],
+			'date_publication' => date($config['format_date']),
+		));
+		$Contenu->creer();
 		$Notification=new \user\Notification(array(
 			'type'            => $_POST['notification_type'],
-			'contenu'         => $_POST['notification_message'],
+			'id_contenu'      => $Contenu->getId_contenu(),
 			'id_utilisateurs' => $resultats,
 		));
 		$Notification->creer();

@@ -15,8 +15,10 @@ $Cartes=array();
 
 foreach ($Conversations as $Conversation)
 {
+	$Utilisateurs=$Conversation->recupererUtilisateurs();
+	$nombre_utilisateur=count($Utilisateurs);
 	$connecte=[];
-	foreach ($Conversation->recupererUtilisateurs() as $Utilisateur)
+	foreach ($Utilisateurs as $Utilisateur)
 	{
 		if ($Utilisateur->estConnecte())
 		{
@@ -31,7 +33,7 @@ foreach ($Conversations as $Conversation)
 			'utilisateur_connecte'   => $lang['chat_hub_connectes'],
 			'nombre_connecte'         => count($connecte),
 			'utilisateur_en_tout'     => $lang['chat_hub_total'],
-			'nombre_total'            => count($Conversation->getId_utilisateurs()),
+			'nombre_total'            => $nombre_utilisateur,
 			'lien_href_conversation'  => $Routeur->creerLien(array_merge($config['chat_hub_lien_voir_conversation'], array($config['nom_parametres'] => array('id' => $Conversation->afficherId())))),
 			'lien_title_conversation' => $lang['chat_hub_lien_titre_voir_conversation'],
 			'lien_conversation'       => $lang['chat_hub_lien_voir_conversation'],

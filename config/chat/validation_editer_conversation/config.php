@@ -8,17 +8,17 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Conversation->recuperer();
-		$id_utilisateurs=$Conversation->getId_utilisateurs();
-		$index=0;
-		while (isset($id_utilisateurs[$index]))
+		$Utilisateurs=$Conversation->recupererUtilisateurs();
+		$present=False;
+		foreach ($Utilisateurs as $Utilisateur)
 		{
-			if ($id_utilisateurs[$index]==$Visiteur->getId())
+			if ($Utilisateur->similaire($Visiteur))
 			{
+				$present=True;
 				break;
 			}
-			$index++;
 		}
-		if (isset($id_utilisateurs[$index]))
+		if ($present)
 		{
 			if (isset($_POST['conversation_nom']) & isset($_POST['conversation_description']))
 			{
@@ -53,9 +53,8 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 							'id'              => $Visiteur->getPage()->getParametres()['id'],
 							'nom'             => $_POST['conversation_nom'],
 							'description'     => $_POST['conversation_description'],
-							'id_utilisateurs' => $liste_utilisateur,
 						));
-						$Conversation->modifier();
+						$Conversation->modifier($liste_utilisateur);
 						new \user\page\Notification(array(
 							'type'    => \user\page\Notification::TYPE_SUCCES,
 							'contenu' => $lang['chat_validation_editer_conversation_notification_succes'],

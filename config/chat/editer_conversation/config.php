@@ -8,17 +8,17 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 			'id' => $Visiteur->getPage()->getParametres()['id'],
 		));
 		$Conversation->recuperer();
-		$id_utilisateurs=$Conversation->getId_utilisateurs();
-		$index=0;
-		while (isset($id_utilisateurs[$index]))
+		$Utilisateurs=$Conversation->recupererUtilisateurs();
+		$present=False;
+		foreach ($Utilisateurs as $Utilisateur)
 		{
-			if ($id_utilisateurs[$index]==$Visiteur->getId())
+			if ($Utilisateur->similaire($Visiteur))
 			{
+				$present=True;
 				break;
 			}
-			$index++;
 		}
-		if (isset($id_utilisateurs[$index]))
+		if ($present)
 		{
 			$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterElement('titre', $lang[$Visiteur->getPage()->getApplication().'_'.$Visiteur->getPage()->getAction().'_titre']);
 			$Visiteur->getPage()->getPageElement()->getElement($config['tete_nom'])->ajouterValeurElement('metas', array(

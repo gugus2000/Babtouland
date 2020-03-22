@@ -5,76 +5,8 @@ namespace core;
 /**
 * Manager d'une table de liaison entre deux autres tables de données
 */
-class LiaisonManager
+class LiaisonManager extends \core\Manager
 {
-	/**
-	* Construction du Manager
-	*
-	* @param PDO bdd Connexion avec la base de donnée
-	*
-	* @return void
-	*/
-	public function __construct($bdd)
-	{
-		$this->setBdd($bdd);
-	}
-
-	/* Attributs */
-	
-	/**
-	* Connexion avec la base de donnée
-	*
-	* @var PDO
-	*/
-	protected $bdd;
-
-	/* Constantes */
-
-	/**
-	* Nom de la table lié à l'objet
-	*
-	* @var string
-	*/
-	const TABLE='';
-	/**
-	* Liste de tous les attributs de la table
-	*
-	* @var array
-	*/
-	const ATTRIBUTES=array();
-	/**
-	* Index utilisé (clef primaire)
-	*
-	* @var string
-	*/
-	const INDEX='id';
-	
-	/* Accesseurs */
-
-	/**
-	* Accesseur de bdd
-	*
-	* @return PDO
-	*/
-	public function getBdd()
-	{
-		return $this->bdd;
-	}
-	
-	/* Définisseurs */
-
-	/**
-	* Définisseur de bdd
-	*
-	* @param PDO bdd Connexion à la base de donnée
-	*
-	* @return void
-	*/
-	protected function setBdd($bdd)
-	{
-		$this->bdd=$bdd;
-	}
-
 	/* Autres méthodes */
 
 	/**
@@ -86,36 +18,18 @@ class LiaisonManager
 	* 
 	* @return mixed
 	*/
-	public function get($attribut, $index)
+	public function get($attribut, $index=null)
 	{
-		if (in_array($attribut, $this::ATTRIBUTES))
+		if ($index!=null)
 		{
-			$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.$attribut.'=?');
-			$requete->execute(array($index));
-			return $requete->fetchAll();
+			if (in_array($attribut, $this::ATTRIBUTES))
+			{
+				$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.$attribut.'=?');
+				$requete->execute(array($index));
+				return $requete->fetchAll();
+			}
 		}
 		return False;
-	}
-	/**
-	* Récupère les entrées avec des paramètres précis
-	*
-	* @param array attributs Tableau contenant le nom et la valeur de chaque attribut
-	*
-	* @param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
-	* 
-	* @return mixed
-	*/
-	public function getBy($attributs, $operations)
-	{
-		$attributsWithOperators=array();
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
-		foreach ($attributs as $nom => $valeur)
-		{
-			$attributsWithOperators[]=$nom.$operations[$nom].'?';
-		}
-		$requete=$this->getBdd()->prepare('SELECT '.implode(',', $this::ATTRIBUTES).' FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
-		$requete->execute(array_values($attributs));
-		return $requete->fetchAll();
 	}
 	/**
 	* Récupère les entrée ayant plusieurs autres mêmes attributs ayant des valeurs particulières
@@ -136,28 +50,24 @@ class LiaisonManager
 		{
 			$donnees=array();
 			$attributs_operateurs=array();
-			$valeurs_tous=array();
-			foreach ($attributs as $index => $condition)
-			{
-				array_intersect_key($condition, array_flip($this::ATTRIBUTES));
-				$attributs_operateurs[$index]=array();
-				foreach ($condition as $attribut => $valeur)
-				{
-					$attributs_operateurs[$index][]=$attribut.$operations[$index][$attribut].'?';
-					if (!isset($donnees[$attribut]))
-					{
-						$donnees[$attribut]=array();
-					}
-					$donnees[$attribut][]=$valeur;
-					$valeurs_tous[]=$valeur;
-				}
-			}
+			$true_attributes=array();
 			if ($strict)
 			{
 				$attributs_count=array();
-				foreach ($donnees as $attribut => $valeurs)
+			}
+			foreach ($attributs as $index => $condition)
+			{
+				$conditionCreator=$this->conditionCreator($condition, $operations[$index]);
+				$attributs_operateurs[$index]=$conditionCreator[0];
+				$condition=$conditionCreator[1];
+				$true_attributes=array_merge($true_attributes, array_values($condition));
+			}
+			if ($strict)
+			{
+				$keys=array_keys_multi($attributs);
+				foreach ($keys as $key)
 				{
-					$attributs_count[]='COUNT('.$attribut.')='.(string)count($valeurs);
+					$attributs_count[]='COUNT('.$key.')='.(string)count(array_column($attributs, $key));
 				}
 				$condition_count=' AND '.$groupe.' IN (SELECT '.$groupe.' FROM '.$this::TABLE.' GROUP BY '.$groupe.' HAVING '.implode(' AND ', $attributs_count).')';
 			}
@@ -187,7 +97,7 @@ class LiaisonManager
 			}
 			$select='SELECT '.$groupe_avec_nom_table.' FROM '.implode(' JOIN ', $selects_avec_nom_table).$where_egalites_join.' GROUP BY '.$groupe_avec_nom_table;
 			$requete=$this->getBdd()->prepare($select);
-			$requete->execute($valeurs_tous);
+			$requete->execute(array_values_recursive($true_attributes));
 			return $requete->fetchAll();
 		}
 		return False;
@@ -230,24 +140,6 @@ class LiaisonManager
 		}
 	}
 	/**
-	* Supprime des éléments de la base de données en fonction de paramètres définis
-	*
-	* @param array attributs Paramètre permettant de déterminer l'élément à supprimer
-	* 
-	* @return void
-	*/
-	public function deleteBy($attributs)
-	{
-		$attributsWithOperators=array();
-		$attributs=array_intersect_key($attributs, array_flip($this::ATTRIBUTES));
-		foreach ($attributs as $nom => $valeur)
-		{
-			$attributsWithOperators[]=$nom.'=?';
-		}
-		$requete=$this->getBdd()->prepare('DELETE FROM '.$this::TABLE.' WHERE '.implode(' AND ', $attributsWithOperators));
-		$requete->execute(array_values($attributs));
-	}
-	/**
 	* Vérifie l'existence d'au moins un élément ayant un attribut avec une valeur particulière
 	*
 	* @param string attribut Attribut donné
@@ -276,6 +168,77 @@ class LiaisonManager
 	public function existByGroup($attributs, $operations, $groupe, $strict=False)
 	{
 		return (bool)$this->getByGroup($attributs, $operations, $groupe, $strict);
+	}
+	/**
+	* Récupère les objets de façon rapide
+	*
+	* @param array attributs Tableau contenant le nom et la valeur de chaque attribut
+	*
+	* @param array operations Tableau contenant le nom et l'opération à exécuter sur chaque attributs
+	*
+	* @param string name_class Nom de la classe des objets à récupérer
+	*
+	* @param array name_id Tableau contenant 'bdd' le nom de l'index utilisé pour la récupération de l'objet et 'obj' le nom de l'attribut utilisé comme index
+	*
+	* @param int recuperate 0 pas de récupération, 1 récupération groupé, 2 récupération une à une
+	* 
+	* @return array
+	*/
+	public function recuperateBy($attributs=null, $operations=null, $name_class=null, $name_id=null, $recuperate=1)
+	{
+		if ($name_class===null)
+		{
+			preg_match('/[A-Z]+[a-z]+$/', get_class($this), $matches);	// Denier Objet précisé dans le nom
+			$name_class=$matches[0];
+			preg_match('/^((\w+\\\)+)/', get_class($this), $matches);
+			$name_class='\\'.$matches[0].$name_class;
+		}
+		if ($name_id===null)
+		{
+			$name_id=array(
+				'bdd' => 'id_'.strtolower(get_class_name($name_class)),
+				'obj' => 'id',
+			);
+		}
+		$results=$this->getBy($attributs, $operations);
+		switch ($recuperate)
+		{
+			case 0:
+				$Objects=array();
+				foreach ($results as $result)
+				{
+					$Objects[]=new $name_class(array($name_id['obj'] => $result[$name_id['bdd']]));
+				}
+				return $Objects;
+				break;
+			case 1:
+				$name_manager=$name_class.'Manager';
+				$Manager=new $name_manager(\core\BDDFactory::MysqlConnexion());
+				return $Manager->recuperateBy(array(
+					$name_id['obj'] => array_column($results, $name_id['bdd']),
+				), array(
+					$name_id['obj'] => 'IN',
+				));
+				break;
+			case 2:
+				$Objects=array();
+				foreach ($results as $result)
+				{
+					$Object=new $name_class(array($name_id['obj'] => $name_id['bdd']));
+					$Object->recuperer();
+					$Objects[]=$Object;
+				}
+				return $Objects;
+				break;
+			defaut:			// Ne devrait jamais arriver
+				$Objects=array();
+				foreach ($results as $result)
+				{
+					$Objects[]=new $name_class(array($name_id['obj'] => $result[$name_id['bdd']]));
+				}
+				return $Objects;
+				break;
+		}
 	}
 }
 

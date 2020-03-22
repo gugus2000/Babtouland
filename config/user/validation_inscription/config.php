@@ -3,7 +3,7 @@
 if(isset($_POST['inscription_pseudo']) & isset($_POST['inscription_mdp']) & isset($_POST['inscription_mail']) & !empty($_POST['inscription_pseudo']) & !empty($_POST['inscription_mdp']) & !empty($_POST['inscription_mail']))
 {
 	$UtilisateurManager=$Visiteur->Manager();	// ($Visiteur existe déjà)
-	if(!$UtilisateurManager->exist(array('pseudo' => $_POST['inscription_pseudo'])))	// Le pseudo n'est pas déjà pris
+	if(!$UtilisateurManager->existBy(array('pseudo' => $_POST['inscription_pseudo'])))	// Le pseudo n'est pas déjà pris
 	{
 		$newVisiteur=new \user\Visiteur(array(
 			'pseudo'           => $_POST['inscription_pseudo'],

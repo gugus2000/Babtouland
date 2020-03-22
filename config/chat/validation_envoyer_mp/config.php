@@ -34,7 +34,7 @@ if (isset($Visiteur->getPage()->getParametres()['id']))
 					'description'     => $lang['chat_mp_description_conversation_debut'].$this->getPseudo().$lang['chat_mp_description_conversation_milieu'].$Utilisateur->getPseudo().$lang['chat_mp_description_conversation_fin'],
 					'id_utilisateurs' => array($this->getId(), $Utilisateur->getId()),
 				));
-				$Conversation->creer();
+				$Conversation->creer(array($Visiteur->getId(), $Utilisateur->getId()));
 				$resultats=$LiaisonConversationUtilisateur->getByGroup(array(
 					array(
 						'id_utilisateur' => $this->getId(),
