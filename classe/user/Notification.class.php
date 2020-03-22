@@ -29,11 +29,11 @@ class Notification extends \core\Managed
 	*/
 	protected $date_publication;
 	/**
-	* Contenu de la notification
+	* Id du Contenu de la notification
 	* 
 	* @var string
 	*/
-	protected $contenu;
+	protected $id_contenu;
 	/**
 	* Id des utilisateurs devant voir la notification
 	* 
@@ -71,13 +71,13 @@ class Notification extends \core\Managed
 		return $this->date_publication;
 	}
 	/**
-	* Accesseur de contenu
+	* Accesseur de id_contenu
 	* 
 	* @return string
 	*/
-	public function getContenu()
+	public function getId_contenu()
 	{
-		return $this->contenu;
+		return $this->id_contenu;
 	}
 	/**
 	* Accesseur de id_utilisateurs
@@ -125,15 +125,15 @@ class Notification extends \core\Managed
 		$this->date_publication=$date_publication;
 	}
 	/**
-	* Définisseur de contenu
+	* Définisseur de id_contenu
 	*
-	* @param string contenut Contenu de la notification
+	* @param string id_contenut Id du Contenu de la notification
 	* 
 	* @return void
 	*/
-	protected function setContenu($contenu)
+	protected function setId_contenu($id_contenu)
 	{
-		$this->contenu=$contenu;
+		$this->id_contenu=$id_contenu;
 	}
 	/**
 	* Définisseur de id_utilisateurs
@@ -177,13 +177,13 @@ class Notification extends \core\Managed
 		return htmlspecialchars((string)$this->date_publication);
 	}
 	/**
-	* Afficheur de contenu
+	* Afficheur de id_contenu
 	* 
 	* @return string
 	*/
-	public function afficherContenu()
+	public function afficherId_contenu()
 	{
-		return htmlspecialchars((string)$this->contenu);
+		return htmlspecialchars((string)$this->id_contenu);
 	}
 	/**
 	* Affiche date_publication avec le bon format
@@ -211,17 +211,31 @@ class Notification extends \core\Managed
 		return $affichage;
 	}
 	/**
-	* Afficheur de notification
+	* Afficheur de Contenu
+	* 
+	* @return string
+	*/
+	public function afficherContenu()
+	{
+		global $Visiteur;
+		$Contenu=new \contenu\Contenu(array(
+			'id_contenu' => $this->getId_contenu(),
+		));
+		$Contenu->recupererLang($Visiteur->getConfiguration('lang'));
+		return $Contenu->afficher();
+	}
+
+	/* Autres méthode */
+
+	/**
+	* Afficheur de Notification
 	* 
 	* @return string
 	*/
 	public function afficher()
 	{
-		$this->afficherContenu();
+		return $this->afficherContenu();
 	}
-
-	/* Autres méthode */
-
 	/**
 	* Recuperer une notification
 	*
@@ -231,6 +245,48 @@ class Notification extends \core\Managed
 	{
 		$this->get($this->getId());
 		$this->recupererId_utilisateurs();
+	}
+	/**
+	* Renvoie tous les contenus de toutes les langues
+	* 
+	* @return array
+	*/
+	public function getContenus()
+	{
+		$ContenuManager=new \contenu\ContenuManager(\core\BDDFactory::MysqlConnexion());
+		$contenus=$ContenuManager->getBy(array(
+			'id_contenu' => $this->getId_contenu(),
+		), array(
+			'id_contenu' => '=',
+		));
+		$Contenus=array();
+		foreach ($contenus as $contenu)
+		{
+			$Contenus[]=new \contenu\Contenu($contenu);
+		}
+		return $Contenus;
+	}
+	/**
+	* Renvoie le contenu pour la langue donnée
+	*
+	* @param string lang Langue demandée
+	* 
+	* @return \contenu\Contenu
+	*/
+	public function getContenu($lang)
+	{
+		$ContenuManager=new \contenu\ContenuManager(\core\BDDFactory::MysqlConnexion());
+		$contenus=$ContenuManager->getBy(array(
+			'id_contenu' => $this->getId_contenu(),
+			'lang'       => $lang,
+		), array(
+			'id_contenu' => '=',
+			'lang'       => '=',
+		), array(
+			'ordre' => 'date_publication',
+			'fin'   => 0,
+		));
+		return new \contenu\Contenu($contenus[0]);
 	}
 	/**
 	* Envoyer la notification sur la page
@@ -255,6 +311,9 @@ class Notification extends \core\Managed
 		$LiaisonNotificationUtilisateur->deleteBy(array(
 			'id_notification' => $this->getId(),
 			'id_utilisateur'  => $Visiteur->getId(),
+		), array(
+			'id_notification' => '=',
+			'id_utilisateur'  => '=',
 		));
 	}
 	/**
@@ -268,11 +327,11 @@ class Notification extends \core\Managed
 		$Manager->add(array(
 			'type'             => $this->getType(),
 			'date_publication' => date('Y-m-d H:i:s'),
-			'contenu'          => $this->getContenu(),
+			'id_contenu'       => $this->getId_contenu(),
 		));
 		$this->setId($Manager->getIdBy(array(
 			'type'    => $this->getType(),
-			'contenu' => $this->getContenu(),
+			'id_contenu' => $this->getId_contenu(),
 		)));
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
@@ -296,7 +355,6 @@ class Notification extends \core\Managed
 		$Manager->update(array(
 			'type'             => $this->getType(),
 			'date_publication' => date('Y-m-d H:i:s'),
-			'contenu'          => $this->getContenu(),
 		), $this->getId());
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
@@ -312,6 +370,8 @@ class Notification extends \core\Managed
 		{
 			$LiaisonNotificationUtilisateur->deleteBy(array(
 				'id_notification' => $this->getId(),
+			), array(
+				'id_notification' => '=',
 			));
 			$LiaisonNotificationUtilisateur->addBy(array(array(
 				'id_utilisateur' => $id_utilisateurs,
@@ -337,11 +397,20 @@ class Notification extends \core\Managed
 	public function supprimer()
 	{
 		$Manager=$this->Manager();
+		$this->recuperer();
 		$Manager->delete($this->getId());
 		$BDDFactory=new \core\BDDFactory;
 		$LiaisonNotificationUtilisateur=new \user\LiaisonNotificationUtilisateur($BDDFactory->MysqlConnexion());
 		$LiaisonNotificationUtilisateur->deleteBy(array(
 			'id_notification' => $this->getId(),
+		), array(
+			'id_notification' => '=',
+		));
+		$ContenuManager=new \contenu\ContenuManager(\core\BDDFactory::MysqlConnexion());
+		$ContenuManager->deleteBy(array(
+			'id_contenu' => $this->getId_contenu(),
+		), array(
+			'id_contenu' => '=',
 		));
 	}
 	/**
